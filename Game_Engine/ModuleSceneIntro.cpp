@@ -2,11 +2,11 @@
 #include "ImGui/imgui_impl_opengl2.h"
 #include "ImGui/imgui_impl_sdl.h"
 
+#include "MathGeoLib/include/MathGeoLib.h"
+
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
-#include "Primitive.h"
-#include "PhysBody3D.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -84,19 +84,9 @@ update_status ModuleSceneIntro::Update(float dt)
 		ImGui::End();
 	}
 
-
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
-
 	/* Render ImGui */
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
 	return UPDATE_CONTINUE;
 }
-
-void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
-{
-}
-

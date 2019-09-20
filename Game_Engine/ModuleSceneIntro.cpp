@@ -60,6 +60,21 @@ update_status ModuleSceneIntro::Update(float dt)
 	}
 
 	{
+		if (ImGui::BeginMainMenuBar())
+		{
+			if (ImGui::BeginMenu("File"))
+			{
+				if (ImGui::MenuItem("Close"))
+				{
+					return UPDATE_STOP;
+				}
+				ImGui::EndMenu();
+			}
+			ImGui::EndMainMenuBar();
+		}
+	}
+
+	{
 		ImGui::Begin("Sample window");
 		if (ImGui::Button("Close"))
 		{

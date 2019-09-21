@@ -73,6 +73,20 @@ update_status ModuleSceneIntro::Update(float dt)
 				}
 				ImGui::EndMenu();
 			}
+
+			if (ImGui::BeginMenu("Help"))
+			{
+				if (ImGui::MenuItem("Webpage"))
+				{
+					ShellExecute(0, 0, "https://github.com/vsRushy/Fracture_Engine", 0, 0, SW_SHOW);
+				}
+				if (ImGui::MenuItem("GitHub"))
+				{
+					ShellExecute(0, 0, "https://github.com/vsRushy/Fracture_Engine", 0, 0, SW_SHOW);
+				}
+				ImGui::EndMenu();
+			}
+
 			ImGui::EndMainMenuBar();
 		}
 	}

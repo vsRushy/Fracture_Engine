@@ -78,11 +78,11 @@ update_status ModuleSceneIntro::Update(float dt)
 			{
 				if (ImGui::MenuItem("Webpage"))
 				{
-					ShellExecute(0, 0, "https://github.com/vsRushy/Fracture_Engine", 0, 0, SW_SHOW);
+					ShellExecute(0, 0, "https://vsrushy.github.io/Fracture_Engine/", 0, 0, SW_SHOW);
 				}
 				if (ImGui::MenuItem("GitHub"))
 				{
-					ShellExecute(0, 0, "https://github.com/vsRushy/Fracture_Engine", 0, 0, SW_SHOW);
+					ShellExecute(0, 0, "https://github.com/vsRushy/Fracture_Engine/", 0, 0, SW_SHOW);
 				}
 				ImGui::EndMenu();
 			}

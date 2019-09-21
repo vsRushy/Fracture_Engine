@@ -1,16 +1,15 @@
+#include <GL/glew.h>
+
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
-#include "SDL\include\SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
 
-#pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
-#pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "glu32.lib")    /* Link OpenGL Utility lib     */
+#pragma comment (lib, "opengl32.lib") /* Link Microsoft OpenGL lib   */
+#pragma comment (lib, "Glew/libx86/glew32.lib") /* Link Glew OpenGL specification */
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
-{
-}
+{}
 
 // Destructor
 ModuleRenderer3D::~ModuleRenderer3D()
@@ -28,6 +27,14 @@ bool ModuleRenderer3D::Init()
 	{
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
+	}
+
+	// Initialize Glew after OpenGL context is created
+	GLenum g_init = glewInit();
+
+	if (g_init != GLEW_OK)
+	{
+		LOG("Glew could not be initialized! %s", glewGetErrorString(g_init));
 	}
 	
 	if(ret)

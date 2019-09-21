@@ -24,8 +24,11 @@ bool ModuleSceneIntro::Start()
 	/* Load ImGui */
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGuiIO& io = ImGui::GetIO();
+	ImGuiStyle& style = ImGui::GetStyle();
 	ImGui::StyleColorsDark();
+	io.Fonts->AddFontFromFileTTF("Assets/Fonts/NotoSans-Regular.ttf", 20.0f, NULL, io.Fonts->GetGlyphRangesDefault());
+	style.FrameRounding = 7.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 

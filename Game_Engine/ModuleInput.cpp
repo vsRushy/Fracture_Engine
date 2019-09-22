@@ -1,3 +1,6 @@
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_sdl.h"
+
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
@@ -88,6 +91,8 @@ update_status ModuleInput::PreUpdate(float dt)
 	SDL_Event e;
 	while(SDL_PollEvent(&e))
 	{
+		ImGui_ImplSDL2_ProcessEvent(&e);
+		
 		switch(e.type)
 		{
 			case SDL_MOUSEWHEEL:

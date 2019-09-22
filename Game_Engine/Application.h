@@ -9,6 +9,7 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleUserInterface.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 
@@ -18,6 +19,7 @@ public:
 	ModuleWindow* window;
 	ModuleInput* input;
 	ModuleSceneIntro* scene_intro;
+	ModuleUserInterface* user_interface;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 

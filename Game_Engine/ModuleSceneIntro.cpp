@@ -1,9 +1,13 @@
 #include "Application.h"
 #include "ModuleSceneIntro.h"
 
+#include "MathGeoLib.h"
+#include "MathBuildConfig.h"
+#include "MathGeoLibFwd.h"
+#include "MathGeoLib/include/Geometry/Sphere.h"
+
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
-{
-}
+{}
 
 ModuleSceneIntro::~ModuleSceneIntro()
 {}
@@ -31,5 +35,13 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
+	Sphere s({ 0.0f, 0.0f, 0.0f }, 4.0f);
+	Sphere f({ 0.0f, 0.0f, 0.0f }, 7.0f);
+
+	if (f.Intersects(s))
+	{
+		LOG("INTERSECTION");
+	}
+
 	return UPDATE_CONTINUE;
 }

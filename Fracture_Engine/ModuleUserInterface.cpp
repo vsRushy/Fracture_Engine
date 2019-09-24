@@ -94,6 +94,7 @@ update_status ModuleUserInterface::Update(float dt)
 	/* About Window */
 	if (show_about_window)
 	{
+		ImGui::SetNextWindowPosCenter();
 		ImGui::Begin("About", &show_about_window, ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
 		ImGui::Text("Fracture Engine is a video game engine used for educational purposes.\n"
 		"This project is part of the Video Game Engines subject. CITM - UPC.\n"
@@ -104,6 +105,7 @@ update_status ModuleUserInterface::Update(float dt)
 	/* License Window */
 	if (show_license_window)
 	{
+		ImGui::SetNextWindowPosCenter();
 		ImGui::Begin("License", &show_license_window, ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
 		ImGui::Text("MIT License\n\n"
 

@@ -15,6 +15,15 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
+
+private:
+	void CreateAboutWindow();
+	void CreateLicenseWindow();
+
+private:
+	static bool show_demo_window;
+	static bool show_about_window;
+	static bool show_license_window;
 };
 
 #endif /* __MODULE_USER_INTERFACE_H__ */

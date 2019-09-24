@@ -4,8 +4,10 @@
 
 #include "Application.h"
 #include "ModuleUserInterface.h"
+#include "ModuleInput.h"
 
 bool ModuleUserInterface::show_demo_window = false;
+bool ModuleUserInterface::show_main_menu_bar_window = true;
 bool ModuleUserInterface::show_about_window = false;
 bool ModuleUserInterface::show_license_window = false;
 
@@ -29,7 +31,7 @@ bool ModuleUserInterface::Start()
 	ImGuiIO& io = ImGui::GetIO();
 	ImGuiStyle& style = ImGui::GetStyle();
 	ImGui::StyleColorsDark();
-	io.Fonts->AddFontFromFileTTF("Assets/Fonts/NotoSans-Regular.ttf", 20.0f, NULL, io.Fonts->GetGlyphRangesDefault());
+	io.Fonts->AddFontFromFileTTF("Assets/Fonts/Montserrat-Regular.ttf", 20.0f, NULL, io.Fonts->GetGlyphRangesDefault());
 	style.FrameRounding = 7.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
@@ -48,14 +50,68 @@ update_status ModuleUserInterface::PreUpdate(float dt)
 
 update_status ModuleUserInterface::Update(float dt)
 {
-	/* Main Menu bar */
+	/* Show Windows --------------------------- */
+
+	/* Demo Window */
+	if (show_demo_window)
+	{
+		ImGui::ShowDemoWindow(&show_demo_window);
+	}
+
+	/* Main Menu Bar */
+	if (show_main_menu_bar_window)
+	{
+		ShowMainMenuBarWindow();
+	}
+
+	/* About Window */
+	if (show_about_window)
+	{
+		ShowAboutWindow();
+	}
+
+	/* License Window */
+	if (show_license_window)
+	{
+		ShowLicenseWindow();
+	}
+
+	/* Check if we need to exit application from User Interface */
+	if (quit)
+	{
+		return UPDATE_STOP;
+	}
+
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleUserInterface::PostUpdate(float dt)
+{
+	/* Render ImGui */
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	return UPDATE_CONTINUE;
+}
+
+bool ModuleUserInterface::CleanUp()
+{
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
+
+	return true;
+}
+
+void ModuleUserInterface::ShowMainMenuBarWindow()
+{
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("Close"))
 			{
-				return UPDATE_STOP;
+				quit = true;
 			}
 			ImGui::EndMenu();
 		}
@@ -84,70 +140,42 @@ update_status ModuleUserInterface::Update(float dt)
 
 		ImGui::EndMainMenuBar();
 	}
+}
 
-	/* Show Windows --------------------------- */
-
-	/* Demo Window */
-	if (show_demo_window)
-		ImGui::ShowDemoWindow(&show_demo_window);
-
-	/* About Window */
-	if (show_about_window)
-	{
-		ImGui::SetNextWindowPosCenter();
-		ImGui::Begin("About", &show_about_window, ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
-		ImGui::Text("Fracture Engine is a video game engine used for educational purposes.\n"
+void ModuleUserInterface::ShowAboutWindow()
+{
+	ImGui::SetNextWindowPosCenter();
+	ImGui::Begin("About", &show_about_window, ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Text("Fracture Engine is a video game engine used for educational purposes.\n"
 		"This project is part of the Video Game Engines subject. CITM - UPC.\n"
 		"Credits: Gerard Marcos Freixas and Marti Torras Isanta.");
-		ImGui::End();
-	}
-
-	/* License Window */
-	if (show_license_window)
-	{
-		ImGui::SetNextWindowPosCenter();
-		ImGui::Begin("License", &show_license_window, ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
-		ImGui::Text("MIT License\n\n"
-
-			"Copyright(c) 2019 Fracture Engine Team\n\n"
-
-			"Permission is hereby granted, free of charge, to any person obtaining a copy\n"
-			"of this softwareand associated documentation files(the \"Software\"), to deal\n"
-			"in the Software without restriction, including without limitation the rights\n"
-			"to use, copy, modify, merge, publish, distribute, sublicense, and /or sell\n"
-			"copies of the Software, and to permit persons to whom the Software is\n"
-			"furnished to do so, subject to the following conditions :\n\n"
-
-			"The above copyright noticeand this permission notice shall be included in all\n"
-			"copies or substantial portions of the Software.\n\n"
-			
-			"THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n"
-			"IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n"
-			"FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE\n"
-			"AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n"
-			"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n"
-			"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n"
-			"SOFTWARE.");
-		ImGui::End();
-	}
-
-	return UPDATE_CONTINUE;
+	ImGui::End();
 }
 
-update_status ModuleUserInterface::PostUpdate(float dt)
+void ModuleUserInterface::ShowLicenseWindow()
 {
-	/* Render ImGui */
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	ImGui::SetNextWindowPosCenter();
+	ImGui::Begin("License", &show_license_window, ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Text("MIT License\n\n"
 
-	return UPDATE_CONTINUE;
-}
+		"Copyright(c) 2019 Fracture Engine Team\n\n"
 
-bool ModuleUserInterface::CleanUp()
-{
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();
+		"Permission is hereby granted, free of charge, to any person obtaining a copy\n"
+		"of this softwareand associated documentation files(the \"Software\"), to deal\n"
+		"in the Software without restriction, including without limitation the rights\n"
+		"to use, copy, modify, merge, publish, distribute, sublicense, and /or sell\n"
+		"copies of the Software, and to permit persons to whom the Software is\n"
+		"furnished to do so, subject to the following conditions :\n\n"
 
-	return true;
+		"The above copyright noticeand this permission notice shall be included in all\n"
+		"copies or substantial portions of the Software.\n\n"
+
+		"THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n"
+		"IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n"
+		"FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE\n"
+		"AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n"
+		"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n"
+		"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n"
+		"SOFTWARE.");
+	ImGui::End();
 }

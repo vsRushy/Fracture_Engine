@@ -2,8 +2,8 @@
 #include "ImGui/imgui_impl_opengl3.h"
 #include "ImGui/imgui_impl_sdl.h"
 
-#include "SDL\include\SDL_cpuinfo.h"
 #include "GL\glew.h"
+#include "SDL/include/SDL_cpuinfo.h"
 
 #include "Application.h"
 #include "ModuleUserInterface.h"
@@ -40,7 +40,7 @@ bool ModuleUserInterface::Start()
 	style.GrabMinSize = 17.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
-	SDL_version compiled;
+
 	return ret;
 }
 

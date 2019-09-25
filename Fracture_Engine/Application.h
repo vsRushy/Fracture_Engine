@@ -28,6 +28,8 @@ private:
 	float	dt;
 	std::list<Module*> list_modules;
 
+	bool close_app = false;
+
 public:
 	Application();
 	~Application();
@@ -35,6 +37,9 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
+
+public:
+	void CloseApplication();
 
 private:
 	void AddModule(Module* mod);

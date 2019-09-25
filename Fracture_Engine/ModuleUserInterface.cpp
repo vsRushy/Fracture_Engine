@@ -91,12 +91,6 @@ update_status ModuleUserInterface::Update(float dt)
 		ShowLicenseWindow();
 	}
 
-	/* Check if we need to exit application from User Interface */
-	if (quit)
-	{
-		return UPDATE_STOP;
-	}
-
 	return UPDATE_CONTINUE;
 }
 
@@ -126,7 +120,7 @@ void ModuleUserInterface::ShowMainMenuBarWindow()
 		{
 			if (ImGui::MenuItem("Close"))
 			{
-				quit = true;
+				App->CloseApplication();
 			}
 			ImGui::EndMenu();
 		}

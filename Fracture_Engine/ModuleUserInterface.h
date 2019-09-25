@@ -22,8 +22,6 @@ private:
 	void ShowLicenseWindow();
 
 private:
-	bool quit = false;
-
 	static bool show_demo_window;
 	static bool show_main_menu_bar_window;
 	static bool show_about_window;

@@ -5,6 +5,7 @@
 #include "Application.h"
 #include "ModuleUserInterface.h"
 #include "ModuleInput.h"
+#include "SDL\include\SDL_cpuinfo.h"
 
 bool ModuleUserInterface::show_demo_window = false;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
@@ -35,6 +36,7 @@ bool ModuleUserInterface::Start()
 	style.FrameRounding = 7.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
+	SDL_version compiled;
 
 	return ret;
 }
@@ -77,7 +79,10 @@ update_status ModuleUserInterface::Update(float dt)
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
-		ImGui::Text("Hard stuff");
+		SDL_VERSION(&compiled);
+		ImGui::Text("SDL version: %d. %d. %d", compiled.major, compiled.minor, compiled.patch);
+		ImGui::Text("CPUs: %i (Cache: %ikb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+		ImGui::Text("System RAM: %i Mb", SDL_GetSystemRAM());
 	}
 	ImGui::End();
 

@@ -26,6 +26,8 @@ private:
 	static bool show_main_menu_bar_window;
 	static bool show_about_window;
 	static bool show_license_window;
+
+	SDL_version compiled;
 };
 
 #endif /* __MODULE_USER_INTERFACE_H__ */

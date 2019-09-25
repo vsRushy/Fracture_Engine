@@ -96,12 +96,6 @@ update_status ModuleUserInterface::Update(float dt)
 		ShowLicenseWindow();
 	}
 
-	/* Check if we need to exit application from User Interface */
-	if (quit)
-	{
-		return UPDATE_STOP;
-	}
-
 	return UPDATE_CONTINUE;
 }
 
@@ -131,7 +125,7 @@ void ModuleUserInterface::ShowMainMenuBarWindow()
 		{
 			if (ImGui::MenuItem("Close"))
 			{
-				quit = true;
+				App->CloseApplication();
 			}
 			ImGui::EndMenu();
 		}
@@ -149,11 +143,11 @@ void ModuleUserInterface::ShowMainMenuBarWindow()
 			ImGui::Separator();
 			if (ImGui::MenuItem("Webpage"))
 			{
-				ShellExecute(0, 0, "https://vsrushy.github.io/Fracture_Engine/", 0, 0, SW_SHOW);
+				App->RequestBrowser("https://vsrushy.github.io/Fracture_Engine/");
 			}
 			if (ImGui::MenuItem("GitHub"))
 			{
-				ShellExecute(0, 0, "https://github.com/vsRushy/Fracture_Engine/", 0, 0, SW_SHOW);
+				App->RequestBrowser("https://github.com/vsRushy/Fracture_Engine/");
 			}
 			ImGui::EndMenu();
 		}

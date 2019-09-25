@@ -68,6 +68,7 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -93,8 +94,13 @@ update_status Application::Update()
 	{
 		ret = (*item)->PostUpdate(dt);
 	}
-
+	
 	FinishUpdate();
+
+	// -----------------------------------------------
+
+	if (close_app)
+		return UPDATE_STOP;
 
 	return ret;
 }
@@ -109,6 +115,16 @@ bool Application::CleanUp()
 	}
 
 	return ret;
+}
+
+void Application::CloseApplication()
+{
+	close_app = true;
+}
+
+void Application::RequestBrowser(const char* link) const
+{
+	ShellExecute(0, "open", link, 0, 0, SW_SHOWNORMAL);
 }
 
 void Application::AddModule(Module* mod)

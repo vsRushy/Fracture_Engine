@@ -76,12 +76,10 @@ update_status ModuleUserInterface::Update(float dt)
 		}
 
 		static int max_fps = App->GetMaxFPS();
-		ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
 		if (ImGui::SliderInt("Max FPS", &max_fps, 0, 144))
 		{
 			App->SetMaxFPS(max_fps);
 		}
-		ImGui::PopStyleVar(1);
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{

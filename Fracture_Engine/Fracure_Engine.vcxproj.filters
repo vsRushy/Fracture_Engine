@@ -43,6 +43,9 @@
     <Filter Include="Sources\Dependencies\MathGeoLib\Time">
       <UniqueIdentifier>{4d75c01e-12da-4d69-8bf7-390204b02bd0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Dependencies\PCG">
+      <UniqueIdentifier>{d0afed12-57db-4e05-8afd-8f7bd424d467}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -287,6 +290,15 @@
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\Time\Clock.h">
       <Filter>Sources\Dependencies\MathGeoLib\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="PCG\include\pcg_extras.hpp">
+      <Filter>Sources\Dependencies\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="PCG\include\pcg_random.hpp">
+      <Filter>Sources\Dependencies\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="PCG\include\pcg_uint128.hpp">
+      <Filter>Sources\Dependencies\PCG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

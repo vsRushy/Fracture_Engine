@@ -3,6 +3,7 @@
 #include "ImGui/imgui_impl_sdl.h"
 
 #include "SDL\include\SDL_cpuinfo.h"
+#include "GL\glew.h"
 
 #include "Application.h"
 #include "ModuleUserInterface.h"
@@ -120,6 +121,9 @@ update_status ModuleUserInterface::Update(float dt)
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", caps);
 		ImGui::Separator();
+		ImGui::Text("GPU:");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", glGetString(GL_RENDERER));
 	}
 	ImGui::End();
 

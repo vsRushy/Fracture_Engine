@@ -122,6 +122,11 @@ void Application::CloseApplication()
 	close_app = true;
 }
 
+void Application::RequestBrowser(const char* link) const
+{
+	ShellExecute(0, "open", link, 0, 0, SW_SHOWNORMAL);
+}
+
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);

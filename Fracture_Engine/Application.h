@@ -40,6 +40,7 @@ public:
 
 public:
 	void CloseApplication();
+	void RequestBrowser(const char* link) const;
 
 private:
 	void AddModule(Module* mod);

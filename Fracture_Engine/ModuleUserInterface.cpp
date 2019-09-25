@@ -138,11 +138,11 @@ void ModuleUserInterface::ShowMainMenuBarWindow()
 			ImGui::Separator();
 			if (ImGui::MenuItem("Webpage"))
 			{
-				ShellExecute(0, 0, "https://vsrushy.github.io/Fracture_Engine/", 0, 0, SW_SHOW);
+				App->RequestBrowser("https://vsrushy.github.io/Fracture_Engine/");
 			}
 			if (ImGui::MenuItem("GitHub"))
 			{
-				ShellExecute(0, 0, "https://github.com/vsRushy/Fracture_Engine/", 0, 0, SW_SHOW);
+				App->RequestBrowser("https://github.com/vsRushy/Fracture_Engine/");
 			}
 			ImGui::EndMenu();
 		}

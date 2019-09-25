@@ -8,7 +8,7 @@
 #include "ModuleUserInterface.h"
 #include "ModuleInput.h"
 
-bool ModuleUserInterface::show_demo_window = true;
+bool ModuleUserInterface::show_demo_window = false;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
 bool ModuleUserInterface::show_about_window = false;
 bool ModuleUserInterface::show_license_window = false;
@@ -103,11 +103,23 @@ update_status ModuleUserInterface::Update(float dt)
 		ImGui::Text("System RAM: ");
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%i Mb", SDL_GetSystemRAM());
-		
-		//caps.append("Caps: ");
-		//if (SDL_HasAVX()) caps;
-		
-		ImGui::Text("Caps: ");
+		static char caps[CUSTOM_BUFFER_SIZE_MEDIUM];
+		strcpy_s(caps, CUSTOM_BUFFER_SIZE_MEDIUM, "");
+		if (SDL_Has3DNow()) strcat(caps, "3DNow, ");
+		if (SDL_HasAVX()) strcat(caps, "AVX, ");
+		if (SDL_HasAVX2()) strcat(caps, "AVX2, ");
+		if (SDL_HasAltiVec()) strcat(caps, "AltiVec, ");
+		if (SDL_HasMMX()) strcat(caps, "MMX, ");
+		if (SDL_HasRDTSC()) strcat(caps, "RDTSC, ");
+		if (SDL_HasSSE()) strcat(caps, "SSE, ");
+		if (SDL_HasSSE2()) strcat(caps, "SSE2, ");
+		if (SDL_HasSSE3()) strcat(caps, "SSE3, ");
+		if (SDL_HasSSE41()) strcat(caps, "SSE41, ");
+		if (SDL_HasSSE42()) strcat(caps, "SSE42, ");
+		ImGui::Text("Caps:");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", caps);
+		ImGui::Separator();
 	}
 	ImGui::End();
 

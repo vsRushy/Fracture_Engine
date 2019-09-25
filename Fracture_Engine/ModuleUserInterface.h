@@ -26,8 +26,6 @@ private:
 	static bool show_main_menu_bar_window;
 	static bool show_about_window;
 	static bool show_license_window;
-
-	std::string caps = "";
 	SDL_version compiled;
 };
 

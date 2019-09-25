@@ -62,6 +62,14 @@ update_status ModuleUserInterface::Update(float dt)
 		{
 			App->SetAppName((const char*)app_name);
 		}
+
+		static char app_organization[CUSTOM_BUFFER_SIZE_MEDIUM];
+		strcpy_s(app_organization, CUSTOM_BUFFER_SIZE_MEDIUM, App->GetAppOrganization());
+		if (ImGui::InputText("Application organization", app_organization, CUSTOM_BUFFER_SIZE_MEDIUM,
+			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
+			App->SetAppOrganization((const char*)app_organization);
+		}
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{

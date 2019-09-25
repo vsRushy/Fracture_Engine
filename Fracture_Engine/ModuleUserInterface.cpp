@@ -7,7 +7,7 @@
 #include "ModuleInput.h"
 #include "SDL\include\SDL_cpuinfo.h"
 
-bool ModuleUserInterface::show_demo_window = false;
+bool ModuleUserInterface::show_demo_window = true;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
 bool ModuleUserInterface::show_about_window = false;
 bool ModuleUserInterface::show_license_window = false;
@@ -37,7 +37,6 @@ bool ModuleUserInterface::Start()
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 	SDL_version compiled;
-
 	return ret;
 }
 
@@ -66,9 +65,21 @@ update_status ModuleUserInterface::Update(float dt)
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
 		SDL_VERSION(&compiled);
-		ImGui::Text("SDL version: %d. %d. %d", compiled.major, compiled.minor, compiled.patch);
-		ImGui::Text("CPUs: %i (Cache: %ikb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
-		ImGui::Text("System RAM: %i Mb", SDL_GetSystemRAM());
+		ImGui::Text("SDL version: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%d. %d. %d",compiled.major, compiled.minor, compiled.patch);
+		ImGui::Separator();
+		ImGui::Text("CPUs: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), " %i (Cache: %ikb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+		ImGui::Text("System RAM: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%i Mb", SDL_GetSystemRAM());
+		
+		//caps.append("Caps: ");
+		//if (SDL_HasAVX()) caps;
+		
+		ImGui::Text("Caps: ");
 	}
 	ImGui::End();
 

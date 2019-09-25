@@ -40,8 +40,16 @@ bool ModuleRenderer3D::Init()
 	if(ret)
 	{
 		//Use Vsync
-		if(App->GetVSync() && SDL_GL_SetSwapInterval(1) < 0)
-			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+		if (App->GetVSync())
+		{
+			if(SDL_GL_SetSwapInterval(1) < 0)
+				LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			if (SDL_GL_SetSwapInterval(0) < 0)
+				LOG("Warning: Unable to unset VSync! SDL Error: %s\n", SDL_GetError());
+		}
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);

@@ -2,10 +2,11 @@
 #include "ImGui/imgui_impl_opengl3.h"
 #include "ImGui/imgui_impl_sdl.h"
 
+#include "SDL\include\SDL_cpuinfo.h"
+
 #include "Application.h"
 #include "ModuleUserInterface.h"
 #include "ModuleInput.h"
-#include "SDL\include\SDL_cpuinfo.h"
 
 bool ModuleUserInterface::show_demo_window = true;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
@@ -33,7 +34,9 @@ bool ModuleUserInterface::Start()
 	ImGuiStyle& style = ImGui::GetStyle();
 	ImGui::StyleColorsDark();
 	io.Fonts->AddFontFromFileTTF("Assets/Fonts/Montserrat-Regular.ttf", 20.0f, NULL, io.Fonts->GetGlyphRangesDefault());
-	style.FrameRounding = 7.0f;
+	style.FrameRounding = 5.0f;
+	style.GrabRounding = 5.0f;
+	style.GrabMinSize = 17.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 	SDL_version compiled;
@@ -56,7 +59,31 @@ update_status ModuleUserInterface::Update(float dt)
 	ImGui::Text("Something");
 	if (ImGui::CollapsingHeader("Application"))
 	{
-		ImGui::Text("FPS things");
+		static char app_name[CUSTOM_BUFFER_SIZE_MEDIUM];
+		strcpy_s(app_name, CUSTOM_BUFFER_SIZE_MEDIUM, App->GetAppName());
+		if (ImGui::InputText("Application name", app_name, CUSTOM_BUFFER_SIZE_MEDIUM,
+			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
+			App->SetAppName((const char*)app_name);
+		}
+
+		static char app_organization[CUSTOM_BUFFER_SIZE_MEDIUM];
+		strcpy_s(app_organization, CUSTOM_BUFFER_SIZE_MEDIUM, App->GetAppOrganization());
+		if (ImGui::InputText("Application organization", app_organization, CUSTOM_BUFFER_SIZE_MEDIUM,
+			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
+			App->SetAppOrganization((const char*)app_organization);
+		}
+
+		static int max_fps = App->GetMaxFPS();
+		if (ImGui::SliderInt("Max FPS", &max_fps, 0, 144))
+		{
+			App->SetMaxFPS(max_fps);
+		}
+
+		ImGui::Text("Limit framerate: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%i", App->GetMaxFPS());
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{
@@ -64,6 +91,7 @@ update_status ModuleUserInterface::Update(float dt)
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
+		SDL_version compiled;
 		SDL_VERSION(&compiled);
 		ImGui::Text("SDL version: ");
 		ImGui::SameLine();
@@ -85,27 +113,19 @@ update_status ModuleUserInterface::Update(float dt)
 
 	/* Demo Window */
 	if (show_demo_window)
-	{
 		ImGui::ShowDemoWindow(&show_demo_window);
-	}
 
 	/* Main Menu Bar */
 	if (show_main_menu_bar_window)
-	{
 		ShowMainMenuBarWindow();
-	}
 
 	/* About Window */
 	if (show_about_window)
-	{
 		ShowAboutWindow();
-	}
 
 	/* License Window */
 	if (show_license_window)
-	{
 		ShowLicenseWindow();
-	}
 
 	return UPDATE_CONTINUE;
 }

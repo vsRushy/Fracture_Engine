@@ -24,9 +24,14 @@ public:
 	ModuleCamera3D* camera;
 
 private:
-	Timer	ms_timer;
-	float	dt;
 	std::list<Module*> list_modules;
+	
+	const char* app_name;
+	const char* app_organization;
+
+	float	dt;
+	Timer	ms_timer;
+	int max_fps = 0;
 
 	bool close_app = false;
 
@@ -41,6 +46,14 @@ public:
 public:
 	void CloseApplication();
 	void RequestBrowser(const char* link) const;
+
+	void SetAppName(const char* name);
+	void SetAppOrganization(const char* organization);
+	void SetMaxFPS(const int& m_fps);
+
+	const char* GetAppName() const;
+	const char* GetAppOrganization() const;
+	int GetMaxFPS() const;
 
 private:
 	void AddModule(Module* mod);

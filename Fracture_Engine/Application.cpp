@@ -40,6 +40,10 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	/* Settings */
+	SetAppName("Fracture Engine");
+	SetAppOrganization("CITM-UPC");
+
 	// Call Init() in all modules
 	for (std::list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end() && ret; item++)
 	{
@@ -120,6 +124,36 @@ bool Application::CleanUp()
 void Application::CloseApplication()
 {
 	close_app = true;
+}
+
+void Application::SetAppName(const char* name)
+{
+	app_name = name;
+}
+
+void Application::SetAppOrganization(const char* organization)
+{
+	app_organization = organization;
+}
+
+void Application::SetMaxFPS(const int& m_fps)
+{
+	max_fps = m_fps;
+}
+
+const char* Application::GetAppName() const
+{
+	return app_name;
+}
+
+const char* Application::GetAppOrganization() const
+{
+	return app_organization;
+}
+
+int Application::GetMaxFPS() const
+{
+	return max_fps;
 }
 
 void Application::RequestBrowser(const char* link) const

@@ -18,6 +18,11 @@ void log(const char file[], int line, const char* format, ...);
 #define RADTODEG 57.295779513082320876f
 #define HAVE_M_PI
 
+/* CUSTOM BUFFERS SIZES */
+#define CUSTOM_BUFFER_SIZE_SMALL 25
+#define CUSTOM_BUFFER_SIZE_MEDIUM 50
+#define CUSTOM_BUFFER_SIZE_BIG 75
+#define CUSTOM_BUFFER_SIZE_EXTRA_BIG 100
 
 typedef unsigned int uint;
 

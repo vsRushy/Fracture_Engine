@@ -141,6 +141,11 @@ void Application::SetMaxFPS(const int& m_fps)
 	max_fps = m_fps;
 }
 
+void Application::SetVSync(const bool& value)
+{
+	vsync = value;
+}
+
 const char* Application::GetAppName() const
 {
 	return app_name;
@@ -154,6 +159,11 @@ const char* Application::GetAppOrganization() const
 int Application::GetMaxFPS() const
 {
 	return max_fps;
+}
+
+bool Application::GetVSync() const
+{
+	return vsync;
 }
 
 void Application::RequestBrowser(const char* link) const

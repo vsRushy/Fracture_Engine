@@ -2,7 +2,7 @@
 #include "ImGui/imgui_impl_opengl3.h"
 #include "ImGui/imgui_impl_sdl.h"
 
-#include "SDL\include\SDL_cpuinfo.h"
+#include "SDL/include/SDL_cpuinfo.h"
 
 #include "Application.h"
 #include "ModuleUserInterface.h"

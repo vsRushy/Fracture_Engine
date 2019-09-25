@@ -7,7 +7,7 @@
 #include "ModuleInput.h"
 #include "SDL\include\SDL_cpuinfo.h"
 
-bool ModuleUserInterface::show_demo_window = false;
+bool ModuleUserInterface::show_demo_window = true;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
 bool ModuleUserInterface::show_about_window = false;
 bool ModuleUserInterface::show_license_window = false;
@@ -33,7 +33,9 @@ bool ModuleUserInterface::Start()
 	ImGuiStyle& style = ImGui::GetStyle();
 	ImGui::StyleColorsDark();
 	io.Fonts->AddFontFromFileTTF("Assets/Fonts/Montserrat-Regular.ttf", 20.0f, NULL, io.Fonts->GetGlyphRangesDefault());
-	style.FrameRounding = 7.0f;
+	style.FrameRounding = 5.0f;
+	style.GrabRounding = 5.0f;
+	style.GrabMinSize = 17.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 	SDL_version compiled;
@@ -72,6 +74,14 @@ update_status ModuleUserInterface::Update(float dt)
 		{
 			App->SetAppOrganization((const char*)app_organization);
 		}
+
+		static int max_fps = App->GetMaxFPS();
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
+		if (ImGui::SliderInt("Max FPS", &max_fps, 0, 144))
+		{
+			App->SetMaxFPS(max_fps);
+		}
+		ImGui::PopStyleVar(1);
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{

@@ -136,6 +136,11 @@ void Application::SetAppOrganization(const char* organization)
 	app_organization = organization;
 }
 
+void Application::SetMaxFPS(const int& m_fps)
+{
+	max_fps = m_fps;
+}
+
 const char* Application::GetAppName() const
 {
 	return app_name;
@@ -144,6 +149,11 @@ const char* Application::GetAppName() const
 const char* Application::GetAppOrganization() const
 {
 	return app_organization;
+}
+
+int Application::GetMaxFPS() const
+{
+	return max_fps;
 }
 
 void Application::RequestBrowser(const char* link) const

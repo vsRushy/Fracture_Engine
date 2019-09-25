@@ -2,10 +2,11 @@
 #include "ImGui/imgui_impl_opengl3.h"
 #include "ImGui/imgui_impl_sdl.h"
 
+#include "SDL\include\SDL_cpuinfo.h"
+
 #include "Application.h"
 #include "ModuleUserInterface.h"
 #include "ModuleInput.h"
-#include "SDL\include\SDL_cpuinfo.h"
 
 bool ModuleUserInterface::show_demo_window = true;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
@@ -80,6 +81,10 @@ update_status ModuleUserInterface::Update(float dt)
 		{
 			App->SetMaxFPS(max_fps);
 		}
+
+		ImGui::Text("Limit framerate: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%i", App->GetMaxFPS());
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{

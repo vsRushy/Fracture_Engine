@@ -51,6 +51,21 @@ update_status ModuleUserInterface::PreUpdate(float dt)
 update_status ModuleUserInterface::Update(float dt)
 {
 	/* Show Windows --------------------------- */
+	ImGui::Begin("Configuration");
+	ImGui::Text("Something");
+	if (ImGui::CollapsingHeader("Application"))
+	{
+		ImGui::Text("FPS things");
+	}
+	if (ImGui::CollapsingHeader("Window"))
+	{
+		ImGui::Text("Parameters");
+	}
+	if (ImGui::CollapsingHeader("Hardware"))
+	{
+		ImGui::Text("Hard stuff");
+	}
+	ImGui::End();
 
 	/* Demo Window */
 	if (show_demo_window)

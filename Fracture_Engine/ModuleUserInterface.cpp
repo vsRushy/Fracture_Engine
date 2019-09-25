@@ -79,6 +79,7 @@ update_status ModuleUserInterface::Update(float dt)
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
+		SDL_version compiled;
 		SDL_VERSION(&compiled);
 		ImGui::Text("SDL version: %d. %d. %d", compiled.major, compiled.minor, compiled.patch);
 		ImGui::Text("CPUs: %i (Cache: %ikb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());

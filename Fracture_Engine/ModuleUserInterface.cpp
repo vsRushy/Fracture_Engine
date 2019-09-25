@@ -39,7 +39,7 @@ bool ModuleUserInterface::Start()
 	style.GrabMinSize = 17.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
-	SDL_version compiled;
+
 	return ret;
 }
 

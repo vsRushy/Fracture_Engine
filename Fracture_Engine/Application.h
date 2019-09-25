@@ -24,9 +24,13 @@ public:
 	ModuleCamera3D* camera;
 
 private:
+	std::list<Module*> list_modules;
+	
+	const char* app_name;
+	const char* app_organization;
+
 	Timer	ms_timer;
 	float	dt;
-	std::list<Module*> list_modules;
 
 	bool close_app = false;
 
@@ -40,6 +44,10 @@ public:
 
 public:
 	void CloseApplication();
+	void SetAppName(const char* name);
+	void SetAppOrganization(const char* organization);
+	const char* GetAppName() const;
+	const char* GetAppOrganization() const;
 	void RequestBrowser(const char* link) const;
 
 private:

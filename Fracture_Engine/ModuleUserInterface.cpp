@@ -55,7 +55,13 @@ update_status ModuleUserInterface::Update(float dt)
 	ImGui::Text("Something");
 	if (ImGui::CollapsingHeader("Application"))
 	{
-		ImGui::Text("FPS things");
+		static char app_name[CUSTOM_BUFFER_SIZE_MEDIUM];
+		strcpy_s(app_name, CUSTOM_BUFFER_SIZE_MEDIUM, App->GetAppName());
+		if (ImGui::InputText("Application name", app_name, CUSTOM_BUFFER_SIZE_MEDIUM,
+			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
+			App->SetAppName((const char*)app_name);
+		}
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{
@@ -69,27 +75,19 @@ update_status ModuleUserInterface::Update(float dt)
 
 	/* Demo Window */
 	if (show_demo_window)
-	{
 		ImGui::ShowDemoWindow(&show_demo_window);
-	}
 
 	/* Main Menu Bar */
 	if (show_main_menu_bar_window)
-	{
 		ShowMainMenuBarWindow();
-	}
 
 	/* About Window */
 	if (show_about_window)
-	{
 		ShowAboutWindow();
-	}
 
 	/* License Window */
 	if (show_license_window)
-	{
 		ShowLicenseWindow();
-	}
 
 	return UPDATE_CONTINUE;
 }

@@ -306,6 +306,9 @@
     <ClInclude Include="JSON\json.hpp">
       <Filter>Sources\Dependencies\JSON</Filter>
     </ClInclude>
+    <ClInclude Include="JSON\json_fwd.hpp">
+      <Filter>Sources\Dependencies\JSON</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">

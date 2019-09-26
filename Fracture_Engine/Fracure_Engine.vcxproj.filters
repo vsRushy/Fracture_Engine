@@ -46,6 +46,9 @@
     <Filter Include="Sources\Dependencies\PCG">
       <UniqueIdentifier>{d0afed12-57db-4e05-8afd-8f7bd424d467}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Dependencies\JSON">
+      <UniqueIdentifier>{d4f08f7f-882b-4c2e-839a-a4a39691df4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -299,6 +302,9 @@
     </ClInclude>
     <ClInclude Include="PCG\include\pcg_uint128.hpp">
       <Filter>Sources\Dependencies\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="JSON\json.hpp">
+      <Filter>Sources\Dependencies\JSON</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -34,6 +34,7 @@ private:
 	float				dt;
 	unsigned __int64	frame_count = 0;
 	float				fps = 0.0f;
+	float				milliseconds = 0.0f;
 	float				avg_fps;
 	float				seconds_since_startup = 0.0f;
 	Timer				ms_timer;

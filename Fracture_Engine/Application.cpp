@@ -95,6 +95,7 @@ void Application::FinishUpdate()
 	last_frame_ms = ms_timer.Read();
 	frames_on_last_update = prev_last_sec_frame_count;
 	fps = frames_on_last_update;
+	milliseconds = 1.0f / fps * 1000.0f;
 
 	if (capped_ms > 0 && last_frame_ms < capped_ms)
 	{
@@ -102,7 +103,7 @@ void Application::FinishUpdate()
 	}
 
 	AddFPSToVec(fps);
-	AddMSToVec((float)last_frame_ms);
+	AddMSToVec(milliseconds);
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -204,7 +205,7 @@ float Application::GetFPS() const
 
 float Application::GetMS() const
 {
-	return (float)last_frame_ms;
+	return milliseconds;
 }
 
 void Application::AddFPSToVec(float fps)

@@ -244,17 +244,26 @@ void ModuleUserInterface::ShowConfigurationWindow()
 		{
 			App->window->SetWindowHeight(height);
 		}
-		/*
-		if (ImGui::Checkbox("Fullscreen", &fullscreen));
-		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");
-		ImGui::SameLine();
-		if (ImGui::Checkbox("Resizable", &resizable));
-		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");
-		if (ImGui::Checkbox("Borderless", &borderless));
-		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");
-		ImGui::SameLine();
-		if (ImGui::Checkbox("Full Desktop", &fulldesktop));
-		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");*/
+		bool fullscreen = App->window->GetWindowFullscreen();
+		if (ImGui::Checkbox("Fullscreen", &fullscreen))
+		{
+			App->window->SetWindowFullscreen(fullscreen);
+		}
+		bool resizable = App->window->GetWindowResizable();
+		if (ImGui::Checkbox("Resizable", &resizable))
+		{
+			App->window->SetWindowResizable(resizable);
+		}
+		bool borderless = App->window->GetWindowBorderless();
+		if (ImGui::Checkbox("Borderless", &borderless))
+		{
+			App->window->SetWindowBorderless(borderless);
+		}
+		bool fullscreen_desktop = App->window->GetWindowFullScreenDesktop();
+		if (ImGui::Checkbox("Full Desktop", &fullscreen_desktop))
+		{
+			App->window->SetWindowFullScreenDesktop(fullscreen_desktop);
+		}
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{

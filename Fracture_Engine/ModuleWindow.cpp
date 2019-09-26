@@ -131,21 +131,37 @@ void ModuleWindow::SetWindowHeight(const int& height)
 void ModuleWindow::SetWindowFullscreen(const bool& value)
 {
 	window_fullscreen = value;
+	if (value)
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+	else
+		SDL_SetWindowFullscreen(window, 0);
 }
 
 void ModuleWindow::SetWindowResizable(const bool& value)
 {
 	window_resizable = value;
+	if (value)
+		SDL_SetWindowResizable(window, SDL_TRUE);
+	else
+		SDL_SetWindowResizable(window, SDL_FALSE);
 }
 
 void ModuleWindow::SetWindowBorderless(const bool& value)
 {
 	window_borderless = value;
+	if (value)
+		SDL_SetWindowBordered(window, SDL_TRUE);
+	else
+		SDL_SetWindowBordered(window, SDL_FALSE);
 }
 
 void ModuleWindow::SetWindowFullScreenDesktop(const bool& value)
 {
 	window_fullscreen_desktop = value;
+	if (value)
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	else
+		SDL_SetWindowFullscreen(window, 0);
 }
 
 void ModuleWindow::SetScreenMaxWidth(const int& max_width)

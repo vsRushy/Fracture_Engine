@@ -40,10 +40,12 @@ bool ModuleUserInterface::Start()
 	style.GrabMinSize = 17.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
+
 	fullscreen = false;
 	resizable = false;
 	borderless = false;
 	fulldesktop = false;
+	
 	return ret;
 }
 
@@ -70,7 +72,7 @@ update_status ModuleUserInterface::Update(float dt)
 		{
 			App->SetAppName((const char*)app_name);
 		}
-
+		
 		static char app_organization[CUSTOM_BUFFER_SIZE_MEDIUM];
 		strcpy_s(app_organization, CUSTOM_BUFFER_SIZE_MEDIUM, App->GetAppOrganization());
 		if (ImGui::InputText("Application organization", app_organization, CUSTOM_BUFFER_SIZE_MEDIUM,
@@ -153,6 +155,12 @@ update_status ModuleUserInterface::Update(float dt)
 	}
 	ImGui::End();
 
+	/* Console */
+	ImGui::Begin("Console");
+	ImGui::TextUnformatted(text_buffer.begin());
+	ImGui::SetScrollHere(1.0f);
+	ImGui::End();
+
 	/* Demo Window */
 	if (show_demo_window)
 		ImGui::ShowDemoWindow(&show_demo_window);
@@ -188,6 +196,11 @@ bool ModuleUserInterface::CleanUp()
 	ImGui::DestroyContext();
 
 	return true;
+}
+
+void ModuleUserInterface::LogToConsole(const char* text_log)
+{
+	text_buffer.appendf(text_log);
 }
 
 void ModuleUserInterface::ShowMainMenuBarWindow()

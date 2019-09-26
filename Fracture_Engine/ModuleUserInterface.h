@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Globals.h"
+#include "ImGui/imgui.h"
 
 class ModuleUserInterface : public Module
 {
@@ -15,6 +16,9 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
+
+public:
+	void LogToConsole(const char* text_log);
 
 private:
 	void ShowMainMenuBarWindow();
@@ -30,6 +34,9 @@ private:
 	bool resizable;
 	bool borderless;
 	bool fulldesktop;
+
+private:
+	ImGuiTextBuffer text_buffer;
 };
 
 #endif /* __MODULE_USER_INTERFACE_H__ */

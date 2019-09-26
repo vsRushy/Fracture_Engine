@@ -152,6 +152,11 @@ bool Application::CleanUp()
 	return ret;
 }
 
+void Application::Log(const char* text_log)
+{
+	user_interface->LogToConsole(text_log);
+}
+
 void Application::CloseApplication()
 {
 	close_app = true;

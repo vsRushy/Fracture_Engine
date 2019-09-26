@@ -24,12 +24,17 @@ private:
 	void ShowMainMenuBarWindow();
 	void ShowAboutWindow();
 	void ShowLicenseWindow();
+	void ShowConfigurationWindow();
+	void ShowConsoleWindow();
 
 private:
 	static bool show_demo_window;
 	static bool show_main_menu_bar_window;
 	static bool show_about_window;
 	static bool show_license_window;
+	static bool show_configuration_window;
+	static bool show_console_window;
+
 	bool fullscreen;
 	bool resizable;
 	bool borderless;

@@ -2,7 +2,7 @@
 #include "ImGui/imgui_impl_opengl3.h"
 #include "ImGui/imgui_impl_sdl.h"
 
-#include "GL\glew.h"
+#include "GL/glew.h"
 #include "SDL/include/SDL_cpuinfo.h"
 
 #include "Application.h"
@@ -12,7 +12,6 @@
 bool ModuleUserInterface::show_demo_window = false;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
 bool ModuleUserInterface::show_about_window = false;
-bool ModuleUserInterface::show_license_window = false;
 bool ModuleUserInterface::show_configuration_window = false;
 bool ModuleUserInterface::show_console_window = false;
 
@@ -84,10 +83,6 @@ update_status ModuleUserInterface::Update(float dt)
 	if (show_about_window)
 		ShowAboutWindow();
 
-	/* License Window */
-	if (show_license_window)
-		ShowLicenseWindow();
-
 	return UPDATE_CONTINUE;
 }
 
@@ -140,10 +135,6 @@ void ModuleUserInterface::ShowMainMenuBarWindow()
 			{
 				show_about_window = true;
 			}
-			if (ImGui::MenuItem("License"))
-			{
-				show_license_window = true;
-			}
 			ImGui::Separator();
 			if (ImGui::MenuItem("Webpage"))
 			{
@@ -164,16 +155,21 @@ void ModuleUserInterface::ShowAboutWindow()
 {
 	ImGui::SetNextWindowPosCenter();
 	ImGui::Begin("About", &show_about_window, ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
-	ImGui::Text("Fracture Engine is a video game engine used for educational purposes.\n"
-		"This project is part of the Video Game Engines subject. CITM - UPC.\n"
-		"Credits: Gerard Marcos Freixas and Marti Torras Isanta.");
-	ImGui::End();
-}
-
-void ModuleUserInterface::ShowLicenseWindow()
-{
-	ImGui::SetNextWindowPosCenter();
-	ImGui::Begin("License", &show_license_window, ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Text("Fracture Engine");
+	ImGui::Separator();
+	ImGui::Text("An educational purposes game engine");
+	ImGui::Separator();
+	ImGui::Text("Credits: Gerard Marcos Freixas and Marti Torras Isanta");
+	ImGui::Separator();
+	ImGui::Text("3rd party libraries used:");
+	SDL_version sdl_version;
+	SDL_VERSION(&sdl_version);
+	ImGui::BulletText("SDL %d. %d. %d", sdl_version.major, sdl_version.minor, sdl_version.patch);
+	ImGui::BulletText("OpenGL %s", glGetString(GL_VERSION));
+	ImGui::BulletText("Glew %s", glewGetString(GLEW_VERSION));
+	ImGui::BulletText("ImGui %s", ImGui::GetVersion());
+	ImGui::BulletText("MathGeoLib"); ImGui::SameLine();  ImGui::Text("2.0");
+	ImGui::Separator();
 	ImGui::Text("MIT License\n\n"
 
 		"Copyright(c) 2019 Fracture Engine Team\n\n"

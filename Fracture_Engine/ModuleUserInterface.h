@@ -26,6 +26,10 @@ private:
 	static bool show_main_menu_bar_window;
 	static bool show_about_window;
 	static bool show_license_window;
+	bool fullscreen;
+	bool resizable;
+	bool borderless;
+	bool fulldesktop;
 };
 
 #endif /* __MODULE_USER_INTERFACE_H__ */

@@ -40,7 +40,10 @@ bool ModuleUserInterface::Start()
 	style.GrabMinSize = 17.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
-
+	fullscreen = false;
+	resizable = false;
+	borderless = false;
+	fulldesktop = false;
 	return ret;
 }
 
@@ -94,7 +97,24 @@ update_status ModuleUserInterface::Update(float dt)
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{
-		ImGui::Text("Parameters");
+		static int brightness = 50;
+		static int width = 600;
+		static int height = 600;
+		ImGui::SliderInt("Brightness", &brightness, 0, 100);
+		ImGui::SliderInt("Width", &width, 100, SCREEN_WIDTH);
+		ImGui::SliderInt("Height", &height, 100, SCREEN_HEIGHT);
+		ImGui::Separator();
+
+		if (ImGui::Checkbox("Fullscreen", &fullscreen));
+		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Resizable", &resizable));
+		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");
+		if (ImGui::Checkbox("Borderless", &borderless));
+		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Full Desktop", &fulldesktop));
+		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{

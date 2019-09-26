@@ -51,10 +51,7 @@ bool Application::Init()
 	SetAppOrganization("CITM-UPC");
 
 	SetMaxFPS(60);
-	if (GetMaxFPS() > 0)
-	{
-		capped_ms = 1000 / GetMaxFPS();
-	}
+	CapMS();
 
 	// Call Init() in all modules
 	for (std::list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end() && ret; item++)
@@ -247,6 +244,16 @@ void Application::AddMSToVec(float ms)
 void Application::RequestBrowser(const char* link) const
 {
 	ShellExecute(0, "open", link, 0, 0, SW_SHOWNORMAL);
+}
+
+void Application::CapMS()
+{
+	if (GetMaxFPS() > 0)
+	{
+		capped_ms = 1000 / GetMaxFPS();
+	}
+	else
+		capped_ms = 0;
 }
 
 void Application::AddModule(Module* mod)

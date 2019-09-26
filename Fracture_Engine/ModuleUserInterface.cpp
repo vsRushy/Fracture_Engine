@@ -80,6 +80,7 @@ update_status ModuleUserInterface::Update(float dt)
 		if (ImGui::SliderInt("Max FPS", &max_fps, 0, 144))
 		{
 			App->SetMaxFPS(max_fps);
+			App->CapMS();
 		}
 
 		ImGui::Text("Limit framerate: ");

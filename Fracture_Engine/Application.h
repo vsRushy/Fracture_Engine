@@ -59,6 +59,7 @@ public:
 public:
 	void CloseApplication();
 	void RequestBrowser(const char* link) const;
+	void CapMS();
 
 	// -----------------------------------
 

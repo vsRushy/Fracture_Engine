@@ -17,8 +17,6 @@ enum main_states
 
 int main(int argc, char ** argv)
 {
-	LOG("Starting game '%s'...", TITLE);
-
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
 	Application* App = NULL;
@@ -47,6 +45,8 @@ int main(int argc, char ** argv)
 				state = MAIN_UPDATE;
 				LOG("-------------- Application Update --------------");
 			}
+
+			LOG("Starting application '%s'...", App->GetAppName());
 
 			break;
 
@@ -83,6 +83,8 @@ int main(int argc, char ** argv)
 	}
 
 	delete App;
-	LOG("Exiting game '%s'...\n", TITLE);
+
+	LOG("Exiting application");
+
 	return main_return;
 }

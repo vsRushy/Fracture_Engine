@@ -33,11 +33,6 @@ private:
 	static bool show_configuration_window;
 	static bool show_console_window;
 
-	bool fullscreen;
-	bool resizable;
-	bool borderless;
-	bool fulldesktop;
-
 private:
 	ImGuiTextBuffer text_buffer;
 };

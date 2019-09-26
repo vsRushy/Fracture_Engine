@@ -41,11 +41,6 @@ bool ModuleUserInterface::Start()
 	style.GrabMinSize = 17.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
-
-	fullscreen = false;
-	resizable = false;
-	borderless = false;
-	fulldesktop = false;
 	
 	return ret;
 }
@@ -63,6 +58,10 @@ update_status ModuleUserInterface::Update(float dt)
 {
 	/* Show Windows --------------------------- */
 
+	/* Demo Window */
+	if (show_demo_window)
+		ImGui::ShowDemoWindow(&show_demo_window);
+
 	/* Configuration */
 	if (show_configuration_window)
 		ShowConfigurationWindow();
@@ -70,10 +69,6 @@ update_status ModuleUserInterface::Update(float dt)
 	/* Console */
 	if (show_console_window)
 		ShowConsoleWindow();
-
-	/* Demo Window */
-	if (show_demo_window)
-		ImGui::ShowDemoWindow(&show_demo_window);
 
 	/* Main Menu Bar */
 	if (show_main_menu_bar_window)
@@ -234,10 +229,13 @@ void ModuleUserInterface::ShowConfigurationWindow()
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{
-		static int brightness = 50;
-		static int width = 600;
-		static int height = 600;
-		ImGui::SliderInt("Brightness", &brightness, 0, 100);
+		float brightness = App->window->GetWindowBrightness();
+		if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
+		{
+			App->window->SetWindowBrightness(brightness);
+		}
+
+		/*ImGui::SliderInt("Brightness", &brightness, 0, 100);
 		ImGui::SliderInt("Width", &width, 100, SCREEN_WIDTH);
 		ImGui::SliderInt("Height", &height, 100, SCREEN_HEIGHT);
 		ImGui::Separator();
@@ -251,7 +249,7 @@ void ModuleUserInterface::ShowConfigurationWindow()
 		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");
 		ImGui::SameLine();
 		if (ImGui::Checkbox("Full Desktop", &fulldesktop));
-		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");
+		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");*/
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{

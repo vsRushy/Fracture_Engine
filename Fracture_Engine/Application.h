@@ -72,8 +72,10 @@ public:
 	int GetMaxFPS() const;
 	bool GetVSync() const;
 	float GetFPS() const;
+	float GetMS() const;
 
 	void AddFPSToVec(float fps);
+	void AddMSToVec(float ms);
 
 public:
 	std::vector<float> fps_vec;

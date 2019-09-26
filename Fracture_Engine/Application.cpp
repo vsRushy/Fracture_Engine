@@ -43,7 +43,8 @@ bool Application::Init()
 	startup_time.Start();
 
 	/* Set fps and ms vectors capacity */
-	fps_vec.resize(100);
+	fps_vec.resize(120);
+	ms_vec.resize(120);
 
 	/* Settings */
 	SetAppName("Fracture Engine");
@@ -105,6 +106,7 @@ void Application::FinishUpdate()
 	}
 
 	AddFPSToVec(fps);
+	AddMSToVec((float)last_frame_ms);
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -203,13 +205,18 @@ float Application::GetFPS() const
 	return fps;
 }
 
+float Application::GetMS() const
+{
+	return (float)last_frame_ms;
+}
+
 void Application::AddFPSToVec(float fps)
 {
 	static int counter = 0;
 
 	if (counter == fps_vec.capacity())
 	{
-		for (int i = 0; i < fps_vec.capacity() - 1; i++)
+		for (uint i = 0; i < fps_vec.capacity() - 1; i++)
 		{
 			fps_vec[i] = fps_vec[i + 1];
 		}
@@ -218,6 +225,23 @@ void Application::AddFPSToVec(float fps)
 		counter++;
 
 	fps_vec[counter - 1] = fps;
+}
+
+void Application::AddMSToVec(float ms)
+{
+	static int counter = 0;
+
+	if (counter == ms_vec.capacity())
+	{
+		for (uint i = 0; i < ms_vec.capacity() - 1; i++)
+		{
+			ms_vec[i] = ms_vec[i + 1];
+		}
+	}
+	else
+		counter++;
+
+	ms_vec[counter - 1] = ms;
 }
 
 void Application::RequestBrowser(const char* link) const

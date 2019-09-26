@@ -51,7 +51,6 @@ bool Application::Init()
 	SetAppOrganization("CITM-UPC");
 
 	SetMaxFPS(60);
-	CapMS();
 
 	// Call Init() in all modules
 	for (std::list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end() && ret; item++)
@@ -170,6 +169,7 @@ void Application::SetAppOrganization(const char* organization)
 void Application::SetMaxFPS(const int& m_fps)
 {
 	max_fps = m_fps;
+	CapMS();
 }
 
 void Application::SetVSync(const bool& value)

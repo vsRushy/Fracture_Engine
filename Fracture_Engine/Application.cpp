@@ -42,6 +42,9 @@ bool Application::Init()
 
 	startup_time.Start();
 
+	/* Set fps and ms vectors capacity */
+	fps_vec.resize(100);
+
 	/* Settings */
 	SetAppName("Fracture Engine");
 	SetAppOrganization("CITM-UPC");
@@ -202,7 +205,19 @@ float Application::GetFPS() const
 
 void Application::AddFPSToVec(float fps)
 {
-	fps_vec.push_back(fps);
+	static int counter = 0;
+
+	if (counter == fps_vec.capacity())
+	{
+		for (int i = 0; i < fps_vec.capacity() - 1; i++)
+		{
+			fps_vec[i] = fps_vec[i + 1];
+		}
+	}
+	else
+		counter++;
+
+	fps_vec[counter - 1] = fps;
 }
 
 void Application::RequestBrowser(const char* link) const

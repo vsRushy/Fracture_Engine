@@ -9,7 +9,7 @@
 #include "ModuleUserInterface.h"
 #include "ModuleInput.h"
 
-bool ModuleUserInterface::show_demo_window = true;
+bool ModuleUserInterface::show_demo_window = false;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
 bool ModuleUserInterface::show_about_window = false;
 bool ModuleUserInterface::show_license_window = false;
@@ -201,7 +201,7 @@ void ModuleUserInterface::ShowLicenseWindow()
 void ModuleUserInterface::ShowConfigurationWindow()
 {
 	ImGui::Begin("Configuration");
-	ImGui::Text("Something");
+	ImGui::Text("Options");
 	if (ImGui::CollapsingHeader("Application"))
 	{
 		static char app_name[CUSTOM_BUFFER_SIZE_MEDIUM];

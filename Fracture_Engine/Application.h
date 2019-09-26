@@ -30,10 +30,21 @@ private:
 	const char*		app_name;
 	const char*		app_organization;
 
-	float			dt;
-	bool			vsync;
-	Timer			ms_timer;
-	int				max_fps = 0;
+	bool				vsync;
+	float				dt;
+	unsigned __int64	frame_count = 0;
+	float				fps = 0.0f;
+	float				avg_fps;
+	float				seconds_since_startup = 0.0f;
+	Timer				ms_timer;
+	uint				last_frame_ms;
+	Timer				startup_time;
+	Timer				last_sec_frame_time;
+	uint				last_sec_frame_count = 0;
+	uint				prev_last_sec_frame_count = 0;
+	uint				frames_on_last_update = 0;
+	int					max_fps = 0;
+	int					capped_ms = -1;
 
 	bool			close_app = false;
 

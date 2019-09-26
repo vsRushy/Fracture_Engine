@@ -40,9 +40,17 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	startup_time.Start();
+
 	/* Settings */
 	SetAppName("Fracture Engine");
 	SetAppOrganization("CITM-UPC");
+
+	SetMaxFPS(60);
+	if (GetMaxFPS() > 0)
+	{
+		capped_ms = 1000 / GetMaxFPS();
+	}
 
 	// Call Init() in all modules
 	for (std::list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end() && ret; item++)
@@ -65,6 +73,9 @@ bool Application::Init()
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
+	frame_count++;
+	last_sec_frame_count++;
+
 	dt = (float)ms_timer.Read() / 1000.0f;
 	ms_timer.Start();
 }
@@ -72,7 +83,23 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
 
+	avg_fps = (float)frame_count / startup_time.ReadSec();
+	seconds_since_startup = startup_time.ReadSec();
+	last_frame_ms = ms_timer.Read();
+	frames_on_last_update = prev_last_sec_frame_count;
+	fps = frames_on_last_update;
+
+	if (capped_ms > 0 && last_frame_ms < capped_ms)
+	{
+		SDL_Delay(capped_ms - last_frame_ms);
+	}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules

@@ -100,6 +100,8 @@ void Application::FinishUpdate()
 	{
 		SDL_Delay(capped_ms - last_frame_ms);
 	}
+
+	AddFPSToVec(fps);
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -191,6 +193,16 @@ int Application::GetMaxFPS() const
 bool Application::GetVSync() const
 {
 	return vsync;
+}
+
+float Application::GetFPS() const
+{
+	return fps;
+}
+
+void Application::AddFPSToVec(float fps)
+{
+	fps_vec.push_back(fps);
 }
 
 void Application::RequestBrowser(const char* link) const

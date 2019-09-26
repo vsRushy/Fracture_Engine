@@ -85,6 +85,14 @@ update_status ModuleUserInterface::Update(float dt)
 		ImGui::Text("Limit framerate: ");
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%i", App->GetMaxFPS());
+		
+		char title[CUSTOM_BUFFER_SIZE_MEDIUM];
+		sprintf_s(title, CUSTOM_BUFFER_SIZE_MEDIUM, "Framerate: %i", App->fps_vec[App->fps_vec.size() - 1]);
+		ImGui::PlotHistogram("##Framerate", &App->fps_vec[0], App->fps_vec.size(), 0, title, 0.0f, 144.0f, ImVec2(310, 100));
+		
+		ImGui::Text("Frames per second: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.2f", App->GetFPS());
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{

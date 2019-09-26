@@ -48,9 +48,6 @@ private:
 
 	bool			close_app = false;
 
-	std::vector<float> fps_vec;
-	std::vector<float> ms_vec;
-
 public:
 	Application();
 	~Application();
@@ -74,7 +71,14 @@ public:
 	const char* GetAppOrganization() const;
 	int GetMaxFPS() const;
 	bool GetVSync() const;
+	float GetFPS() const;
 
+	void AddFPSToVec(float fps);
+
+public:
+	std::vector<float> fps_vec;
+	std::vector<float> ms_vec;
+	
 private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();

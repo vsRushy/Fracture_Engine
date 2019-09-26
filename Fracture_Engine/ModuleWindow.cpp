@@ -119,11 +119,13 @@ void ModuleWindow::SetWindowSize(const int& size)
 void ModuleWindow::SetWindowWidth(const int& width)
 {
 	window_width = width * GetWindowSize();
+	UpdateWindowSize();
 }
 
 void ModuleWindow::SetWindowHeight(const int& height)
 {
 	window_height = height * GetWindowSize();
+	UpdateWindowSize();
 }
 
 void ModuleWindow::SetWindowFullscreen(const bool& value)
@@ -229,4 +231,12 @@ int ModuleWindow::GetScreenMinWidth() const
 int ModuleWindow::GetScreenMinHeight() const
 {
 	return screen_min_height;
+}
+
+void ModuleWindow::UpdateWindowSize() const
+{
+	int w = GetWindowWidth();
+	int h = GetWindowHeight();
+	SDL_SetWindowSize(window, w, h);
+	App->renderer3D->OnResize(w, h);
 }

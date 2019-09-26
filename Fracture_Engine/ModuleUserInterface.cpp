@@ -244,12 +244,7 @@ void ModuleUserInterface::ShowConfigurationWindow()
 		{
 			App->window->SetWindowHeight(height);
 		}
-
-		/*ImGui::SliderInt("Brightness", &brightness, 0, 100);
-		ImGui::SliderInt("Width", &width, 100, SCREEN_WIDTH);
-		ImGui::SliderInt("Height", &height, 100, SCREEN_HEIGHT);
-		ImGui::Separator();
-
+		/*
 		if (ImGui::Checkbox("Fullscreen", &fullscreen));
 		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Restart to apply");
 		ImGui::SameLine();

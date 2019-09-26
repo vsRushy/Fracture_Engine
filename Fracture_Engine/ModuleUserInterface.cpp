@@ -234,6 +234,16 @@ void ModuleUserInterface::ShowConfigurationWindow()
 		{
 			App->window->SetWindowBrightness(brightness);
 		}
+		int width = App->window->GetWindowWidth();
+		if (ImGui::SliderInt("Width", &width, App->window->GetScreenMinWidth(), App->window->GetScreenMaxWidth()))
+		{
+			App->window->SetWindowWidth(width);
+		}
+		int height = App->window->GetWindowHeight();
+		if (ImGui::SliderInt("Height", &height, App->window->GetScreenMinHeight(), App->window->GetScreenMaxHeight()))
+		{
+			App->window->SetWindowHeight(height);
+		}
 
 		/*ImGui::SliderInt("Brightness", &brightness, 0, 100);
 		ImGui::SliderInt("Width", &width, 100, SCREEN_WIDTH);

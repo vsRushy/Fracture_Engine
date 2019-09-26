@@ -27,6 +27,10 @@ public:
 	void SetWindowResizable(const bool& value);
 	void SetWindowBorderless(const bool& value);
 	void SetWindowFullScreenDesktop(const bool& value);
+	void SetScreenMaxWidth(const int& max_width);
+	void SetScreenMaxHeight(const int& max_height);
+	void SetScreenMinWidth(const int& min_width);
+	void SetScreenMinHeight(const int& min_height);
 
 	const char* GetTitle() const;
 	float GetWindowBrightness() const;
@@ -37,6 +41,10 @@ public:
 	bool GetWindowResizable() const;
 	bool GetWindowBorderless() const;
 	bool GetWindowFullScreenDesktop() const;
+	int GetScreenMaxWidth() const;
+	int GetScreenMaxHeight() const;
+	int GetScreenMinWidth() const;
+	int GetScreenMinHeight() const;
 
 public:
 	//The window we'll be rendering to
@@ -54,6 +62,10 @@ private:
 	bool window_resizable;
 	bool window_borderless;
 	bool window_fullscreen_desktop;
+	int screen_max_width;
+	int screen_max_height;
+	int screen_min_width;
+	int screen_min_height;
 };
 
 #endif /* __MODULE_WINDOW_H__ */

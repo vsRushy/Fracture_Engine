@@ -29,12 +29,16 @@ bool ModuleWindow::Init()
 		//Create window and window configuration
 		SetTitle(App->GetAppName());
 		SetWindowSize(1);
-		SetWindowWidth(1280 * GetWindowSize());
-		SetWindowHeight(1024 * GetWindowSize());
+		SetWindowWidth(1280);
+		SetWindowHeight(1024);
 		SetWindowFullscreen(false);
 		SetWindowResizable(true);
 		SetWindowBorderless(false);
 		SetWindowFullScreenDesktop(false);
+		SetScreenMaxWidth(1280);
+		SetScreenMaxHeight(1024);
+		SetScreenMinWidth(100);
+		SetScreenMinHeight(100);
 
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
@@ -114,12 +118,12 @@ void ModuleWindow::SetWindowSize(const int& size)
 
 void ModuleWindow::SetWindowWidth(const int& width)
 {
-	window_width = width;
+	window_width = width * GetWindowSize();
 }
 
 void ModuleWindow::SetWindowHeight(const int& height)
 {
-	window_height = height;
+	window_height = height * GetWindowSize();
 }
 
 void ModuleWindow::SetWindowFullscreen(const bool& value)
@@ -140,6 +144,26 @@ void ModuleWindow::SetWindowBorderless(const bool& value)
 void ModuleWindow::SetWindowFullScreenDesktop(const bool& value)
 {
 	window_fullscreen_desktop = value;
+}
+
+void ModuleWindow::SetScreenMaxWidth(const int& max_width)
+{
+	screen_max_width = max_width;
+}
+
+void ModuleWindow::SetScreenMaxHeight(const int& max_height)
+{
+	screen_max_height = max_height;
+}
+
+void ModuleWindow::SetScreenMinWidth(const int& min_width)
+{
+	screen_min_width = min_width;
+}
+
+void ModuleWindow::SetScreenMinHeight(const int& min_height)
+{
+	screen_min_height = min_height;
 }
 
 const char* ModuleWindow::GetTitle() const
@@ -185,4 +209,24 @@ bool ModuleWindow::GetWindowBorderless() const
 bool ModuleWindow::GetWindowFullScreenDesktop() const
 {
 	return window_fullscreen_desktop;
+}
+
+int ModuleWindow::GetScreenMaxWidth() const
+{
+	return screen_max_width;
+}
+
+int ModuleWindow::GetScreenMaxHeight() const
+{
+	return screen_max_height;
+}
+
+int ModuleWindow::GetScreenMinWidth() const
+{
+	return screen_min_width;
+}
+
+int ModuleWindow::GetScreenMinHeight() const
+{
+	return screen_min_height;
 }

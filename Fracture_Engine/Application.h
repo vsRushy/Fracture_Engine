@@ -90,4 +90,5 @@ private:
 	void FinishUpdate();
 };
 
+extern Application* App;
 #endif /* __APPLICATION_H__ */

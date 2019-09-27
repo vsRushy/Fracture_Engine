@@ -37,7 +37,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	if (f.Intersects(s))
 	{
-		LOG("INTERSECTION");
+		//LOG("INTERSECTION");
 	}
 
 	return UPDATE_CONTINUE;

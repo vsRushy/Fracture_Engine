@@ -18,5 +18,6 @@ void log(const char file[], int line, const char* format, ...)
 	OutputDebugString(tmp_string2);
 	
 	sprintf_s(tmp_string2, 4096, "\n%s", tmp_string);
-	// TOFIX App->Log(tmp_string2); extern ?
+	/*if(App != nullptr)
+		App->Log(tmp_string2);*/
 }

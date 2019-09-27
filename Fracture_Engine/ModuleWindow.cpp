@@ -150,9 +150,9 @@ void ModuleWindow::SetWindowBorderless(const bool& value)
 {
 	window_borderless = value;
 	if (value)
-		SDL_SetWindowBordered(window, SDL_TRUE);
-	else
 		SDL_SetWindowBordered(window, SDL_FALSE);
+	else
+		SDL_SetWindowBordered(window, SDL_TRUE);
 }
 
 void ModuleWindow::SetWindowFullScreenDesktop(const bool& value)

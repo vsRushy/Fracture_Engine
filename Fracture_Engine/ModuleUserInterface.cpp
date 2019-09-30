@@ -272,6 +272,28 @@ void ModuleUserInterface::ShowConfigurationWindow()
 			App->window->SetWindowFullScreenDesktop(fullscreen_desktop);
 		}
 	}
+	if (ImGui::CollapsingHeader("Input"))
+	{
+		ImGui::Text("Mouse position: ");
+		ImGui::SameLine();
+		ImGui::Text("X ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%i", App->input->GetMouseX());
+		ImGui::SameLine();
+		ImGui::Text("Y ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%i", App->input->GetMouseY());
+
+		ImGui::Text("Mouse motion: ");
+		ImGui::SameLine();
+		ImGui::Text("X ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%i", App->input->GetMouseXMotion());
+		ImGui::SameLine();
+		ImGui::Text("Y ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%i", App->input->GetMouseYMotion());
+	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
 		SDL_version compiled;

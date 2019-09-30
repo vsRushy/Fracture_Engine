@@ -18,6 +18,6 @@ void log(const char file[], int line, const char* format, ...)
 	OutputDebugString(tmp_string2);
 	
 	sprintf_s(tmp_string2, 4096, "\n%s", tmp_string);
-	/*if(App != nullptr)
-		App->Log(tmp_string2);*/
+	if(App != nullptr && App->user_interface != nullptr)
+		App->Log(tmp_string2);
 }

@@ -32,13 +32,5 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Sphere s({ 0.0f, 0.0f, 0.0f }, 4.0f);
-	Sphere f({ 0.0f, 0.0f, 0.0f }, 7.0f);
-
-	if (f.Intersects(s))
-	{
-		//LOG("INTERSECTION");
-	}
-
 	return UPDATE_CONTINUE;
 }

@@ -58,7 +58,7 @@ public:
 	bool CleanUp();
 
 public:
-	void Log(const char* text_log);
+	void Log(LOG_TYPE type, const char* text_log);
 	void CloseApplication();
 	void RequestBrowser(const char* link) const;
 	void CapMS();

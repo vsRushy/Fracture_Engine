@@ -15,9 +15,9 @@ enum LOG_TYPE
 	LOG_ERROR
 };
 
-#define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
+#define LOG(type, format, ...) log(type, __FILE__, __LINE__, format, __VA_ARGS__);
 
-void log(const char file[], int line, const char* format, ...);
+void log(LOG_TYPE type, const char file[], int line, const char* format, ...);
 
 #define CAP(n) ((n <= 0.0f) ? n = 0.0f : (n >= 1.0f) ? n = 1.0f : n = n)
 

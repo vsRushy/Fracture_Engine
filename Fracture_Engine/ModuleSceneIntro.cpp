@@ -12,16 +12,11 @@ ModuleSceneIntro::~ModuleSceneIntro()
 // Load assets
 bool ModuleSceneIntro::Start()
 {
-	LOG("Loading Intro assets");
+	LOG(LOG_INFORMATION, "Loading Intro assets");
 	bool ret = true;
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
-
-	for (int i = 0; i < 100; i++)
-	{
-		LOG("LOGGINGGGG test");
-	}
 
 	return ret;
 }
@@ -29,7 +24,7 @@ bool ModuleSceneIntro::Start()
 // Load assets
 bool ModuleSceneIntro::CleanUp()
 {
-	LOG("Unloading Intro scene");
+	LOG(LOG_INFORMATION, "Unloading Intro scene");
 
 	return true;
 }

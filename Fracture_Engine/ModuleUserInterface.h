@@ -20,7 +20,7 @@ public:
 	bool CleanUp();
 
 public:
-	void LogToConsole(const char* text_log);
+	void LogToConsole(LOG_TYPE type, const char* text_log);
 	bool scroll_down_console = false;
 
 private:
@@ -37,7 +37,7 @@ private:
 	static bool show_console_window;
 
 private:
-	std::list<const char*> console_logs;
+	std::list<std::pair<LOG_TYPE, const char*>> console_logs;
 };
 
 #endif /* __MODULE_USER_INTERFACE_H__ */

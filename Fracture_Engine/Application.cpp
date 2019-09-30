@@ -59,7 +59,7 @@ bool Application::Init()
 	}
 
 	// After all Init calls we call Start() in all modules
-	LOG("Application Start --------------");
+	LOG(LOG_INFORMATION, "Application Start --------------");
 	
 	for (std::list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end() && ret; item++)
 	{
@@ -153,9 +153,9 @@ bool Application::CleanUp()
 	return ret;
 }
 
-void Application::Log(const char* text_log)
+void Application::Log(LOG_TYPE type, const char* text_log)
 {
-	user_interface->LogToConsole(text_log);
+	user_interface->LogToConsole(type, text_log);
 }
 
 void Application::CloseApplication()

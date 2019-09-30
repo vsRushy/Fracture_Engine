@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "Application.h"
 
-void log(const char file[], int line, const char* format, ...)
+void log(LOG_TYPE type, const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];
 	static char tmp_string2[4096];
@@ -16,8 +16,10 @@ void log(const char file[], int line, const char* format, ...)
 	va_end(ap);
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
-	
-	sprintf_s(tmp_string2, 4096, "\n%s", tmp_string);
-	if(App != nullptr && App->user_interface != nullptr)
-		App->Log(format);
+
+	if (App != nullptr && App->user_interface != nullptr)
+	{
+		sprintf_s(tmp_string2, 4096, "\n%s", tmp_string);
+		App->Log(type, tmp_string2);
+	}
 }

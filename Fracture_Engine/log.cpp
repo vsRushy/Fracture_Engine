@@ -19,5 +19,5 @@ void log(const char file[], int line, const char* format, ...)
 	
 	sprintf_s(tmp_string2, 4096, "\n%s", tmp_string);
 	if(App != nullptr && App->user_interface != nullptr)
-		App->Log(tmp_string2);
+		App->Log(format);
 }

@@ -1,6 +1,8 @@
 #ifndef __MODULE_USER_INTERFACE_H__
 #define __MODULE_USER_INTERFACE_H__
 
+#include <list>
+
 #include "Module.h"
 #include "Globals.h"
 #include "ImGui/imgui.h"
@@ -35,7 +37,7 @@ private:
 	static bool show_console_window;
 
 private:
-	ImGuiTextBuffer text_buffer;
+	std::list<const char*> console_logs;
 };
 
 #endif /* __MODULE_USER_INTERFACE_H__ */

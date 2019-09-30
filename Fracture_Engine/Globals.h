@@ -8,6 +8,13 @@
 #include <windows.h>
 #include <stdio.h>
 
+enum LOG_TYPE
+{
+	LOG_INFORMATION,
+	LOG_WARNING,
+	LOG_ERROR
+};
+
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 
 void log(const char file[], int line, const char* format, ...);

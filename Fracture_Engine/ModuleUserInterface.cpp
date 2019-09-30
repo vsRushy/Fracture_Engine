@@ -92,7 +92,7 @@ update_status ModuleUserInterface::PostUpdate(float dt)
 
 bool ModuleUserInterface::CleanUp()
 {
-	text_buffer.clear();
+	console_logs.clear();
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
@@ -103,7 +103,7 @@ bool ModuleUserInterface::CleanUp()
 
 void ModuleUserInterface::LogToConsole(const char* text_log)
 {
-	text_buffer.appendf(text_log);
+	console_logs.push_back(text_log);
 	scroll_down_console = true;
 }
 
@@ -309,7 +309,13 @@ void ModuleUserInterface::ShowConfigurationWindow()
 void ModuleUserInterface::ShowConsoleWindow()
 {
 	ImGui::Begin("Console");
-	ImGui::TextUnformatted(text_buffer.begin());
+
+	for (std::list<const char*>::iterator item = console_logs.begin(); item != console_logs.end(); item++)
+	{
+		ImGui::TextUnformatted(*item);
+	}
+
+	//ImGui::TextUnformatted(text_buffer.begin());
 	if(scroll_down_console)
 		ImGui::SetScrollHereY(1.0f);
 

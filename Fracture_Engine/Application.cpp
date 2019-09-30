@@ -2,12 +2,12 @@
 
 Application::Application()
 {
-	window = new ModuleWindow(this);
-	input = new ModuleInput(this);
-	scene_intro = new ModuleSceneIntro(this);
-	user_interface = new ModuleUserInterface(this);
-	renderer3D = new ModuleRenderer3D(this);
-	camera = new ModuleCamera3D(this);
+	window = new ModuleWindow();
+	input = new ModuleInput();
+	scene_intro = new ModuleSceneIntro();
+	user_interface = new ModuleUserInterface();
+	renderer3D = new ModuleRenderer3D();
+	camera = new ModuleCamera3D();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order

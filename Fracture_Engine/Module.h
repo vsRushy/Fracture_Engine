@@ -9,9 +9,7 @@ private :
 	bool enabled;
 
 public:
-	Application* App;
-
-	Module(Application* parent, bool start_enabled = true) : App(parent)
+	Module(bool start_enabled = true) : enabled(start_enabled)
 	{}
 
 	virtual ~Module()
@@ -45,6 +43,26 @@ public:
 	virtual bool CleanUp() 
 	{ 
 		return true; 
+	}
+
+	bool IsEnabled() const { return enabled; }
+
+	void Enable()
+	{
+		if (enabled == false)
+		{
+			enabled = true;
+			Start();
+		}
+	}
+
+	void Disable()
+	{
+		if (enabled == true)
+		{
+			enabled = false;
+			CleanUp();
+		}
 	}
 };
 

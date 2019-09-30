@@ -15,7 +15,7 @@ bool ModuleUserInterface::show_about_window = false;
 bool ModuleUserInterface::show_configuration_window = false;
 bool ModuleUserInterface::show_console_window = false;
 
-ModuleUserInterface::ModuleUserInterface(Application* app, bool start_enabled) :  Module(app, start_enabled)
+ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_enabled)
 {
 	
 }
@@ -92,6 +92,8 @@ update_status ModuleUserInterface::PostUpdate(float dt)
 
 bool ModuleUserInterface::CleanUp()
 {
+	text_buffer.clear();
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();

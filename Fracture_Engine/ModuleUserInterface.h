@@ -8,7 +8,7 @@
 class ModuleUserInterface : public Module
 {
 public:
-	ModuleUserInterface(Application* app, bool start_enabled = true);
+	ModuleUserInterface(bool start_enabled = true);
 	~ModuleUserInterface();
 
 	bool Start();

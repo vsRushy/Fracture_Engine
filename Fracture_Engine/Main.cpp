@@ -43,7 +43,7 @@ int main(int argc, char ** argv)
 			}
 			else
 			{
-				LOG("Starting application '%s'...", App->GetAppName());
+				LOG("Started application '%s'...", App->GetAppName());
 				state = MAIN_UPDATE;
 				LOG("-------------- Application Update --------------");
 			}

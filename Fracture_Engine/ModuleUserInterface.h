@@ -19,6 +19,7 @@ public:
 
 public:
 	void LogToConsole(const char* text_log);
+	bool scroll_down_console = false;
 
 private:
 	void ShowMainMenuBarWindow();

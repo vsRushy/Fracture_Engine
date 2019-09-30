@@ -104,6 +104,7 @@ bool ModuleUserInterface::CleanUp()
 void ModuleUserInterface::LogToConsole(const char* text_log)
 {
 	text_buffer.appendf(text_log);
+	scroll_down_console = true;
 }
 
 void ModuleUserInterface::ShowMainMenuBarWindow()
@@ -309,6 +310,9 @@ void ModuleUserInterface::ShowConsoleWindow()
 {
 	ImGui::Begin("Console");
 	ImGui::TextUnformatted(text_buffer.begin());
-	ImGui::SetScrollHere(1.0f);
+	if(scroll_down_console)
+		ImGui::SetScrollHereY(1.0f);
+
+	scroll_down_console = false;
 	ImGui::End();
 }

@@ -1,6 +1,8 @@
 #ifndef __APPLICATION_H__
 #define __APPLICATION_H__
 
+#include "JSON/parson.h"
+
 #include <list>
 #include <vector>
 
@@ -49,6 +51,9 @@ private:
 
 	bool			close_app = false;
 
+private:
+	JSON_Object* configuration = nullptr;
+
 public:
 	Application();
 	~Application();
@@ -88,6 +93,9 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+
+	JSON_Object* LoadJSONFile(const char* path) const;
+	void LoadConfiguration();
 };
 
 extern Application* App;

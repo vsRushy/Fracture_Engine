@@ -146,6 +146,10 @@ void ModuleUserInterface::ShowMainMenuBarWindow()
 			{
 				App->RequestBrowser("https://github.com/vsRushy/Fracture_Engine/");
 			}
+			if (ImGui::MenuItem("Report a bug"))
+			{
+				App->RequestBrowser("https://github.com/vsRushy/Fracture_Engine/issues/");
+			}
 			ImGui::EndMenu();
 		}
 

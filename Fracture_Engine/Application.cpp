@@ -34,6 +34,10 @@ Application::~Application()
 	{
 		delete *item;
 	}
+
+	list_modules.clear();
+
+	json_value_free(json_object_get_value(configuration, "Configuration/Configuration.json"));
 }
 
 bool Application::Init()
@@ -42,15 +46,18 @@ bool Application::Init()
 
 	startup_time.Start();
 
+	/* Load JSON configuration file */
+	configuration = LoadJSONFile("Configuration/Configuration.json");
+	if (configuration != nullptr)
+	{
+		/* Settings */
+		LoadConfiguration();
+	}
+
 	/* Set fps and ms vectors capacity */
 	fps_vec.resize(120);
 	ms_vec.resize(120);
 
-	/* Settings */
-	SetAppName("Fracture Engine");
-	SetAppOrganization("CITM-UPC");
-
-	SetMaxFPS(60);
 
 	// Call Init() in all modules
 	for (std::list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end() && ret; item++)
@@ -105,6 +112,24 @@ void Application::FinishUpdate()
 
 	AddFPSToVec(fps);
 	AddMSToVec(milliseconds);
+}
+
+JSON_Object* Application::LoadJSONFile(const char* path) const
+{
+	JSON_Value* value = json_parse_file(path);
+	JSON_Object* object = json_value_get_object(value);
+	if (value == nullptr || object == nullptr)
+		LOG(LOG_ERROR, "Error loading file %s", path);
+	
+	return object;
+}
+
+void Application::LoadConfiguration()
+{
+	SetAppName(json_object_dotget_string(configuration, "Engine.Application.Name"));
+	SetAppOrganization(json_object_dotget_string(configuration, "Engine.Application.Organization"));
+	SetMaxFPS((int)json_object_dotget_number(configuration, "Engine.Application.Max_framerate"));
+	SetVSync((bool)json_object_dotget_boolean(configuration, "Engine.Application.V_sync"));
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules

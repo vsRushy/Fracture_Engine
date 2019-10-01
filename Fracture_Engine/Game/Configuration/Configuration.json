@@ -1,11 +1,11 @@
 {
-    "App":
+    "Engine":
     {
         "Application":
         {
             "Name": "Fracture Engine",
             "Organization": "CITM - UPC",
-            "Max_framerate": "60",
+            "Max_framerate": 60,
             "V_sync": true
         },
 

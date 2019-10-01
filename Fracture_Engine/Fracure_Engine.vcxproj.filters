@@ -303,10 +303,7 @@
     <ClInclude Include="PCG\include\pcg_uint128.hpp">
       <Filter>Sources\Dependencies\PCG</Filter>
     </ClInclude>
-    <ClInclude Include="JSON\json.hpp">
-      <Filter>Sources\Dependencies\JSON</Filter>
-    </ClInclude>
-    <ClInclude Include="JSON\json_fwd.hpp">
+    <ClInclude Include="JSON\parson.h">
       <Filter>Sources\Dependencies\JSON</Filter>
     </ClInclude>
   </ItemGroup>
@@ -463,6 +460,9 @@
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp">
       <Filter>Sources\Dependencies\MathGeoLib\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="JSON\parson.cpp">
+      <Filter>Sources\Dependencies\JSON</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,3 +1,5 @@
+#include "JSON/parson.h"
+
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
@@ -28,17 +30,17 @@ bool ModuleWindow::Init()
 	{
 		//Create window and window configuration
 		SetTitle(App->GetAppName());
-		SetWindowSize(1);
-		SetWindowWidth(1280);
-		SetWindowHeight(1024);
-		SetWindowFullscreen(false);
-		SetWindowResizable(true);
-		SetWindowBorderless(false);
-		SetWindowFullScreenDesktop(false);
-		SetScreenMaxWidth(1280);
-		SetScreenMaxHeight(1024);
-		SetScreenMinWidth(100);
-		SetScreenMinHeight(100);
+		SetWindowSize(window_size);
+		SetWindowWidth(window_width);
+		SetWindowHeight(window_height);
+		SetWindowFullscreen(window_fullscreen);
+		SetWindowResizable(window_resizable);
+		SetWindowBorderless(window_borderless);
+		SetWindowFullScreenDesktop(window_fullscreen_desktop);
+		SetScreenMaxWidth(screen_max_width);
+		SetScreenMaxHeight(screen_max_height);
+		SetScreenMinWidth(screen_min_width);
+		SetScreenMinHeight(screen_min_height);
 
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
@@ -97,7 +99,23 @@ bool ModuleWindow::CleanUp()
 
 	//Quit SDL subsystems
 	SDL_Quit();
+
 	return true;
+}
+
+void ModuleWindow::LoadConfiguration(JSON_Object* configuration)
+{
+	window_size = (int)json_object_dotget_number(configuration, "Engine.Window.Size");
+	window_width = (int)json_object_dotget_number(configuration, "Engine.Window.Width");
+	window_height = (int)json_object_dotget_number(configuration, "Engine.Window.Height");
+	window_fullscreen = json_object_dotget_boolean(configuration, "Engine.Window.Fullscreen");
+	window_resizable = json_object_dotget_boolean(configuration, "Engine.Window.Resizable");
+	window_borderless = json_object_dotget_boolean(configuration, "Engine.Window.Borderless");
+	window_fullscreen_desktop = json_object_dotget_boolean(configuration, "Engine.Window.Fullscreen_desktop");
+	screen_max_width = (int)json_object_dotget_number(configuration, "Engine.Window.Max_width");
+	screen_max_height = (int)json_object_dotget_number(configuration, "Engine.Window.Max_height");
+	screen_min_width = (int)json_object_dotget_number(configuration, "Engine.Window.Min_width");
+	screen_min_height = (int)json_object_dotget_number(configuration, "Engine.Window.Min_height");
 }
 
 void ModuleWindow::SetTitle(const char* title)

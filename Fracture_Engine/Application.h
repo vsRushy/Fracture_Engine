@@ -95,7 +95,9 @@ private:
 	void FinishUpdate();
 
 	JSON_Object* LoadJSONFile(const char* path) const;
-	void LoadConfiguration();
+	/* This function loads Application settings and also iterates every module in order to load more settings
+	   specifically from each module */
+	void LoadAllConfiguration();
 };
 
 extern Application* App;

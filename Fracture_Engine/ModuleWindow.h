@@ -17,6 +17,8 @@ public:
 	bool Init();
 	bool CleanUp();
 
+	void LoadConfiguration(JSON_Object* configuration) override;
+
 public:
 	void SetTitle(const char* title);
 	void SetWindowBrightness(const float& brightness) const;

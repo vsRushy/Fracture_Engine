@@ -1,6 +1,8 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
+#include "JSON/parson.h"
+
 class Application;
 
 class Module
@@ -43,6 +45,11 @@ public:
 	virtual bool CleanUp() 
 	{ 
 		return true; 
+	}
+
+	virtual void LoadConfiguration(JSON_Object* configuration)
+	{
+
 	}
 
 	bool IsEnabled() const { return enabled; }

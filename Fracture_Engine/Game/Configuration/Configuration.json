@@ -11,7 +11,17 @@
 
         "Window":
         {
-
+          "Size": 1,
+          "Width": 1280,
+          "Height": 1024,
+          "Fullscreen": false,
+          "Resizable": true,
+          "Borderless": false,
+          "Fullscreen_desktop": false,
+          "Max_width": 1280,
+          "Max_height": 1024,
+          "Min_width": 100,
+          "Min_height": 100
         }
     }
 }

@@ -51,13 +51,12 @@ bool Application::Init()
 	if (configuration != nullptr)
 	{
 		/* Settings */
-		LoadConfiguration();
+		LoadAllConfiguration();
 	}
 
 	/* Set fps and ms vectors capacity */
 	fps_vec.resize(120);
 	ms_vec.resize(120);
-
 
 	// Call Init() in all modules
 	for (std::list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end() && ret; item++)
@@ -124,12 +123,19 @@ JSON_Object* Application::LoadJSONFile(const char* path) const
 	return object;
 }
 
-void Application::LoadConfiguration()
+void Application::LoadAllConfiguration()
 {
+	/* Firstly, we set app settings */
 	SetAppName(json_object_dotget_string(configuration, "Engine.Application.Name"));
 	SetAppOrganization(json_object_dotget_string(configuration, "Engine.Application.Organization"));
 	SetMaxFPS((int)json_object_dotget_number(configuration, "Engine.Application.Max_framerate"));
 	SetVSync((bool)json_object_dotget_boolean(configuration, "Engine.Application.V_sync"));
+
+	/* Set each module settings */
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+	{
+		(*item)->LoadConfiguration(configuration);
+	}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules

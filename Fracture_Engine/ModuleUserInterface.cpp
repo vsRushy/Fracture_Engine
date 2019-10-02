@@ -276,6 +276,14 @@ void ModuleUserInterface::ShowConfigurationWindow()
 			App->window->SetWindowFullScreenDesktop(fullscreen_desktop);
 		}
 	}
+	if (ImGui::CollapsingHeader("Renderer"))
+	{
+		bool vsync = App->renderer3D->GetVSync();
+		if (ImGui::Checkbox("VSync", &vsync))
+		{
+			App->renderer3D->SetVSync(vsync);
+		}
+	}
 	if (ImGui::CollapsingHeader("Input"))
 	{
 		ImGui::Text("Mouse position: ");

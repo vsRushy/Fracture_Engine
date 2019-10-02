@@ -16,6 +16,7 @@ public:
 
 public:
 	uint vbo_id;
+	uint vao_id;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

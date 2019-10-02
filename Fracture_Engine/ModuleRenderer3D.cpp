@@ -39,17 +39,7 @@ bool ModuleRenderer3D::Init()
 	
 	if(ret)
 	{
-		//Use Vsync
-		if (App->GetVSync())
-		{
-			if(SDL_GL_SetSwapInterval(1) < 0)
-				LOG(LOG_ERROR, "Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
-		}
-		else
-		{
-			if (SDL_GL_SetSwapInterval(0) < 0)
-				LOG(LOG_ERROR, "Warning: Unable to unset VSync! SDL Error: %s\n", SDL_GetError());
-		}
+		SetVSync(vsync);
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
@@ -152,6 +142,11 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
+void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)
+{
+	vsync = json_object_dotget_boolean(configuration, "Engine.Renderer.V_sync");
+}
+
 void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -163,4 +158,25 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void ModuleRenderer3D::SetVSync(const bool& value)
+{
+	vsync = value;
+
+	if (GetVSync())
+	{
+		if (SDL_GL_SetSwapInterval(1) < 0)
+			LOG(LOG_ERROR, "Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+	}
+	else
+	{
+		if (SDL_GL_SetSwapInterval(0) < 0)
+			LOG(LOG_ERROR, "Warning: Unable to unset VSync! SDL Error: %s\n", SDL_GetError());
+	}
+}
+
+bool ModuleRenderer3D::GetVSync() const
+{
+	return vsync;
 }

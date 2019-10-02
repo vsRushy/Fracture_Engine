@@ -129,7 +129,6 @@ void Application::LoadAllConfiguration()
 	SetAppName(json_object_dotget_string(configuration, "Engine.Application.Name"));
 	SetAppOrganization(json_object_dotget_string(configuration, "Engine.Application.Organization"));
 	SetMaxFPS((int)json_object_dotget_number(configuration, "Engine.Application.Max_framerate"));
-	SetVSync((bool)json_object_dotget_boolean(configuration, "Engine.Application.V_sync"));
 
 	/* Set each module settings */
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
@@ -210,11 +209,6 @@ void Application::SetMaxFPS(const int& m_fps)
 	CapMS();
 }
 
-void Application::SetVSync(const bool& value)
-{
-	vsync = value;
-}
-
 const char* Application::GetAppName() const
 {
 	return app_name;
@@ -228,11 +222,6 @@ const char* Application::GetAppOrganization() const
 int Application::GetMaxFPS() const
 {
 	return max_fps;
-}
-
-bool Application::GetVSync() const
-{
-	return vsync;
 }
 
 float Application::GetFPS() const

@@ -5,11 +5,10 @@
         {
             "Name": "Fracture Engine",
             "Organization": "CITM - UPC",
-            "Max_framerate": 60,
-            "V_sync": true
+            "Max_framerate": 60
         },
 
-        "Window":
+        "Window": 
         {
           "Size": 1,
           "Width": 1280,
@@ -22,6 +21,11 @@
           "Max_height": 1024,
           "Min_width": 100,
           "Min_height": 100
+        },
+
+        "Renderer": 
+        {
+          "V_sync": true
         }
     }
 }

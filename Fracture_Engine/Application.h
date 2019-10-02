@@ -32,7 +32,6 @@ private:
 	const char*		app_name;
 	const char*		app_organization;
 
-	bool				vsync;
 	float				dt;
 	unsigned __int64	frame_count = 0;
 	float				fps = 0.0f;
@@ -73,12 +72,10 @@ public:
 	void SetAppName(const char* name);
 	void SetAppOrganization(const char* organization);
 	void SetMaxFPS(const int& m_fps);
-	void SetVSync(const bool& value);
 
 	const char* GetAppName() const;
 	const char* GetAppOrganization() const;
 	int GetMaxFPS() const;
-	bool GetVSync() const;
 	float GetFPS() const;
 	float GetMS() const;
 

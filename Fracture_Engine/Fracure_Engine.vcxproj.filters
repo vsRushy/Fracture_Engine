@@ -52,6 +52,9 @@
     <Filter Include="Sources\Configuration">
       <UniqueIdentifier>{a7cce427-d3e4-4e5d-8def-d86088e84e9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Dependencies\Par">
+      <UniqueIdentifier>{1fb39760-4a70-4520-8923-cda0a789652a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -308,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="JSON\parson.h">
       <Filter>Sources\Dependencies\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Par\par_shapes.h">
+      <Filter>Sources\Dependencies\Par</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

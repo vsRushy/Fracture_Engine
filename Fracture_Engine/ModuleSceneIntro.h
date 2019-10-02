@@ -15,8 +15,10 @@ public:
 	bool CleanUp();
 
 public:
-	uint vbo_id;
-	uint vao_id;
+	uint vbo_id_1;
+
+	uint vbo_id_2;
+	uint ibo_id;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

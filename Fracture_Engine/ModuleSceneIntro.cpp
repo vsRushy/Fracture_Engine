@@ -97,7 +97,7 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glDisableVertexAttribArray(0);

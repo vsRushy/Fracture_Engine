@@ -15,7 +15,7 @@ public:
 	bool CleanUp();
 
 public:
-
+	uint vbo_id;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

@@ -15,6 +15,7 @@
 #include "ModuleUserInterface.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
+#include "ModuleImporter.h"
 
 class Application
 {
@@ -25,6 +26,7 @@ public:
 	ModuleUserInterface* user_interface;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
+	ModuleImporter* importer;
 
 private:
 	std::list<Module*> list_modules;

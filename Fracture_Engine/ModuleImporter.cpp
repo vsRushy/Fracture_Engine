@@ -42,15 +42,19 @@ void ModuleImporter::LoadModel(const char* full_path)
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
-		// copy vertices
 		for (int i = 0; i < scene->mNumMeshes; ++i)
 		{
 			Mesh m;
 			aiMesh* new_mesh = scene->mMeshes[i];
-			m.num_vertex = new_mesh->mNumVertices;
-			m.vertex = new float[m.num_vertex * 3];
-			memcpy(m.vertex, new_mesh->mVertices, sizeof(float) * m.num_vertex * 3);
-			//LOG(LOG_INFORMATION, "New mesh with %d vertices", m.num_vertices);
+
+			/* Copy vertices */
+			m.num_vertices = new_mesh->mNumVertices;
+			m.vertices = new float[m.num_vertices * 3];
+			memcpy(m.vertices, new_mesh->mVertices, sizeof(float) * m.num_vertices * 3);
+			LOG(LOG_INFORMATION, "New mesh with %d vertices", m.num_vertices);
+		
+			/* Copy indices */
+
 		}
 		aiReleaseImport(scene);
 	}

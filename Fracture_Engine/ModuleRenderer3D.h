@@ -26,7 +26,7 @@ public:
 
 	/* Draw functions ------------------ */
 	void DrawPrimitive(Primitive* primitive);
-	void DrawMesh(Mesh* mesh);
+	void DrawMesh(Mesh mesh);
 
 	void LoadConfiguration(JSON_Object* configuration) override;
 

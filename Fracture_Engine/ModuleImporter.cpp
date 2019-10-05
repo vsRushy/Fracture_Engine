@@ -78,9 +78,6 @@ void ModuleImporter::LoadModel(const char* full_path)
 			glGenBuffers(1, &(m.id_vertices));
 			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertices);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertices * 3, m.vertices, GL_STATIC_DRAW);
-
-			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
 			
 			/* IBO */
 			glGenBuffers(1, &m.id_indices);

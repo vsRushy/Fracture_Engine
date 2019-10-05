@@ -24,9 +24,9 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
+	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
 
-	App->importer->LoadModel("Assets/Models/warrior.FBX");
+	App->importer->LoadModel("Assets/Models/table3d.FBX");
 
 	return ret;
 }
@@ -81,7 +81,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	/* Draw meshes --------------------------- */
 	for (std::list<Mesh>::iterator item = meshes.begin(); item != meshes.end(); item++)
 	{
-		App->renderer3D->DrawMesh(&(*item));
+		App->renderer3D->DrawMesh(*item);
 	}
 
 	return UPDATE_CONTINUE;

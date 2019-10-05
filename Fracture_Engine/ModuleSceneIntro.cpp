@@ -4,7 +4,6 @@
 
 #include "Application.h"
 #include "ModuleSceneIntro.h"
-#include "Primitive.h"
 #include "P_Cube.h"
 #include "P_Sphere.h"
 #include "P_Plane.h"

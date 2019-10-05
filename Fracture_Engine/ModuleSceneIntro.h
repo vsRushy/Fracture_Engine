@@ -7,8 +7,7 @@
 
 #include "Module.h"
 #include "Globals.h"
-
-class Primitive;
+#include "Primitive.h"
 
 class ModuleSceneIntro : public Module
 {

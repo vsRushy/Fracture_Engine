@@ -3,6 +3,7 @@
 
 #include "Primitive.h"
 
+/* TOFIX. don't use par_shapes for plane */
 class P_Plane : public Primitive
 {
 public:

@@ -26,6 +26,8 @@ bool ModuleSceneIntro::Start()
 
 	CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
 
+	App->importer->LoadModel("Assets/Models/warrior.FBX");
+
 	return ret;
 }
 
@@ -77,9 +79,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	}
 
 	/* Draw meshes --------------------------- */
-	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
+	for (std::list<Mesh>::iterator item = meshes.begin(); item != meshes.end(); item++)
 	{
-		App->renderer3D->DrawMesh(*item);
+		App->renderer3D->DrawMesh(&(*item));
 	}
 
 	return UPDATE_CONTINUE;

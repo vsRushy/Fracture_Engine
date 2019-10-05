@@ -147,6 +147,9 @@ bool ModuleRenderer3D::CleanUp()
 
 void ModuleRenderer3D::DrawPrimitive(Primitive* primitive)
 {
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
+
 	glBindBuffer(GL_ARRAY_BUFFER, primitive->vbo_id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, primitive->ibo_id);
 
@@ -155,16 +158,12 @@ void ModuleRenderer3D::DrawPrimitive(Primitive* primitive)
 
 void ModuleRenderer3D::DrawMesh(Mesh* mesh)
 {
-	/* VBO */
-	glGenBuffers(1, &(mesh->id_vertices));
+	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
-
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
-
-	glDrawArrays(GL_TRIANGLES, mesh->num_vertices * 3, GL_UNSIGNED_INT);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glDrawElements(GL_TRIANGLES, mesh->num_indices * 3, GL_UNSIGNED_SHORT, NULL);
+	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)

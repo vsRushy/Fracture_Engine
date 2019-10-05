@@ -1,5 +1,8 @@
+#include "GL/glew.h"
+
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "ModuleSceneIntro.h"
 
 ModuleImporter::ModuleImporter(bool start_enabled) : Module(start_enabled)
 {
@@ -53,8 +56,38 @@ void ModuleImporter::LoadModel(const char* full_path)
 			memcpy(m.vertices, new_mesh->mVertices, sizeof(float) * m.num_vertices * 3);
 			LOG(LOG_INFORMATION, "New mesh with %d vertices", m.num_vertices);
 		
-			/* Copy indices */
+			/* Copy faces */
+			if (new_mesh->HasFaces())
+			{
+				m.num_indices = new_mesh->mNumFaces * 3;
+				m.indices = new uint[m.num_indices]; // assume each face is a triangle
+				for (uint i = 0; i < new_mesh->mNumFaces; ++i)
+				{
+					if (new_mesh->mFaces[i].mNumIndices != 3)
+					{
+						LOG(LOG_WARNING, "WARNING, geometry face with != 3 indices!");
+					}
+					else
+					{
+						memcpy(&m.indices[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
+					}
+				}
+			}
+
+			/* VBO */
+			glGenBuffers(1, &(m.id_vertices));
+			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertices);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertices * 3, m.vertices, GL_STATIC_DRAW);
+
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
 			
+			/* IBO */
+			glGenBuffers(1, &m.id_indices);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m.num_indices * 3, m.indices, GL_STATIC_DRAW);
+
+			App->scene_intro->meshes.push_back(m);
 		}
 		aiReleaseImport(scene);
 	}

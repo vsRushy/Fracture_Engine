@@ -13,6 +13,9 @@ P_Cube::P_Cube(const vec3& position) : Primitive(position)
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * shape->npoints * 3, shape->points, GL_STATIC_DRAW);
 	
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
+	
 	/* IBO */
 	glGenBuffers(1, &ibo_id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_id);

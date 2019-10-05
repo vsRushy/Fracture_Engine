@@ -54,7 +54,7 @@ void ModuleImporter::LoadModel(const char* full_path)
 			LOG(LOG_INFORMATION, "New mesh with %d vertices", m.num_vertices);
 		
 			/* Copy indices */
-
+			
 		}
 		aiReleaseImport(scene);
 	}

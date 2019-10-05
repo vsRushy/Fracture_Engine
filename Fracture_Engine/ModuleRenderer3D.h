@@ -7,9 +7,11 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
-#include "Primitive.h"
 
 #define MAX_LIGHTS 8
+
+class Primitive;
+class Mesh;
 
 class ModuleRenderer3D : public Module
 {
@@ -24,6 +26,7 @@ public:
 
 	/* Draw functions ------------------ */
 	void DrawPrimitive(Primitive* primitive);
+	void DrawMesh(Mesh* mesh);
 
 	void LoadConfiguration(JSON_Object* configuration) override;
 

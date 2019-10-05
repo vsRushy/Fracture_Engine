@@ -9,6 +9,8 @@
 #include "Globals.h"
 #include "Primitive.h"
 
+class Mesh;
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -23,6 +25,7 @@ public:
 
 public:
 	std::list<Primitive*> primitives;
+	std::list<Mesh*> meshes;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

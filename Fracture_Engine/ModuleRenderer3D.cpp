@@ -3,6 +3,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleImporter.h"
+#include "Primitive.h"
 
 #pragma comment (lib, "glu32.lib")    /* Link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* Link Microsoft OpenGL lib   */
@@ -145,12 +147,24 @@ bool ModuleRenderer3D::CleanUp()
 
 void ModuleRenderer3D::DrawPrimitive(Primitive* primitive)
 {
-	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, primitive->vbo_id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, primitive->ibo_id);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
 
 	glDrawElements(GL_TRIANGLES, primitive->shape->ntriangles * 3, GL_UNSIGNED_SHORT, nullptr);
+}
+
+void ModuleRenderer3D::DrawMesh(Mesh* mesh)
+{
+	/* VBO */
+	glGenBuffers(1, &(mesh->id_vertices));
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
+
+	glDrawArrays(GL_TRIANGLES, mesh->num_vertices * 3, GL_UNSIGNED_INT);
 }
 
 void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)

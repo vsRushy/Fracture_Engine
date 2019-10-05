@@ -4,6 +4,7 @@
 
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleImporter.h"
 #include "P_Cube.h"
 #include "P_Sphere.h"
 #include "P_Plane.h"
@@ -22,6 +23,8 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
+
+	CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
 
 	return ret;
 }
@@ -71,6 +74,12 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (std::list<Primitive*>::iterator item = primitives.begin(); item != primitives.end(); item++)
 	{
 		App->renderer3D->DrawPrimitive(*item);
+	}
+
+	/* Draw meshes --------------------------- */
+	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
+	{
+		App->renderer3D->DrawMesh(*item);
 	}
 
 	return UPDATE_CONTINUE;

@@ -24,10 +24,6 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	//CreatePrimitive({0.0f, 0.0f, 0.0f}, PRIMITIVE_TYPE::CUBE);
-	//CreatePrimitive({0.0f, 0.0f, 0.0f}, PRIMITIVE_TYPE::SPHERE);
-	//CreatePrimitive({0.0f, 0.0f, 0.0f}, PRIMITIVE_TYPE::PLANE);
-
 	return ret;
 }
 

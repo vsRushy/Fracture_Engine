@@ -145,15 +145,6 @@ bool ModuleRenderer3D::CleanUp()
 
 void ModuleRenderer3D::DrawPrimitive(Primitive* primitive)
 {
-	/*
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, primitive->vbo_id);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, primitive->ibo_id);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	glDrawElements(GL_TRIANGLES, primitive->shape->ntriangles * 3, GL_UNSIGNED_SHORT, NULL);
-	*/
-
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, primitive->vbo_id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, primitive->ibo_id);

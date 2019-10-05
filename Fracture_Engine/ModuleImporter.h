@@ -11,6 +11,17 @@
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
+struct Mesh
+{
+	uint id_vertex = 0; // unique vertex in VRAM
+	uint num_vertex = 0;
+	float* vertex = nullptr;
+
+	uint id_index = 0; // index in VRAM
+	uint num_index = 0;
+	uint* index = nullptr;
+};
+
 class ModuleImporter : public Module
 {
 public:
@@ -20,6 +31,8 @@ public:
 	bool Init();
 	update_status Update(float dt);
 	bool CleanUp();
+
+	void LoadModel(const char*);
 private:
 
 };

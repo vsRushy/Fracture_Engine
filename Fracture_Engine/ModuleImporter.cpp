@@ -1,7 +1,5 @@
 #include "Application.h"
 #include "ModuleImporter.h"
-#include "Mesh.h"
-//#include "Log"
 
 ModuleImporter::ModuleImporter(bool start_enabled) : Module(start_enabled)
 {
@@ -18,7 +16,8 @@ bool ModuleImporter::Init()
 
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
-	aiAttachLogStream(&stream);
+	aiAttachLogStream(&stream);
+
 	return ret;
 }
 

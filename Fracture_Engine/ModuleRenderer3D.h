@@ -7,6 +7,7 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
+#include "Primitive.h"
 
 #define MAX_LIGHTS 8
 
@@ -20,6 +21,9 @@ public:
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
+
+	/* Draw functions ------------------ */
+	void DrawPrimitive(Primitive* primitive);
 
 	void LoadConfiguration(JSON_Object* configuration) override;
 

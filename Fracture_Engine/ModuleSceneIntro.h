@@ -1,8 +1,13 @@
 #ifndef __MODULE_SCENE_INTRO_H__
 #define __MODULE_SCENE_INTRO_H__
 
+#include <list>
+
+#include "glmath.h"
+
 #include "Module.h"
 #include "Globals.h"
+#include "Primitive.h"
 
 class ModuleSceneIntro : public Module
 {
@@ -14,11 +19,10 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-public:
-	uint vbo_id_1;
+	void CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type);
 
-	uint vbo_id_2;
-	uint ibo_id;
+public:
+	std::list<Primitive*> primitives;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

@@ -55,6 +55,9 @@
     <Filter Include="Sources\Dependencies\Par">
       <UniqueIdentifier>{1fb39760-4a70-4520-8923-cda0a789652a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Primitives">
+      <UniqueIdentifier>{b4aa2d37-bc07-4338-b259-f7686bdf0266}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -312,11 +315,23 @@
     <ClInclude Include="JSON\parson.h">
       <Filter>Sources\Dependencies\JSON</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleImporter.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
     <ClInclude Include="Par\par_shapes.h">
       <Filter>Sources\Dependencies\Par</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleImporter.h">
-      <Filter>Sources\Modules</Filter>
+    <ClInclude Include="Primitive.h">
+      <Filter>Sources\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="P_Sphere.h">
+      <Filter>Sources\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="P_Plane.h">
+      <Filter>Sources\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="P_Cube.h">
+      <Filter>Sources\Primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -478,6 +493,21 @@
     </ClCompile>
     <ClCompile Include="ModuleImporter.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Par\par_shapes.cpp">
+      <Filter>Sources\Dependencies\Par</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>Sources\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="P_Sphere.cpp">
+      <Filter>Sources\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="P_Plane.cpp">
+      <Filter>Sources\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="P_Cube.cpp">
+      <Filter>Sources\Primitives</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

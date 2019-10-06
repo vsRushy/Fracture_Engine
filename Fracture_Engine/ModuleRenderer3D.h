@@ -33,15 +33,45 @@ public:
 	void OnResize(int width, int height);
 
 	void SetVSync(const bool& value);
+	void SetWireframeMode(const bool& value);
+	void SetDepthTest(const bool& value);
+	void SetCullFace(const bool& value);
+	void SetLighting(const bool& value);
+	void SetColorMaterial(const bool& value);
+	void SetTexture2D(const bool& value);
+	void SetBlend(const bool& value);
+	void SetFog(const bool& value);
+	void SetAlphaTest(const bool& value);
+
 	bool GetVSync() const;
+	bool GetWireframeMode() const;
+	bool GetDepthTest() const;
+	bool GetCullFace() const;
+	bool GetLighting() const;
+	bool GetColorMaterial() const;
+	bool GetTexture2D() const;
+	bool GetBlend() const;
+	bool GetFog() const;
+	bool GetAlphaTest() const;
 
 public:
 	bool vsync;
+
+	bool wireframe_mode;
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	bool gl_depth_test;
+	bool gl_cull_face;
+	bool gl_lighting;
+	bool gl_color_material;
+	bool gl_texture_2d;
+	bool gl_blend;
+	bool gl_fog;
+	bool gl_alpha_test;
 };
 
 #endif /* __MODULE_RENDERER_3D_H__ */

@@ -25,7 +25,18 @@
 
         "Renderer": 
         {
-          "V_sync": true
+          "V_sync": true,
+
+          "Wireframe_mode": false,
+          
+          "gl_depth_test": true,
+          "gl_cull_face": true,
+          "gl_lighting": true,
+          "gl_color_material": true,
+          "gl_texture_2d": false,
+          "gl_blend": true,
+          "gl_fog": false,
+          "gl_alpha_test": false
         },
 
         "Camera": 

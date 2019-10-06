@@ -26,8 +26,12 @@ public:
 
 	// ----------------
 	void SetCameraSpeed(const float& speed);
+	void SetMaxCameraSpeed(const float& max_speed);
+	void SetMinCameraSpeed(const float& min_speed);
 
 	float GetCameraSpeed() const;
+	float GetMaxCameraSpeed() const;
+	float GetMinCameraSpeed() const;
 
 private:
 	void CalculateViewMatrix();
@@ -39,6 +43,8 @@ private:
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 
 	float speed = 0.0f;
+	float max_speed = 0.0f;
+	float min_speed = 0.0f;
 };
 
 #endif /* __MODULE_CAMERA_3D_H__ */

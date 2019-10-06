@@ -30,7 +30,9 @@
 
         "Camera": 
         {
-          "Speed":  100
+          "Speed": 50,
+          "Max_speed": 100,
+          "Min_speed": 1
         }
     }
 }

@@ -23,7 +23,10 @@ bool ModuleCamera3D::Start()
 	LOG(LOG_INFORMATION, "Setting up the camera");
 	bool ret = true;
 
+	/* Settings */
 	SetCameraSpeed(speed);
+	SetMaxCameraSpeed(max_speed);
+	SetMinCameraSpeed(min_speed);
 
 	return ret;
 }
@@ -39,6 +42,8 @@ bool ModuleCamera3D::CleanUp()
 void ModuleCamera3D::LoadConfiguration(JSON_Object* configuration)
 {
 	speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Speed");
+	max_speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Max_speed");
+	min_speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Min_speed");
 }
 
 // -----------------------------------------------------------------
@@ -160,9 +165,29 @@ void ModuleCamera3D::SetCameraSpeed(const float& speed)
 	this->speed = speed;
 }
 
+void ModuleCamera3D::SetMaxCameraSpeed(const float& max_speed)
+{
+	this->max_speed = max_speed;
+}
+
+void ModuleCamera3D::SetMinCameraSpeed(const float& min_speed)
+{
+	this->min_speed = min_speed;
+}
+
 float ModuleCamera3D::GetCameraSpeed() const
 {
 	return speed;
+}
+
+float ModuleCamera3D::GetMaxCameraSpeed() const
+{
+	return max_speed;
+}
+
+float ModuleCamera3D::GetMinCameraSpeed() const
+{
+	return min_speed;
 }
 
 // -----------------------------------------------------------------

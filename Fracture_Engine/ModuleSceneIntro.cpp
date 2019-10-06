@@ -86,7 +86,7 @@ void ModuleSceneIntro::CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type)
 update_status ModuleSceneIntro::Update(float dt)
 {
 	/* Draw grid ----------------------------- */
-	DrawGrid(100, 5);
+	DrawGrid(100);
 
 	/* Draw primitives ----------------------- */
 	for (std::list<Primitive*>::iterator item = primitives.begin(); item != primitives.end(); item++)

@@ -306,6 +306,17 @@ void ModuleUserInterface::ShowConfigurationWindow()
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%i", App->input->GetMouseYMotion());
 	}
+	if (ImGui::CollapsingHeader("Camera"))
+	{
+		float speed = App->camera->GetCameraSpeed();
+		ImGui::Text("Speed: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.2f", speed);
+		if (ImGui::SliderFloat("Speed", &speed, App->camera->GetMinCameraSpeed(), App->camera->GetMaxCameraSpeed()))
+		{
+			App->camera->SetCameraSpeed(speed);
+		}
+	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
 		SDL_version compiled;

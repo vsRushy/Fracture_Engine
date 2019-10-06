@@ -283,6 +283,51 @@ void ModuleUserInterface::ShowConfigurationWindow()
 		{
 			App->renderer3D->SetVSync(vsync);
 		}
+		bool wireframe_mode = App->renderer3D->GetWireframeMode();
+		if (ImGui::Checkbox("Wireframe mode", &wireframe_mode))
+		{
+			App->renderer3D->SetWireframeMode(wireframe_mode);
+		}
+		bool gl_depth_test = App->renderer3D->GetDepthTest();
+		if (ImGui::Checkbox("GL_DEPTH_TEST", &gl_depth_test))
+		{
+			App->renderer3D->SetDepthTest(gl_depth_test);
+		}
+		bool gl_cull_face = App->renderer3D->GetCullFace();
+		if (ImGui::Checkbox("GL_CULL_FACE", &gl_cull_face))
+		{
+			App->renderer3D->SetCullFace(gl_cull_face);
+		}
+		bool gl_lighting = App->renderer3D->GetLighting();
+		if (ImGui::Checkbox("GL_LIGHTING", &gl_lighting))
+		{
+			App->renderer3D->SetLighting(gl_lighting);
+		}
+		bool gl_color_material = App->renderer3D->GetColorMaterial();
+		if (ImGui::Checkbox("GL_COLOR_MATERIAL", &gl_color_material))
+		{
+			App->renderer3D->SetColorMaterial(gl_color_material);
+		}
+		bool gl_texture_2d = App->renderer3D->GetTexture2D();
+		if (ImGui::Checkbox("GL_TEXTURE_2D", &gl_texture_2d))
+		{
+			App->renderer3D->SetTexture2D(gl_texture_2d);
+		}
+		bool gl_blend = App->renderer3D->GetBlend();
+		if (ImGui::Checkbox("GL_BLEND", &gl_blend))
+		{
+			App->renderer3D->SetBlend(gl_blend);
+		}
+		bool gl_fog = App->renderer3D->GetFog();
+		if (ImGui::Checkbox("GL_FOG", &gl_fog))
+		{
+			App->renderer3D->SetFog(gl_fog);
+		}
+		bool gl_alpha_test = App->renderer3D->GetAlphaTest();
+		if (ImGui::Checkbox("GL_ALPHA_TEST", &gl_alpha_test))
+		{
+			App->renderer3D->SetAlphaTest(gl_alpha_test);
+		}
 	}
 	if (ImGui::CollapsingHeader("Input"))
 	{

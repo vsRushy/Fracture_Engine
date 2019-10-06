@@ -26,7 +26,7 @@ bool ModuleSceneIntro::Start()
 
 	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
 
-	App->importer->LoadModel("Assets/Models/table3d.FBX");
+	App->importer->LoadModel("Assets/Models/warrior.FBX");
 
 	return ret;
 }
@@ -45,6 +45,19 @@ bool ModuleSceneIntro::CleanUp()
 	primitives.clear();
 
 	return true;
+}
+
+void ModuleSceneIntro::DrawGrid(int subdivisions)
+{
+	glBegin(GL_LINES);
+	for (int i = -subdivisions / 2; i < subdivisions / 2; i++)
+	{
+		glVertex3f(i, 0, -subdivisions / 2);
+		glVertex3f(i, 0, subdivisions / 2);
+		glVertex3f(-subdivisions / 2, 0, i);
+		glVertex3f(subdivisions / 2, 0, i);
+	}
+	glEnd();
 }
 
 void ModuleSceneIntro::CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type)
@@ -72,6 +85,9 @@ void ModuleSceneIntro::CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type)
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
+	/* Draw grid ----------------------------- */
+	DrawGrid(100, 5);
+
 	/* Draw primitives ----------------------- */
 	for (std::list<Primitive*>::iterator item = primitives.begin(); item != primitives.end(); item++)
 	{

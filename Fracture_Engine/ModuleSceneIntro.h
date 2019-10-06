@@ -21,6 +21,8 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	void DrawGrid(int subdivisions);
+
 	void CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type);
 
 public:

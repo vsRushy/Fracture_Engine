@@ -82,7 +82,7 @@ void ModuleImporter::LoadModel(const char* full_path)
 			/* IBO */
 			glGenBuffers(1, &m.id_indices);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m.num_indices * 3, m.indices, GL_STATIC_DRAW);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m.num_indices, m.indices, GL_STATIC_DRAW);
 
 			App->scene_intro->meshes.push_back(m);
 		}

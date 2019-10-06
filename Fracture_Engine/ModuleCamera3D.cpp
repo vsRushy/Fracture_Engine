@@ -23,6 +23,8 @@ bool ModuleCamera3D::Start()
 	LOG(LOG_INFORMATION, "Setting up the camera");
 	bool ret = true;
 
+	SetCameraSpeed(speed);
+
 	return ret;
 }
 
@@ -34,6 +36,11 @@ bool ModuleCamera3D::CleanUp()
 	return true;
 }
 
+void ModuleCamera3D::LoadConfiguration(JSON_Object* configuration)
+{
+	speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Speed");
+}
+
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
@@ -41,19 +48,19 @@ update_status ModuleCamera3D::Update(float dt)
 	// Now we can make this movememnt frame rate independant!
 
 	vec3 newPos(0,0,0);
-	float speed = 35.0f * dt;
+	float cam_speed = speed * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += cam_speed;
+	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= cam_speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * cam_speed;
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * cam_speed;
 
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * cam_speed;
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * cam_speed;
 
 	Position += newPos;
 	Reference += newPos;
@@ -146,6 +153,16 @@ void ModuleCamera3D::Move(const vec3 &Movement)
 float* ModuleCamera3D::GetViewMatrix()
 {
 	return &ViewMatrix;
+}
+
+void ModuleCamera3D::SetCameraSpeed(const float& speed)
+{
+	this->speed = speed;
+}
+
+float ModuleCamera3D::GetCameraSpeed() const
+{
+	return speed;
 }
 
 // -----------------------------------------------------------------

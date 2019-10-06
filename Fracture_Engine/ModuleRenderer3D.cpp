@@ -162,7 +162,7 @@ void ModuleRenderer3D::DrawMesh(Mesh mesh)
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.id_indices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glDrawElements(GL_TRIANGLES, mesh.num_indices * 3, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, mesh.num_indices, GL_UNSIGNED_INT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 

@@ -26,6 +26,11 @@
         "Renderer": 
         {
           "V_sync": true
+        },
+
+        "Camera": 
+        {
+          "Speed":  100
         }
     }
 }

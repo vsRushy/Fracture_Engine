@@ -178,6 +178,13 @@ void ModuleRenderer3D::DrawMesh(Mesh mesh) const
 
 	glNormalPointer(GL_FLOAT, 3, NULL);
 
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_uvs);
+	
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
+	/* Draw --------*/
 	glDrawElements(GL_TRIANGLES, mesh.num_indices, GL_UNSIGNED_INT, nullptr);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -185,6 +192,7 @@ void ModuleRenderer3D::DrawMesh(Mesh mesh) const
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	/* Draw vertices */
 	mesh.DrawMeshVertices(5.0f);

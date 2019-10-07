@@ -45,7 +45,7 @@ void ModuleImporter::LoadModel(const char* full_path)
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
-		for (int i = 0; i < scene->mNumMeshes; ++i)
+		for (int i = 0; i < scene->mNumMeshes; i++)
 		{
 			Mesh m;
 			aiMesh* new_mesh = scene->mMeshes[i];
@@ -61,7 +61,7 @@ void ModuleImporter::LoadModel(const char* full_path)
 			{
 				m.num_indices = new_mesh->mNumFaces * 3;
 				m.indices = new uint[m.num_indices]; // assume each face is a triangle
-				for (uint i = 0; i < new_mesh->mNumFaces; ++i)
+				for (uint i = 0; i < new_mesh->mNumFaces; i++)
 				{
 					if (new_mesh->mFaces[i].mNumIndices != 3)
 					{
@@ -81,6 +81,18 @@ void ModuleImporter::LoadModel(const char* full_path)
 				m.normals = new float[m.num_normals * 3];
 				memcpy(m.normals, new_mesh->mNormals, sizeof(float) * m.num_normals * 3);
 				LOG(LOG_INFORMATION, "New mesh with %d normals", m.num_normals);
+			}
+
+			if (new_mesh->HasTextureCoords(0)) // TOCHECK parameter
+			{
+				m.num_uvs = new_mesh->mNumVertices;
+				m.uvs = new float[m.num_uvs * 2];
+				for (uint i = 0; i < new_mesh->mNumVertices; i++) 
+				{
+					memcpy(&m.uvs[i], &new_mesh->mTextureCoords[0][i].x, sizeof(float));
+					memcpy(&m.uvs[i], &new_mesh->mTextureCoords[0][i].y, sizeof(float));
+					LOG(LOG_INFORMATION, "New mesh with %d uvs", m.num_uvs);
+				}
 			}
 			
 			/* VBO vertices */

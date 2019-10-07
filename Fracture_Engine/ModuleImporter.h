@@ -25,6 +25,12 @@ struct Mesh
 	uint num_normals = 0;
 	float* normals = nullptr;
 
+	uint id_uvs = -1;
+	uint num_uvs = 0;
+	float* uvs = nullptr;
+
+	// ------------------------------------------------
+
 	void DrawMeshVertices(const float& size) const;
 	void DrawMeshNormals(const float& width) const;
 };

@@ -184,6 +184,7 @@ void ModuleRenderer3D::DrawMesh(Mesh mesh)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
 }
 
 void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)

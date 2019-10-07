@@ -25,8 +25,8 @@ public:
 	bool CleanUp();
 
 	/* Draw functions ------------------ */
-	void DrawPrimitive(Primitive* primitive);
-	void DrawMesh(Mesh mesh);
+	void DrawPrimitive(Primitive* primitive) const;
+	void DrawMesh(Mesh mesh) const;
 
 	void LoadConfiguration(JSON_Object* configuration) override;
 

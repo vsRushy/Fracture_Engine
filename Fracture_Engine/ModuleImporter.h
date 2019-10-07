@@ -24,6 +24,9 @@ struct Mesh
 	uint id_normals = -1;
 	uint num_normals = 0;
 	float* normals = nullptr;
+
+	void DrawMeshVertices(const float& size) const;
+	void DrawMeshNormals(const float& width) const;
 };
 
 class ModuleImporter : public Module

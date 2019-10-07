@@ -49,7 +49,9 @@ bool ModuleSceneIntro::CleanUp()
 
 void ModuleSceneIntro::DrawGrid(int subdivisions)
 {
+	glLineWidth(1.0f);
 	glBegin(GL_LINES);
+	glColor3f(255.0f, 255.0f, 255.0f);
 	for (int i = -subdivisions / 2; i < subdivisions / 2; i++)
 	{
 		glVertex3f(i, 0, -subdivisions / 2);

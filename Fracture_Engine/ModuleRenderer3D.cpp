@@ -153,7 +153,7 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
-void ModuleRenderer3D::DrawPrimitive(Primitive* primitive)
+void ModuleRenderer3D::DrawPrimitive(Primitive* primitive) const
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, primitive->vbo_id);
@@ -163,7 +163,7 @@ void ModuleRenderer3D::DrawPrimitive(Primitive* primitive)
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void ModuleRenderer3D::DrawMesh(Mesh mesh)
+void ModuleRenderer3D::DrawMesh(Mesh mesh) const
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -185,6 +185,12 @@ void ModuleRenderer3D::DrawMesh(Mesh mesh)
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+
+	/* Draw vertices */
+	mesh.DrawMeshVertices(5.0f);
+
+	/* Draw normals */
+	mesh.DrawMeshNormals(5.0f);
 }
 
 void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)

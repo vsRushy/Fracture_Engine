@@ -105,3 +105,38 @@ void ModuleImporter::LoadModel(const char* full_path)
 	else
 		LOG(LOG_ERROR, "Error loading scene %s", full_path);
 }
+
+/* Mesh ------------------------------------ */
+void Mesh::DrawMeshVertices(const float& size) const
+{
+	glPointSize(7.5f);
+
+	glBegin(GL_POINTS);
+
+	glColor3f(255.0f, 0.0f, 0.0f);
+
+	for (int i = 0; i < num_vertices * 3; i += 3)
+	{
+		glVertex3f(vertices[i], vertices[i + 1], vertices[i + 2]);
+	}
+
+	glEnd();
+}
+
+void Mesh::DrawMeshNormals(const float& width) const
+{
+	glLineWidth(5.0f);
+	glBegin(GL_LINES);
+
+	glColor3f(0.0f, 255.0f, 255.0f);
+
+	for (int i = 0; i < num_normals * 3; i += 3)
+	{
+		vec3 normal_vector = normalize({ normals[i], normals[i + 1], normals[i + 2] });
+
+		glVertex3f(vertices[i], vertices[i + 1], vertices[i + 2]);
+		glVertex3f(vertices[i] + normal_vector.x, vertices[i + 1] + normal_vector.y, vertices[i + 2] + normal_vector.z);
+	}
+
+	glEnd();
+}

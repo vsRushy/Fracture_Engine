@@ -82,6 +82,8 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="ModuleFileSystem.h" />
+    <ClInclude Include="PhysFS\include\physfs.h" />
     <ClInclude Include="P_Cube.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
@@ -175,6 +177,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="ModuleFileSystem.cpp" />
     <ClCompile Include="P_Cube.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />

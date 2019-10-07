@@ -74,6 +74,15 @@ void ModuleImporter::LoadModel(const char* full_path)
 				}
 			}
 
+			/* Copy normals */
+			if (new_mesh->HasNormals())
+			{
+				m.num_normals = new_mesh->mNumVertices;
+				m.normals = new float[m.num_normals * 3];
+				memcpy(m.normals, new_mesh->mNormals, sizeof(float) * m.num_normals * 3);
+				LOG(LOG_INFORMATION, "New mesh with %d normals", m.num_normals);
+			}
+
 			/* VBO */
 			glGenBuffers(1, &(m.id_vertices));
 			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertices);
@@ -83,6 +92,8 @@ void ModuleImporter::LoadModel(const char* full_path)
 			glGenBuffers(1, &m.id_indices);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m.num_indices, m.indices, GL_STATIC_DRAW);
+
+
 
 			App->scene_intro->meshes.push_back(m);
 		}

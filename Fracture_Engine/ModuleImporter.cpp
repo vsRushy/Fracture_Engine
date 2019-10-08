@@ -88,17 +88,21 @@ void ModuleImporter::LoadModel(const char* full_path)
 				LOG(LOG_INFORMATION, "New mesh with %d normals", m.num_normals);
 			}
 
-			if (new_mesh->HasTextureCoords(0)) // TOCHECK parameter
+			/* Copy UVs */
+			for (uint j = 0; j < AI_MAX_NUMBER_OF_TEXTURECOORDS; j++)
 			{
-				m.num_uvs = new_mesh->mNumVertices;
-				m.uvs = new float[m.num_uvs * 2];
-				for (uint i = 0; i < m.num_uvs; i++)
+				if (new_mesh->HasTextureCoords(j))
 				{
-					memcpy(&m.uvs[i], &new_mesh->mTextureCoords[0][i].x, sizeof(float));
-					memcpy(&m.uvs[i], &new_mesh->mTextureCoords[0][i].y, sizeof(float));
-					LOG(LOG_INFORMATION, "New mesh with %d uvs", m.num_uvs);
+					m.num_uvs = new_mesh->mNumVertices;
+					m.uvs = new float[m.num_uvs * 2];
+					for (uint k = 0; k < m.num_uvs; k++)
+					{
+						memcpy(&m.uvs[k], &new_mesh->mTextureCoords[j][k].x, sizeof(float));
+						memcpy(&m.uvs[++k], &new_mesh->mTextureCoords[j][k].y, sizeof(float));
+					}
 				}
 			}
+			LOG(LOG_INFORMATION, "New mesh with %d uvs", m.num_uvs);
 			
 			/* Copy colors */
 			for (uint j = 0; j < AI_MAX_NUMBER_OF_COLOR_SETS; j++)

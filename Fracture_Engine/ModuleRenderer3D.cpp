@@ -155,14 +155,6 @@ bool ModuleRenderer3D::CleanUp()
 
 void ModuleRenderer3D::DrawPrimitive(Primitive* primitive) const
 {
-	if (GetWireframeMode())
-	{
-		glLineWidth(1.0f);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, primitive->vbo_id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, primitive->ibo_id);
@@ -173,14 +165,6 @@ void ModuleRenderer3D::DrawPrimitive(Primitive* primitive) const
 
 void ModuleRenderer3D::DrawMesh(Mesh mesh) const
 {
-	if (GetWireframeMode())
-	{
-		glLineWidth(1.0f);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_vertices);
@@ -267,6 +251,13 @@ void ModuleRenderer3D::SetVSync(const bool& value)
 void ModuleRenderer3D::SetWireframeMode(const bool& value)
 {
 	wireframe_mode = value;
+	if (value)
+	{
+		glLineWidth(1.0f);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void ModuleRenderer3D::SetDepthTest(const bool& value)

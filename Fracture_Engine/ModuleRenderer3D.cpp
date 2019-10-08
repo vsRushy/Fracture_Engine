@@ -172,21 +172,22 @@ void ModuleRenderer3D::DrawMesh(Mesh mesh) const
 
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glEnableClientState(GL_NORMAL_ARRAY);
+	/*glEnableClientState(GL_NORMAL_ARRAY);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_normals);
 
-	glNormalPointer(GL_FLOAT, 3, NULL);
+	glNormalPointer(GL_FLOAT, 0, NULL);*/
 
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	/*glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_uvs);
 	
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);*/
 
 	/* Draw --------*/
 	glDrawElements(GL_TRIANGLES, mesh.num_indices, GL_UNSIGNED_INT, nullptr);
 
+	/* Unbind buffers */
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 

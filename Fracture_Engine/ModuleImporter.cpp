@@ -44,9 +44,12 @@ void ModuleImporter::LoadModel(const char* full_path)
 	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
+		LOG(LOG_INFORMATION, "New scene with %d mesh(es)", scene->mNumMeshes);
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
 		for (int i = 0; i < scene->mNumMeshes; i++)
 		{
+			LOG(LOG_INFORMATION, "Operating with mesh number %d", i);
+
 			Mesh m;
 			aiMesh* new_mesh = scene->mMeshes[i];
 
@@ -55,23 +58,25 @@ void ModuleImporter::LoadModel(const char* full_path)
 			m.vertices = new float[m.num_vertices * 3];
 			memcpy(m.vertices, new_mesh->mVertices, sizeof(float) * m.num_vertices * 3);
 			LOG(LOG_INFORMATION, "New mesh with %d vertices", m.num_vertices);
-		
+
 			/* Copy faces */
 			if (new_mesh->HasFaces())
-			{
+			{// TOQUESTION: Is different n verts?
 				m.num_indices = new_mesh->mNumFaces * 3;
 				m.indices = new uint[m.num_indices]; // assume each face is a triangle
 				for (uint i = 0; i < new_mesh->mNumFaces; i++)
 				{
 					if (new_mesh->mFaces[i].mNumIndices != 3)
 					{
-						LOG(LOG_WARNING, "WARNING, geometry face with != 3 indices!");
+						LOG(LOG_WARNING, "Geometry face with != 3 indices!");
 					}
 					else
 					{
 						memcpy(&m.indices[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
 					}
 				}
+
+				LOG(LOG_INFORMATION, "New mesh with %d indices", m.num_indices);
 			}
 
 			/* Copy normals */
@@ -87,13 +92,34 @@ void ModuleImporter::LoadModel(const char* full_path)
 			{
 				m.num_uvs = new_mesh->mNumVertices;
 				m.uvs = new float[m.num_uvs * 2];
-				for (uint i = 0; i < new_mesh->mNumVertices; i++) 
+				for (uint i = 0; i < m.num_uvs; i++)
 				{
 					memcpy(&m.uvs[i], &new_mesh->mTextureCoords[0][i].x, sizeof(float));
 					memcpy(&m.uvs[i], &new_mesh->mTextureCoords[0][i].y, sizeof(float));
 					LOG(LOG_INFORMATION, "New mesh with %d uvs", m.num_uvs);
 				}
 			}
+			
+			/* Copy colors */
+			for (uint j = 0; j < AI_MAX_NUMBER_OF_COLOR_SETS; j++)
+			{
+				if (new_mesh->HasVertexColors(j))
+				{
+					m.num_colors = new_mesh->mNumVertices;
+					m.colors = new float[m.num_colors * 4];
+
+					for (uint k = 0; k < m.num_colors; k++)
+					{
+						memcpy(&m.colors[k], &new_mesh->mColors[j][k].r, sizeof(float));
+						memcpy(&m.colors[++k], &new_mesh->mColors[j][k].g, sizeof(float));
+						memcpy(&m.colors[++k], &new_mesh->mColors[j][k].b, sizeof(float));
+						memcpy(&m.colors[++k], &new_mesh->mColors[j][k].a, sizeof(float));
+					}
+				}
+				else
+					LOG(LOG_INFORMATION, "There are no colors at the current color set (%d)", j);
+			}
+			LOG(LOG_INFORMATION, "New mesh with %d colors", m.num_colors);
 			
 			/* VBO vertices */
 			glGenBuffers(1, &(m.id_vertices));
@@ -105,10 +131,15 @@ void ModuleImporter::LoadModel(const char* full_path)
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m.num_indices, m.indices, GL_STATIC_DRAW);
 
-			/* VBO normals */
+			/* Normals */
 			glGenBuffers(1, &m.id_normals);
 			glBindBuffer(GL_ARRAY_BUFFER, m.id_normals);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_normals * 3, m.normals, GL_STATIC_DRAW);
+
+			/* UVs */
+			glGenBuffers(1, &m.id_uvs);
+			glBindBuffer(GL_ARRAY_BUFFER, m.id_uvs);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_uvs * 2, m.uvs, GL_STATIC_DRAW);
 
 			App->scene_intro->meshes.push_back(m);
 		}

@@ -145,6 +145,11 @@ void ModuleImporter::LoadModel(const char* full_path)
 			glBindBuffer(GL_ARRAY_BUFFER, m.id_uvs);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_uvs * 2, m.uvs, GL_STATIC_DRAW);
 
+			/* Colors */
+			glGenBuffers(1, &m.id_colors);
+			glBindBuffer(GL_ARRAY_BUFFER, m.id_colors);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float)* m.num_colors * 4, m.colors, GL_STATIC_DRAW);
+
 			App->scene_intro->meshes.push_back(m);
 		}
 		aiReleaseImport(scene);
@@ -168,6 +173,7 @@ void Mesh::DrawMeshVertices(const float& size) const
 	}
 
 	glEnd();
+	glPointSize(1.0f);
 }
 
 void Mesh::DrawMeshNormals(const float& width) const
@@ -186,4 +192,5 @@ void Mesh::DrawMeshNormals(const float& width) const
 	}
 
 	glEnd();
+	glLineWidth(1.0f);
 }

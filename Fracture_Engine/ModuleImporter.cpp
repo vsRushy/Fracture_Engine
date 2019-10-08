@@ -101,8 +101,10 @@ void ModuleImporter::LoadModel(const char* full_path)
 						memcpy(&m.uvs[++k], &new_mesh->mTextureCoords[j][k].y, sizeof(float));
 					}
 				}
+				else
+					LOG(LOG_INFORMATION, "There are no UVs at the current UVs set (%d)", j);
 			}
-			LOG(LOG_INFORMATION, "New mesh with %d uvs", m.num_uvs);
+			LOG(LOG_INFORMATION, "New mesh with %d UVs", m.num_uvs);
 			
 			/* Copy colors */
 			for (uint j = 0; j < AI_MAX_NUMBER_OF_COLOR_SETS; j++)

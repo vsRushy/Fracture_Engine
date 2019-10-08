@@ -26,7 +26,7 @@ bool ModuleSceneIntro::Start()
 
 	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
 
-	App->importer->LoadModel("Assets/Models/warrior.FBX");
+	App->importer->LoadModel("Assets/Models/table3d.FBX");
 
 	return ret;
 }

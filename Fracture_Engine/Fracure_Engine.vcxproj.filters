@@ -61,6 +61,9 @@
     <Filter Include="Sources\Dependencies\PhysFS">
       <UniqueIdentifier>{49a7e15b-e211-4256-98e7-c7faa87a2d00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Dependencies\DevIL">
+      <UniqueIdentifier>{2388e0db-9ad1-41e5-9ba5-cda5bd7a77c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -341,6 +344,30 @@
     </ClInclude>
     <ClInclude Include="PhysFS\include\physfs.h">
       <Filter>Sources\Dependencies\PhysFS</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\devil_cpp_wrapper.hpp">
+      <Filter>Sources\Dependencies\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\devil_internal_exports.h">
+      <Filter>Sources\Dependencies\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\il.h">
+      <Filter>Sources\Dependencies\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\il_wrap.h">
+      <Filter>Sources\Dependencies\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\ilu.h">
+      <Filter>Sources\Dependencies\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\ilu_region.h">
+      <Filter>Sources\Dependencies\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\ilut.h">
+      <Filter>Sources\Dependencies\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\ilut_config.h">
+      <Filter>Sources\Dependencies\DevIL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

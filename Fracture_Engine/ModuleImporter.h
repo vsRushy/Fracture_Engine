@@ -11,6 +11,13 @@
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
+#include "IL/ilu.h"
+#include "IL/ilut.h"
+
+#pragma comment (lib, "Devil/libx86/DevIL.lib")
+#pragma comment (lib, "Devil/libx86/ILU.lib")
+#pragma comment (lib, "Devil/libx86/ILUT.lib")
+
 struct Mesh
 {
 	uint id_vertices = -1; // unique vertex in VRAM

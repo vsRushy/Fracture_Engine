@@ -48,7 +48,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)PCG\include;$(SolutionDir)Glew\include;$(SolutionDir)MathGeoLib\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DevIL/include;$(SolutionDir)PCG\include;$(SolutionDir)Glew\include;$(SolutionDir)MathGeoLib\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -67,7 +67,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)PCG\include;$(SolutionDir)Glew\include;$(SolutionDir)MathGeoLib\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DevIL/include;$(SolutionDir)PCG\include;$(SolutionDir)Glew\include;$(SolutionDir)MathGeoLib\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -82,6 +82,14 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="DevIL\include\IL\devil_cpp_wrapper.hpp" />
+    <ClInclude Include="DevIL\include\IL\devil_internal_exports.h" />
+    <ClInclude Include="DevIL\include\IL\il.h" />
+    <ClInclude Include="DevIL\include\IL\ilu.h" />
+    <ClInclude Include="DevIL\include\IL\ilut.h" />
+    <ClInclude Include="DevIL\include\IL\ilut_config.h" />
+    <ClInclude Include="DevIL\include\IL\ilu_region.h" />
+    <ClInclude Include="DevIL\include\IL\il_wrap.h" />
     <ClInclude Include="ModuleFileSystem.h" />
     <ClInclude Include="PhysFS\include\physfs.h" />
     <ClInclude Include="P_Cube.h" />

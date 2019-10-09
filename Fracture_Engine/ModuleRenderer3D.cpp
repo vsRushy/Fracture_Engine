@@ -165,30 +165,26 @@ void ModuleRenderer3D::DrawPrimitive(Primitive* primitive) const
 
 void ModuleRenderer3D::DrawMesh(Mesh mesh) const
 {
-	glEnableClientState(GL_VERTEX_ARRAY);
+	/* normals */
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_normals);
+	glNormalPointer(GL_FLOAT, 0, NULL);
 
+	/* uvs */
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_uvs);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
+	/* colors */
+	glEnableClientState(GL_COLOR_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_colors);
+	glColorPointer(4, GL_FLOAT, 0, NULL);
+
+	/* vertices and indices */
+	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.id_indices);
-
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	/*glEnableClientState(GL_NORMAL_ARRAY);
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_normals);
-
-	glNormalPointer(GL_FLOAT, 0, NULL);*/
-
-	/*glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_uvs);
-	
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);*/
-
-	/*glEnableClientState(GL_COLOR_ARRAY);
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_colors);
-
-	glColorPointer(4, GL_FLOAT, 0, NULL);*/
 
 	/* Draw --------*/
 	glDrawElements(GL_TRIANGLES, mesh.num_indices, GL_UNSIGNED_INT, nullptr);

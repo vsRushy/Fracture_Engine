@@ -250,7 +250,9 @@ void Mesh::DrawMeshVertices(const float& size) const
 {
 	glPointSize(size);
 	glBegin(GL_POINTS);
-	glColor3f(255.0f, 0.0f, 0.0f);
+	glColor3f(App->renderer3D->mesh_vertices_color.r,
+		App->renderer3D->mesh_vertices_color.g, 
+		App->renderer3D->mesh_vertices_color.b);
 
 	for (int i = 0; i < num_vertices * 3; i += 3)
 	{
@@ -266,7 +268,9 @@ void Mesh::DrawMeshVertexNormals(const float& width) const
 {
 	glLineWidth(width);
 	glBegin(GL_LINES);
-	glColor3f(0.0f, 255.0f, 255.0f);
+	glColor3f(App->renderer3D->mesh_vertex_normals_color.r,
+		App->renderer3D->mesh_vertex_normals_color.g,
+		App->renderer3D->mesh_vertex_normals_color.b);
 
 	for (int i = 0; i < num_normals * 3; i += 3)
 	{
@@ -285,7 +289,9 @@ void Mesh::DrawMeshFaceNormals(const float& width) const
 {
 	glLineWidth(width);
 	glBegin(GL_LINES);
-	glColor3f(255.0f, 0.0f, 255.0f);
+	glColor3f(App->renderer3D->mesh_face_normals_color.r,
+		App->renderer3D->mesh_face_normals_color.g,
+		App->renderer3D->mesh_face_normals_color.b);
 
 	for (int i = 0; i < num_indices; i += 3)
 	{

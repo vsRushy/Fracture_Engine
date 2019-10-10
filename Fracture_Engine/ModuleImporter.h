@@ -30,15 +30,12 @@ struct Mesh
 	float mesh_lines_width = 3.0f;
 	
 	bool draw_mesh_vertices = false;
-	vec3 mesh_vertices_color = { 0.0f, 255.0f, 255.0f };
 	float mesh_vertices_size = 9.0f;
 
 	bool draw_mesh_vertex_normals = false;
-	vec3 mesh_vertex_normals_color = { 255.0f, 0.0f, 0.0f };
 	float mesh_vertex_normals_width = 2.0f;
 
 	bool draw_mesh_face_normals = false;
-	vec3 mesh_face_normals_color = { 0.0f, 0.0f, 255.0f };
 	float mesh_face_normals_width = 2.0f;
 
 	// ------------------------------------------------

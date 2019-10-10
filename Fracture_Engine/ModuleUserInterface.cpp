@@ -335,8 +335,32 @@ void ModuleUserInterface::ShowConfigurationWindow()
 			{
 				App->renderer3D->SetDrawMeshLines(draw_mesh_lines);
 			}
-			ImGui::Spacing();
+			ImGui::SameLine();
 			ImGui::ColorEdit3("Mesh lines color", &App->renderer3D->mesh_lines_color);
+			ImGui::Spacing();
+			bool draw_mesh_vertices = App->renderer3D->GetDrawMeshVertices();
+			if (ImGui::Checkbox("Draw mesh vertices", &draw_mesh_vertices))
+			{
+				App->renderer3D->SetDrawMeshVertices(draw_mesh_vertices);
+			}
+			ImGui::SameLine();
+			ImGui::ColorEdit3("Mesh vertices color", &App->renderer3D->mesh_vertices_color);
+			ImGui::Spacing();
+			bool draw_mesh_vertex_normals = App->renderer3D->GetDrawMeshVertexNormals();
+			if (ImGui::Checkbox("Draw mesh vertex normals", &draw_mesh_vertex_normals))
+			{
+				App->renderer3D->SetDrawMeshVertexNormals(draw_mesh_vertex_normals);
+			}
+			ImGui::SameLine();
+			ImGui::ColorEdit3("Mesh vertex normals color", &App->renderer3D->mesh_vertex_normals_color);
+			ImGui::Spacing();
+			bool draw_mesh_face_normals = App->renderer3D->GetDrawMeshFaceNormals();
+			if (ImGui::Checkbox("Draw mesh face normals", &draw_mesh_face_normals))
+			{
+				App->renderer3D->SetDrawMeshFaceNormals(draw_mesh_face_normals);
+			}
+			ImGui::SameLine();
+			ImGui::ColorEdit3("Mesh face normals color", &App->renderer3D->mesh_face_normals_color);
 			ImGui::Spacing();
 		}
 	}

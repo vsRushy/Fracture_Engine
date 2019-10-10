@@ -390,6 +390,45 @@ void ModuleRenderer3D::SetDrawMeshLines(const bool& value)
 	}
 }
 
+void ModuleRenderer3D::SetDrawMeshVertices(const bool& value)
+{
+	if (App->scene_intro->meshes.size() > 0)
+	{
+		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
+			item != App->scene_intro->meshes.end();
+			item++)
+		{
+			(*item)->draw_mesh_vertices = value;
+		}
+	}
+}
+
+void ModuleRenderer3D::SetDrawMeshVertexNormals(const bool& value)
+{
+	if (App->scene_intro->meshes.size() > 0)
+	{
+		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
+			item != App->scene_intro->meshes.end();
+			item++)
+		{
+			(*item)->draw_mesh_vertex_normals = value;
+		}
+	}
+}
+
+void ModuleRenderer3D::SetDrawMeshFaceNormals(const bool& value)
+{
+	if (App->scene_intro->meshes.size() > 0)
+	{
+		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
+			item != App->scene_intro->meshes.end();
+			item++)
+		{
+			(*item)->draw_mesh_face_normals = value;
+		}
+	}
+}
+
 bool ModuleRenderer3D::GetDrawMeshLines() const
 {
 	bool ret = false;
@@ -400,6 +439,54 @@ bool ModuleRenderer3D::GetDrawMeshLines() const
 			item++)
 		{
 			ret = (*item)->draw_mesh_lines;
+		}
+	}
+
+	return ret;
+}
+
+bool ModuleRenderer3D::GetDrawMeshVertices() const
+{
+	bool ret = false;
+	if (App->scene_intro->meshes.size() > 0)
+	{
+		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
+			item != App->scene_intro->meshes.end();
+			item++)
+		{
+			ret = (*item)->draw_mesh_vertices;
+		}
+	}
+
+	return ret;
+}
+
+bool ModuleRenderer3D::GetDrawMeshVertexNormals() const
+{
+	bool ret = false;
+	if (App->scene_intro->meshes.size() > 0)
+	{
+		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
+			item != App->scene_intro->meshes.end();
+			item++)
+		{
+			ret = (*item)->draw_mesh_vertex_normals;
+		}
+	}
+
+	return ret;
+}
+
+bool ModuleRenderer3D::GetDrawMeshFaceNormals() const
+{
+	bool ret = false;
+	if (App->scene_intro->meshes.size() > 0)
+	{
+		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
+			item != App->scene_intro->meshes.end();
+			item++)
+		{
+			ret = (*item)->draw_mesh_face_normals;
 		}
 	}
 

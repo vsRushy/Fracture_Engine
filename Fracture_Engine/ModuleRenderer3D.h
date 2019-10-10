@@ -56,7 +56,14 @@ public:
 
 	// Mesh advanced functions
 	void SetDrawMeshLines(const bool& value);
+	void SetDrawMeshVertices(const bool& value);
+	void SetDrawMeshVertexNormals(const bool& value);
+	void SetDrawMeshFaceNormals(const bool& value);
+
 	bool GetDrawMeshLines() const;
+	bool GetDrawMeshVertices() const;
+	bool GetDrawMeshVertexNormals() const;
+	bool GetDrawMeshFaceNormals() const;
 
 public:
 	bool vsync;
@@ -80,6 +87,9 @@ public:
 public:
 	// Mesh advanced options
 	Color mesh_lines_color = { 255.0f, 255.0f, 0.0f };
+	Color mesh_vertices_color = { 0.0f, 255.0f, 255.0f };
+	Color mesh_vertex_normals_color = { 255.0f, 0.0f, 0.0f };
+	Color mesh_face_normals_color = { 0.0f, 0.0f, 255.0f };
 };
 
 #endif /* __MODULE_RENDERER_3D_H__ */

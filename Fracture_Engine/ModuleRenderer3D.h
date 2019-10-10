@@ -54,6 +54,10 @@ public:
 	bool GetFog() const;
 	bool GetAlphaTest() const;
 
+	// Mesh advanced functions
+	void SetDrawMeshLines(const bool& value);
+	bool GetDrawMeshLines() const;
+
 public:
 	bool vsync;
 

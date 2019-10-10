@@ -126,8 +126,8 @@ void ModuleUserInterface::ShowMainMenuBarWindow()
 
 		if (ImGui::BeginMenu("View"))
 		{
-			ImGui::MenuItem("Configuration", NULL, & show_configuration_window);
-			ImGui::MenuItem("Console", NULL, & show_console_window);
+			ImGui::MenuItem("Configuration", NULL, &show_configuration_window);
+			ImGui::MenuItem("Console", NULL, &show_console_window);
 			ImGui::EndMenu();
 		}
 
@@ -327,6 +327,14 @@ void ModuleUserInterface::ShowConfigurationWindow()
 		if (ImGui::Checkbox("GL_ALPHA_TEST", &gl_alpha_test))
 		{
 			App->renderer3D->SetAlphaTest(gl_alpha_test);
+		}
+		if (ImGui::CollapsingHeader("Advanced options"))
+		{
+			bool draw_mesh_lines = App->renderer3D->GetDrawMeshLines();
+			if (ImGui::Checkbox("Draw mesh lines", &draw_mesh_lines))
+			{
+				App->renderer3D->SetDrawMeshLines(draw_mesh_lines);
+			}
 		}
 	}
 	if (ImGui::CollapsingHeader("Input"))

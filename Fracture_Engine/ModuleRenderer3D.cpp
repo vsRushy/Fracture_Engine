@@ -374,3 +374,34 @@ bool ModuleRenderer3D::GetAlphaTest() const
 {
 	return gl_alpha_test;
 }
+
+// -------------------------------------------------------
+
+void ModuleRenderer3D::SetDrawMeshLines(const bool& value)
+{
+	if (App->scene_intro->meshes.size() > 0)
+	{
+		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
+			item != App->scene_intro->meshes.end();
+			item++)
+		{
+			(*item)->draw_mesh_lines = value;
+		}
+	}
+}
+
+bool ModuleRenderer3D::GetDrawMeshLines() const
+{
+	bool ret = false;
+	if (App->scene_intro->meshes.size() > 0)
+	{
+		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
+			item != App->scene_intro->meshes.end();
+			item++)
+		{
+			ret = (*item)->draw_mesh_lines;
+		}
+	}
+
+	return ret;
+}

@@ -41,7 +41,9 @@ update_status ModuleImporter::Update(float dt)
 
 void ModuleImporter::LoadModel(const char* full_path)
 {
-	const aiScene* scene = aiImportFile(full_path, aiProcessPreset_TargetRealtime_MaxQuality);
+	const aiScene* scene = aiImportFile(full_path, aiProcess_Triangulate | aiProcess_GenSmoothNormals |
+		aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcessPreset_TargetRealtime_MaxQuality);
+	
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		LOG(LOG_INFORMATION, "New scene with %d mesh(es)", scene->mNumMeshes);
@@ -154,10 +156,32 @@ void ModuleImporter::LoadModel(const char* full_path)
 
 			App->scene_intro->meshes.push_back(m);
 		}
+
 		aiReleaseImport(scene);
 	}
 	else
 		LOG(LOG_ERROR, "Error loading scene %s", full_path);
+}
+
+Mesh::~Mesh()
+{
+	delete[] vertices;
+	delete[] indices;
+	delete[] normals;
+	delete[] uvs;
+	delete[] colors;
+
+	vertices = nullptr;
+	indices = nullptr;
+	normals = nullptr;
+	uvs = nullptr;
+	colors = nullptr;
+
+	glDeleteBuffers(num_vertices, &id_vertices);
+	glDeleteBuffers(num_indices, &id_indices);
+	glDeleteBuffers(num_normals, &id_normals);
+	glDeleteBuffers(num_uvs, &id_uvs);
+	glDeleteBuffers(num_colors, &id_colors);
 }
 
 /* Mesh ------------------------------------ */

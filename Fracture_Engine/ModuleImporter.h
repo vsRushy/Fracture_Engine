@@ -20,6 +20,8 @@
 
 struct Mesh
 {
+	~Mesh();
+
 	uint id_vertices = -1; // unique vertex in VRAM
 	uint num_vertices = 0u;
 	float* vertices = nullptr;

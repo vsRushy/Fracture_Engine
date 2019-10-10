@@ -12,14 +12,18 @@ P_Cube::P_Cube(const vec3& position) : Primitive(position)
 	glGenBuffers(1, &vbo_id);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * shape->npoints * 3, shape->points, GL_STATIC_DRAW);
-	
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
-	
+
 	/* IBO */
 	glGenBuffers(1, &ibo_id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_id);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * shape->ntriangles * 3, shape->triangles, GL_STATIC_DRAW);
+
+	/* Normals */
+	glGenBuffers(1, &normals_id);
+	glBindBuffer(GL_ARRAY_BUFFER, normals_id);
+	//glBufferData();
+
+	/* UVs */
 }
 
 P_Cube::~P_Cube()

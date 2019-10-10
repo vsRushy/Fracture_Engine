@@ -30,6 +30,9 @@ public:
 
 	uint vbo_id;
 	uint ibo_id;
+
+	uint normals_id;
+	uint uvs_id;
 };
 
 #endif /* __PRIMITIVE_H__ */

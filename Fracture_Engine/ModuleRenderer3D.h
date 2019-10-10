@@ -76,6 +76,10 @@ public:
 	bool gl_blend;
 	bool gl_fog;
 	bool gl_alpha_test;
+
+public:
+	// Mesh advanced options
+	Color mesh_lines_color = { 255.0f, 255.0f, 0.0f };
 };
 
 #endif /* __MODULE_RENDERER_3D_H__ */

@@ -335,6 +335,9 @@ void ModuleUserInterface::ShowConfigurationWindow()
 			{
 				App->renderer3D->SetDrawMeshLines(draw_mesh_lines);
 			}
+			ImGui::Spacing();
+			ImGui::ColorEdit3("Mesh lines color", &App->renderer3D->mesh_lines_color);
+			ImGui::Spacing();
 		}
 	}
 	if (ImGui::CollapsingHeader("Input"))

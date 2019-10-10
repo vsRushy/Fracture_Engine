@@ -225,7 +225,9 @@ Mesh::~Mesh()
 
 void Mesh::DrawMeshLines(const float& size) const
 {
-	glColor3f(mesh_lines_color.x, mesh_lines_color.y, mesh_lines_color.z);
+	glColor3f(App->renderer3D->mesh_lines_color.r, 
+		App->renderer3D->mesh_lines_color.g, 
+		App->renderer3D->mesh_lines_color.b);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 

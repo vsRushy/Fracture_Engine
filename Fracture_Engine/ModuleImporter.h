@@ -27,7 +27,6 @@ struct Mesh
 	// ------------------------------------------------
 
 	bool draw_mesh_lines = false;
-	vec3 mesh_lines_color = { 255.0f, 255.0f, 0.0f };
 	float mesh_lines_width = 3.0f;
 	
 	bool draw_mesh_vertices = false;

@@ -165,7 +165,7 @@ void ModuleImporter::LoadModel(const char* full_path)
 
 Mesh::~Mesh()
 {
-	delete[] vertices;
+	/*delete[] vertices;
 	delete[] indices;
 	delete[] normals;
 	delete[] uvs;
@@ -175,13 +175,13 @@ Mesh::~Mesh()
 	indices = nullptr;
 	normals = nullptr;
 	uvs = nullptr;
-	colors = nullptr;
+	colors = nullptr;*/
 
-	glDeleteBuffers(num_vertices, &id_vertices);
+	/*glDeleteBuffers(num_vertices, &id_vertices);
 	glDeleteBuffers(num_indices, &id_indices);
 	glDeleteBuffers(num_normals, &id_normals);
 	glDeleteBuffers(num_uvs, &id_uvs);
-	glDeleteBuffers(num_colors, &id_colors);
+	glDeleteBuffers(num_colors, &id_colors);*/
 }
 
 /* Mesh ------------------------------------ */
@@ -198,6 +198,7 @@ void Mesh::DrawMeshVertices(const float& size) const
 		glVertex3f(vertices[i], vertices[i + 1], vertices[i + 2]);
 	}
 
+	glColor3f(255.0f, 255.0f, 255.0f);
 	glEnd();
 	glPointSize(1.0f);
 }
@@ -217,6 +218,7 @@ void Mesh::DrawMeshNormals(const float& width) const
 		glVertex3f(vertices[i] + normal_vector.x, vertices[i + 1] + normal_vector.y, vertices[i + 2] + normal_vector.z);
 	}
 
+	glColor3f(255.0f, 255.0f, 255.0f);
 	glEnd();
 	glLineWidth(1.0f);
 }

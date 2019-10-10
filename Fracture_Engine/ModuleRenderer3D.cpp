@@ -163,49 +163,64 @@ void ModuleRenderer3D::DrawPrimitive(Primitive* primitive) const
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void ModuleRenderer3D::DrawMesh(Mesh mesh) const
+void ModuleRenderer3D::DrawMesh(Mesh* mesh) const
 {
-	/* normals */
-	/*glEnableClientState(GL_NORMAL_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_normals);
-	glNormalPointer(GL_FLOAT, 0, NULL);*/
+	if (!GetWireframeMode())
+	{
+		glEnableClientState(GL_VERTEX_ARRAY);
 
-	/* uvs */
-	/*glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_uvs);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);*/
+		if (mesh->id_textures != -1) {
+			glEnable(GL_TEXTURE_2D);
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glBindTexture(GL_TEXTURE_2D, mesh->id_textures);
 
-	/* colors */
-	/*glEnableClientState(GL_COLOR_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_colors);
-	glColorPointer(4, GL_FLOAT, 0, NULL);*/
+			glBindBuffer(GL_ARRAY_BUFFER, mesh->id_uvs);
+			glTexCoordPointer(3, GL_FLOAT, 0, NULL);
+		}
 
-	/* vertices and indices */
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.id_vertices);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.id_indices);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
+		if (mesh->normals != nullptr)
+		{
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
+			glNormalPointer(GL_FLOAT, 0, NULL);
+		}
 
-	/* Draw --------*/
-	glDrawElements(GL_TRIANGLES, mesh.num_indices, GL_UNSIGNED_INT, nullptr);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	/* Unbind buffers */
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
+		/* Draw */
+		glDrawElements(GL_TRIANGLES, mesh->num_indices * 3, GL_UNSIGNED_INT, NULL);
+
+		/* Unbind buffers and texture */
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		
+		glDisable(GL_TEXTURE_2D);
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	}
+
+	/* Draw mesh lines */
+	if(mesh->draw_mesh_lines || GetWireframeMode())
+		mesh->DrawMeshLines(mesh->mesh_lines_width);
 
 	/* Draw vertices */
-	mesh.DrawMeshVertices(5.0f);
+	if(mesh->draw_mesh_vertices)
+		mesh->DrawMeshVertices(mesh->mesh_vertices_size);
 
-	/* Draw normals */
-	mesh.DrawMeshNormals(5.0f);
+	/* Draw vertex normals */
+	if(mesh->draw_mesh_vertex_normals)
+		mesh->DrawMeshVertexNormals(mesh->mesh_vertex_normals_width);
 
 	/* Draw face normals */
-	mesh.DrawMeshFaceNormals(5.0f);
+	if(mesh->draw_mesh_face_normals)
+		mesh->DrawMeshFaceNormals(mesh->mesh_face_normals_width);
 }
 
 void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)
@@ -258,13 +273,6 @@ void ModuleRenderer3D::SetVSync(const bool& value)
 void ModuleRenderer3D::SetWireframeMode(const bool& value)
 {
 	wireframe_mode = value;
-	if (value)
-	{
-		glLineWidth(1.0f);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void ModuleRenderer3D::SetDepthTest(const bool& value)

@@ -24,6 +24,26 @@ struct Mesh
 {
 	~Mesh();
 
+	// ------------------------------------------------
+
+	bool draw_mesh_lines = false;
+	vec3 mesh_lines_color = { 255.0f, 255.0f, 0.0f };
+	float mesh_lines_width = 3.0f;
+	
+	bool draw_mesh_vertices = false;
+	vec3 mesh_vertices_color = { 0.0f, 255.0f, 255.0f };
+	float mesh_vertices_size = 9.0f;
+
+	bool draw_mesh_vertex_normals = false;
+	vec3 mesh_vertex_normals_color = { 255.0f, 0.0f, 0.0f };
+	float mesh_vertex_normals_width = 2.0f;
+
+	bool draw_mesh_face_normals = false;
+	vec3 mesh_face_normals_color = { 0.0f, 0.0f, 255.0f };
+	float mesh_face_normals_width = 2.0f;
+
+	// ------------------------------------------------
+
 	uint id_vertices = -1; // unique vertex in VRAM
 	uint num_vertices = 0u;
 	float* vertices = nullptr;
@@ -40,9 +60,7 @@ struct Mesh
 	uint num_uvs = 0u;
 	float* uvs = nullptr;
 
-	uint id_colors = -1;
-	uint num_colors = 0u;
-	float* colors = nullptr;
+	uint id_textures = -1;
 
 	// ------------------------------------------------
 
@@ -50,8 +68,9 @@ struct Mesh
 	float* center_face_normal_point = nullptr;
 
 	// ------------------------------------------------
+	void DrawMeshLines(const float& size) const;
 	void DrawMeshVertices(const float& size) const;
-	void DrawMeshNormals(const float& width) const;
+	void DrawMeshVertexNormals(const float& width) const;
 	void DrawMeshFaceNormals(const float& width) const;
 };
 
@@ -65,7 +84,10 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void LoadModel(const char*);
+	void LoadModel(const char* path);
+	uint LoadTexture(const char* path);
+
+	void AssignTextureToModel(Mesh* mesh, uint texture_id);
 private:
 
 };

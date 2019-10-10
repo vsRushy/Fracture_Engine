@@ -26,7 +26,15 @@ bool ModuleSceneIntro::Start()
 
 	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
 
-	App->importer->LoadModel("Assets/Models/warrior.FBX");
+	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
+	
+	texture_01_id = App->importer->LoadTexture("Assets/Textures/Baker.dds");
+
+	/* Assign to all meshes the same texture (for now) */
+	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
+	{
+		App->importer->AssignTextureToModel(*item, texture_01_id);
+	}
 
 	return ret;
 }
@@ -43,6 +51,14 @@ bool ModuleSceneIntro::CleanUp()
 		*item = nullptr;
 	}
 	primitives.clear();
+
+	/* Delete all meshes */
+	for (std::list<Mesh*>::reverse_iterator item = meshes.rbegin(); item != meshes.rend(); item++)
+	{
+		delete* item;
+		*item = nullptr;
+	}
+	meshes.clear();
 
 	return true;
 }
@@ -97,7 +113,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	}
 
 	/* Draw meshes --------------------------- */
-	for (std::list<Mesh>::iterator item = meshes.begin(); item != meshes.end(); item++)
+	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
 	{
 		App->renderer3D->DrawMesh(*item);
 	}

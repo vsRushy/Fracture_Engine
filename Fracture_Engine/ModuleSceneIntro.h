@@ -27,7 +27,10 @@ public:
 
 public:
 	std::list<Primitive*> primitives;
-	std::list<Mesh> meshes;
+	std::list<Mesh*> meshes;
+
+private:
+	uint texture_01_id = -1;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

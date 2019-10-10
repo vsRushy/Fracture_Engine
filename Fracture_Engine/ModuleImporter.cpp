@@ -17,9 +17,18 @@ bool ModuleImporter::Init()
 {
 	bool ret = true;
 
+	/* Assimp log stream */
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
+
+	/* Initializate DevIL */
+	ilInit();
+	iluInit();
+	ilEnable(IL_CONV_PAL);
+	ilutEnable(ILUT_OPENGL_CONV);
+	ilutInit();
+	ilutRenderer(ILUT_OPENGL);
 
 	return ret;
 }
@@ -35,13 +44,12 @@ bool ModuleImporter::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleImporter::Update(float dt)
 {
-
 	return UPDATE_CONTINUE;
 }
 
-void ModuleImporter::LoadModel(const char* full_path)
+void ModuleImporter::LoadModel(const char* path)
 {
-	const aiScene* scene = aiImportFile(full_path, aiProcess_Triangulate | aiProcess_GenSmoothNormals |
+	const aiScene* scene = aiImportFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals |
 		aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcessPreset_TargetRealtime_MaxQuality);
 	
 	if (scene != nullptr && scene->HasMeshes())
@@ -52,20 +60,20 @@ void ModuleImporter::LoadModel(const char* full_path)
 		{
 			LOG(LOG_INFORMATION, "Operating with mesh number %d", i);
 
-			Mesh m;
+			Mesh* m = new Mesh();
 			aiMesh* new_mesh = scene->mMeshes[i];
 
 			/* Copy vertices */
-			m.num_vertices = new_mesh->mNumVertices;
-			m.vertices = new float[m.num_vertices * 3];
-			memcpy(m.vertices, new_mesh->mVertices, sizeof(float) * m.num_vertices * 3);
-			LOG(LOG_INFORMATION, "New mesh with %d vertices", m.num_vertices);
+			m->num_vertices = new_mesh->mNumVertices;
+			m->vertices = new float[m->num_vertices * 3];
+			memcpy(m->vertices, new_mesh->mVertices, sizeof(float) * m->num_vertices * 3);
+			LOG(LOG_INFORMATION, "New mesh with %d vertices", m->num_vertices);
 
 			/* Copy faces */
 			if (new_mesh->HasFaces())
-			{// TOQUESTION: Is different n verts?
-				m.num_indices = new_mesh->mNumFaces * 3;
-				m.indices = new uint[m.num_indices]; // assume each face is a triangle
+			{
+				m->num_indices = new_mesh->mNumFaces * 3;
+				m->indices = new uint[m->num_indices]; // assume each face is a triangle
 				for (uint i = 0; i < new_mesh->mNumFaces; i++)
 				{
 					if (new_mesh->mFaces[i].mNumIndices != 3)
@@ -74,32 +82,32 @@ void ModuleImporter::LoadModel(const char* full_path)
 					}
 					else
 					{
-						memcpy(&m.indices[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
+						memcpy(&m->indices[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
 					}
 				}
 
-				LOG(LOG_INFORMATION, "New mesh with %d indices", m.num_indices);
+				LOG(LOG_INFORMATION, "New mesh with %d indices", m->num_indices);
 			}
 
 			/* Copy normals */
 			if (new_mesh->HasNormals())
 			{
-				m.num_normals = new_mesh->mNumVertices;
-				m.normals = new float[m.num_normals * 3];
-				memcpy(m.normals, new_mesh->mNormals, sizeof(float) * m.num_normals * 3);
-				LOG(LOG_INFORMATION, "New mesh with %d normals", m.num_normals);
+				m->num_normals = new_mesh->mNumVertices;
+				m->normals = new float[m->num_normals * 3];
+				memcpy(m->normals, new_mesh->mNormals, sizeof(float) * m->num_normals * 3);
+				LOG(LOG_INFORMATION, "New mesh with %d normals", m->num_normals);
 
-				m.center_face_point = new float[m.num_indices];
-				m.center_face_normal_point = new float[m.num_indices];
-				for (uint i = 0; i < m.num_indices; i+= 3)
+				m->center_face_point = new float[m->num_indices];
+				m->center_face_normal_point = new float[m->num_indices];
+				for (uint i = 0; i < m->num_indices; i+= 3)
 				{
-					uint index1 = m.indices[i] * 3;
-					uint index2 = m.indices[i + 1] * 3;
-					uint index3 = m.indices[i + 2] * 3;
+					uint index1 = m->indices[i] * 3;
+					uint index2 = m->indices[i + 1] * 3;
+					uint index3 = m->indices[i + 2] * 3;
 
-					vec3 x0(m.vertices[index1], m.vertices[index1 + 1], m.vertices[index1 + 2]);
-					vec3 x1(m.vertices[index2], m.vertices[index2 + 1], m.vertices[index2 + 2]);
-					vec3 x2(m.vertices[index3], m.vertices[index3 + 1], m.vertices[index3 + 2]);
+					vec3 x0(m->vertices[index1], m->vertices[index1 + 1], m->vertices[index1 + 2]);
+					vec3 x1(m->vertices[index2], m->vertices[index2 + 1], m->vertices[index2 + 2]);
+					vec3 x2(m->vertices[index3], m->vertices[index3 + 1], m->vertices[index3 + 2]);
 
 					vec3 v0 = x0 - x2;
 					vec3 v1 = x1 - x2;
@@ -107,79 +115,44 @@ void ModuleImporter::LoadModel(const char* full_path)
 
 					vec3 normalized = normalize(n);
 
-					m.center_face_point[i] = (x0.x + x1.x + x2.x) / 3;
-					m.center_face_point[i + 1] = (x0.y + x1.y + x2.y) / 3;
-					m.center_face_point[i + 2] = (x0.z + x1.z + x2.z) / 3;
+					m->center_face_point[i] = (x0.x + x1.x + x2.x) / 3;
+					m->center_face_point[i + 1] = (x0.y + x1.y + x2.y) / 3;
+					m->center_face_point[i + 2] = (x0.z + x1.z + x2.z) / 3;
 
-					m.center_face_normal_point[i] = normalized.x;
-					m.center_face_normal_point[i + 1] = normalized.y;
-					m.center_face_normal_point[i + 2] = normalized.z;
+					m->center_face_normal_point[i] = normalized.x;
+					m->center_face_normal_point[i + 1] = normalized.y;
+					m->center_face_normal_point[i + 2] = normalized.z;
 				}
 			}
 
 			/* Copy UVs */
-			for (uint j = 0; j < AI_MAX_NUMBER_OF_TEXTURECOORDS; j++)
+			if (new_mesh->HasTextureCoords(0))
 			{
-				if (new_mesh->HasTextureCoords(j))
-				{
-					m.num_uvs = new_mesh->mNumVertices;
-					m.uvs = new float[m.num_uvs * 2];
-					for (uint k = 0; k < m.num_uvs; k++)
-					{
-						memcpy(&m.uvs[k], &new_mesh->mTextureCoords[j][k].x, sizeof(float));
-						memcpy(&m.uvs[++k], &new_mesh->mTextureCoords[j][k].y, sizeof(float));
-					}
-				}
-				else
-					LOG(LOG_INFORMATION, "There are no UVs at the current UVs set (%d)", j);
+				m->num_uvs = new_mesh->mNumVertices;
+				m->uvs = new float[m->num_uvs * 3];
+				memcpy(m->uvs, new_mesh->mTextureCoords[0], sizeof(float) * m->num_uvs * 3);
 			}
-			LOG(LOG_INFORMATION, "New mesh with %d UVs", m.num_uvs);
-			
-			/* Copy colors */
-			for (uint j = 0; j < AI_MAX_NUMBER_OF_COLOR_SETS; j++)
-			{
-				if (new_mesh->HasVertexColors(j))
-				{
-					m.num_colors = new_mesh->mNumVertices;
-					m.colors = new float[m.num_colors * 4];
-
-					for (uint k = 0; k < m.num_colors; k++)
-					{
-						memcpy(&m.colors[k], &new_mesh->mColors[j][k].r, sizeof(float));
-						memcpy(&m.colors[++k], &new_mesh->mColors[j][k].g, sizeof(float));
-						memcpy(&m.colors[++k], &new_mesh->mColors[j][k].b, sizeof(float));
-						memcpy(&m.colors[++k], &new_mesh->mColors[j][k].a, sizeof(float));
-					}
-				}
-				else
-					LOG(LOG_INFORMATION, "There are no colors at the current color set (%d)", j);
-			}
-			LOG(LOG_INFORMATION, "New mesh with %d colors", m.num_colors);
+			LOG(LOG_INFORMATION, "New mesh with %d UVs", m->num_uvs);
 			
 			/* VBO vertices */
-			glGenBuffers(1, &(m.id_vertices));
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertices);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertices * 3, m.vertices, GL_STATIC_DRAW);
+			glGenBuffers(1, &(m->id_vertices));
+			glBindBuffer(GL_ARRAY_BUFFER, m->id_vertices);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_vertices * 3, m->vertices, GL_STATIC_DRAW);
 			
 			/* IBO */
-			glGenBuffers(1, &m.id_indices);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m.num_indices, m.indices, GL_STATIC_DRAW);
+			glGenBuffers(1, &m->id_indices);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m->id_indices);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * m->num_indices, m->indices, GL_STATIC_DRAW);
 
 			/* Normals */
-			glGenBuffers(1, &m.id_normals);
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_normals);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_normals * 3, m.normals, GL_STATIC_DRAW);
+			glGenBuffers(1, &m->id_normals);
+			glBindBuffer(GL_ARRAY_BUFFER, m->id_normals);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_normals * 3, m->normals, GL_STATIC_DRAW);
 
 			/* UVs */
-			glGenBuffers(1, &m.id_uvs);
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_uvs);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_uvs * 2, m.uvs, GL_STATIC_DRAW);
-
-			/* Colors */
-			glGenBuffers(1, &m.id_colors);
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_colors);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float)* m.num_colors * 4, m.colors, GL_STATIC_DRAW);
+			glGenBuffers(1, &m->id_uvs);
+			glBindBuffer(GL_ARRAY_BUFFER, m->id_uvs);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_uvs * 3, m->uvs, GL_STATIC_DRAW);
 
 			App->scene_intro->meshes.push_back(m);
 		}
@@ -187,16 +160,51 @@ void ModuleImporter::LoadModel(const char* full_path)
 		aiReleaseImport(scene);
 	}
 	else
-		LOG(LOG_ERROR, "Error loading scene %s", full_path);
+		LOG(LOG_ERROR, "Error loading scene %s", path);
+}
+
+uint ModuleImporter::LoadTexture(const char* path)
+{
+	if (ilLoadImage(path)) 
+	{
+		ILuint width, height;
+		width = ilGetInteger(IL_IMAGE_WIDTH);
+		height = ilGetInteger(IL_IMAGE_HEIGHT);
+		ILubyte* data = ilGetData();
+
+		uint tex_id;
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glGenTextures(1, &tex_id);
+		glBindTexture(GL_TEXTURE_2D, tex_id);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
+			0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+		return tex_id;
+	}
+	else
+		return -1;
+}
+
+void ModuleImporter::AssignTextureToModel(Mesh* mesh, uint texture_id)
+{
+	if (mesh != nullptr)
+	{
+		mesh->id_textures = texture_id;
+	}
 }
 
 Mesh::~Mesh()
 {
-	/*delete[] vertices;
+	delete[] vertices;
 	delete[] indices;
 	delete[] normals;
 	delete[] uvs;
-	delete[] colors;
 
 	delete[] center_face_point;
 	delete[] center_face_normal_point;
@@ -205,25 +213,41 @@ Mesh::~Mesh()
 	indices = nullptr;
 	normals = nullptr;
 	uvs = nullptr;
-	colors = nullptr;
 	
 	center_face_point = nullptr;
-	center_face_normal_point = nullptr;*/
+	center_face_normal_point = nullptr;
 
-	/*glDeleteBuffers(num_vertices, &id_vertices);
+	glDeleteBuffers(num_vertices, &id_vertices);
 	glDeleteBuffers(num_indices, &id_indices);
 	glDeleteBuffers(num_normals, &id_normals);
 	glDeleteBuffers(num_uvs, &id_uvs);
-	glDeleteBuffers(num_colors, &id_colors);*/
+}
+
+void Mesh::DrawMeshLines(const float& size) const
+{
+	glColor3f(mesh_lines_color.x, mesh_lines_color.y, mesh_lines_color.z);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glLineWidth(size);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	glDrawElements(GL_TRIANGLES, num_indices * 3, GL_UNSIGNED_INT, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glColor3f(255.0f, 255.0f, 255.0f);
 }
 
 /* Mesh ------------------------------------ */
 void Mesh::DrawMeshVertices(const float& size) const
 {
 	glPointSize(size);
-
 	glBegin(GL_POINTS);
-
 	glColor3f(255.0f, 0.0f, 0.0f);
 
 	for (int i = 0; i < num_vertices * 3; i += 3)
@@ -236,11 +260,10 @@ void Mesh::DrawMeshVertices(const float& size) const
 	glPointSize(1.0f);
 }
 
-void Mesh::DrawMeshNormals(const float& width) const
+void Mesh::DrawMeshVertexNormals(const float& width) const
 {
 	glLineWidth(width);
 	glBegin(GL_LINES);
-
 	glColor3f(0.0f, 255.0f, 255.0f);
 
 	for (int i = 0; i < num_normals * 3; i += 3)
@@ -260,7 +283,6 @@ void Mesh::DrawMeshFaceNormals(const float& width) const
 {
 	glLineWidth(width);
 	glBegin(GL_LINES);
-
 	glColor3f(255.0f, 0.0f, 255.0f);
 
 	for (int i = 0; i < num_indices; i += 3)

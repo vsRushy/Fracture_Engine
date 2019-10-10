@@ -1,6 +1,8 @@
 #ifndef __MODULE_IMPORTER_H__
 #define __MODULE_IMPORTER_H__
 
+#include <vector>
+
 #include "Module.h"
 #include "Globals.h"
 
@@ -44,8 +46,13 @@ struct Mesh
 
 	// ------------------------------------------------
 
+	float* center_face_point = nullptr;
+	float* center_face_normal_point = nullptr;
+
+	// ------------------------------------------------
 	void DrawMeshVertices(const float& size) const;
 	void DrawMeshNormals(const float& width) const;
+	void DrawMeshFaceNormals(const float& width) const;
 };
 
 class ModuleImporter : public Module

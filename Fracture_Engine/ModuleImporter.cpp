@@ -88,6 +88,33 @@ void ModuleImporter::LoadModel(const char* full_path)
 				m.normals = new float[m.num_normals * 3];
 				memcpy(m.normals, new_mesh->mNormals, sizeof(float) * m.num_normals * 3);
 				LOG(LOG_INFORMATION, "New mesh with %d normals", m.num_normals);
+
+				m.center_face_point = new float[m.num_indices];
+				m.center_face_normal_point = new float[m.num_indices];
+				for (uint i = 0; i < m.num_indices; i+= 3)
+				{
+					uint index1 = m.indices[i] * 3;
+					uint index2 = m.indices[i + 1] * 3;
+					uint index3 = m.indices[i + 2] * 3;
+
+					vec3 x0(m.vertices[index1], m.vertices[index1 + 1], m.vertices[index1 + 2]);
+					vec3 x1(m.vertices[index2], m.vertices[index2 + 1], m.vertices[index2 + 2]);
+					vec3 x2(m.vertices[index3], m.vertices[index3 + 1], m.vertices[index3 + 2]);
+
+					vec3 v0 = x0 - x2;
+					vec3 v1 = x1 - x2;
+					vec3 n = cross(v0, v1);
+
+					vec3 normalized = normalize(n);
+
+					m.center_face_point[i] = (x0.x + x1.x + x2.x) / 3;
+					m.center_face_point[i + 1] = (x0.y + x1.y + x2.y) / 3;
+					m.center_face_point[i + 2] = (x0.z + x1.z + x2.z) / 3;
+
+					m.center_face_normal_point[i] = normalized.x;
+					m.center_face_normal_point[i + 1] = normalized.y;
+					m.center_face_normal_point[i + 2] = normalized.z;
+				}
 			}
 
 			/* Copy UVs */
@@ -171,11 +198,17 @@ Mesh::~Mesh()
 	delete[] uvs;
 	delete[] colors;
 
+	delete[] center_face_point;
+	delete[] center_face_normal_point;
+
 	vertices = nullptr;
 	indices = nullptr;
 	normals = nullptr;
 	uvs = nullptr;
-	colors = nullptr;*/
+	colors = nullptr;
+	
+	center_face_point = nullptr;
+	center_face_normal_point = nullptr;*/
 
 	/*glDeleteBuffers(num_vertices, &id_vertices);
 	glDeleteBuffers(num_indices, &id_indices);
@@ -187,7 +220,7 @@ Mesh::~Mesh()
 /* Mesh ------------------------------------ */
 void Mesh::DrawMeshVertices(const float& size) const
 {
-	glPointSize(7.5f);
+	glPointSize(size);
 
 	glBegin(GL_POINTS);
 
@@ -205,7 +238,7 @@ void Mesh::DrawMeshVertices(const float& size) const
 
 void Mesh::DrawMeshNormals(const float& width) const
 {
-	glLineWidth(5.0f);
+	glLineWidth(width);
 	glBegin(GL_LINES);
 
 	glColor3f(0.0f, 255.0f, 255.0f);
@@ -216,6 +249,24 @@ void Mesh::DrawMeshNormals(const float& width) const
 
 		glVertex3f(vertices[i], vertices[i + 1], vertices[i + 2]);
 		glVertex3f(vertices[i] + normal_vector.x, vertices[i + 1] + normal_vector.y, vertices[i + 2] + normal_vector.z);
+	}
+
+	glColor3f(255.0f, 255.0f, 255.0f);
+	glEnd();
+	glLineWidth(1.0f);
+}
+
+void Mesh::DrawMeshFaceNormals(const float& width) const
+{
+	glLineWidth(width);
+	glBegin(GL_LINES);
+
+	glColor3f(255.0f, 0.0f, 255.0f);
+
+	for (int i = 0; i < num_indices; i += 3)
+	{
+		glVertex3f(center_face_point[i], center_face_point[i + 1], center_face_point[i + 2]);
+		glVertex3f(center_face_point[i] + center_face_normal_point[i], center_face_point[i + 1] + center_face_normal_point[i + 1], center_face_point[i + 2] + center_face_normal_point[i + 2]);
 	}
 
 	glColor3f(255.0f, 255.0f, 255.0f);

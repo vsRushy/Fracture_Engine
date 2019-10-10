@@ -203,6 +203,9 @@ void ModuleRenderer3D::DrawMesh(Mesh mesh) const
 
 	/* Draw normals */
 	mesh.DrawMeshNormals(5.0f);
+
+	/* Draw face normals */
+	mesh.DrawMeshFaceNormals(5.0f);
 }
 
 void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)

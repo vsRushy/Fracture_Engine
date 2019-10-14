@@ -9,6 +9,8 @@
 #include "P_Sphere.h"
 #include "P_Plane.h"
 
+#include "Mesh.h"
+
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {}
 
@@ -27,8 +29,6 @@ bool ModuleSceneIntro::Start()
 	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
 
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
-	
-	//texture_01_id = App->importer->LoadTexture("Assets/Textures/Baker.dds");
 
 	return ret;
 }
@@ -49,7 +49,7 @@ bool ModuleSceneIntro::CleanUp()
 	/* Delete all meshes */
 	for (std::list<Mesh*>::reverse_iterator item = meshes.rbegin(); item != meshes.rend(); item++)
 	{
-		delete* item;
+		delete *item;
 		*item = nullptr;
 	}
 	meshes.clear();

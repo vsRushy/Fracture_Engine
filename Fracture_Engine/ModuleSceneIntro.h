@@ -2,6 +2,7 @@
 #define __MODULE_SCENE_INTRO_H__
 
 #include <list>
+#include <map>
 
 #include "glmath.h"
 
@@ -28,6 +29,7 @@ public:
 public:
 	std::list<Primitive*> primitives;
 	std::list<Mesh*> meshes;
+	std::map<const char*, uint> textures;
 
 private:
 	uint texture_01_id = -1;

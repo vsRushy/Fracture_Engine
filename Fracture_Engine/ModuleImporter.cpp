@@ -19,6 +19,8 @@ bool ModuleImporter::Init()
 {
 	bool ret = true;
 
+	texture_root_path = "Assets/Textures/";
+
 	/* Assimp log stream */
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
@@ -136,6 +138,22 @@ void ModuleImporter::LoadModel(const char* path)
 			}
 			LOG(LOG_INFORMATION, "New mesh with %d UVs", m->num_uvs);
 			
+			/* Copy materials */
+			if (scene->HasMaterials())
+			{
+				for (uint i = 0; i < scene->mNumMaterials; i++)
+				{
+					uint diffuse_texture_count = scene->mMaterials[new_mesh->mMaterialIndex]->GetTextureCount(aiTextureType_DIFFUSE);
+
+					for (int j = 0; j < diffuse_texture_count; j++)
+					{
+						aiString texture_path;
+						scene->mMaterials[new_mesh->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, j, &texture_path);
+						m->id_textures = LoadTexture(texture_path.data);
+					}
+				}
+			}
+
 			/* VBO vertices */
 			glGenBuffers(1, &(m->id_vertices));
 			glBindBuffer(GL_ARRAY_BUFFER, m->id_vertices);
@@ -167,27 +185,21 @@ void ModuleImporter::LoadModel(const char* path)
 
 uint ModuleImporter::LoadTexture(const char* path)
 {
-	if (ilLoadImage(path)) 
+	std::string local_path(path);
+	std::string full_path(texture_root_path + local_path);
+	if (ilLoad(IL_PNG, full_path.data()))
 	{
-		ILuint width, height;
-		width = ilGetInteger(IL_IMAGE_WIDTH);
-		height = ilGetInteger(IL_IMAGE_HEIGHT);
-		ILubyte* data = ilGetData();
+		iluFlipImage();
+		ILuint texture_id = ilutGLBindTexImage();
 
-		uint tex_id;
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1, &tex_id);
-		glBindTexture(GL_TEXTURE_2D, tex_id);
+		if (texture_id > 0)
+		{
+			App->scene_intro->textures.insert({ path, texture_id });
+			glBindTexture(GL_TEXTURE_2D, 0);
+			ilDeleteImage(texture_id);
+		}
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-			0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-
-		return tex_id;
+		return texture_id;
 	}
 	else
 		return -1;

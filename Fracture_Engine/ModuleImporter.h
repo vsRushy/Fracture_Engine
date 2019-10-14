@@ -34,6 +34,6 @@ public:
 	uint LoadTexture(const char* path);
 
 private:
-
+	const char* texture_root_path = "";
 };
 #endif /* __MODULE_IMPORTER__ */

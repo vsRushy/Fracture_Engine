@@ -10,6 +10,7 @@
 #include "P_Plane.h"
 
 #include "Mesh.h"
+#include "Texture.h"
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {}

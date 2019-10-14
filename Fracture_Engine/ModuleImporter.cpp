@@ -5,6 +5,7 @@
 #include "ModuleSceneIntro.h"
 
 #include "Mesh.h"
+#include "Texture.h"
 
 ModuleImporter::ModuleImporter(bool start_enabled) : Module(start_enabled)
 {
@@ -183,9 +184,9 @@ void ModuleImporter::LoadModel(const char* path)
 		LOG(LOG_ERROR, "Error loading scene %s", path);
 }
 
-uint ModuleImporter::LoadTexture(const char* path)
+bool ModuleImporter::LoadTexture(const char* path)
 {
-	std::string local_path(path);
+	/*std::string local_path(path);
 	std::string full_path(texture_root_path + local_path);
 	if (ilLoad(IL_PNG, full_path.data()))
 	{
@@ -202,5 +203,54 @@ uint ModuleImporter::LoadTexture(const char* path)
 		return texture_id;
 	}
 	else
-		return -1;
+		return -1;*/
+
+	bool ret = false;
+
+	std::string local_path(path);
+	std::string full_path(texture_root_path + local_path);
+
+	if (!ilLoad(IL_PNG, full_path.data()))
+	{
+		ILenum error = ilGetError();
+		LOG(LOG_ERROR, "Failed to load texture with path: %s. Error: %s", path, ilGetString(error));
+		ret = false;
+	}
+	else
+	{
+		iluFlipImage();
+		
+		Texture* texture = new Texture();
+		texture->id = ilutGLBindTexImage();
+		texture->name = path;
+		texture->width = ilGetInteger(IL_IMAGE_WIDTH);
+		texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
+
+		ilGenImages(1, &texture->id);
+		ilBindImage(texture->id);
+		ILubyte* data = ilGetData();
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glGenTextures(1, &texture->id);
+		glBindTexture(GL_TEXTURE_2D, texture->id);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, texture->width, texture->height,
+			0, GL_RGBA8, GL_UNSIGNED_BYTE, &data);
+
+		if (texture->id > 0)
+		{
+			App->scene_intro->textures.insert({ path, texture });
+			glBindTexture(GL_TEXTURE_2D, 0);
+			ilDeleteImage(texture->id);
+		}
+
+		ret = true;
+	}
+
+	return ret;
 }

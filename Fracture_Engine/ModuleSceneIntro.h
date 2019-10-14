@@ -11,6 +11,7 @@
 #include "Primitive.h"
 
 class Mesh;
+class Texture;
 
 class ModuleSceneIntro : public Module
 {
@@ -29,10 +30,7 @@ public:
 public:
 	std::list<Primitive*> primitives;
 	std::list<Mesh*> meshes;
-	std::map<const char*, uint> textures;
-
-private:
-	uint texture_01_id = -1;
+	std::map<const char*, Texture*> textures;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

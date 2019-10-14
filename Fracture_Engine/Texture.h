@@ -6,6 +6,7 @@
 class Texture
 {
 public:
+	Texture() {}
 	Texture(const char* name, const uint& id, const uint& width, const uint& height);
 	~Texture();
 

@@ -31,7 +31,7 @@ public:
 	bool CleanUp();
 
 	void LoadModel(const char* path);
-	uint LoadTexture(const char* path);
+	bool LoadTexture(const char* path);
 
 private:
 	const char* texture_root_path = "";

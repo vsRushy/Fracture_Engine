@@ -186,25 +186,6 @@ void ModuleImporter::LoadModel(const char* path)
 
 bool ModuleImporter::LoadTexture(const char* path)
 {
-	/*std::string local_path(path);
-	std::string full_path(texture_root_path + local_path);
-	if (ilLoad(IL_PNG, full_path.data()))
-	{
-		iluFlipImage();
-		ILuint texture_id = ilutGLBindTexImage();
-
-		if (texture_id > 0)
-		{
-			App->scene_intro->textures.insert({ path, texture_id });
-			glBindTexture(GL_TEXTURE_2D, 0);
-			ilDeleteImage(texture_id);
-		}
-
-		return texture_id;
-	}
-	else
-		return -1;*/
-
 	bool ret = false;
 
 	std::string local_path(path);

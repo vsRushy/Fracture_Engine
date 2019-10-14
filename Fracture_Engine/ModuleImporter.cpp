@@ -4,6 +4,8 @@
 #include "ModuleImporter.h"
 #include "ModuleSceneIntro.h"
 
+#include "Mesh.h"
+
 ModuleImporter::ModuleImporter(bool start_enabled) : Module(start_enabled)
 {
 
@@ -189,117 +191,4 @@ uint ModuleImporter::LoadTexture(const char* path)
 	}
 	else
 		return -1;
-}
-
-void ModuleImporter::AssignTextureToModel(Mesh* mesh, uint texture_id)
-{
-	if (mesh != nullptr)
-	{
-		mesh->id_textures = texture_id;
-	}
-}
-
-Mesh::~Mesh()
-{
-	delete[] vertices;
-	delete[] indices;
-	delete[] normals;
-	delete[] uvs;
-
-	delete[] center_face_point;
-	delete[] center_face_normal_point;
-
-	vertices = nullptr;
-	indices = nullptr;
-	normals = nullptr;
-	uvs = nullptr;
-	
-	center_face_point = nullptr;
-	center_face_normal_point = nullptr;
-
-	/*glDeleteBuffers(num_vertices, &id_vertices);
-	glDeleteBuffers(num_indices, &id_indices);
-	glDeleteBuffers(num_normals, &id_normals);
-	glDeleteBuffers(num_uvs, &id_uvs);*/
-}
-
-void Mesh::DrawMeshLines(const float& size) const
-{
-	glColor3f(App->renderer3D->mesh_lines_color.r, 
-		App->renderer3D->mesh_lines_color.g, 
-		App->renderer3D->mesh_lines_color.b);
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-
-	glLineWidth(size);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	glDrawElements(GL_TRIANGLES, num_indices * 3, GL_UNSIGNED_INT, NULL);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-
-	glColor3f(255.0f, 255.0f, 255.0f);
-}
-
-/* Mesh ------------------------------------ */
-void Mesh::DrawMeshVertices(const float& size) const
-{
-	glPointSize(size);
-	glBegin(GL_POINTS);
-	glColor3f(App->renderer3D->mesh_vertices_color.r,
-		App->renderer3D->mesh_vertices_color.g, 
-		App->renderer3D->mesh_vertices_color.b);
-
-	for (int i = 0; i < num_vertices * 3; i += 3)
-	{
-		glVertex3f(vertices[i], vertices[i + 1], vertices[i + 2]);
-	}
-
-	glColor3f(255.0f, 255.0f, 255.0f);
-	glEnd();
-	glPointSize(1.0f);
-}
-
-void Mesh::DrawMeshVertexNormals(const float& width) const
-{
-	glLineWidth(width);
-	glBegin(GL_LINES);
-	glColor3f(App->renderer3D->mesh_vertex_normals_color.r,
-		App->renderer3D->mesh_vertex_normals_color.g,
-		App->renderer3D->mesh_vertex_normals_color.b);
-
-	for (int i = 0; i < num_normals * 3; i += 3)
-	{
-		vec3 normal_vector = normalize({ normals[i], normals[i + 1], normals[i + 2] });
-
-		glVertex3f(vertices[i], vertices[i + 1], vertices[i + 2]);
-		glVertex3f(vertices[i] + normal_vector.x, vertices[i + 1] + normal_vector.y, vertices[i + 2] + normal_vector.z);
-	}
-
-	glColor3f(255.0f, 255.0f, 255.0f);
-	glEnd();
-	glLineWidth(1.0f);
-}
-
-void Mesh::DrawMeshFaceNormals(const float& width) const
-{
-	glLineWidth(width);
-	glBegin(GL_LINES);
-	glColor3f(App->renderer3D->mesh_face_normals_color.r,
-		App->renderer3D->mesh_face_normals_color.g,
-		App->renderer3D->mesh_face_normals_color.b);
-
-	for (int i = 0; i < num_indices; i += 3)
-	{
-		glVertex3f(center_face_point[i], center_face_point[i + 1], center_face_point[i + 2]);
-		glVertex3f(center_face_point[i] + center_face_normal_point[i], center_face_point[i + 1] + center_face_normal_point[i + 1], center_face_point[i + 2] + center_face_normal_point[i + 2]);
-	}
-
-	glColor3f(255.0f, 255.0f, 255.0f);
-	glEnd();
-	glLineWidth(1.0f);
 }

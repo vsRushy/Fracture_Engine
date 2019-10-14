@@ -65,6 +65,11 @@ public:
 	bool GetDrawMeshVertexNormals() const;
 	bool GetDrawMeshFaceNormals() const;
 
+	void DrawMeshLines(Mesh* mesh, const float& size) const;
+	void DrawMeshVertices(Mesh* mesh, const float& size) const;
+	void DrawMeshVertexNormals(Mesh* mesh, const float& width) const;
+	void DrawMeshFaceNormals(Mesh* mesh, const float& width) const;
+
 public:
 	bool vsync;
 
@@ -85,7 +90,21 @@ public:
 	bool gl_alpha_test;
 
 public:
-	// Mesh advanced options
+	/* Mesh advanced options */
+	bool draw_mesh_lines = false;
+	float mesh_lines_width = 3.0f;
+
+	bool draw_mesh_vertices = false;
+	float mesh_vertices_size = 9.0f;
+
+	bool draw_mesh_vertex_normals = false;
+	float mesh_vertex_normals_width = 2.0f;
+
+	bool draw_mesh_face_normals = false;
+	float mesh_face_normals_width = 2.0f;
+
+	// -----------------------------------------
+
 	Color mesh_lines_color = { 255.0f, 255.0f, 0.0f };
 	Color mesh_vertices_color = { 0.0f, 255.0f, 255.0f };
 	Color mesh_vertex_normals_color = { 255.0f, 0.0f, 0.0f };

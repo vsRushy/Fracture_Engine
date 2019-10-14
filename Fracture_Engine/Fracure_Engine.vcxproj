@@ -90,6 +90,8 @@
     <ClInclude Include="DevIL\include\IL\ilut_config.h" />
     <ClInclude Include="DevIL\include\IL\ilu_region.h" />
     <ClInclude Include="DevIL\include\IL\il_wrap.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModuleFileSystem.h" />
     <ClInclude Include="PhysFS\include\physfs.h" />
     <ClInclude Include="P_Cube.h" />
@@ -180,11 +182,14 @@
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="P_Plane.h" />
     <ClInclude Include="P_Sphere.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ModuleFileSystem.cpp" />
     <ClCompile Include="P_Cube.cpp" />
     <ClCompile Include="glmath.cpp" />
@@ -241,6 +246,7 @@
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="P_Plane.cpp" />
     <ClCompile Include="P_Sphere.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

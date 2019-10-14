@@ -28,13 +28,7 @@ bool ModuleSceneIntro::Start()
 
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 	
-	texture_01_id = App->importer->LoadTexture("Assets/Textures/Baker.dds");
-
-	/* Assign to all meshes the same texture (for now) */
-	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
-	{
-		App->importer->AssignTextureToModel(*item, texture_01_id);
-	}
+	//texture_01_id = App->importer->LoadTexture("Assets/Textures/Baker.dds");
 
 	return ret;
 }

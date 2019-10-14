@@ -5,6 +5,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleImporter.h"
 #include "Primitive.h"
+#include "Mesh.h"
 
 #pragma comment (lib, "glu32.lib")    /* Link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* Link Microsoft OpenGL lib   */
@@ -207,20 +208,20 @@ void ModuleRenderer3D::DrawMesh(Mesh* mesh) const
 	}
 
 	/* Draw mesh lines */
-	if(mesh->draw_mesh_lines || GetWireframeMode())
-		mesh->DrawMeshLines(mesh->mesh_lines_width);
+	if(draw_mesh_lines || GetWireframeMode())
+		DrawMeshLines(mesh, mesh_lines_width);
 
 	/* Draw vertices */
-	if(mesh->draw_mesh_vertices)
-		mesh->DrawMeshVertices(mesh->mesh_vertices_size);
+	if(draw_mesh_vertices)
+		DrawMeshVertices(mesh, mesh_vertices_size);
 
 	/* Draw vertex normals */
-	if(mesh->draw_mesh_vertex_normals)
-		mesh->DrawMeshVertexNormals(mesh->mesh_vertex_normals_width);
+	if(draw_mesh_vertex_normals)
+		DrawMeshVertexNormals(mesh, mesh_vertex_normals_width);
 
 	/* Draw face normals */
-	if(mesh->draw_mesh_face_normals)
-		mesh->DrawMeshFaceNormals(mesh->mesh_face_normals_width);
+	if(draw_mesh_face_normals)
+		DrawMeshFaceNormals(mesh, mesh_face_normals_width);
 }
 
 void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)
@@ -379,116 +380,125 @@ bool ModuleRenderer3D::GetAlphaTest() const
 
 void ModuleRenderer3D::SetDrawMeshLines(const bool& value)
 {
-	if (App->scene_intro->meshes.size() > 0)
-	{
-		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
-			item != App->scene_intro->meshes.end();
-			item++)
-		{
-			(*item)->draw_mesh_lines = value;
-		}
-	}
+	draw_mesh_lines = value;
 }
 
 void ModuleRenderer3D::SetDrawMeshVertices(const bool& value)
 {
-	if (App->scene_intro->meshes.size() > 0)
-	{
-		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
-			item != App->scene_intro->meshes.end();
-			item++)
-		{
-			(*item)->draw_mesh_vertices = value;
-		}
-	}
+	draw_mesh_vertices = value;
 }
 
 void ModuleRenderer3D::SetDrawMeshVertexNormals(const bool& value)
 {
-	if (App->scene_intro->meshes.size() > 0)
-	{
-		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
-			item != App->scene_intro->meshes.end();
-			item++)
-		{
-			(*item)->draw_mesh_vertex_normals = value;
-		}
-	}
+	draw_mesh_vertex_normals = value;
 }
 
 void ModuleRenderer3D::SetDrawMeshFaceNormals(const bool& value)
 {
-	if (App->scene_intro->meshes.size() > 0)
-	{
-		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
-			item != App->scene_intro->meshes.end();
-			item++)
-		{
-			(*item)->draw_mesh_face_normals = value;
-		}
-	}
+	draw_mesh_face_normals = value;
 }
 
 bool ModuleRenderer3D::GetDrawMeshLines() const
 {
-	bool ret = false;
-	if (App->scene_intro->meshes.size() > 0)
-	{
-		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
-			item != App->scene_intro->meshes.end();
-			item++)
-		{
-			ret = (*item)->draw_mesh_lines;
-		}
-	}
-
-	return ret;
+	return draw_mesh_lines;
 }
 
 bool ModuleRenderer3D::GetDrawMeshVertices() const
 {
-	bool ret = false;
-	if (App->scene_intro->meshes.size() > 0)
-	{
-		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
-			item != App->scene_intro->meshes.end();
-			item++)
-		{
-			ret = (*item)->draw_mesh_vertices;
-		}
-	}
-
-	return ret;
+	return draw_mesh_vertices;
 }
 
 bool ModuleRenderer3D::GetDrawMeshVertexNormals() const
 {
-	bool ret = false;
-	if (App->scene_intro->meshes.size() > 0)
-	{
-		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
-			item != App->scene_intro->meshes.end();
-			item++)
-		{
-			ret = (*item)->draw_mesh_vertex_normals;
-		}
-	}
-
-	return ret;
+	return draw_mesh_vertex_normals;
 }
 
 bool ModuleRenderer3D::GetDrawMeshFaceNormals() const
 {
-	bool ret = false;
-	if (App->scene_intro->meshes.size() > 0)
+	return draw_mesh_face_normals;
+}
+
+// -----------------------
+
+void ModuleRenderer3D::DrawMeshLines(Mesh* mesh, const float& size) const
+{
+	glColor3f(App->renderer3D->mesh_lines_color.r,
+		App->renderer3D->mesh_lines_color.g,
+		App->renderer3D->mesh_lines_color.b);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glLineWidth(size);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	glDrawElements(GL_TRIANGLES, mesh->num_indices * 3, GL_UNSIGNED_INT, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glColor3f(255.0f, 255.0f, 255.0f);
+}
+
+void ModuleRenderer3D::DrawMeshVertices(Mesh* mesh, const float& size) const
+{
+	glPointSize(size);
+	glBegin(GL_POINTS);
+	glColor3f(App->renderer3D->mesh_vertices_color.r,
+		App->renderer3D->mesh_vertices_color.g,
+		App->renderer3D->mesh_vertices_color.b);
+
+	for (int i = 0; i < mesh->num_vertices * 3; i += 3)
 	{
-		for (std::list<Mesh*>::iterator item = App->scene_intro->meshes.begin();
-			item != App->scene_intro->meshes.end();
-			item++)
-		{
-			ret = (*item)->draw_mesh_face_normals;
-		}
+		glVertex3f(mesh->vertices[i], mesh->vertices[i + 1], mesh->vertices[i + 2]);
 	}
 
-	return ret;
+	glColor3f(255.0f, 255.0f, 255.0f);
+	glEnd();
+	glPointSize(1.0f);
+}
+
+void ModuleRenderer3D::DrawMeshVertexNormals(Mesh* mesh, const float& width) const
+{
+	glLineWidth(width);
+	glBegin(GL_LINES);
+	glColor3f(App->renderer3D->mesh_vertex_normals_color.r,
+		App->renderer3D->mesh_vertex_normals_color.g,
+		App->renderer3D->mesh_vertex_normals_color.b);
+
+	for (int i = 0; i < mesh->num_normals * 3; i += 3)
+	{
+		vec3 normal_vector = normalize({ mesh->normals[i], mesh->normals[i + 1], mesh->normals[i + 2] });
+
+		glVertex3f(mesh->vertices[i], mesh->vertices[i + 1], mesh->vertices[i + 2]);
+		glVertex3f(mesh->vertices[i] + normal_vector.x, mesh->vertices[i + 1] + normal_vector.y, mesh->vertices[i + 2] + normal_vector.z);
+	}
+
+	glColor3f(255.0f, 255.0f, 255.0f);
+	glEnd();
+	glLineWidth(1.0f);
+}
+
+void ModuleRenderer3D::DrawMeshFaceNormals(Mesh* mesh, const float& width) const
+{
+	glLineWidth(width);
+	glBegin(GL_LINES);
+	glColor3f(App->renderer3D->mesh_face_normals_color.r,
+		App->renderer3D->mesh_face_normals_color.g,
+		App->renderer3D->mesh_face_normals_color.b);
+
+	for (int i = 0; i < mesh->num_indices; i += 3)
+	{
+		glVertex3f(mesh->center_face_point[i], mesh->center_face_point[i + 1], 
+			mesh->center_face_point[i + 2]);
+		glVertex3f(mesh->center_face_point[i] + mesh->center_face_normal_point[i],
+			mesh->center_face_point[i + 1] + mesh->center_face_normal_point[i + 1], 
+			mesh->center_face_point[i + 2] + mesh->center_face_normal_point[i + 2]);
+	}
+
+	glColor3f(255.0f, 255.0f, 255.0f);
+	glEnd();
+	glLineWidth(1.0f);
 }

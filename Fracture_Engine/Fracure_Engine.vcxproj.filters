@@ -64,6 +64,15 @@
     <Filter Include="Sources\Dependencies\DevIL">
       <UniqueIdentifier>{2388e0db-9ad1-41e5-9ba5-cda5bd7a77c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\GameObject">
+      <UniqueIdentifier>{b4707be7-5a27-4fb0-8db3-6e50275f4b97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GameObject\Mesh">
+      <UniqueIdentifier>{1e510399-688b-4768-83ad-1bd781408afb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GameObject\Texture">
+      <UniqueIdentifier>{4e32592a-db0c-4227-a422-4b4e37fd5845}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -369,6 +378,15 @@
     <ClInclude Include="DevIL\include\IL\ilut_config.h">
       <Filter>Sources\Dependencies\DevIL</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Sources\GameObject\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Sources\GameObject\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -547,6 +565,15 @@
     </ClCompile>
     <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Sources\GameObject\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Sources\GameObject\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -10,8 +10,6 @@
 #include "Globals.h"
 #include "Primitive.h"
 
-class GameObject;
-
 class Mesh;
 class Texture;
 
@@ -30,8 +28,6 @@ public:
 	void CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type);
 
 public:
-	std::list<GameObject*> game_objects;
-
 	std::list<Primitive*> primitives;
 	std::list<Mesh*> meshes;
 	std::map<const char*, Texture*> textures;

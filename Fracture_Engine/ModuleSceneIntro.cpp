@@ -9,8 +9,6 @@
 #include "P_Sphere.h"
 #include "P_Plane.h"
 
-#include "GameObject.h"
-
 #include "Mesh.h"
 #include "Texture.h"
 

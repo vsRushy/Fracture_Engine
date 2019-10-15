@@ -227,6 +227,7 @@ bool ModuleImporter::LoadTexture(const char* path)
 		{
 			App->scene_intro->textures.insert({ path, texture });
 			glBindTexture(GL_TEXTURE_2D, 0);
+			ilBindImage(0);
 			ilDeleteImage(texture->id);
 		}
 

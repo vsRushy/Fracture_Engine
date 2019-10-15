@@ -55,9 +55,6 @@
     <Filter Include="Sources\Dependencies\Par">
       <UniqueIdentifier>{1fb39760-4a70-4520-8923-cda0a789652a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Primitives">
-      <UniqueIdentifier>{b4aa2d37-bc07-4338-b259-f7686bdf0266}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\Dependencies\PhysFS">
       <UniqueIdentifier>{49a7e15b-e211-4256-98e7-c7faa87a2d00}</UniqueIdentifier>
     </Filter>
@@ -72,6 +69,9 @@
     </Filter>
     <Filter Include="Sources\GameObject\Texture">
       <UniqueIdentifier>{4e32592a-db0c-4227-a422-4b4e37fd5845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GameObject\Primitive">
+      <UniqueIdentifier>{b4aa2d37-bc07-4338-b259-f7686bdf0266}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -337,16 +337,16 @@
       <Filter>Sources\Dependencies\Par</Filter>
     </ClInclude>
     <ClInclude Include="Primitive.h">
-      <Filter>Sources\Primitives</Filter>
+      <Filter>Sources\GameObject\Primitive</Filter>
     </ClInclude>
     <ClInclude Include="P_Sphere.h">
-      <Filter>Sources\Primitives</Filter>
+      <Filter>Sources\GameObject\Primitive</Filter>
     </ClInclude>
     <ClInclude Include="P_Plane.h">
-      <Filter>Sources\Primitives</Filter>
+      <Filter>Sources\GameObject\Primitive</Filter>
     </ClInclude>
     <ClInclude Include="P_Cube.h">
-      <Filter>Sources\Primitives</Filter>
+      <Filter>Sources\GameObject\Primitive</Filter>
     </ClInclude>
     <ClInclude Include="ModuleFileSystem.h">
       <Filter>Sources\Modules</Filter>
@@ -552,16 +552,16 @@
       <Filter>Sources\Dependencies\Par</Filter>
     </ClCompile>
     <ClCompile Include="Primitive.cpp">
-      <Filter>Sources\Primitives</Filter>
+      <Filter>Sources\GameObject\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="P_Sphere.cpp">
-      <Filter>Sources\Primitives</Filter>
+      <Filter>Sources\GameObject\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="P_Plane.cpp">
-      <Filter>Sources\Primitives</Filter>
+      <Filter>Sources\GameObject\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="P_Cube.cpp">
-      <Filter>Sources\Primitives</Filter>
+      <Filter>Sources\GameObject\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Sources\Modules</Filter>

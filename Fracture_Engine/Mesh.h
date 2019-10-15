@@ -2,8 +2,9 @@
 #define __MESH_H__
 
 #include "Globals.h"
+#include "GameObject.h"
 
-class Mesh
+class Mesh : public GameObject
 {
 public:
 	Mesh();

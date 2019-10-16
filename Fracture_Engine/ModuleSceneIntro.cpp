@@ -37,7 +37,7 @@ bool ModuleSceneIntro::Start()
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 
 	GameObject* g1 = CreateEmptyGameObject("test", nullptr);
-	GameObject* g2 = CreateModelGameObject("test2", nullptr, nullptr);
+	GameObject* g2 = CreateModelGameObject("test2", "Assets/Models/BakerHouse.FBX", nullptr);
 
 	return ret;
 }

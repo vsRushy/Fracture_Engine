@@ -12,6 +12,8 @@ public:
 	ComponentMesh(GameObject* target, const char* name_meshes);
 	~ComponentMesh();
 
+	void CopyMeshes(const char* name);
+
 public:
 	std::list<Mesh*> meshes;
 };

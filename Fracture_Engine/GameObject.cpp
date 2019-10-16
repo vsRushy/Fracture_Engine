@@ -73,9 +73,7 @@ bool GameObject::IsActive() const
 
 Component* GameObject::CreateComponentTransform()
 {
-	Component* component_transform = nullptr;
-	
-	component_transform = new ComponentTransform(this);
+	Component* component_transform = new ComponentTransform(this);
 	components.push_back(component_transform);
 
 	return component_transform;
@@ -83,9 +81,7 @@ Component* GameObject::CreateComponentTransform()
 
 Component* GameObject::CreateComponentMesh(const char* meshes_name)
 {
-	Component* component_mesh = nullptr;
-
-	component_mesh = new ComponentMesh(this, meshes_name);
+	Component* component_mesh = new ComponentMesh(this, meshes_name);
 	components.push_back(component_mesh);
 
 	return component_mesh;

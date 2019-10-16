@@ -81,11 +81,11 @@ Component* GameObject::CreateComponentTransform()
 	return component_transform;
 }
 
-Component* GameObject::CreateComponentMesh()
+Component* GameObject::CreateComponentMesh(const char* meshes_name)
 {
 	Component* component_mesh = nullptr;
 
-	component_mesh = new ComponentMesh(this);
+	component_mesh = new ComponentMesh(this, meshes_name);
 	components.push_back(component_mesh);
 
 	return component_mesh;
@@ -96,7 +96,7 @@ Component* GameObject::CreateComponentMaterial()
 	return nullptr;
 }
 
-void GameObject::AssignMeshesToComponentMesh(const char* name)
+/*void GameObject::AssignMeshesToComponentMesh(const char* name)
 {
 	std::map<const char*, std::list<Mesh*>>::iterator item1;
 	item1 = App->scene_intro->meshes.find(name);
@@ -114,4 +114,4 @@ void GameObject::AssignMeshesToComponentMesh(const char* name)
 			}
 		}
 	}
-}
+}*/

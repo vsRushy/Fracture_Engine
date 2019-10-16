@@ -9,7 +9,7 @@
 class ComponentMesh : public Component
 {
 public:
-	ComponentMesh(GameObject* target);
+	ComponentMesh(GameObject* target, const char* name_meshes);
 	~ComponentMesh();
 
 public:

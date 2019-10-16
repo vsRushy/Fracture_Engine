@@ -23,12 +23,12 @@ public:
 	// ------------------------------------------
 
 	Component* CreateComponentTransform();
-	Component* CreateComponentMesh();
+	Component* CreateComponentMesh(const char* meshes_name);
 	Component* CreateComponentMaterial();
 
 	// ------------------------------------------
 
-	void AssignMeshesToComponentMesh(const char* name);
+	//void AssignMeshesToComponentMesh(const char* name);
 	
 public:
 	GameObject* parent = nullptr;

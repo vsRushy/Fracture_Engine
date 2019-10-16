@@ -39,8 +39,6 @@ bool ModuleSceneIntro::Start()
 	GameObject* g1 = CreateEmptyGameObject("test", nullptr);
 	GameObject* g2 = CreateModelGameObject("test2", nullptr, nullptr);
 
-	g2->AssignMeshesToComponentMesh("Assets/Models/BakerHouse.FBX");
-
 	return ret;
 }
 
@@ -66,12 +64,15 @@ bool ModuleSceneIntro::CleanUp()
 	primitives.clear();
 
 	/* Delete all meshes */
-	/*for (std::list<Mesh*>::reverse_iterator item = meshes.rbegin(); item != meshes.rend(); item++)
+	for (std::map<const char*, std::list<Mesh*>>::reverse_iterator item = meshes.rbegin(); item != meshes.rend(); item++)
 	{
-		delete *item;
-		*item = nullptr;
+		for (std::list<Mesh*>::reverse_iterator item_list = (*item).second.rbegin(); item_list != (*item).second.rend(); item_list++)
+		{
+			delete *item_list;
+			*item_list = nullptr;
+		}
 	}
-	meshes.clear();*/
+	meshes.clear();
 
 	/* Delete all textures */
 	for (std::map<const char*, Texture*>::reverse_iterator item = textures.rbegin(); item != textures.rend(); item++)
@@ -129,11 +130,11 @@ GameObject* ModuleSceneIntro::CreateEmptyGameObject(std::string name, GameObject
 	return go;
 }
 
-GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, GameObject* parent, Mesh* mesh)
+GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, const char* meshes_name, GameObject* parent)
 {
 	GameObject* go = new GameObject(name, parent);
 
-	go->CreateComponentMesh();
+	go->CreateComponentMesh(meshes_name);
 
 	game_objects.push_back(go);
 
@@ -155,6 +156,12 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (std::list<Primitive*>::iterator item = primitives.begin(); item != primitives.end(); item++)
 	{
 		App->renderer3D->DrawPrimitive(*item);
+	}
+
+	/* Draw game objects ----------------------- */
+	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
+	{
+		//App->renderer3D->DrawPrimitive(*item);
 	}
 
 	return UPDATE_CONTINUE;

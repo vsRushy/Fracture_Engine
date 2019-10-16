@@ -20,10 +20,16 @@ public:
 	void SetActive(bool value);
 	bool IsActive() const;
 
+	// ------------------------------------------
+
 	Component* CreateComponentTransform();
-	Component* CreateComponentMesh(Mesh* mesh);
+	Component* CreateComponentMesh();
 	Component* CreateComponentMaterial();
 
+	// ------------------------------------------
+
+	void AssignMeshesToComponentMesh(const char* name);
+	
 public:
 	GameObject* parent = nullptr;
 	std::vector<GameObject*> children;

@@ -1,3 +1,8 @@
+#include <map>
+
+#include "Application.h"
+#include "ModuleSceneIntro.h"
+
 #include "GameObject.h"
 #include "Component.h"
 #include "Component_Transform.h"
@@ -76,11 +81,11 @@ Component* GameObject::CreateComponentTransform()
 	return component_transform;
 }
 
-Component* GameObject::CreateComponentMesh(Mesh* mesh)
+Component* GameObject::CreateComponentMesh()
 {
 	Component* component_mesh = nullptr;
 
-	component_mesh = new ComponentMesh(this, mesh);
+	component_mesh = new ComponentMesh(this);
 	components.push_back(component_mesh);
 
 	return component_mesh;
@@ -89,4 +94,24 @@ Component* GameObject::CreateComponentMesh(Mesh* mesh)
 Component* GameObject::CreateComponentMaterial()
 {
 	return nullptr;
+}
+
+void GameObject::AssignMeshesToComponentMesh(const char* name)
+{
+	std::map<const char*, std::list<Mesh*>>::iterator item1;
+	item1 = App->scene_intro->meshes.find(name);
+
+	std::list<Mesh*> to_copy = (*item1).second;
+
+	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
+	{
+		if ((*item)->type == COMPONENT_TYPE::MESH)
+		{
+			ComponentMesh* c_m = (ComponentMesh*)*item;
+			for (std::list<Mesh*>::iterator item_copy = to_copy.begin(); item_copy != to_copy.end(); item++)
+			{
+				c_m->meshes.push_back(*item_copy);
+			}
+		}
+	}
 }

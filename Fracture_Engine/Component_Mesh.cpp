@@ -1,6 +1,6 @@
 #include "Component_Mesh.h"
 
-ComponentMesh::ComponentMesh(GameObject* target, Mesh* mesh) : Component(target), mesh(mesh)
+ComponentMesh::ComponentMesh(GameObject* target) : Component(target)
 {
 	type = COMPONENT_TYPE::MESH;
 }

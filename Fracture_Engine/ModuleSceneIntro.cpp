@@ -36,8 +36,10 @@ bool ModuleSceneIntro::Start()
 
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 
-	CreateEmptyGameObject("test", nullptr);
-	CreateModelGameObject("test2", nullptr, nullptr);
+	GameObject* g1 = CreateEmptyGameObject("test", nullptr);
+	GameObject* g2 = CreateModelGameObject("test2", nullptr, nullptr);
+
+	g2->AssignMeshesToComponentMesh("Assets/Models/BakerHouse.FBX");
 
 	return ret;
 }
@@ -131,7 +133,7 @@ GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, GameObject
 {
 	GameObject* go = new GameObject(name, parent);
 
-	go->CreateComponentMesh(mesh);
+	go->CreateComponentMesh();
 
 	game_objects.push_back(go);
 

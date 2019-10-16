@@ -32,6 +32,8 @@ bool ModuleSceneIntro::Start()
 
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 
+	CreateGameObject("test", nullptr);
+
 	return ret;
 }
 

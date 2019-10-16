@@ -35,6 +35,11 @@ bool GameObject::CleanUp()
 void GameObject::SetActive(bool value)
 {
 	active = value;
+
+	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
+	{
+		(*item)->SetActive(value);
+	}
 }
 
 bool GameObject::IsActive() const

@@ -14,17 +14,35 @@ GameObject::~GameObject()
 
 bool GameObject::PreUpdate(float dt)
 {
-	return true;
+	bool ret = false;
+	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
+	{
+		ret = (*item)->PreUpdate(dt);
+	}
+
+	return ret;
 }
 
 bool GameObject::Update(float dt)
 {
-	return true;
+	bool ret = false;
+	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
+	{
+		ret = (*item)->Update(dt);
+	}
+
+	return ret;
 }
 
 bool GameObject::PostUpdate(float dt)
 {
-	return true;
+	bool ret = false;
+	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
+	{
+		ret = (*item)->PostUpdate(dt);
+	}
+
+	return ret;
 }
 
 bool GameObject::CleanUp()

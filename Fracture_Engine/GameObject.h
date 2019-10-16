@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <list>
 
 #include "Component.h"
 #include "Mesh.h"
@@ -21,7 +22,7 @@ public:
 	bool IsActive() const;
 
 	Component* CreateComponentTransform();
-	Component* CreateComponentMesh(Mesh* mesh);
+	Component* CreateComponentMesh(const std::list<Mesh*>& meshes);
 	Component* CreateComponentMaterial();
 
 public:

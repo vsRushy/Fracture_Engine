@@ -52,11 +52,13 @@ update_status ModuleImporter::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleImporter::LoadModel(const char* path)
+void ModuleImporter::LoadModel(const char* path, const char* name)
 {
 	const aiScene* scene = aiImportFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals |
 		aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcessPreset_TargetRealtime_MaxQuality);
 	
+	std::list<Mesh*> meshes_to_copy;
+
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		LOG(LOG_INFORMATION, "New scene with %d mesh(es)", scene->mNumMeshes);
@@ -176,7 +178,10 @@ void ModuleImporter::LoadModel(const char* path)
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_uvs * 3, m->uvs, GL_STATIC_DRAW);
 
 			App->scene_intro->meshes.push_back(m);
+			meshes_to_copy.push_back(m);
 		}
+
+		App->scene_intro->CreateModelGameObject(name, meshes_to_copy, nullptr);
 
 		aiReleaseImport(scene);
 	}

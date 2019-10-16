@@ -30,7 +30,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void LoadModel(const char* path);
+	void LoadModel(const char* path, const char* name);
 	bool LoadTexture(const char* path);
 
 private:

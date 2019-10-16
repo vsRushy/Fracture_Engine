@@ -1,17 +1,19 @@
 #ifndef __COMPONENT_MESH_H__
 #define __COMPONENT_MESH_H__
 
+#include <list>
+
 #include "Component.h"
 #include "Mesh.h"
 
 class ComponentMesh : public Component
 {
 public:
-	ComponentMesh(GameObject* target, Mesh* mesh);
+	ComponentMesh(GameObject* target, std::list<Mesh*> meshes);
 	~ComponentMesh();
 
 private:
-	Mesh* mesh = nullptr;
+	std::list<Mesh*> meshes;
 };
 
 #endif /* __COMPONENT_MESH_H__ */

@@ -73,6 +73,9 @@
     <Filter Include="Sources\GameObject\Texture">
       <UniqueIdentifier>{4e32592a-db0c-4227-a422-4b4e37fd5845}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\GameObject\Component">
+      <UniqueIdentifier>{a8c51188-c696-4726-a9ac-8eba601c7ba0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -387,6 +390,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Sources\GameObject\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Sources\GameObject\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -574,6 +580,9 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Sources\GameObject\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Sources\GameObject\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

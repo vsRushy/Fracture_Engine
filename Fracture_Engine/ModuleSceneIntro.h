@@ -40,7 +40,7 @@ public:
 	std::list<GameObject*> game_objects;
 
 	std::list<Primitive*> primitives;
-	std::list<Mesh*> meshes;
+	std::map<const char*, std::list<Mesh*>> meshes;
 	std::map<const char*, Texture*> textures;
 };
 

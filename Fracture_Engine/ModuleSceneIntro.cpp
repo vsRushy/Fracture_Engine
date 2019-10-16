@@ -64,12 +64,12 @@ bool ModuleSceneIntro::CleanUp()
 	primitives.clear();
 
 	/* Delete all meshes */
-	for (std::list<Mesh*>::reverse_iterator item = meshes.rbegin(); item != meshes.rend(); item++)
+	/*for (std::list<Mesh*>::reverse_iterator item = meshes.rbegin(); item != meshes.rend(); item++)
 	{
 		delete *item;
 		*item = nullptr;
 	}
-	meshes.clear();
+	meshes.clear();*/
 
 	/* Delete all textures */
 	for (std::map<const char*, Texture*>::reverse_iterator item = textures.rbegin(); item != textures.rend(); item++)
@@ -153,12 +153,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (std::list<Primitive*>::iterator item = primitives.begin(); item != primitives.end(); item++)
 	{
 		App->renderer3D->DrawPrimitive(*item);
-	}
-
-	/* Draw meshes --------------------------- */
-	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
-	{
-		App->renderer3D->DrawMesh(*item);
 	}
 
 	return UPDATE_CONTINUE;

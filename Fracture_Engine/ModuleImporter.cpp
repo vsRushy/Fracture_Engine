@@ -175,7 +175,7 @@ void ModuleImporter::LoadModel(const char* path)
 			glBindBuffer(GL_ARRAY_BUFFER, m->id_uvs);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_uvs * 3, m->uvs, GL_STATIC_DRAW);
 
-			App->scene_intro->meshes.push_back(m);
+			App->scene_intro->meshes[path].push_back(m);
 		}
 
 		aiReleaseImport(scene);

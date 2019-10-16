@@ -55,6 +55,14 @@ bool ModuleSceneIntro::CleanUp()
 	}
 	meshes.clear();
 
+	/* Delete all textures */
+	for (std::map<const char*, Texture*>::reverse_iterator item = textures.rbegin(); item != textures.rend(); item++)
+	{
+		delete (*item).second;
+		(*item).second = nullptr;
+	}
+	meshes.clear();
+
 	return true;
 }
 

@@ -10,9 +10,10 @@ GameObject::GameObject(std::string name, GameObject* parent)
 
 GameObject::~GameObject()
 {
-	for (std::vector<Component*>::const_reverse_iterator item = components.rbegin(); item != components.rend(); item++)
+	for (std::vector<Component*>::reverse_iterator item = components.rbegin(); item != components.rend(); item++)
 	{
 		delete* item;
+		*item = nullptr;
 	}
 }
 

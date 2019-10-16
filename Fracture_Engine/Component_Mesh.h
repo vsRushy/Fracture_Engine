@@ -12,6 +12,8 @@ public:
 	ComponentMesh(GameObject* target, const char* name_meshes);
 	~ComponentMesh();
 
+	bool Update(float dt);
+
 	void CopyMeshes(const char* name);
 
 public:

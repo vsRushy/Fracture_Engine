@@ -143,6 +143,12 @@ GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, const char
 
 update_status ModuleSceneIntro::PreUpdate(float dt)
 {
+	/* Pre Update game objects ----------------------- */
+	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
+	{
+		(*item)->PreUpdate(dt);
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -158,10 +164,10 @@ update_status ModuleSceneIntro::Update(float dt)
 		App->renderer3D->DrawPrimitive(*item);
 	}
 
-	/* Draw game objects ----------------------- */
+	/* Update game objects ----------------------- */
 	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
 	{
-		//App->renderer3D->DrawPrimitive(*item);
+		(*item)->Update(dt);
 	}
 
 	return UPDATE_CONTINUE;
@@ -169,5 +175,11 @@ update_status ModuleSceneIntro::Update(float dt)
 
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
+	/* Post Update game objects ----------------------- */
+	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
+	{
+		(*item)->PostUpdate(dt);
+	}
+
 	return UPDATE_CONTINUE;
 }

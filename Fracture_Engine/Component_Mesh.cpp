@@ -17,6 +17,16 @@ ComponentMesh::~ComponentMesh()
 
 }
 
+bool ComponentMesh::Update(float dt)
+{
+	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
+	{
+		App->renderer3D->DrawMesh(*item);
+	}
+
+	return true;
+}
+
 void ComponentMesh::CopyMeshes(const char* name)
 {
 	std::map<const char*, std::list<Mesh*>>::iterator item_mesh;
@@ -25,5 +35,4 @@ void ComponentMesh::CopyMeshes(const char* name)
 	std::list<Mesh*> to_copy = (*item_mesh).second;
 
 	meshes = to_copy;
-	int i = 0;
 }

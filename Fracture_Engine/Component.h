@@ -1,7 +1,7 @@
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
 
-class GameObject;
+#include "GameObject.h"
 
 enum class COMPONENT_TYPE
 {
@@ -24,6 +24,9 @@ public:
 
 	virtual void SetActive(const bool& value);
 	virtual bool IsActive() const;
+
+public:
+	COMPONENT_TYPE type = COMPONENT_TYPE::UNKNOWN;
 
 private:
 	bool active = true;

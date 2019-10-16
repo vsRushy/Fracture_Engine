@@ -14,10 +14,14 @@
 #include "Texture.h"
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
-{}
+{
+
+}
 
 ModuleSceneIntro::~ModuleSceneIntro()
-{}
+{
+
+}
 
 // Load assets
 bool ModuleSceneIntro::Start()
@@ -32,7 +36,8 @@ bool ModuleSceneIntro::Start()
 
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 
-	CreateGameObject("test", nullptr);
+	CreateEmptyGameObject("test", nullptr);
+	CreateModelGameObject("test1", nullptr);
 
 	return ret;
 }
@@ -114,9 +119,20 @@ void ModuleSceneIntro::CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type)
 	}
 }
 
-GameObject* ModuleSceneIntro::CreateGameObject(std::string name, GameObject* parent)
+GameObject* ModuleSceneIntro::CreateEmptyGameObject(std::string name, GameObject* parent)
 {
 	GameObject* go = new GameObject(name, parent);
+	game_objects.push_back(go);
+
+	return go;
+}
+
+GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, GameObject* parent, Mesh* mesh)
+{
+	GameObject* go = new GameObject(name, parent);
+
+	go->CreateComponentMesh(mesh);
+
 	game_objects.push_back(go);
 
 	return go;

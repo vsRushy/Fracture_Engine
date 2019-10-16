@@ -4,7 +4,8 @@
 #include <vector>
 #include <string>
 
-#include "Component.h"
+class Mesh;
+class Component;
 
 class GameObject
 {
@@ -19,17 +20,21 @@ public:
 	void SetActive(bool value);
 	bool IsActive() const;
 
-	Component* CreateComponent(COMPONENT_TYPE type);
+	Component* CreateComponentTransform();
+	Component* CreateComponentMesh(Mesh* mesh);
+	Component* CreateComponentMaterial();
 
 public:
 	GameObject* parent = nullptr;
 	std::vector<GameObject*> children;
 
-private:
 	std::string name = nullptr;
 	bool active = true;
 
 	std::vector<Component*> components;
+
+private:
+
 };
 
 #endif /* __GAME_OBJECT_H__ */

@@ -3,15 +3,13 @@
 
 #include "Component.h"
 
-class Mesh;
-
 class ComponentMesh : public Component
 {
 public:
-	ComponentMesh(GameObject* target);
+	ComponentMesh(GameObject* target, Mesh* mesh);
 	~ComponentMesh();
 
-private:
+public:
 	Mesh* mesh = nullptr;
 };
 

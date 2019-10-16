@@ -9,6 +9,7 @@
 #include "P_Sphere.h"
 #include "P_Plane.h"
 
+#include "GameObject.h"
 #include "Mesh.h"
 #include "Texture.h"
 
@@ -39,6 +40,14 @@ bool ModuleSceneIntro::CleanUp()
 {
 	LOG(LOG_INFORMATION, "Unloading Intro scene");
 
+	/* Delete all game objects */
+	for (std::list<GameObject*>::reverse_iterator item = game_objects.rbegin(); item != game_objects.rend(); item++)
+	{
+		delete* item;
+		*item = nullptr;
+	}
+	game_objects.clear();
+
 	/* Delete all primitives */
 	for (std::list<Primitive*>::reverse_iterator item = primitives.rbegin(); item != primitives.rend(); item++)
 	{
@@ -61,11 +70,11 @@ bool ModuleSceneIntro::CleanUp()
 		delete (*item).second;
 		(*item).second = nullptr;
 	}
-	meshes.clear();
+	textures.clear();
 
 	return true;
 }
-
+ 
 void ModuleSceneIntro::DrawGrid(int subdivisions)
 {
 	glLineWidth(1.0f);
@@ -103,6 +112,19 @@ void ModuleSceneIntro::CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type)
 	}
 }
 
+GameObject* ModuleSceneIntro::CreateGameObject(std::string name, GameObject* parent)
+{
+	GameObject* go = new GameObject(name, parent);
+	game_objects.push_back(go);
+
+	return go;
+}
+
+update_status ModuleSceneIntro::PreUpdate(float dt)
+{
+	return UPDATE_CONTINUE;
+}
+
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
@@ -121,5 +143,10 @@ update_status ModuleSceneIntro::Update(float dt)
 		App->renderer3D->DrawMesh(*item);
 	}
 
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleSceneIntro::PostUpdate(float dt)
+{
 	return UPDATE_CONTINUE;
 }

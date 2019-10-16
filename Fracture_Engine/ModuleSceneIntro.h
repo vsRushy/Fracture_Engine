@@ -3,6 +3,7 @@
 
 #include <list>
 #include <map>
+#include <string>
 
 #include "glmath.h"
 
@@ -10,6 +11,7 @@
 #include "Globals.h"
 #include "Primitive.h"
 
+class GameObject;
 class Mesh;
 class Texture;
 
@@ -20,14 +22,20 @@ public:
 	~ModuleSceneIntro();
 
 	bool Start();
+	update_status PreUpdate(float dt);
 	update_status Update(float dt);
+	update_status PostUpdate(float dt);
 	bool CleanUp();
 
 	void DrawGrid(int subdivisions);
 
 	void CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type);
 
+	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr);
+
 public:
+	std::list<GameObject*> game_objects;
+
 	std::list<Primitive*> primitives;
 	std::list<Mesh*> meshes;
 	std::map<const char*, Texture*> textures;

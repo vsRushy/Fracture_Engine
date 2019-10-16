@@ -1,11 +1,12 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "Component_Transform.h"
+#include "Component_Mesh.h"
 
 GameObject::GameObject(std::string name, GameObject* parent)
 	: name(name), parent(parent)
 {
-	CreateComponent(COMPONENT_TYPE::TRANSFORM);
+	CreateComponentTransform();
 }
 
 GameObject::~GameObject()
@@ -65,33 +66,27 @@ bool GameObject::IsActive() const
 	return active;
 }
 
-Component* GameObject::CreateComponent(COMPONENT_TYPE type)
+Component* GameObject::CreateComponentTransform()
 {
-	Component* component = nullptr;
+	Component* component_transform = nullptr;
 	
-	switch (type)
-	{
-	case COMPONENT_TYPE::TRANSFORM:
-		component = new ComponentTransform(this);
-		components.push_back(component);
-		break;
+	component_transform = new ComponentTransform(this);
+	components.push_back(component_transform);
 
-	case COMPONENT_TYPE::MESH:
-		component = new Component(this);
-		components.push_back(component);
-		break;
+	return component_transform;
+}
 
-	case COMPONENT_TYPE::MATERIAL:
-		component = new Component(this);
-		components.push_back(component);
-		break;
+Component* GameObject::CreateComponentMesh(Mesh* mesh)
+{
+	Component* component_mesh = nullptr;
 
-	case COMPONENT_TYPE::UNKNOWN:
-		break;
+	component_mesh = new ComponentMesh(this, mesh);
+	components.push_back(component_mesh);
 
-	default:
-		break;
-	}
+	return component_mesh;
+}
 
-	return component;
+Component* GameObject::CreateComponentMaterial()
+{
+	return nullptr;
 }

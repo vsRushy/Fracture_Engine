@@ -2,13 +2,12 @@
 #define __COMPONENT_MESH_H__
 
 #include "Component.h"
-
-class Mesh;
+#include "Mesh.h"
 
 class ComponentMesh : public Component
 {
 public:
-	ComponentMesh(GameObject* target);
+	ComponentMesh(GameObject* target, Mesh* mesh);
 	~ComponentMesh();
 
 private:

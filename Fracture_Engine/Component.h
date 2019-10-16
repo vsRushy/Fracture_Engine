@@ -25,9 +25,12 @@ public:
 	virtual void SetActive(const bool& value);
 	virtual bool IsActive() const;
 
-private:
+public:
 	bool active = true;
 	GameObject* target = nullptr;
+	COMPONENT_TYPE type = COMPONENT_TYPE::UNKNOWN;
+
+private:
 };
 
 #endif /* __COMPONENT_H__ */

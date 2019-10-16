@@ -15,7 +15,6 @@ public:
 	bool PreUpdate(float dt);
 	bool Update(float dt);
 	bool PostUpdate(float dt);
-	bool CleanUp();
 
 	void SetActive(bool value);
 	bool IsActive() const;

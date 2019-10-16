@@ -1,7 +1,7 @@
 #include "Component.h"
 #include "GameObject.h"
 
-Component::Component(GameObject* target)
+Component::Component(GameObject* target) : target(target)
 {
 
 }

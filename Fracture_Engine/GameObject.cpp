@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "Component.h"
+#include "Component_Transform.h"
 
 GameObject::GameObject(std::string name, GameObject* parent)
 	: name(name), parent(parent)
@@ -9,7 +10,10 @@ GameObject::GameObject(std::string name, GameObject* parent)
 
 GameObject::~GameObject()
 {
-
+	for (std::vector<Component*>::const_reverse_iterator item = components.rbegin(); item != components.rend(); item++)
+	{
+		delete* item;
+	}
 }
 
 bool GameObject::PreUpdate(float dt)
@@ -45,11 +49,6 @@ bool GameObject::PostUpdate(float dt)
 	return ret;
 }
 
-bool GameObject::CleanUp()
-{
-	return true;
-}
-
 void GameObject::SetActive(bool value)
 {
 	active = value;
@@ -67,5 +66,31 @@ bool GameObject::IsActive() const
 
 Component* GameObject::CreateComponent(COMPONENT_TYPE type)
 {
-	return nullptr;
+	Component* component = nullptr;
+	
+	switch (type)
+	{
+	case COMPONENT_TYPE::TRANSFORM:
+		component = new ComponentTransform(this);
+		components.push_back(component);
+		break;
+
+	case COMPONENT_TYPE::MESH:
+		component = new Component(this);
+		components.push_back(component);
+		break;
+
+	case COMPONENT_TYPE::MATERIAL:
+		component = new Component(this);
+		components.push_back(component);
+		break;
+
+	case COMPONENT_TYPE::UNKNOWN:
+		break;
+
+	default:
+		break;
+	}
+
+	return component;
 }

@@ -13,7 +13,7 @@ public:
 
 private:
 	float3 position = float3::zero;
-	float3 rotation = float3::zero;
+	Quat rotation = Quat::identity;
 	float3 scale = float3::zero;
 	
 	float4x4 local_matrix = float4x4::identity;

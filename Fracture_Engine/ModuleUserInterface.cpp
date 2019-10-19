@@ -9,11 +9,11 @@
 #include "ModuleUserInterface.h"
 #include "ModuleInput.h"
 
-bool ModuleUserInterface::show_demo_window = false;
+bool ModuleUserInterface::show_demo_window = true;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
 bool ModuleUserInterface::show_about_window = false;
-bool ModuleUserInterface::show_configuration_window = false;
-bool ModuleUserInterface::show_console_window = false;
+bool ModuleUserInterface::show_configuration_window = true;
+bool ModuleUserInterface::show_console_window = true;
 
 ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_enabled)
 {
@@ -32,7 +32,13 @@ bool ModuleUserInterface::Start()
 	/* Load ImGui */
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
+	
 	ImGuiIO& io = ImGui::GetIO();
+
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
 	ImGuiStyle& style = ImGui::GetStyle();
 	ImGui::StyleColorsDark();
 	io.Fonts->AddFontFromFileTTF("Assets/Fonts/Montserrat-Regular.ttf", 20.0f, NULL, io.Fonts->GetGlyphRangesDefault());
@@ -86,6 +92,18 @@ update_status ModuleUserInterface::PostUpdate(float dt)
 	/* Render ImGui */
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		SDL_Window* backup_current_window = SDL_GL_GetCurrentWindow();
+		SDL_GLContext backup_current_context = SDL_GL_GetCurrentContext();
+
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+
+		SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -159,7 +177,7 @@ void ModuleUserInterface::ShowMainMenuBarWindow()
 
 void ModuleUserInterface::ShowAboutWindow()
 {
-	ImGui::SetNextWindowPosCenter();
+	ImGui::SetNextWindowPosCenter(ImGuiCond_::ImGuiCond_Always);
 	ImGui::Begin("About", &show_about_window, ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("Fracture Engine");
 	ImGui::Separator();

@@ -41,10 +41,10 @@ bool ModuleUserInterface::Start()
 
 	ImGuiStyle& style = ImGui::GetStyle();
 	ImGui::StyleColorsDark();
-	io.Fonts->AddFontFromFileTTF("Assets/Fonts/Montserrat-Regular.ttf", 20.0f, NULL, io.Fonts->GetGlyphRangesDefault());
-	style.FrameRounding = 5.0f;
-	style.GrabRounding = 5.0f;
-	style.GrabMinSize = 17.0f;
+	io.Fonts->AddFontFromFileTTF("Assets/Fonts/Montserrat-Regular.ttf", 17.0f, NULL, io.Fonts->GetGlyphRangesDefault());
+	style.FrameRounding = 4.0f;
+	style.GrabRounding = 4.0f;
+	style.GrabMinSize = 16.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 	

@@ -24,6 +24,7 @@ public:
 	bool scroll_down_console = false;
 
 private:
+	void ShowSceneWindow();
 	void ShowMainMenuBarWindow();
 	void ShowAboutWindow();
 	void ShowConfigurationWindow();
@@ -31,6 +32,7 @@ private:
 
 private:
 	static bool show_demo_window;
+	static bool show_scene_window;
 	static bool show_main_menu_bar_window;
 	static bool show_about_window;
 	static bool show_configuration_window;

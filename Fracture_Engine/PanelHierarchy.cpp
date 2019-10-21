@@ -21,7 +21,7 @@ bool PanelHierarchy::Update()
 	GameObject* root = App->scene_intro->root_game_object;
 	if (root != nullptr)
 	{
-		ImGui::Text(root->name.c_str());
+		ImGui::TreeNode(root->name.c_str());
 		for (std::vector<GameObject*>::iterator item = root->children.begin(); item != root->children.end(); item++)
 			DrawTextGameObject(*item);
 	}

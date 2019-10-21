@@ -43,6 +43,10 @@ bool ModuleSceneIntro::Start()
 
 	selected_game_object = root_game_object;
 
+	GameObject* child_test_1 = CreateEmptyGameObject("Child 1", root_game_object);
+	GameObject* child_test_2 = CreateEmptyGameObject("Child 2", root_game_object);
+	GameObject* child_test_3 = CreateEmptyGameObject("Child 3", child_test_2);
+
 	return ret;
 }
 

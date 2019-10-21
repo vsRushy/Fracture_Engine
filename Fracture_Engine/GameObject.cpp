@@ -12,6 +12,9 @@ GameObject::GameObject(std::string name, GameObject* parent)
 	: name(name), parent(parent)
 {
 	CreateComponentTransform();
+
+	if (parent != nullptr)
+		parent->children.push_back(this);
 }
 
 GameObject::~GameObject()

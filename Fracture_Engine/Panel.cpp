@@ -10,7 +10,7 @@ Panel::Panel(std::string name, bool active) : name(name), active(active)
 
 Panel::~Panel()
 {
-
+	delete this; // edgy
 }
 
 bool Panel::Start()

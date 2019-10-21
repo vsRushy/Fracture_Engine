@@ -1,14 +1,12 @@
 #ifndef __PANEL_SCENE_H__
 #define __PANEL_SCENE_H__
 
-#include "ImGui/imgui.h"
-
 #include "Panel.h"
 
 class PanelScene : public Panel
 {
 public:
-	PanelScene(std::string name);
+	PanelScene(std::string name, bool active = true);
 	~PanelScene();
 
 	bool Update() override;

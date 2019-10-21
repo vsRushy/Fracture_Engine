@@ -3,7 +3,7 @@
 #include "Application.h"
 #include "ModuleUserInterface.h"
 
-Panel::Panel(std::string name) : name(name)
+Panel::Panel(std::string name, bool active) : name(name), active(active)
 {
 
 }
@@ -36,6 +36,11 @@ bool Panel::IsActive() const
 void Panel::SetActive(const bool& value)
 {
 	active = value;
+}
+
+void Panel::ChangeActive()
+{
+	active = !active;
 }
 
 std::string Panel::GetName() const

@@ -106,6 +106,10 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModuleFileSystem.h" />
     <ClInclude Include="Panel.h" />
+    <ClInclude Include="PanelAbout.h" />
+    <ClInclude Include="PanelConfiguration.h" />
+    <ClInclude Include="PanelConsole.h" />
+    <ClInclude Include="PanelMainMenuBar.h" />
     <ClInclude Include="PanelScene.h" />
     <ClInclude Include="PhysFS\include\physfs.h" />
     <ClInclude Include="P_Cube.h" />
@@ -208,6 +212,10 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ModuleFileSystem.cpp" />
     <ClCompile Include="Panel.cpp" />
+    <ClCompile Include="PanelAbout.cpp" />
+    <ClCompile Include="PanelConfiguration.cpp" />
+    <ClCompile Include="PanelConsole.cpp" />
+    <ClCompile Include="PanelMainMenuBar.cpp" />
     <ClCompile Include="PanelScene.cpp" />
     <ClCompile Include="P_Cube.cpp" />
     <ClCompile Include="glmath.cpp" />

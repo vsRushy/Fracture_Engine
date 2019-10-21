@@ -17,7 +17,7 @@ void log(LOG_TYPE type, const char file[], int line, const char* format, ...)
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
 
-	if (App != nullptr && App->user_interface != nullptr)
+	if (App != nullptr && App->user_interface != nullptr && App->user_interface->panel_console != nullptr)
 	{
 		sprintf_s(tmp_string2, 4096, "\n%s", tmp_string);
 		App->Log(type, tmp_string2);

@@ -3,10 +3,14 @@
 
 #include <string>
 
+#include "ImGui/imgui.h"
+
+#include "Globals.h"
+
 class Panel
 {
 public:
-	Panel(std::string name);
+	Panel(std::string name, bool active = true);
 	~Panel();
 
 	virtual bool Start();
@@ -15,6 +19,7 @@ public:
 
 	bool IsActive() const;
 	void SetActive(const bool& value);
+	void ChangeActive();
 
 	std::string GetName() const;
 
@@ -27,8 +32,12 @@ public:
 protected:
 	std::string name;
 
-private:
+public:
 	bool active = true;
+
+	/* To access from base class pointers */
+public:
+	virtual void Log(LOG_TYPE type, const char* text_log) {}; // Override in PanelConsole
 };
 
 #endif /* __PANEL_H__ */

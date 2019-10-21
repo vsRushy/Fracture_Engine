@@ -189,7 +189,8 @@ bool Application::CleanUp()
 
 void Application::Log(LOG_TYPE type, const char* text_log)
 {
-	user_interface->LogToConsole(type, text_log);
+	if(user_interface->panel_console != nullptr)
+		user_interface->LogToConsole(type, text_log);
 }
 
 void Application::CloseApplication()

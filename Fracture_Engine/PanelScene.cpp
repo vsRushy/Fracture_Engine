@@ -1,6 +1,6 @@
 #include "PanelScene.h"
 
-PanelScene::PanelScene(std::string name) : Panel(name)
+PanelScene::PanelScene(std::string name, bool active) : Panel(name, active)
 {
 
 }

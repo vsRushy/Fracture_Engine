@@ -37,5 +37,9 @@ bool PanelHierarchy::Update()
 
 void PanelHierarchy::DrawTextGameObject(GameObject* game_object)
 {
-	ImGui::Text(game_object->name.c_str());
+	if (ImGui::TreeNode(game_object->name.c_str()))
+	{
+
+		ImGui::TreePop();
+	}
 }

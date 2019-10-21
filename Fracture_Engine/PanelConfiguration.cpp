@@ -19,7 +19,7 @@ PanelConfiguration::~PanelConfiguration()
 
 bool PanelConfiguration::Update()
 {
-	ImGui::Begin("Configuration");
+	ImGui::Begin(name.c_str());
 	ImGui::Text("Options");
 	if (ImGui::CollapsingHeader("Application"))
 	{

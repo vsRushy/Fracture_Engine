@@ -423,6 +423,12 @@
     <ClInclude Include="PanelAbout.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
+    <ClInclude Include="PanelHierarchy.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelInspector.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -639,6 +645,12 @@
       <Filter>Sources\Panel</Filter>
     </ClCompile>
     <ClCompile Include="PanelAbout.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelHierarchy.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelInspector.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
   </ItemGroup>

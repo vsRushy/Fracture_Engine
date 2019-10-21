@@ -16,7 +16,7 @@ PanelAbout::~PanelAbout()
 bool PanelAbout::Update()
 {
 	ImGui::SetNextWindowPosCenter(ImGuiCond_::ImGuiCond_Always);
-	ImGui::Begin("About", &(App->user_interface->panel_about->active), ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin(name.c_str(), &(App->user_interface->panel_about->active), ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("Fracture Engine");
 	ImGui::Separator();
 	ImGui::Text("An educational purposes game engine");

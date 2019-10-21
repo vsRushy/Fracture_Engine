@@ -12,7 +12,7 @@ PanelConsole::~PanelConsole()
 
 bool PanelConsole::Update()
 {
-	ImGui::Begin("Console");
+	ImGui::Begin(name.c_str());
 
 	for (std::list<std::pair<LOG_TYPE, const char*>>::iterator item = console_logs.begin(); item != console_logs.end(); item++)
 	{

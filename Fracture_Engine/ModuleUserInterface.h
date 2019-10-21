@@ -34,6 +34,8 @@ public:
 	Panel* panel_console = nullptr;
 	Panel* panel_about = nullptr;
 	Panel* panel_configuration = nullptr;
+	Panel* panel_hierarchy = nullptr;
+	Panel* panel_inspector = nullptr;
 };
 
 #endif /* __MODULE_USER_INTERFACE_H__ */

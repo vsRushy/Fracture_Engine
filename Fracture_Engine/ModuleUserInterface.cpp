@@ -15,20 +15,26 @@
 #include "PanelConsole.h"
 #include "PanelAbout.h"
 #include "PanelConfiguration.h"
+#include "PanelHierarchy.h"
+#include "PanelInspector.h"
 
 ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_enabled)
 {
 	panel_scene = new PanelScene("Scene");
 	panel_main_menu_bar = new PanelMainMenuBar("MainMenuBar");
-	panel_console = new PanelConsole("Console", false);
+	panel_console = new PanelConsole("Console");
 	panel_about = new PanelAbout("About", false);
 	panel_configuration = new PanelConfiguration("Configuration");
+	panel_hierarchy = new PanelHierarchy("Hierarchy");
+	panel_inspector = new PanelInspector("Inspector");
 
 	AddPanel(panel_scene);
 	AddPanel(panel_main_menu_bar);
 	AddPanel(panel_console);
 	AddPanel(panel_about);
 	AddPanel(panel_configuration);
+	AddPanel(panel_hierarchy);
+	AddPanel(panel_inspector);
 }
 
 ModuleUserInterface::~ModuleUserInterface()
@@ -80,7 +86,7 @@ update_status ModuleUserInterface::PreUpdate(float dt)
 
 update_status ModuleUserInterface::Update(float dt)
 {
-	ImGui::ShowDemoWindow();
+	// ImGui::ShowDemoWindow();
 
 	/* Update panels */
 	for (std::vector<Panel*>::const_iterator item = panels.begin(); item != panels.end(); item++)

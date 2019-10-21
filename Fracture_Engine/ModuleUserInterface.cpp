@@ -56,7 +56,8 @@ bool ModuleUserInterface::Start()
 	/* Start panels */
 	for (std::vector<Panel*>::const_iterator item = panels.begin(); item != panels.end(); item++)
 	{
-		(*item)->Start();
+		if ((*item)->IsActive())
+			(*item)->Start();
 	}
 
 	return ret;
@@ -100,7 +101,8 @@ update_status ModuleUserInterface::Update(float dt)
 	/* Update panels */
 	for (std::vector<Panel*>::const_iterator item = panels.begin(); item != panels.end(); item++)
 	{
-		(*item)->Update();
+		if((*item)->IsActive())
+			(*item)->Update();
 	}
 
 	return UPDATE_CONTINUE;

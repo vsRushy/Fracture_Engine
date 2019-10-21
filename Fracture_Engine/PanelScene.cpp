@@ -2,7 +2,7 @@
 
 PanelScene::PanelScene(std::string name) : Panel(name)
 {
-	size.xy = 0.0f;
+
 }
 
 PanelScene::~PanelScene()

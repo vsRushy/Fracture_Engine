@@ -34,10 +34,14 @@ bool ModuleSceneIntro::Start()
 
 	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
 
-	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
+	//App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 
-	GameObject* g1 = CreateEmptyGameObject("test", nullptr);
-	GameObject* g2 = CreateModelGameObject("test2", "Assets/Models/BakerHouse.FBX", nullptr);
+	//GameObject* g1 = CreateEmptyGameObject("test", nullptr);
+	//GameObject* g2 = CreateModelGameObject("test2", "Assets/Models/BakerHouse.FBX", nullptr);
+
+	root_game_object = CreateEmptyGameObject("Root", nullptr);
+
+	selected_game_object = root_game_object;
 
 	return ret;
 }

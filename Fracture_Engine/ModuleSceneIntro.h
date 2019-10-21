@@ -39,6 +39,10 @@ public:
 public:
 	std::list<GameObject*> game_objects;
 
+	GameObject* root_game_object = nullptr;
+
+	GameObject* selected_game_object = nullptr;
+
 	std::list<Primitive*> primitives;
 	std::map<const char*, std::list<Mesh*>> meshes;
 	std::map<const char*, Texture*> textures;

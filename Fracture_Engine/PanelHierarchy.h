@@ -3,6 +3,8 @@
 
 #include "Panel.h"
 
+class GameObject;
+
 class PanelHierarchy : public Panel
 {
 public:
@@ -10,6 +12,8 @@ public:
 	~PanelHierarchy();
 
 	bool Update() override;
+
+	void DrawTextGameObject(GameObject* game_object);
 };
 
 #endif /* __PANEL_HIERARCHY_H__ */

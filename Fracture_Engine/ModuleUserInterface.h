@@ -7,6 +7,8 @@
 #include "Globals.h"
 #include "ImGui/imgui.h"
 
+class Panel;
+
 class ModuleUserInterface : public Module
 {
 public:
@@ -23,6 +25,8 @@ public:
 	void LogToConsole(LOG_TYPE type, const char* text_log);
 	bool scroll_down_console = false;
 
+	void AddPanel(Panel* panel);
+
 private:
 	void ShowMainMenuBarWindow();
 	void ShowAboutWindow();
@@ -38,6 +42,9 @@ private:
 
 private:
 	std::list<std::pair<LOG_TYPE, const char*>> console_logs;
+
+public:
+	std::vector<Panel*> panels;
 };
 
 #endif /* __MODULE_USER_INTERFACE_H__ */

@@ -9,6 +9,8 @@
 #include "ModuleUserInterface.h"
 #include "ModuleInput.h"
 
+#include "Panel.h"
+
 bool ModuleUserInterface::show_demo_window = true;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
 bool ModuleUserInterface::show_about_window = false;
@@ -127,6 +129,11 @@ void ModuleUserInterface::LogToConsole(LOG_TYPE type, const char* text_log)
 {
 	console_logs.push_back(std::make_pair(type, strdup(text_log)));
 	scroll_down_console = true;
+}
+
+void ModuleUserInterface::AddPanel(Panel* panel)
+{
+	panels.push_back(panel);
 }
 
 void ModuleUserInterface::ShowMainMenuBarWindow()

@@ -8,6 +8,7 @@
 #include "ImGui/imgui.h"
 
 class Panel;
+class PanelScene;
 
 class ModuleUserInterface : public Module
 {
@@ -45,6 +46,8 @@ private:
 
 public:
 	std::vector<Panel*> panels;
+
+	Panel* panel_scene = nullptr;
 };
 
 #endif /* __MODULE_USER_INTERFACE_H__ */

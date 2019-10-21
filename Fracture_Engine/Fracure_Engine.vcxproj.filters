@@ -76,6 +76,9 @@
     <Filter Include="Sources\GameObject\Component">
       <UniqueIdentifier>{a8c51188-c696-4726-a9ac-8eba601c7ba0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Panel">
+      <UniqueIdentifier>{eaf39d7a-448b-461c-818f-33dff9f2c77c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -402,6 +405,12 @@
     <ClInclude Include="ImGui\imgui_impl_sdl.h">
       <Filter>Sources\Dependencies\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelScene.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -601,6 +610,12 @@
     </ClCompile>
     <ClCompile Include="ImGui\imgui_impl_sdl.cpp">
       <Filter>Sources\Dependencies\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelScene.cpp">
+      <Filter>Sources\Panel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

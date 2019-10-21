@@ -105,6 +105,8 @@
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModuleFileSystem.h" />
+    <ClInclude Include="Panel.h" />
+    <ClInclude Include="PanelScene.h" />
     <ClInclude Include="PhysFS\include\physfs.h" />
     <ClInclude Include="P_Cube.h" />
     <ClInclude Include="glmath.h" />
@@ -205,6 +207,8 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ModuleFileSystem.cpp" />
+    <ClCompile Include="Panel.cpp" />
+    <ClCompile Include="PanelScene.cpp" />
     <ClCompile Include="P_Cube.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="ModuleImporter.cpp" />

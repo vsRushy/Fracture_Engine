@@ -10,6 +10,7 @@
 #include "ModuleInput.h"
 
 #include "Panel.h"
+#include "PanelScene.h"
 
 bool ModuleUserInterface::show_demo_window = true;
 bool ModuleUserInterface::show_main_menu_bar_window = true;
@@ -19,7 +20,9 @@ bool ModuleUserInterface::show_console_window = true;
 
 ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_enabled)
 {
-	
+	panel_scene = new PanelScene("Scene");
+
+	AddPanel(panel_scene);
 }
 
 ModuleUserInterface::~ModuleUserInterface()
@@ -49,7 +52,13 @@ bool ModuleUserInterface::Start()
 	style.GrabMinSize = 16.0f;
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
-	
+
+	/* Start panels */
+	for (std::vector<Panel*>::const_iterator item = panels.begin(); item != panels.end(); item++)
+	{
+		(*item)->Start();
+	}
+
 	return ret;
 }
 
@@ -86,6 +95,14 @@ update_status ModuleUserInterface::Update(float dt)
 	if (show_about_window)
 		ShowAboutWindow();
 
+	// -----------------
+
+	/* Update panels */
+	for (std::vector<Panel*>::const_iterator item = panels.begin(); item != panels.end(); item++)
+	{
+		(*item)->Update();
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -117,6 +134,13 @@ bool ModuleUserInterface::CleanUp()
 		free((void*)item->second); // TOCHECK
 	}
 	console_logs.clear();
+
+	/* CleanUp panels */
+	for (std::vector<Panel*>::const_iterator item = panels.begin(); item != panels.end(); item++)
+	{
+		(*item)->CleanUp();
+		delete *item;
+	}
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();

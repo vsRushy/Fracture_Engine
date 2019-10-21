@@ -11,7 +11,7 @@ public:
 	PanelScene(std::string name);
 	~PanelScene();
 
-	bool Update();
+	bool Update() override;
 
 	ImVec2 GetSize() const;
 

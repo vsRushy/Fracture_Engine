@@ -9,7 +9,9 @@ public:
 	Panel(std::string name);
 	~Panel();
 
+	virtual bool Start();
 	virtual bool Update();
+	virtual bool CleanUp();
 
 	bool IsActive() const;
 	void SetActive(const bool& value);

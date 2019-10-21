@@ -5,7 +5,7 @@
 
 Panel::Panel(std::string name) : name(name)
 {
-	App->user_interface->AddPanel(this);
+
 }
 
 Panel::~Panel()
@@ -13,7 +13,17 @@ Panel::~Panel()
 
 }
 
+bool Panel::Start()
+{
+	return true;
+}
+
 bool Panel::Update()
+{
+	return true;
+}
+
+bool Panel::CleanUp()
 {
 	return true;
 }

@@ -37,5 +37,5 @@ bool PanelHierarchy::Update()
 
 void PanelHierarchy::DrawTextGameObject(GameObject* game_object)
 {
-	ImGui::Text("test");
+	ImGui::Text(game_object->name.c_str());
 }

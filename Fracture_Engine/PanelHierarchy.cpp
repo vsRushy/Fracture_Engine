@@ -37,8 +37,13 @@ bool PanelHierarchy::Update()
 
 void PanelHierarchy::DrawTextGameObject(GameObject* game_object)
 {
-	if (ImGui::TreeNode(game_object->name.c_str()))
+	bool is_open = ImGui::TreeNode(game_object->name.c_str());
+	
+	if (is_open)
 	{
+		for (std::vector<GameObject*>::iterator item = game_object->children.begin();
+			item != game_object->children.end(); item++)
+			DrawTextGameObject(*item);
 
 		ImGui::TreePop();
 	}

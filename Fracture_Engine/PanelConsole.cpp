@@ -52,7 +52,7 @@ bool PanelConsole::Update()
 
 bool PanelConsole::CleanUp()
 {
-	for (std::list<std::pair<LOG_TYPE, const char*>>::iterator item = console_logs.begin(); item != console_logs.end(); item++)
+	for (std::list<std::pair<LOG_TYPE, const char*>>::reverse_iterator item = console_logs.rbegin(); item != console_logs.rend(); item++)
 	{
 		free((void*)item->second); // TOCHECK
 	}

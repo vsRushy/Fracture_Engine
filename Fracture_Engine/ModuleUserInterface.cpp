@@ -119,8 +119,10 @@ bool ModuleUserInterface::CleanUp()
 	for (std::vector<Panel*>::reverse_iterator item = panels.rbegin(); item != panels.rend(); item++)
 	{
 		(*item)->CleanUp();
+		
 		*item = nullptr;
 	}
+	panels.clear();
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();

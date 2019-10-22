@@ -132,7 +132,7 @@ void ModuleSceneIntro::CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type)
 
 GameObject* ModuleSceneIntro::CreateEmptyGameObject(std::string name, GameObject* parent)
 {
-	ChangeNameIfGameObjectNameAlreadyExsts(name);
+	ChangeNameIfGameObjectNameAlreadyExists(name);
 
 	GameObject* go = new GameObject(name, parent);
 	game_objects.push_back(go);
@@ -153,7 +153,7 @@ GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, const char
 	return go;
 }
 
-void ModuleSceneIntro::ChangeNameIfGameObjectNameAlreadyExsts(std::string name)
+void ModuleSceneIntro::ChangeNameIfGameObjectNameAlreadyExists(std::string name)
 {
 	for (std::list<GameObject*>::const_iterator item = game_objects.begin(); item != game_objects.end(); item++)
 	{

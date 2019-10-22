@@ -38,7 +38,7 @@ public:
 
 	// ------------------------------------------------------------------------
 
-	void ChangeNameIfGameObjectNameAlreadyExsts(std::string name);
+	void ChangeNameIfGameObjectNameAlreadyExists(std::string name);
 
 public:
 	std::list<GameObject*> game_objects;

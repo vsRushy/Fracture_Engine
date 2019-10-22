@@ -59,28 +59,44 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) pointPos.y = newPos.y += cam_speed*0.5;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) pointPos.y = newPos.y -= cam_speed*0.5;
-
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && zoom > 0)
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{
-		newPos -= Z * cam_speed;
-		--zoom;
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) pointPos.y = newPos.y += cam_speed*0.5;
+		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) pointPos.y = newPos.y -= cam_speed*0.5;
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && zoom > 0)
+		{
+			newPos -= Z * cam_speed;
+			--zoom;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			newPos += Z * cam_speed;
+			++zoom;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) pointPos = newPos -= X * cam_speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) pointPos = newPos += X * cam_speed;
+
+		Position += newPos;
+		Reference += pointPos;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	else
 	{
-		newPos += Z * cam_speed;
-		++zoom;
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += cam_speed*0.5;
+		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= cam_speed*0.5;
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * cam_speed;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * cam_speed;
+
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * cam_speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * cam_speed;
+
+		Position += newPos;
+		Reference += newPos;
 	}
-
-
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) pointPos = newPos -= X * cam_speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) pointPos = newPos += X * cam_speed;
-
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) LookAt(reset);
-
-	Position += newPos;
-	Reference += pointPos;
 
 	// Mouse motion ----------------
 

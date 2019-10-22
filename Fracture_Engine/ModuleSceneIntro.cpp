@@ -135,6 +135,8 @@ GameObject* ModuleSceneIntro::CreateEmptyGameObject(std::string name, GameObject
 	GameObject* go = new GameObject(name, parent);
 	game_objects.push_back(go);
 
+	LOG(LOG_INFORMATION, "Created empty game object with name %s", name.c_str());
+
 	return go;
 }
 

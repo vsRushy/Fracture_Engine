@@ -25,6 +25,16 @@ bool PanelMainMenuBar::Update()
 			ImGui::EndMenu();
 		}
 
+		if (ImGui::BeginMenu("Create"))
+		{
+			bool create_empty_game_object = false;
+			ImGui::MenuItem("Empty GameObject", NULL, &create_empty_game_object);
+			if (create_empty_game_object)
+				App->scene_intro->CreateEmptyGameObject("Empty", App->scene_intro->root_game_object);
+			
+			ImGui::EndMenu();
+		}
+
 		if (ImGui::BeginMenu("View"))
 		{
 			ImGui::MenuItem("Configuration", NULL, &(App->user_interface->panel_configuration->active));

@@ -4,6 +4,8 @@
 #include "ModuleSceneIntro.h"
 #include "GameObject.h"
 #include "Globals.h"
+#include "Component.h"
+#include "Component_Transform.h"
 
 PanelInspector::PanelInspector(std::string name, bool active) : Panel(name, active)
 {
@@ -29,7 +31,14 @@ bool PanelInspector::Update()
 		ImGui::InputText("##Name", go_name, CUSTOM_BUFFER_SIZE_MEDIUM,
 			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll);
 	
-	
+		for (std::vector<Component*>::iterator item = game_object->components.begin();
+			item != game_object->components.end(); item++)
+		{
+			if ((*item)->type == COMPONENT_TYPE::TRANSFORM)
+			{
+				ImGui::Text("Transform detected");
+			}
+		}
 	}
 
 	ImGui::End();

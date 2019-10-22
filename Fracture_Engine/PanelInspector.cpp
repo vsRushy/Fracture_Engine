@@ -38,6 +38,11 @@ bool PanelInspector::Update()
 			{
 				ImGui::Text("Transform detected");
 			}
+
+			if ((*item)->type == COMPONENT_TYPE::MESH)
+			{
+				ImGui::Text("Mesh detected");
+			}
 		}
 	}
 

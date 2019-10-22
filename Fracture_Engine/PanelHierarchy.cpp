@@ -18,10 +18,11 @@ bool PanelHierarchy::Update()
 {
 	ImGui::Begin(name.c_str());
 
+	ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_SpanAvailWidth;
 	GameObject* root = App->scene_intro->root_game_object;
 	if (root != nullptr)
 	{
-		if (ImGui::TreeNode(root->name.c_str()))
+		if (ImGui::TreeNodeEx(root->name.c_str(), node_flags))
 		{
 			for (std::vector<GameObject*>::iterator item = root->children.begin(); item != root->children.end(); item++)
 				DrawTextGameObject(*item);
@@ -37,7 +38,9 @@ bool PanelHierarchy::Update()
 
 void PanelHierarchy::DrawTextGameObject(GameObject* game_object)
 {
-	bool is_open = ImGui::TreeNode(game_object->name.c_str());
+	ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_SpanAvailWidth;
+
+	bool is_open = ImGui::TreeNodeEx(game_object->name.c_str(), node_flags);
 	
 	if (is_open)
 	{

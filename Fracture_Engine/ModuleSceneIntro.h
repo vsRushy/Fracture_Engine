@@ -36,6 +36,10 @@ public:
 	GameObject* CreateEmptyGameObject(std::string name, GameObject* parent = nullptr);
 	GameObject* CreateModelGameObject(std::string name, const char* meshes_name, GameObject* parent = nullptr);
 
+	// ------------------------------------------------------------------------
+
+	void ChangeNameIfGameObjectNameAlreadyExsts(std::string name);
+
 public:
 	std::list<GameObject*> game_objects;
 

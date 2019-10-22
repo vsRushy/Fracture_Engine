@@ -37,13 +37,11 @@ bool PanelInspector::Update()
 		{
 			if ((*item)->type == COMPONENT_TYPE::TRANSFORM)
 			{
-				if (ImGui::TreeNodeEx("Transform", node_flags))
+				if (ImGui::CollapsingHeader("Transform"))
 				{
 					ImGui::Text("Position");
 					ImGui::Text("Rotation");
 					ImGui::Text("Scale");
-
-					ImGui::TreePop();
 				}
 			}
 

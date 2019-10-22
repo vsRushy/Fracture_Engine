@@ -53,22 +53,58 @@ update_status ModuleCamera3D::Update(float dt)
 	// Now we can make this movememnt frame rate independant!
 
 	vec3 newPos(0,0,0);
+	vec3 pointPos(0, 0, 0);
+	vec3 reset(0, 0, 0);
 	float cam_speed = speed * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += cam_speed;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= cam_speed;
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) pointPos.y = newPos.y += cam_speed*0.5;
+		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) pointPos.y = newPos.y -= cam_speed*0.5;
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * cam_speed;
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * cam_speed;
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && zoom > 0)
+		{
+			newPos -= Z * cam_speed;
+			--zoom;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			newPos += Z * cam_speed;
+			++zoom;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) pointPos = newPos -= X * cam_speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) pointPos = newPos += X * cam_speed;
+
+		Position += newPos;
+		Reference += pointPos;
+		if (after_alt == false) after_alt = true;
+	}
+
+	else
+	{
+		if (after_alt)
+		{
+			zoom = 0;
+			Reference = Position;
+			after_alt = false;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += cam_speed*0.5;
+		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= cam_speed*0.5;
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * cam_speed;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * cam_speed;
 
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * cam_speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * cam_speed;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * cam_speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * cam_speed;
 
-	Position += newPos;
-	Reference += newPos;
+		Position += newPos;
+		Reference += newPos;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) LookAt(reset);
 
 	// Mouse motion ----------------
 

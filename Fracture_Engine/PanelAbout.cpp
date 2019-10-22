@@ -1,5 +1,6 @@
 #include "SDL/include/SDL.h"
 #include "GL/glew.h"
+#include "Assimp/include/version.h"
 
 #include "PanelAbout.h"
 #include "Application.h"
@@ -26,11 +27,20 @@ bool PanelAbout::Update()
 	ImGui::Text("3rd party libraries used:");
 	SDL_version sdl_version;
 	SDL_VERSION(&sdl_version);
-	ImGui::BulletText("SDL %d. %d. %d", sdl_version.major, sdl_version.minor, sdl_version.patch);
+	ImGui::BulletText("SDL %d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch);
 	ImGui::BulletText("OpenGL %s", glGetString(GL_VERSION));
 	ImGui::BulletText("Glew %s", glewGetString(GLEW_VERSION));
 	ImGui::BulletText("ImGui %s", ImGui::GetVersion());
 	ImGui::BulletText("MathGeoLib"); ImGui::SameLine();  ImGui::Text("2.0");
+	ImGui::BulletText("Assimp %d.%d.%d", aiGetVersionMajor(), aiGetVersionMinor(), aiGetVersionRevision());
+	ImGui::BulletText("DevIL 1.8.0");
+	ImGui::BulletText("Parson");
+	ImGui::BulletText("PCG Random, C++ Implementation, 0.98");
+	PHYSFS_VERSION(&compiled);
+	PHYSFS_getLinkedVersion(&linked);
+	ImGui::BulletText("PhysFS, compiled in: %d.%d.%d and linked in: %d.%d.%d", compiled.major, compiled.minor, compiled.patch, linked.major, linked.minor, linked.patch);
+	ImGui::BulletText("Par");
+
 	ImGui::Separator();
 	ImGui::Text("MIT License\n\n"
 

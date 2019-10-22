@@ -60,6 +60,4 @@ void PanelHierarchy::DrawTextGameObject(GameObject* game_object)
 
 		ImGui::TreePop();
 	}
-
-	
 }

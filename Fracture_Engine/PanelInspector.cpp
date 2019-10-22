@@ -26,7 +26,7 @@ bool PanelInspector::Update()
 		ImGui::Checkbox("##Active", &(game_object->active));
 		ImGui::SameLine();
 		char* go_name = &game_object->name[0];
-		ImGui::InputText("##Namee", go_name, CUSTOM_BUFFER_SIZE_MEDIUM,
+		ImGui::InputText("##Name", go_name, CUSTOM_BUFFER_SIZE_MEDIUM,
 			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll);
 	
 	

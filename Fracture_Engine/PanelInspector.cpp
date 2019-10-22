@@ -31,12 +31,20 @@ bool PanelInspector::Update()
 		ImGui::InputText("##Name", go_name, CUSTOM_BUFFER_SIZE_MEDIUM,
 			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll);
 	
+		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_SpanAvailWidth;
 		for (std::vector<Component*>::iterator item = game_object->components.begin();
 			item != game_object->components.end(); item++)
 		{
 			if ((*item)->type == COMPONENT_TYPE::TRANSFORM)
 			{
-				ImGui::Text("Transform detected");
+				if (ImGui::TreeNodeEx("Transform", node_flags))
+				{
+					ImGui::Text("Position");
+					ImGui::Text("Rotation");
+					ImGui::Text("Scale");
+
+					ImGui::TreePop();
+				}
 			}
 
 			if ((*item)->type == COMPONENT_TYPE::MESH)

@@ -45,6 +45,7 @@ private:
 	float speed = 0.0f;
 	float max_speed = 0.0f;
 	float min_speed = 0.0f;
+	int zoom = 0;
 };
 
 #endif /* __MODULE_CAMERA_3D_H__ */

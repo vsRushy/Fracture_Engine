@@ -37,11 +37,15 @@ bool PanelInspector::Update()
 		{
 			if ((*item)->type == COMPONENT_TYPE::TRANSFORM)
 			{
+				ComponentTransform* tr = (ComponentTransform*)(*item);
 				if (ImGui::CollapsingHeader("Transform"))
 				{
 					ImGui::Text("Position");
+					ImGui::DragFloat3("##Position", (float*)&(tr->position));
 					ImGui::Text("Rotation");
+					ImGui::DragFloat3("##Rotation", (float*)&(tr->rotation));
 					ImGui::Text("Scale");
+					ImGui::DragFloat3("##Scale", (float*) &(tr->scale));
 				}
 			}
 

@@ -57,7 +57,7 @@ update_status ModuleCamera3D::Update(float dt)
 	vec3 reset(0, 0, 0);
 	float cam_speed = speed * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f * dt;
+		cam_speed *= 2.0f;
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{

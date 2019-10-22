@@ -80,9 +80,17 @@ update_status ModuleCamera3D::Update(float dt)
 
 		Position += newPos;
 		Reference += pointPos;
+		if (after_alt == false) after_alt = true;
 	}
+
 	else
 	{
+		if (after_alt)
+		{
+			zoom = 0;
+			Reference = Position;
+			after_alt = false;
+		}
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += cam_speed*0.5;
 		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= cam_speed*0.5;
 

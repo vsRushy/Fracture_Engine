@@ -138,6 +138,7 @@ GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, Mesh* mesh
 	GameObject* go = new GameObject(name, parent);
 
 	go->CreateComponentMesh(mesh);
+	go->CreateComponentMaterial();
 
 	game_objects.push_back(go);
 

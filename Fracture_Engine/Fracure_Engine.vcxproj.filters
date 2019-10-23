@@ -429,6 +429,9 @@
     <ClInclude Include="PanelInspector.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
+    <ClInclude Include="Component_Material.h">
+      <Filter>Sources\GameObject\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -652,6 +655,9 @@
     </ClCompile>
     <ClCompile Include="PanelInspector.cpp">
       <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Material.cpp">
+      <Filter>Sources\GameObject\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -219,6 +219,7 @@ bool ModuleImporter::LoadTexture(const char* path)
 {
 	bool ret = false;
 
+	std::string name = App->file_system->GetFileNameFromPath(path);
 	std::string local_path(path);
 	std::string full_path(texture_root_path + local_path);
 
@@ -234,7 +235,7 @@ bool ModuleImporter::LoadTexture(const char* path)
 		
 		Texture* texture = new Texture();
 		texture->id = ilutGLBindTexImage();
-		texture->name = path;
+		texture->name = name.c_str();
 		texture->width = ilGetInteger(IL_IMAGE_WIDTH);
 		texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
 

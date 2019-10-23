@@ -7,6 +7,15 @@
 #include "Component.h"
 #include "Mesh.h"
 
+enum class GAME_OBJECT_TYPE
+{
+	UNKNOWN = -1,
+
+	MODEL,
+	PRIMITIVE,
+	EMPTY
+};
+
 class ComponentTransform;
 
 class GameObject
@@ -38,6 +47,8 @@ public:
 
 	std::string name = nullptr;
 	bool active = true;
+
+	GAME_OBJECT_TYPE type = GAME_OBJECT_TYPE::UNKNOWN;
 
 	ComponentTransform* component_transform;
 

@@ -124,6 +124,7 @@ GameObject* ModuleSceneIntro::CreateEmptyGameObject(std::string name, GameObject
 	ChangeNameIfGameObjectNameAlreadyExists(name);
 
 	GameObject* go = new GameObject(name, parent);
+	go->type = GAME_OBJECT_TYPE::EMPTY;
 	game_objects.push_back(go);
 
 	LOG(LOG_INFORMATION, "Created empty game object with name %s", name.c_str());
@@ -136,8 +137,10 @@ GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, Mesh* mesh
 	ChangeNameIfGameObjectNameAlreadyExists(name);
 
 	GameObject* go = new GameObject(name, parent);
+	go->type = GAME_OBJECT_TYPE::MODEL;
 
 	go->CreateComponentMesh(mesh);
+	go->CreateComponentMaterial();
 
 	game_objects.push_back(go);
 

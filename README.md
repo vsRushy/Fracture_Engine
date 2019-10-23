@@ -6,6 +6,8 @@
 
 - Link to Webpage: https://vsrushy.github.io/Fracture_Engine
 
+- Link to Release section: https://github.com/vsRushy/Fracture_Engine/releases
+
 ## Features
 
 This is a 3D game engine made for educational purposes.

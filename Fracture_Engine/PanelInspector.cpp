@@ -6,6 +6,8 @@
 #include "Globals.h"
 #include "Component.h"
 #include "Component_Transform.h"
+#include "Component_Mesh.h"
+#include "Component_Material.h"
 
 PanelInspector::PanelInspector(std::string name, bool active) : Panel(name, active)
 {
@@ -51,7 +53,20 @@ bool PanelInspector::Update()
 
 			if ((*item)->type == COMPONENT_TYPE::MESH)
 			{
-				ImGui::Text("Mesh detected");
+				ComponentMesh* tr = (ComponentMesh*)(*item);
+				if (ImGui::CollapsingHeader("Mesh"))
+				{
+
+				}
+			}
+
+			if ((*item)->type == COMPONENT_TYPE::MATERIAL)
+			{
+				ComponentMaterial* tr = (ComponentMaterial*)(*item);
+				if (ImGui::CollapsingHeader("Material"))
+				{
+
+				}
 			}
 		}
 	}

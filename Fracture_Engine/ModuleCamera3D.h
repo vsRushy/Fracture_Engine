@@ -47,6 +47,7 @@ private:
 	float min_speed = 0.0f;
 	int zoom = 0;
 	bool after_alt = false;
+	int prev_scroll = 0;
 };
 
 #endif /* __MODULE_CAMERA_3D_H__ */

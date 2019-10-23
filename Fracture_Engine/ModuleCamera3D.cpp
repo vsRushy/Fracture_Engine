@@ -52,17 +52,44 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	vec3 newPos(0,0,0);
+	//SDL_Event event;
+	vec3 newPos(0, 0, 0);
 	vec3 pointPos(0, 0, 0);
 	vec3 reset(0, 0, 0);
 	float cam_speed = speed * dt;
-	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+	float Sensitivity = 0.25f;
+	bool scrollUp = false, scrollDown = false;
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		cam_speed *= 2.0f;
 
+	/*if (SDL_PollEvent(&event))
+	{
+		//if (event.type == SDL_MOUSEBUTTONDOWN)
+		//{
+			if (event.wheel.y > 0) // scroll up
+			{
+				scrollUp = true;
+			}
+			else if (event.wheel.y < 0) // scroll down
+			{
+				scrollDown = true;
+			}
+		//}
+	}*/
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) pointPos.y = newPos.y += cam_speed*0.5;
-		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) pointPos.y = newPos.y -= cam_speed*0.5;
+
+		
+		/*if (App->input->GetMouseButton(5) == KEY_DOWN)
+		{
+			newPos -= Z * cam_speed;
+			--zoom;
+		}
+		else if (App->input->GetMouseButton(4) == KEY_DOWN)
+		{
+			newPos += Z * cam_speed;
+			++zoom;
+		}*/
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && zoom > 0)
 		{
@@ -74,13 +101,43 @@ update_status ModuleCamera3D::Update(float dt)
 			newPos += Z * cam_speed;
 			++zoom;
 		}
-
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) pointPos = newPos -= X * cam_speed;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) pointPos = newPos += X * cam_speed;
-
+		
 		Position += newPos;
 		Reference += pointPos;
 		if (after_alt == false) after_alt = true;
+
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		{
+			int dx = -App->input->GetMouseXMotion();
+			int dy = -App->input->GetMouseYMotion();
+
+			Position -= Reference;
+
+			if (dx != 0)
+			{
+				float DeltaX = (float)dx * Sensitivity;
+
+				X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			}
+
+			if (dy != 0)
+			{
+				float DeltaY = (float)dy * Sensitivity;
+
+				Y = rotate(Y, DeltaY, X);
+				Z = rotate(Z, DeltaY, X);
+
+				if (Y.y < 0.0f)
+				{
+					Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+					Y = cross(Z, X);
+				}
+			}
+
+			Position = Reference + Z * length(Position);
+		}
 	}
 
 	else
@@ -91,57 +148,45 @@ update_status ModuleCamera3D::Update(float dt)
 			Reference = Position;
 			after_alt = false;
 		}
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += cam_speed*0.5;
-		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= cam_speed*0.5;
+
+		/*while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_MOUSEWHEEL)
+			{
+				if (event.wheel.y > 0) // scroll up
+				{
+					newPos -= Z * cam_speed * event.wheel.y;
+				}
+				else if (event.wheel.y < 0) // scroll down
+				{
+					newPos += Z * cam_speed * event.wheel.y;
+				}
+
+			}
+		}*/
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * cam_speed;
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * cam_speed;
+		
 
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		{
+			int dx = -App->input->GetMouseXMotion();
+			int dy = -App->input->GetMouseYMotion();
 
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * cam_speed;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * cam_speed;
+			newPos.y -= (float)dy * Sensitivity * cam_speed;
+			newPos.x += (float)dx * Sensitivity * cam_speed;
+		}
 
 		Position += newPos;
 		Reference += newPos;
+
 	}
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) LookAt(reset);
 
 	// Mouse motion ----------------
 
-	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-	{
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
-
-		float Sensitivity = 0.25f;
-
-		Position -= Reference;
-
-		if(dx != 0)
-		{
-			float DeltaX = (float)dx * Sensitivity;
-
-			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-		}
-
-		if(dy != 0)
-		{
-			float DeltaY = (float)dy * Sensitivity;
-
-			Y = rotate(Y, DeltaY, X);
-			Z = rotate(Z, DeltaY, X);
-
-			if(Y.y < 0.0f)
-			{
-				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-				Y = cross(Z, X);
-			}
-		}
-
-		Position = Reference + Z * length(Position);
-	}
+	
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();

@@ -7,6 +7,8 @@
 #include "Component.h"
 #include "Mesh.h"
 
+class ComponentTransform;
+
 class GameObject
 {
 public:
@@ -36,6 +38,8 @@ public:
 
 	std::string name = nullptr;
 	bool active = true;
+
+	ComponentTransform* component_transform;
 
 	std::vector<Component*> components;
 

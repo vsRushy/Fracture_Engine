@@ -20,7 +20,7 @@
 
 ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_enabled)
 {
-	panel_scene = new PanelScene("Scene");
+	panel_scene = new PanelScene("Scene", false);
 	panel_main_menu_bar = new PanelMainMenuBar("MainMenuBar");
 	panel_console = new PanelConsole("Console");
 	panel_about = new PanelAbout("About", false);

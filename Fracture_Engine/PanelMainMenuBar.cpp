@@ -39,6 +39,9 @@ bool PanelMainMenuBar::Update()
 		{
 			ImGui::MenuItem("Configuration", NULL, &(App->user_interface->panel_configuration->active));
 			ImGui::MenuItem("Console", NULL, &(App->user_interface->panel_console->active));
+			ImGui::MenuItem("Hierarchy", NULL, &(App->user_interface->panel_hierarchy->active));
+			ImGui::MenuItem("Inspector", NULL, &(App->user_interface->panel_inspector->active));
+			ImGui::MenuItem("Scene", NULL, &(App->user_interface->panel_scene->active));
 			ImGui::EndMenu();
 		}
 

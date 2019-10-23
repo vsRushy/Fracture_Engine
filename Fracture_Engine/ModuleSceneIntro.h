@@ -34,7 +34,7 @@ public:
 	void CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type);
 
 	GameObject* CreateEmptyGameObject(std::string name, GameObject* parent = nullptr);
-	GameObject* CreateModelGameObject(std::string name, const char* meshes_name, GameObject* parent = nullptr);
+	GameObject* CreateModelGameObject(std::string name, Mesh* mesh, GameObject* parent = nullptr);
 
 	// ------------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ public:
 	GameObject* selected_game_object = nullptr;
 
 	std::list<Primitive*> primitives;
-	std::map<const char*, std::list<Mesh*>> meshes;
+
 	std::map<const char*, Texture*> textures;
 };
 

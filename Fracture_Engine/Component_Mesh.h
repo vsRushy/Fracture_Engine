@@ -9,15 +9,13 @@
 class ComponentMesh : public Component
 {
 public:
-	ComponentMesh(GameObject* target, const char* name_meshes);
+	ComponentMesh(GameObject* target, Mesh* mesh);
 	~ComponentMesh();
 
 	bool Update(float dt);
 
-	void CopyMeshes(const char* name);
-
 public:
-	std::list<Mesh*> meshes;
+	Mesh* mesh;
 };
 
 #endif /* __COMPONENT_MESH_H__ */

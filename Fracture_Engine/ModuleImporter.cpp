@@ -4,6 +4,7 @@
 #include "ModuleImporter.h"
 #include "ModuleSceneIntro.h"
 
+#include "GameObject.h"
 #include "Mesh.h"
 #include "Texture.h"
 
@@ -59,6 +60,17 @@ void ModuleImporter::LoadModel(const char* path)
 	
 	if (scene != nullptr && scene->HasMeshes())
 	{
+		GameObject* g_o = nullptr;
+
+		/* Create first an empty game object if scene has multiple meshes */
+		if (scene->mNumMeshes > 1)
+		{
+			g_o = App->scene_intro->CreateEmptyGameObject(
+				App->file_system->GetFileNameFromPath(path).data(),
+				App->scene_intro->root_game_object
+			);
+		}
+
 		LOG(LOG_INFORMATION, "New scene with %d mesh(es)", scene->mNumMeshes);
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
 		for (int i = 0; i < scene->mNumMeshes; i++)
@@ -175,7 +187,26 @@ void ModuleImporter::LoadModel(const char* path)
 			glBindBuffer(GL_ARRAY_BUFFER, m->id_uvs);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_uvs * 3, m->uvs, GL_STATIC_DRAW);
 
-			App->scene_intro->meshes[path].push_back(m);
+			App->scene_intro->CreateModelGameObject("test", m, App->scene_intro->root_game_object);
+		
+			/* If multiple game objects */
+			if (scene->mNumMeshes > 1)
+			{
+				GameObject* ch = App->scene_intro->CreateModelGameObject(
+					App->file_system->GetFileNameFromPath(path).data(),
+					m,
+					g_o
+				);
+			}
+
+			if (scene->mNumMeshes == 1)
+			{
+				g_o = App->scene_intro->CreateModelGameObject(
+					App->file_system->GetFileNameFromPath(path).data(),
+					m,
+					App->scene_intro->root_game_object
+				);
+			}
 		}
 
 		aiReleaseImport(scene);

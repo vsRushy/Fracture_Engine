@@ -259,6 +259,32 @@ void ModuleFileSystem::NormalizePath(std::string& full_path) const
 	}
 }
 
+std::string ModuleFileSystem::GetFileNameFromPath(const char* file)
+{
+	std::string file_path(file);
+	std::string name;
+
+	bool end_dot_found = false;
+	for (std::string::const_reverse_iterator item = file_path.rbegin(); item != file_path.rend(); item++)
+	{
+		if (!end_dot_found) 
+		{
+			if (*item == '.')
+				end_dot_found = true;
+		}
+		else {
+			if (*item == '\\' || *item == '/' || *item == '//')
+				break;
+
+			name.push_back(*item);
+		}
+	}
+
+	std::reverse(name.begin(), name.end()); // no push_front, we need to reverse
+	
+	return name;
+}
+
 unsigned int ModuleFileSystem::Load(const char* path, const char* file, char** buffer) const
 {
 	string full_path(path);

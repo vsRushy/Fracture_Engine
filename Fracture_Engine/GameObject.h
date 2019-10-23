@@ -25,7 +25,7 @@ public:
 	// ------------------------------------------
 
 	Component* CreateComponentTransform();
-	Component* CreateComponentMesh(const char* meshes_name);
+	Component* CreateComponentMesh(Mesh* mesh);
 	Component* CreateComponentMaterial();
 
 	// ------------------------------------------

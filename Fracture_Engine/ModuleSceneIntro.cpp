@@ -32,13 +32,6 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
-
-	//App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
-
-	//GameObject* g1 = CreateEmptyGameObject("test", nullptr);
-	//GameObject* g2 = CreateModelGameObject("test2", "Assets/Models/BakerHouse.FBX", nullptr);
-
 	root_game_object = CreateEmptyGameObject("Root", nullptr);
 
 	selected_game_object = root_game_object;
@@ -46,6 +39,13 @@ bool ModuleSceneIntro::Start()
 	GameObject* child_test_1 = CreateEmptyGameObject("Child 1", root_game_object);
 	GameObject* child_test_2 = CreateEmptyGameObject("Child 2", root_game_object);
 	GameObject* child_test_3 = CreateEmptyGameObject("Child 3", child_test_2);
+
+	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
+
+	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
+
+	//GameObject* g1 = CreateEmptyGameObject("test", nullptr);
+	//GameObject* g2 = CreateModelGameObject("test2", "Assets/Models/BakerHouse.FBX", root_game_object);
 
 	return ret;
 }
@@ -70,17 +70,6 @@ bool ModuleSceneIntro::CleanUp()
 		*item = nullptr;
 	}
 	primitives.clear();
-
-	/* Delete all meshes */
-	for (std::map<const char*, std::list<Mesh*>>::reverse_iterator item = meshes.rbegin(); item != meshes.rend(); item++)
-	{
-		for (std::list<Mesh*>::reverse_iterator item_list = (*item).second.rbegin(); item_list != (*item).second.rend(); item_list++)
-		{
-			delete *item_list;
-			*item_list = nullptr;
-		}
-	}
-	meshes.clear();
 
 	/* Delete all textures */
 	for (std::map<const char*, Texture*>::reverse_iterator item = textures.rbegin(); item != textures.rend(); item++)
@@ -142,13 +131,17 @@ GameObject* ModuleSceneIntro::CreateEmptyGameObject(std::string name, GameObject
 	return go;
 }
 
-GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, const char* meshes_name, GameObject* parent)
+GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, Mesh* mesh, GameObject* parent)
 {
+	ChangeNameIfGameObjectNameAlreadyExists(name);
+
 	GameObject* go = new GameObject(name, parent);
 
-	go->CreateComponentMesh(meshes_name);
+	go->CreateComponentMesh(mesh);
 
 	game_objects.push_back(go);
+
+	LOG(LOG_INFORMATION, "Created model game object with name %s", name.c_str());
 
 	return go;
 }

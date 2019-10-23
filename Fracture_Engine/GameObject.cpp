@@ -82,9 +82,9 @@ Component* GameObject::CreateComponentTransform()
 	return component_transform;
 }
 
-Component* GameObject::CreateComponentMesh(const char* meshes_name)
+Component* GameObject::CreateComponentMesh(Mesh* mesh)
 {
-	Component* component_mesh = new ComponentMesh(this, meshes_name);
+	Component* component_mesh = new ComponentMesh(this, mesh);
 	components.push_back(component_mesh);
 
 	return component_mesh;

@@ -7,6 +7,7 @@
 #include "Component.h"
 #include "Component_Transform.h"
 #include "Component_Mesh.h"
+#include "Component_Material.h"
 
 GameObject::GameObject(std::string name, GameObject* parent)
 	: name(name), parent(parent)
@@ -92,7 +93,10 @@ Component* GameObject::CreateComponentMesh(Mesh* mesh)
 
 Component* GameObject::CreateComponentMaterial()
 {
-	return nullptr;
+	Component* component_material = new ComponentMaterial(this);
+	components.push_back(component_material);
+
+	return component_material;
 }
 
 /*void GameObject::AssignMeshesToComponentMesh(const char* name)

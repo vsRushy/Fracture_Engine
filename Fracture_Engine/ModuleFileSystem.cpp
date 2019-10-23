@@ -34,11 +34,8 @@ ModuleFileSystem::ModuleFileSystem(const char* game_path) : Module()
 
 	// Make sure standard paths exist
 	const char* dirs[] = {
-		"/Settings", 
 		"/Assets", 
 		"/Library", 
-		"/Scenes", 
-		"/Materials", 
 		"/Textures"
 	};
 

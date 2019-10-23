@@ -61,9 +61,14 @@ void ModuleImporter::LoadModel(const char* path)
 	
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		GameObject* g_o = nullptr;
-
 		aiNode* node = scene->mRootNode;
+
+		/* Get transform */
+		aiVector3D position, scale;
+		aiQuaternion rotation;
+		node->mTransformation.Decompose(scale, rotation, position);
+
+		GameObject* g_o = nullptr;
 
 		/* Create first an empty game object if scene has multiple meshes */
 		if (scene->mNumMeshes > 1)
@@ -72,6 +77,10 @@ void ModuleImporter::LoadModel(const char* path)
 				App->file_system->GetFileNameFromPath(path).data(),
 				App->scene_intro->root_game_object
 			);
+
+			g_o->component_transform->SetPosition(position.x, position.y, position.z);
+			g_o->component_transform->SetRotation(rotation.w, rotation.x, rotation.y, rotation.z);
+			g_o->component_transform->SetScale(scale.x, scale.y, scale.z);
 		}
 
 		LOG(LOG_INFORMATION, "New scene with %d mesh(es)", scene->mNumMeshes);
@@ -189,11 +198,6 @@ void ModuleImporter::LoadModel(const char* path)
 			glGenBuffers(1, &m->id_uvs);
 			glBindBuffer(GL_ARRAY_BUFFER, m->id_uvs);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_uvs * 3, m->uvs, GL_STATIC_DRAW);
-
-			/* Get transform */
-			aiVector3D position, scale;
-			aiQuaternion rotation;
-			node->mTransformation.Decompose(scale, rotation, position);
 
 			/* If multiple game objects */
 			if (scene->mNumMeshes > 1)

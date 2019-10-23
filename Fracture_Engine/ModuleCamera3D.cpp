@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "ModuleInput.h"
 
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
@@ -52,61 +53,42 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	//SDL_Event event;
+	
 	vec3 newPos(0, 0, 0);
 	vec3 pointPos(0, 0, 0);
 	vec3 reset(0, 0, 0);
 	float cam_speed = speed * dt;
 	float Sensitivity = 0.25f;
+	float zoom_Sensitivity = 4.0f;
 	bool scrollUp = false, scrollDown = false;
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		cam_speed *= 2.0f;
-
-	/*if (SDL_PollEvent(&event))
+	if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
 	{
-		//if (event.type == SDL_MOUSEBUTTONDOWN)
-		//{
-			if (event.wheel.y > 0) // scroll up
-			{
-				scrollUp = true;
-			}
-			else if (event.wheel.y < 0) // scroll down
-			{
-				scrollDown = true;
-			}
-		//}
-	}*/
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
+
+		newPos -= Y * (float)dy * Sensitivity * cam_speed;
+		newPos += X * (float)dx * Sensitivity * cam_speed;
+	}
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN)
 	{
-
-		
-		/*if (App->input->GetMouseButton(5) == KEY_DOWN)
+		if (App->input->GetMouseZ() > 0 && zoom > 0)
 		{
-			newPos -= Z * cam_speed;
+			newPos -= Z * cam_speed * zoom_Sensitivity;
 			--zoom;
 		}
-		else if (App->input->GetMouseButton(4) == KEY_DOWN)
+		if (App->input->GetMouseZ() < 0)
 		{
-			newPos += Z * cam_speed;
+			newPos += Z * cam_speed * zoom_Sensitivity;
 			++zoom;
-		}*/
+		}
 
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && zoom > 0)
-		{
-			newPos -= Z * cam_speed;
-			--zoom;
-		}
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		{
-			newPos += Z * cam_speed;
-			++zoom;
-		}
-		
 		Position += newPos;
 		Reference += pointPos;
 		if (after_alt == false) after_alt = true;
 
-		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) != KEY_REPEAT)
 		{
 			int dx = -App->input->GetMouseXMotion();
 			int dy = -App->input->GetMouseYMotion();
@@ -148,34 +130,40 @@ update_status ModuleCamera3D::Update(float dt)
 			Reference = Position;
 			after_alt = false;
 		}
+		if (App->input->GetMouseZ() > 0) newPos -= Z * cam_speed * zoom_Sensitivity;
+		if (App->input->GetMouseZ() < 0) newPos += Z * cam_speed * zoom_Sensitivity;
 
-		/*while (SDL_PollEvent(&event))
-		{
-			if (event.type == SDL_MOUSEWHEEL)
-			{
-				if (event.wheel.y > 0) // scroll up
-				{
-					newPos -= Z * cam_speed * event.wheel.y;
-				}
-				else if (event.wheel.y < 0) // scroll down
-				{
-					newPos += Z * cam_speed * event.wheel.y;
-				}
-
-			}
-		}*/
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * cam_speed;
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * cam_speed;
-		
-
-		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) != KEY_REPEAT)
 		{
 			int dx = -App->input->GetMouseXMotion();
 			int dy = -App->input->GetMouseYMotion();
 
-			newPos.y -= (float)dy * Sensitivity * cam_speed;
-			newPos.x += (float)dx * Sensitivity * cam_speed;
+			Position -= Reference;
+
+			if (dx != 0)
+			{
+				float DeltaX = (float)dx * Sensitivity;
+
+				X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			}
+
+			if (dy != 0)
+			{
+				float DeltaY = (float)dy * Sensitivity;
+
+				Y = rotate(Y, DeltaY, X);
+				Z = rotate(Z, DeltaY, X);
+
+				if (Y.y < 0.0f)
+				{
+					Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+					Y = cross(Z, X);
+				}
+			}
+
+			Position = Reference + Z * length(Position);
 		}
 
 		Position += newPos;
@@ -184,10 +172,7 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) LookAt(reset);
 
-	// Mouse motion ----------------
-
-	
-
+	//GameObject* selected = 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 

@@ -8,7 +8,27 @@
 
 ## Features
 
+This is a 3D game engine made for educational purposes.
+
 ## Innovation
+
+## External tools
+
+- ImGui
+
+- DevIL
+
+- Assimp
+
+- Parson
+
+- MathGeoLib
+
+- Par shapes
+
+- PCG
+
+- PhyFS
 
 ## Credits
 

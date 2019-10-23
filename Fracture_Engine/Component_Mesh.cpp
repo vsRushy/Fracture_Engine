@@ -18,7 +18,5 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update(float dt)
 {
-	App->renderer3D->DrawMesh(mesh);
-
 	return true;
 }

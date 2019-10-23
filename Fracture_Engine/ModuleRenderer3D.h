@@ -10,6 +10,7 @@
 
 #define MAX_LIGHTS 8
 
+class GameObject;
 class Primitive;
 class Mesh;
 
@@ -26,7 +27,7 @@ public:
 
 	/* Draw functions ------------------ */
 	void DrawPrimitive(Primitive* primitive) const;
-	void DrawMesh(Mesh* mesh) const;
+	void DrawGameObject(GameObject* mesh) const;
 
 	void LoadConfiguration(JSON_Object* configuration) override;
 

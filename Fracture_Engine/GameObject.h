@@ -7,6 +7,9 @@
 #include "Component.h"
 #include "Mesh.h"
 
+class ComponentMesh;
+class ComponentMaterial;
+
 enum class GAME_OBJECT_TYPE
 {
 	UNKNOWN = -1,
@@ -39,6 +42,9 @@ public:
 
 	// ------------------------------------------
 
+	ComponentMesh* GetComponentMesh() const;
+	ComponentMaterial* GetComponentMaterial() const;
+
 	//void AssignMeshesToComponentMesh(const char* name);
 	
 public:
@@ -50,7 +56,7 @@ public:
 
 	GAME_OBJECT_TYPE type = GAME_OBJECT_TYPE::UNKNOWN;
 
-	ComponentTransform* component_transform;
+	ComponentTransform* component_transform; // All game objects have its transform. Easier/faster acces.
 
 	std::vector<Component*> components;
 

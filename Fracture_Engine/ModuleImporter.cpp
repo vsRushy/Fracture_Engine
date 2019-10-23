@@ -240,6 +240,8 @@ void ModuleImporter::LoadModelNode(aiNode* node, GameObject* parent, const aiSce
 				aiMesh* new_mesh = scene->mMeshes[child->mMeshes[j]];
 				Mesh* m = component_mesh->mesh;
 
+				child_go->name = new_mesh->mName.C_Str();
+
 				/* Copy vertices */
 				m->num_vertices = new_mesh->mNumVertices;
 				m->vertices = new float[m->num_vertices * 3];
@@ -330,9 +332,6 @@ void ModuleImporter::LoadModelNode(aiNode* node, GameObject* parent, const aiSce
 				glGenBuffers(1, &m->id_uvs);
 				glBindBuffer(GL_ARRAY_BUFFER, m->id_uvs);
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float)* m->num_uvs * 3, m->uvs, GL_STATIC_DRAW);
-
-
-				child_go->name = new_mesh->mName.C_Str();
 			}
 		}
 
@@ -394,7 +393,10 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 		}
 
 		if (ret)
+		{
+			LOG(LOG_INFORMATION, "Created texture with name %s", name.c_str());
 			return texture;
+		}
 		else
 			return nullptr;
 	}

@@ -46,6 +46,8 @@ bool GameObject::Update(float dt)
 		ret = (*item)->Update(dt);
 	}
 
+	App->renderer3D->DrawGameObject(this);
+
 	return ret;
 }
 
@@ -97,6 +99,24 @@ Component* GameObject::CreateComponentMaterial()
 	components.push_back(component_material);
 
 	return component_material;
+}
+
+ComponentMesh* GameObject::GetComponentMesh() const
+{
+	for (std::vector<Component*>::const_iterator item = components.begin(); item != components.end(); item++)
+	{
+		if ((*item)->type == COMPONENT_TYPE::MESH)
+			return (ComponentMesh*)(*item);
+	}
+}
+
+ComponentMaterial* GameObject::GetComponentMaterial() const
+{
+	for (std::vector<Component*>::const_iterator item = components.begin(); item != components.end(); item++)
+	{
+		if ((*item)->type == COMPONENT_TYPE::MATERIAL)
+			return (ComponentMaterial*)(*item);
+	}
 }
 
 /*void GameObject::AssignMeshesToComponentMesh(const char* name)

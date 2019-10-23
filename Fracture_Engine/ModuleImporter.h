@@ -20,6 +20,8 @@
 #pragma comment (lib, "Devil/libx86/ILU.lib")
 #pragma comment (lib, "Devil/libx86/ILUT.lib")
 
+class Texture;
+
 class ModuleImporter : public Module
 {
 public:
@@ -31,7 +33,8 @@ public:
 	bool CleanUp();
 
 	void LoadModel(const char* path);
-	bool LoadTexture(const char* path);
+	void LoadModelNode(aiNode* node, GameObject* parent, const aiScene* scene, const char* path);
+	Texture* LoadTexture(const char* path);
 
 private:
 	const char* texture_root_path = "";

@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "Component_Transform.h"
 
 ModuleImporter::ModuleImporter(bool start_enabled) : Module(start_enabled)
 {
@@ -61,6 +62,8 @@ void ModuleImporter::LoadModel(const char* path)
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		GameObject* g_o = nullptr;
+
+		aiNode* node = scene->mRootNode;
 
 		/* Create first an empty game object if scene has multiple meshes */
 		if (scene->mNumMeshes > 1)
@@ -187,8 +190,11 @@ void ModuleImporter::LoadModel(const char* path)
 			glBindBuffer(GL_ARRAY_BUFFER, m->id_uvs);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_uvs * 3, m->uvs, GL_STATIC_DRAW);
 
-			App->scene_intro->CreateModelGameObject("test", m, App->scene_intro->root_game_object);
-		
+			/* Get transform */
+			aiVector3D position, scale;
+			aiQuaternion rotation;
+			node->mTransformation.Decompose(scale, rotation, position);
+
 			/* If multiple game objects */
 			if (scene->mNumMeshes > 1)
 			{
@@ -197,6 +203,10 @@ void ModuleImporter::LoadModel(const char* path)
 					m,
 					g_o
 				);
+
+				ch->component_transform->SetPosition(position.x, position.y, position.z);
+				ch->component_transform->SetRotation(rotation.w, rotation.x, rotation.y, rotation.z);
+				ch->component_transform->SetScale(scale.x, scale.y, scale.z);
 			}
 
 			if (scene->mNumMeshes == 1)
@@ -206,6 +216,10 @@ void ModuleImporter::LoadModel(const char* path)
 					m,
 					App->scene_intro->root_game_object
 				);
+
+				g_o->component_transform->SetPosition(position.x, position.y, position.z);
+				g_o->component_transform->SetRotation(rotation.w, rotation.x, rotation.y, rotation.z);
+				g_o->component_transform->SetScale(scale.x, scale.y, scale.z);
 			}
 		}
 

@@ -10,8 +10,8 @@
 
 #define MAX_LIGHTS 8
 
+class GameObject;
 class Primitive;
-class Mesh;
 
 class ModuleRenderer3D : public Module
 {
@@ -26,7 +26,7 @@ public:
 
 	/* Draw functions ------------------ */
 	void DrawPrimitive(Primitive* primitive) const;
-	void DrawMesh(Mesh* mesh) const;
+	void DrawGameObject(GameObject* game_object) const;
 
 	void LoadConfiguration(JSON_Object* configuration) override;
 

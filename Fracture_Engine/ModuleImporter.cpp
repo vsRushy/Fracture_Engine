@@ -149,8 +149,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 		ILinfo img_info;
 		iluGetImageInfo(&img_info);
 
-		if (img_info.Origin != IL_ORIGIN_LOWER_LEFT)
-			iluFlipImage();
+		iluFlipImage();
 
 		texture = new Texture();
 
@@ -159,6 +158,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 			texture->data = (unsigned char*)ilGetData();
 			texture->width = ilGetInteger(IL_IMAGE_WIDTH);
 			texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
+			texture->name = path;
 
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -188,56 +188,6 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 	ilDeleteImages(1, &devil_id);
 
 	return texture;
-
-
-	/*Texture* texture = nullptr;
-
-	std::string name = App->file_system->GetFileNameFromPath(path);
-	std::string local_path(path);
-	std::string full_path(texture_root_path + local_path);
-
-	if (!ilLoad(IL_PNG, full_path.data()))
-	{
-		ILenum error = ilGetError();
-		LOG(LOG_ERROR, "Failed to load texture with path: %s. Error: %s", path, ilGetString(error));
-	}
-	else
-	{
-		iluFlipImage();
-		
-		Texture* texture = new Texture();
-		texture->id = ilutGLBindTexImage();
-		texture->name = name.c_str();
-		texture->width = ilGetInteger(IL_IMAGE_WIDTH);
-		texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
-
-		ilGenImages(1, &texture->id);
-		ilBindImage(texture->id);
-		ILubyte* data = ilGetData();
-
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1, &texture->id);
-		glBindTexture(GL_TEXTURE_2D, texture->id);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, texture->width, texture->height,
-			0, GL_RGBA8, GL_UNSIGNED_BYTE, &data);
-
-		if (texture->id > 0)
-		{
-			App->scene_intro->textures.insert({ path, texture });
-			glBindTexture(GL_TEXTURE_2D, 0);
-			ilBindImage(0);
-			ilDeleteImage(texture->id);
-		}
-
-	}
-
-	return texture;*/
 }
 
 Mesh* ModuleImporter::LoadMesh(aiMesh* ai_mesh)

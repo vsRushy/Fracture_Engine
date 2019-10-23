@@ -5,7 +5,15 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleImporter.h"
 #include "Primitive.h"
+
 #include "Mesh.h"
+#include "Texture.h"
+
+#include "GameObject.h"
+#include "Component.h"
+#include "Component_Transform.h"
+#include "Component_Mesh.h"
+#include "Component_Material.h"
 
 #pragma comment (lib, "glu32.lib")    /* Link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* Link Microsoft OpenGL lib   */
@@ -164,66 +172,66 @@ void ModuleRenderer3D::DrawPrimitive(Primitive* primitive) const
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void ModuleRenderer3D::DrawMesh(Mesh* mesh) const
+void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 {
 	if (!GetWireframeMode())
 	{
-		glEnableClientState(GL_VERTEX_ARRAY);
-
-		
-
-		/*if (mesh->id_textures != -1) {
-			glEnable(GL_TEXTURE_2D);
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glBindTexture(GL_TEXTURE_2D, mesh->id_textures);
-
-			glBindBuffer(GL_ARRAY_BUFFER, mesh->id_uvs);
-			glTexCoordPointer(3, GL_FLOAT, 0, NULL);
-		}*/
-
-		if (mesh->normals != nullptr)
+		if (game_object->GetComponentMesh() != nullptr)
 		{
-			glEnableClientState(GL_NORMAL_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
-			glNormalPointer(GL_FLOAT, 0, NULL);
-		}
+			glEnableClientState(GL_VERTEX_ARRAY);
 
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			ComponentMesh* tmp_mesh = game_object->GetComponentMesh();
 
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
+			if (game_object->GetComponentMaterial() != nullptr)
+			{
+				ComponentMaterial* tmp_material = game_object->GetComponentMaterial();
+				glEnable(GL_TEXTURE_2D);
+				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+				glBindTexture(GL_TEXTURE_2D, tmp_material->texture->id);
 
-		/* Draw */
-		glDrawElements(GL_TRIANGLES, mesh->num_indices * 3, GL_UNSIGNED_INT, NULL);
+				glBindBuffer(GL_ARRAY_BUFFER, tmp_mesh->mesh->id_uvs);
+				glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+			}
 
-		/* Unbind buffers and texture */
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		glBindTexture(GL_TEXTURE_2D, 0);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+			glBindBuffer(GL_ARRAY_BUFFER, tmp_mesh->mesh->id_vertices);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, tmp_mesh->mesh->id_indices);
+			glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+			/* Draw */
+			glDrawElements(GL_TRIANGLES, tmp_mesh->mesh->num_indices * 3, GL_UNSIGNED_INT, NULL);
 		
-		glDisable(GL_TEXTURE_2D);
+			/* Unbind */
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+			glBindTexture(GL_TEXTURE_2D, 0);
 
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_NORMAL_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+			glDisable(GL_TEXTURE_2D);
+
+			glDisableClientState(GL_VERTEX_ARRAY);
+			glDisableClientState(GL_NORMAL_ARRAY);
+			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+			// --------------
+
+			/* Draw mesh lines */
+			if (draw_mesh_lines || GetWireframeMode())
+				DrawMeshLines(tmp_mesh->mesh, mesh_lines_width);
+
+			/* Draw vertices */
+			if (draw_mesh_vertices)
+				DrawMeshVertices(tmp_mesh->mesh, mesh_vertices_size);
+
+			/* Draw vertex normals */
+			if (draw_mesh_vertex_normals)
+				DrawMeshVertexNormals(tmp_mesh->mesh, mesh_vertex_normals_width);
+
+			/* Draw face normals */
+			if (draw_mesh_face_normals)
+				DrawMeshFaceNormals(tmp_mesh->mesh, mesh_face_normals_width);
+		}
 	}
-
-	/* Draw mesh lines */
-	if(draw_mesh_lines || GetWireframeMode())
-		DrawMeshLines(mesh, mesh_lines_width);
-
-	/* Draw vertices */
-	if(draw_mesh_vertices)
-		DrawMeshVertices(mesh, mesh_vertices_size);
-
-	/* Draw vertex normals */
-	if(draw_mesh_vertex_normals)
-		DrawMeshVertexNormals(mesh, mesh_vertex_normals_width);
-
-	/* Draw face normals */
-	if(draw_mesh_face_normals)
-		DrawMeshFaceNormals(mesh, mesh_face_normals_width);
 }
 
 void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)

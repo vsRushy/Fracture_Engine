@@ -9,7 +9,7 @@
 
 class ComponentTransform;
 class ComponentMesh;
-class ComponentMaterial
+class ComponentMaterial;
 
 class GameObject
 {

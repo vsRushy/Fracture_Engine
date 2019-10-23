@@ -9,3 +9,10 @@ ComponentTransform::~ComponentTransform()
 {
 
 }
+
+void ComponentTransform::Set(const math::float3& position, const math::Quat& rotation, const math::float3& scale)
+{
+	this->position = position;
+	this->rotation = rotation;
+	this->scale = scale;
+}

@@ -4,6 +4,7 @@
 #include "ModuleSceneIntro.h"
 
 #include "GameObject.h"
+
 #include "Component.h"
 #include "Component_Transform.h"
 #include "Component_Mesh.h"
@@ -97,6 +98,28 @@ Component* GameObject::CreateComponentMaterial()
 	components.push_back(component_material);
 
 	return component_material;
+}
+
+ComponentMesh* GameObject::GetComponentMesh() const
+{
+	for (std::vector<Component*>::const_iterator item = components.begin(); item != components.end(); item++)
+	{
+		if ((*item)->type == COMPONENT_TYPE::MESH)
+		{
+			return (ComponentMesh*)*item;
+		}
+	}
+}
+
+ComponentMesh* GameObject::GetComponentMaterial() const
+{
+	for (std::vector<Component*>::const_iterator item = components.begin(); item != components.end(); item++)
+	{
+		if ((*item)->type == COMPONENT_TYPE::MATERIAL)
+		{
+			return (ComponentMesh*)* item;
+		}
+	}
 }
 
 /*void GameObject::AssignMeshesToComponentMesh(const char* name)

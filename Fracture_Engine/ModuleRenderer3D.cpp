@@ -170,14 +170,16 @@ void ModuleRenderer3D::DrawMesh(Mesh* mesh) const
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);
 
-		if (mesh->id_textures != -1) {
+		
+
+		/*if (mesh->id_textures != -1) {
 			glEnable(GL_TEXTURE_2D);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindTexture(GL_TEXTURE_2D, mesh->id_textures);
 
 			glBindBuffer(GL_ARRAY_BUFFER, mesh->id_uvs);
 			glTexCoordPointer(3, GL_FLOAT, 0, NULL);
-		}
+		}*/
 
 		if (mesh->normals != nullptr)
 		{

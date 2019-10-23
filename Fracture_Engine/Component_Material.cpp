@@ -10,3 +10,8 @@ ComponentMaterial::~ComponentMaterial()
 {
 
 }
+
+void ComponentMaterial::SetTexture(Texture* texture)
+{
+	this->texture = texture;
+}

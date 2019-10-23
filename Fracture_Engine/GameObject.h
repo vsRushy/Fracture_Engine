@@ -8,6 +8,8 @@
 #include "Mesh.h"
 
 class ComponentTransform;
+class ComponentMesh;
+class ComponentMaterial
 
 class GameObject
 {
@@ -27,6 +29,9 @@ public:
 	Component* CreateComponentTransform();
 	Component* CreateComponentMesh(Mesh* mesh);
 	Component* CreateComponentMaterial();
+
+	ComponentMesh* GetComponentMesh() const;
+	ComponentMaterial* GetComponentMaterial() const;
 
 	// ------------------------------------------
 

@@ -3,11 +3,20 @@
 
 #include "Globals.h"
 
+class aiMesh;
+
 class Mesh
 {
 public:
 	Mesh();
 	~Mesh();
+
+	void LoadVertices(aiMesh* mesh);
+	void LoadFaces(aiMesh* mesh);
+	void LoadNormals(aiMesh* mesh);
+	void LoadUVs(aiMesh* mesh);
+
+	void CreateBuffers();
 
 	// ------------------------------------------------
 
@@ -25,9 +34,8 @@ public:
 
 	uint id_uvs = -1;
 	uint num_uvs = 0u;
+	uint uvs_dimension = 0u;
 	float* uvs = nullptr;
-
-	uint id_textures = -1;
 
 	// ------------------------------------------------
 

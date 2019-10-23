@@ -11,6 +11,8 @@ public:
 	ComponentMaterial(GameObject* target);
 	~ComponentMaterial();
 
+	void SetTexture(Texture* texture);
+
 public:
 	Texture* texture = nullptr;
 };

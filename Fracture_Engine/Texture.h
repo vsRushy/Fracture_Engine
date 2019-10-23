@@ -15,6 +15,7 @@ public:
 	uint id = -1;
 	uint width = -1;
 	uint height = -1;
+	unsigned char* data = nullptr;
 };
 
 #endif /* __TEXTURE_H__ */

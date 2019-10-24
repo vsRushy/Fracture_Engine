@@ -185,12 +185,15 @@ void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 			if (game_object->GetComponentMaterial() != nullptr)
 			{
 				ComponentMaterial* tmp_material = game_object->GetComponentMaterial();
-				glEnable(GL_TEXTURE_2D);
-				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-				glBindTexture(GL_TEXTURE_2D, tmp_material->texture->id);
+				if (tmp_material->IsActive())
+				{
+					glEnable(GL_TEXTURE_2D);
+					glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+					glBindTexture(GL_TEXTURE_2D, tmp_material->texture->id);
 
-				glBindBuffer(GL_ARRAY_BUFFER, tmp_mesh->mesh->id_uvs);
-				glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+					glBindBuffer(GL_ARRAY_BUFFER, tmp_mesh->mesh->id_uvs);
+					glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+				}
 			}
 
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

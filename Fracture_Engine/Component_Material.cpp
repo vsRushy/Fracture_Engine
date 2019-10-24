@@ -21,7 +21,7 @@ void ComponentMaterial::OnEditor()
 		ImGui::Checkbox("Active", &active);
 		
 		std::string m_name = texture->name;
-		ImGui::Text("Material name: "); ImGui::SameLine(); ImGui::Text(m_name.c_str());
+		ImGui::Text("Material path: "); ImGui::SameLine(); ImGui::Text(m_name.c_str());
 		
 		std::string t_width = std::to_string(texture->width);
 		ImGui::Text("Texture width: "); ImGui::SameLine(); 

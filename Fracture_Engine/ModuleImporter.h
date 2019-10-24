@@ -40,7 +40,7 @@ public:
 	Texture* LoadTexture(const char* path);
 
 
-	void LoadTextureCheckered();
+	Texture* LoadTextureCheckered();
 
 	// ------------------
 

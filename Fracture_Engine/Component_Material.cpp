@@ -38,7 +38,12 @@ void ComponentMaterial::OnEditor()
 	
 		if (ImGui::Button("Use checkered texture"))
 		{
-			SetTextureByPath("Checkered_Texture");
+			use_checkered_texture = !use_checkered_texture;
+
+			if(use_checkered_texture)
+				SetTexture(App->scene_intro->checkered_texture);
+			else
+				SetTexture(initial_texture);
 		}
 	}
 }
@@ -46,6 +51,11 @@ void ComponentMaterial::OnEditor()
 void ComponentMaterial::SetTexture(Texture* texture)
 {
 	this->texture = texture;
+}
+
+void ComponentMaterial::SetInitialTexture(Texture* texture)
+{
+	this->initial_texture = texture;
 }
 
 void ComponentMaterial::SetTextureByPath(const std::string& path)

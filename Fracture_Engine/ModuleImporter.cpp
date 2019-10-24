@@ -116,6 +116,7 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node)
 		std::string full_tex_path = texture_root_path;
 		full_tex_path.append(file_path_tex.C_Str());
 		tmp_cm->SetTexture(LoadTexture(full_tex_path.c_str()));
+		tmp_cm->SetInitialTexture(LoadTexture(full_tex_path.c_str()));
 
 		aiVector3D position;
 		aiQuaternion ai_rotation;
@@ -190,7 +191,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 	return texture;
 }
 
-void ModuleImporter::LoadTextureCheckered()
+Texture* ModuleImporter::LoadTextureCheckered()
 {
 	Texture* checkered_texture = new Texture();
 
@@ -226,6 +227,8 @@ void ModuleImporter::LoadTextureCheckered()
 		0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, checkered_texture->data);
 
 	App->scene_intro->textures.insert({ checkered_texture->name, checkered_texture });
+
+	return checkered_texture;
 }
 
 Mesh* ModuleImporter::LoadMesh(aiMesh* ai_mesh)

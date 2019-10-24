@@ -16,12 +16,18 @@ public:
 	void OnEditor() override;
 
 	void SetTexture(Texture* texture);
+	void SetInitialTexture(Texture* texture);
 
 	/* This will find the texture by the name at the std::map in the scenee */
 	void SetTextureByPath(const std::string& path);
 
 public:
 	Texture* texture = nullptr;
+
+	/* Store the first texture ever loaded to the component */
+	Texture* initial_texture = nullptr;
+
+	bool use_checkered_texture = false;
 };
 
 #endif /* __COMPONENT_MATERIAL_H__ */

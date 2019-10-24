@@ -50,6 +50,7 @@ public:
 	std::list<Primitive*> primitives;
 
 	std::map<std::string, Texture*> textures;
+	Texture* checkered_texture = nullptr;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

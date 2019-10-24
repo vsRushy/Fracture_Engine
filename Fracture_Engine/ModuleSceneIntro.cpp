@@ -42,7 +42,7 @@ bool ModuleSceneIntro::Start()
 
 	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
 
-	App->importer->LoadTextureCheckered();
+	checkered_texture = App->importer->LoadTextureCheckered();
 
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 

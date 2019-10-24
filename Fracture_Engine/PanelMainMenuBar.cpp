@@ -32,6 +32,16 @@ bool PanelMainMenuBar::Update()
 			if (create_empty_game_object)
 				App->scene_intro->CreateEmptyGameObject("Empty", App->scene_intro->root_game_object);
 			
+			bool create_cube = false;
+			ImGui::MenuItem("Cube", NULL, &create_cube);
+			if (create_cube)
+				App->scene_intro->CreateEmptyGameObject("Cube", App->scene_intro->root_game_object);
+
+			bool create_sphere = false;
+			ImGui::MenuItem("Sphere", NULL, &create_sphere);
+			if (create_sphere)
+				App->scene_intro->CreateEmptyGameObject("Cube", App->scene_intro->root_game_object);
+
 			ImGui::EndMenu();
 		}
 

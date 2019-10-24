@@ -203,7 +203,8 @@ void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 			glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 			/* Draw */
-			glDrawElements(GL_TRIANGLES, tmp_mesh->mesh->num_indices * 3, GL_UNSIGNED_INT, NULL);
+			if(tmp_mesh->IsActive())
+				glDrawElements(GL_TRIANGLES, tmp_mesh->mesh->num_indices * 3, GL_UNSIGNED_INT, NULL);
 		
 			/* Unbind */
 			glBindBuffer(GL_ARRAY_BUFFER, 0);

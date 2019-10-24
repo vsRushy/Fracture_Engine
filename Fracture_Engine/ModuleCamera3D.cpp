@@ -53,42 +53,44 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	
+
 	vec3 newPos(0, 0, 0);
 	vec3 pointPos(0, 0, 0);
 	vec3 reset(0, 0, 0);
 	float cam_speed = speed * dt;
 	float Sensitivity = 0.25f;
-	float zoom_Sensitivity = 4.0f;
+	float zoom_Sensitivity = 5.0f;
 	bool scrollUp = false, scrollDown = false;
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		cam_speed *= 2.0f;
-	if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
-	{
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
 
-		newPos -= Y * (float)dy * Sensitivity * cam_speed;
-		newPos += X * (float)dx * Sensitivity * cam_speed;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN)
+	if (App->input->GetMouseZ() > 0)
 	{
-		if (App->input->GetMouseZ() > 0 && zoom > 0)
+		newPos -= Z * cam_speed * zoom_Sensitivity;
+		if (zoom > 0)
 		{
-			newPos -= Z * cam_speed * zoom_Sensitivity;
 			--zoom;
 		}
-		if (App->input->GetMouseZ() < 0)
+		else
 		{
-			newPos += Z * cam_speed * zoom_Sensitivity;
-			++zoom;
+			pointPos -= Z * cam_speed * zoom_Sensitivity;
 		}
+		
+	}
 
-		Position += newPos;
-		Reference += pointPos;
-		if (after_alt == false) after_alt = true;
+	if (App->input->GetMouseZ() < 0)
+	{
+		newPos += Z * cam_speed * zoom_Sensitivity;
+		
+			//pointPos += Z * cam_speed * zoom_Sensitivity;
+		++zoom;
+		
+	}
 
-		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) != KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN)
+	{
+
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 		{
 			int dx = -App->input->GetMouseXMotion();
 			int dy = -App->input->GetMouseYMotion();
@@ -121,58 +123,44 @@ update_status ModuleCamera3D::Update(float dt)
 			Position = Reference + Z * length(Position);
 		}
 	}
-
 	else
 	{
-		if (after_alt)
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 		{
-			zoom = 0;
-			Reference = Position;
-			after_alt = false;
-		}
-		if (App->input->GetMouseZ() > 0) newPos -= Z * cam_speed * zoom_Sensitivity;
-		if (App->input->GetMouseZ() < 0) newPos += Z * cam_speed * zoom_Sensitivity;
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			{
+				newPos -= Z * cam_speed;
+				pointPos -= Z * cam_speed;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			{
+				newPos += Z * cam_speed;
+				pointPos += Z * cam_speed;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			{
+				newPos -= X * cam_speed;
+				pointPos -= X * cam_speed;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			{
+				newPos += X * cam_speed;
+				pointPos += X * cam_speed;
+			}
 
-		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) != KEY_REPEAT)
-		{
 			int dx = -App->input->GetMouseXMotion();
 			int dy = -App->input->GetMouseYMotion();
 
-			Position -= Reference;
-
-			if (dx != 0)
-			{
-				float DeltaX = (float)dx * Sensitivity;
-
-				X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-				Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-				Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			}
-
-			if (dy != 0)
-			{
-				float DeltaY = (float)dy * Sensitivity;
-
-				Y = rotate(Y, DeltaY, X);
-				Z = rotate(Z, DeltaY, X);
-
-				if (Y.y < 0.0f)
-				{
-					Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-					Y = cross(Z, X);
-				}
-			}
-
-			Position = Reference + Z * length(Position);
+			newPos -=  Y * (float)dy * Sensitivity * cam_speed;
+			newPos +=  X * (float)dx * Sensitivity * cam_speed;
+			pointPos -= Y * (float)dy * Sensitivity * cam_speed;
+			pointPos += X * (float)dx * Sensitivity * cam_speed;
 		}
-
-		Position += newPos;
-		Reference += newPos;
-
 	}
+	Position += newPos;
+	Reference += pointPos;
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) LookAt(reset);
 
-	//GameObject* selected = 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 

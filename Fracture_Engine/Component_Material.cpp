@@ -4,6 +4,9 @@
 #include "Texture.h"
 #include "ImGui/imgui.h"
 
+#include "Application.h"
+#include "ModuleSceneIntro.h"
+
 ComponentMaterial::ComponentMaterial(GameObject* target) : Component(target)
 {
 	type = COMPONENT_TYPE::MATERIAL;
@@ -32,10 +35,29 @@ void ComponentMaterial::OnEditor()
 		ImGui::TextColored(ImVec4(255.0f, 255.0f, 0.0f, 1.0f), t_height.c_str());
 
 		ImGui::Text("Preview: "); ImGui::SameLine(); ImGui::Image((ImTextureID)texture->id, ImVec2(100.0f, 100.0f));
+	
+		if (ImGui::Button("Use checkered texture"))
+		{
+			SetTextureByPath("Checkered_Texture");
+		}
 	}
 }
 
 void ComponentMaterial::SetTexture(Texture* texture)
 {
 	this->texture = texture;
+}
+
+void ComponentMaterial::SetTextureByPath(const std::string& path)
+{
+	/* Note that for the checkered texture we only use the name */
+
+	for (std::map<std::string, Texture*>::const_iterator item = App->scene_intro->textures.begin();
+		item != App->scene_intro->textures.end(); item++)
+	{
+		if ((*item).first == path)
+		{
+			SetTexture((*item).second);
+		}
+	}
 }

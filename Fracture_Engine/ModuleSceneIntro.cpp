@@ -74,7 +74,7 @@ bool ModuleSceneIntro::CleanUp()
 	primitives.clear();
 
 	/* Delete all textures */
-	for (std::map<const char*, Texture*>::reverse_iterator item = textures.rbegin(); item != textures.rend(); item++)
+	for (std::map<std::string, Texture*>::reverse_iterator item = textures.rbegin(); item != textures.rend(); item++)
 	{
 		delete (*item).second;
 		(*item).second = nullptr;

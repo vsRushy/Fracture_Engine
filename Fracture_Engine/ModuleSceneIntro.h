@@ -49,7 +49,7 @@ public:
 
 	std::list<Primitive*> primitives;
 
-	std::map<const char*, Texture*> textures;
+	std::map<std::string, Texture*> textures;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

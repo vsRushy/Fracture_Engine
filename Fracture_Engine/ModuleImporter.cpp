@@ -178,7 +178,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 		else
 			LOG(LOG_ERROR, "Image could not be converted. Error code: %s", iluErrorString(ilGetError()));
 
-		App->scene_intro->textures.insert({texture->name.c_str(), texture});
+		App->scene_intro->textures.insert({texture->name, texture});
 	}
 	else
 	{
@@ -225,7 +225,7 @@ void ModuleImporter::LoadTextureCheckered()
 	glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_FORMAT), checkered_texture->width, checkered_texture->height,
 		0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, checkered_texture->data);
 
-	App->scene_intro->textures.insert({ checkered_texture->name.c_str(), checkered_texture });
+	App->scene_intro->textures.insert({ checkered_texture->name, checkered_texture });
 }
 
 Mesh* ModuleImporter::LoadMesh(aiMesh* ai_mesh)

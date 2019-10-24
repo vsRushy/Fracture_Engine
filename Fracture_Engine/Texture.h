@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "GL/glew.h"
+
 #include "Globals.h"
 
 class Texture
@@ -17,7 +19,7 @@ public:
 	uint id = -1;
 	uint width = -1;
 	uint height = -1;
-	unsigned char* data = nullptr;
+	GLubyte* data = nullptr;
 };
 
 #endif /* __TEXTURE_H__ */

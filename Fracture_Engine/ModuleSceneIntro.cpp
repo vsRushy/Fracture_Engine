@@ -42,6 +42,8 @@ bool ModuleSceneIntro::Start()
 
 	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
 
+	App->importer->LoadTextureCheckered();
+
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 
 	//GameObject* g1 = CreateEmptyGameObject("test", nullptr);

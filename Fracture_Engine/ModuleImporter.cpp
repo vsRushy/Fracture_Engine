@@ -178,7 +178,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 		else
 			LOG(LOG_ERROR, "Image could not be converted. Error code: %s", iluErrorString(ilGetError()));
 
-		App->scene_intro->textures.insert({"", texture});
+		App->scene_intro->textures.insert({texture->name.c_str(), texture});
 	}
 	else
 	{
@@ -188,6 +188,44 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 	ilDeleteImages(1, &devil_id);
 
 	return texture;
+}
+
+void ModuleImporter::LoadTextureCheckered()
+{
+	Texture* checkered_texture = new Texture();
+
+	GLubyte checkImage[100][100][4];
+	for (int i = 0; i < 100; i++) {
+		for (int j = 0; j < 100; j++) {
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
+
+	checkered_texture->name = std::string("Checkered_Texture");
+	checkered_texture->data = &checkImage[0][0][0];
+	checkered_texture->width = 100;
+	checkered_texture->height = 100;
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	glGenTextures(1, &checkered_texture->id);
+	glBindTexture(GL_TEXTURE_2D, checkered_texture->id);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_FORMAT), checkered_texture->width, checkered_texture->height,
+		0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, checkered_texture->data);
+
+	App->scene_intro->textures.insert({ checkered_texture->name.c_str(), checkered_texture });
 }
 
 Mesh* ModuleImporter::LoadMesh(aiMesh* ai_mesh)

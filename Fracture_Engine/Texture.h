@@ -1,17 +1,19 @@
 #ifndef __TEXTURE_H__
 #define __TEXTURE_H__
 
+#include <string>
+
 #include "Globals.h"
 
 class Texture
 {
 public:
 	Texture() {}
-	Texture(const char* name, const uint& id, const uint& width, const uint& height);
+	Texture(const std::string& name, const uint& id, const uint& width, const uint& height);
 	~Texture();
 
 public:
-	const char* name = nullptr;
+	std::string name;
 	uint id = -1;
 	uint width = -1;
 	uint height = -1;

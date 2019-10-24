@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-Texture::Texture(const char* name, const uint& id, const uint& width, const uint& height)
+Texture::Texture(const std::string& name, const uint& id, const uint& width, const uint& height)
 {
 	this->name = name;
 	this->id = id;

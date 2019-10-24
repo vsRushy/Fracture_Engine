@@ -30,6 +30,8 @@ void ComponentMaterial::OnEditor()
 		std::string t_height = std::to_string(texture->height);
 		ImGui::Text("Texture height: "); ImGui::SameLine();
 		ImGui::TextColored(ImVec4(255.0f, 255.0f, 0.0f, 1.0f), t_height.c_str());
+
+		ImGui::Text("Preview: "); ImGui::SameLine(); ImGui::Image((ImTextureID)texture->id, ImVec2(100.0f, 100.0f));
 	}
 }
 

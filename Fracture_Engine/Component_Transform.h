@@ -11,6 +11,8 @@ public:
 	ComponentTransform(GameObject* target);
 	~ComponentTransform();
 
+	void OnEditor() override;
+
 	void Set(const math::float3& position, const math::Quat& rotation, const math::float3& scale);
 
 public:

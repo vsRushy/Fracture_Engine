@@ -13,17 +13,17 @@ Component::~Component()
 
 bool Component::PreUpdate(float dt)
 {
-	return true;
+	return active ?  true : false;
 }
 
 bool Component::Update(float dt)
 {
-	return true;
+	return active ? true : false;
 }
 
 bool Component::PostUpdate(float dt)
 {
-	return true;
+	return active ? true : false;
 }
 
 void Component::SetActive(const bool& value)
@@ -34,4 +34,9 @@ void Component::SetActive(const bool& value)
 bool Component::IsActive() const
 {
 	return active;
+}
+
+void Component::OnEditor()
+{
+
 }

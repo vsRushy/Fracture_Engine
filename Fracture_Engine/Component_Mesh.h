@@ -12,6 +12,8 @@ public:
 	ComponentMesh(GameObject* target, Mesh* mesh);
 	~ComponentMesh();
 
+	void OnEditor() override;
+
 	bool Update(float dt);
 
 public:

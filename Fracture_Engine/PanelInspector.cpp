@@ -37,37 +37,7 @@ bool PanelInspector::Update()
 		for (std::vector<Component*>::iterator item = game_object->components.begin();
 			item != game_object->components.end(); item++)
 		{
-			if ((*item)->type == COMPONENT_TYPE::TRANSFORM)
-			{
-				ComponentTransform* tr = (ComponentTransform*)(*item);
-				if (ImGui::CollapsingHeader("Transform"))
-				{
-					ImGui::Text("Position");
-					ImGui::DragFloat3("##Position", (float*)&(tr->position));
-					ImGui::Text("Rotation");
-					ImGui::DragFloat3("##Rotation", (float*)&(tr->rotation));
-					ImGui::Text("Scale");
-					ImGui::DragFloat3("##Scale", (float*) &(tr->scale));
-				}
-			}
-
-			if ((*item)->type == COMPONENT_TYPE::MESH)
-			{
-				ComponentMesh* tr = (ComponentMesh*)(*item);
-				if (ImGui::CollapsingHeader("Mesh"))
-				{
-
-				}
-			}
-
-			if ((*item)->type == COMPONENT_TYPE::MATERIAL)
-			{
-				ComponentMaterial* tr = (ComponentMaterial*)(*item);
-				if (ImGui::CollapsingHeader("Material"))
-				{
-
-				}
-			}
+			(*item)->OnEditor();
 		}
 	}
 

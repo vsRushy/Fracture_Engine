@@ -11,6 +11,8 @@ public:
 	ComponentMaterial(GameObject* target);
 	~ComponentMaterial();
 
+	void OnEditor() override;
+
 	void SetTexture(Texture* texture);
 
 public:

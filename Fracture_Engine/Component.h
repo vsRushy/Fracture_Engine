@@ -25,6 +25,8 @@ public:
 	virtual void SetActive(const bool& value);
 	virtual bool IsActive() const;
 
+	virtual void OnEditor();
+
 public:
 	bool active = true;
 	GameObject* target = nullptr;

@@ -67,24 +67,15 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetMouseZ() > 0)
 	{
 		newPos -= Z * cam_speed * zoom_Sensitivity;
-		if (zoom > 0)
-		{
-			--zoom;
-		}
-		else
-		{
-			pointPos -= Z * cam_speed * zoom_Sensitivity;
-		}
-		
+		if (zoom > 0) --zoom;
+		else pointPos -= Z * cam_speed * zoom_Sensitivity;		
 	}
 
 	if (App->input->GetMouseZ() < 0)
 	{
 		newPos += Z * cam_speed * zoom_Sensitivity;
-		
-			//pointPos += Z * cam_speed * zoom_Sensitivity;
+		//pointPos += Z * cam_speed * zoom_Sensitivity;
 		++zoom;
-		
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN)

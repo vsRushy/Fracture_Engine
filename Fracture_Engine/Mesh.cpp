@@ -26,10 +26,10 @@ Mesh::~Mesh()
 	center_face_point = nullptr;
 	center_face_normal_point = nullptr;
 
-	/*glDeleteBuffers(num_vertices, &id_vertices);
+	glDeleteBuffers(num_vertices, &id_vertices);
 	glDeleteBuffers(num_indices, &id_indices);
 	glDeleteBuffers(num_normals, &id_normals);
-	glDeleteBuffers(num_uvs, &id_uvs);*/
+	glDeleteBuffers(num_uvs, &id_uvs);
 }
 
 void Mesh::LoadVertices(aiMesh* mesh)
@@ -114,6 +114,7 @@ void Mesh::LoadUVs(aiMesh* mesh)
 				memcpy(&uvs[i * uvs_dimension], &mesh->mTextureCoords[0][i], sizeof(float) * uvs_dimension);
 			}
 		}
+
 	}
 
 	LOG(LOG_INFORMATION, "New mesh loaded with %d Texture Coords", num_uvs);
@@ -139,7 +140,7 @@ void Mesh::CreateBuffers()
 	/* UVs */
 	glGenBuffers(1, &id_uvs);
 	glBindBuffer(GL_ARRAY_BUFFER, id_uvs);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_uvs * 3, uvs, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_uvs * 2, uvs, GL_STATIC_DRAW);
 
 	LOG(LOG_INFORMATION, "New mesh buffers created");
 }

@@ -185,7 +185,7 @@ void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 			if (game_object->GetComponentMaterial() != nullptr)
 			{
 				ComponentMaterial* tmp_material = game_object->GetComponentMaterial();
-				if (tmp_material->IsActive())
+				if (tmp_material->IsActive() && tmp_material->texture != nullptr)
 				{
 					glEnable(GL_TEXTURE_2D);
 					glEnableClientState(GL_TEXTURE_COORD_ARRAY);

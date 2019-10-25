@@ -16,6 +16,8 @@ This is a 3D game engine made for educational purposes.
 
 ## External tools
 
+- Glew
+
 - ImGui
 
 - DevIL
@@ -31,6 +33,8 @@ This is a 3D game engine made for educational purposes.
 - PCG
 
 - PhyFS
+
+Note: You can check the exact version of the libraries in the about panel, inside the game engine.
 
 ## Credits
 

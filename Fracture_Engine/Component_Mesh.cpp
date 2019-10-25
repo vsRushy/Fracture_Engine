@@ -13,7 +13,11 @@ ComponentMesh::ComponentMesh(GameObject* target, Mesh* mesh) : Component(target)
 
 ComponentMesh::~ComponentMesh()
 {
-
+	if (mesh != nullptr)
+	{
+		delete mesh;
+		mesh = nullptr;
+	}
 }
 
 void ComponentMesh::OnEditor()

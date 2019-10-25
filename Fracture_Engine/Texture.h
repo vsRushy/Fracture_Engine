@@ -10,8 +10,7 @@
 class Texture
 {
 public:
-	Texture() {}
-	Texture(const std::string& name, const uint& id, const uint& width, const uint& height);
+	Texture();
 	~Texture();
 
 public:

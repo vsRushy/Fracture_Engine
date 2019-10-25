@@ -68,7 +68,9 @@ void ModuleImporter::LoadDroppedFile(const char* path)
 	else if (ext == ".png" || ext == ".PNG"
 		|| ext == ".dds" || ext == ".DDS")
 	{
-		LoadTexture(path);
+		Texture* tmp_tex = LoadTexture(path);
+		if(tmp_tex != nullptr)
+			App->scene_intro->selected_game_object->GetComponentMaterial()->texture = tmp_tex;
 	}
 }
 

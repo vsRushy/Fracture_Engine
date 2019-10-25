@@ -35,6 +35,8 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	void LoadDroppedFile(const char* path);
+
 	void LoadModel(const char* path);
 	void LoadSceneNode(const aiScene*, aiNode* node);
 	Texture* LoadTexture(const char* path);

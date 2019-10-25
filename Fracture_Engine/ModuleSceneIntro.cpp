@@ -42,7 +42,7 @@ bool ModuleSceneIntro::Start()
 
 	checkered_texture = App->importer->LoadTextureCheckered();
 
-	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
+	//App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 	App->importer->LoadTexture("Assets/Textures/Checkers.dds");
 	App->importer->LoadTexture("Assets/Textures/Lenna.png");
 

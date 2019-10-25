@@ -122,7 +122,7 @@ update_status ModuleInput::PreUpdate(float dt)
 			{
 				if (e.drop.file != "")
 				{
-					App->importer->LoadModel(e.drop.file);
+					App->importer->LoadDroppedFile(e.drop.file);
 					SDL_free(e.drop.file);
 				}
 			}

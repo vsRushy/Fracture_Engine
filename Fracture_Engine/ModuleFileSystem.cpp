@@ -282,6 +282,16 @@ std::string ModuleFileSystem::GetFileNameFromPath(const char* file)
 	return name;
 }
 
+std::string ModuleFileSystem::GetFileExtension(const char* file)
+{
+	std::string ret = file;
+	uint position = ret.find_last_of(".");
+
+	position != std::string::npos ? ret = ret.substr(position) : ret = "";
+
+	return ret;
+}
+
 unsigned int ModuleFileSystem::Load(const char* path, const char* file, char** buffer) const
 {
 	string full_path(path);

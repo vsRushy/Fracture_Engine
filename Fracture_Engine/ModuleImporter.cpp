@@ -57,6 +57,21 @@ bool ModuleImporter::CleanUp()
 	return true;
 }
 
+void ModuleImporter::LoadDroppedFile(const char* path)
+{
+	std::string ext = App->file_system->GetFileExtension(path);
+
+	if (ext == ".fbx" || ext == ".FBX")
+	{
+		LoadModel(path);
+	}
+	else if (ext == ".png" || ext == ".PNG"
+		|| ext == ".dds" || ext == ".DDS")
+	{
+		LoadTexture(path);
+	}
+}
+
 // -----------------------------------------------------------------
 update_status ModuleImporter::Update(float dt)
 {

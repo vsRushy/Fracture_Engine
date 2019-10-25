@@ -34,11 +34,13 @@ public:
 	void CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type);
 
 	GameObject* CreateEmptyGameObject(std::string name, GameObject* parent = nullptr);
-	GameObject* CreateModelGameObject(std::string name, Mesh* mesh, GameObject* parent = nullptr);
 
 	// ------------------------------------------------------------------------
 
-	void ChangeNameIfGameObjectNameAlreadyExists(std::string name);
+	void ChangeNameIfGameObjectNameAlreadyExists(const std::string& name);
+
+	Texture* GetTextureByName(const std::string& name);
+	bool TextureAlreadyExists(const std::string& name);
 
 public:
 	std::list<GameObject*> game_objects;

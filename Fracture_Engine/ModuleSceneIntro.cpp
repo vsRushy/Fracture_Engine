@@ -136,23 +136,35 @@ GameObject* ModuleSceneIntro::CreateEmptyGameObject(std::string name, GameObject
 	return go;
 }
 
-GameObject* ModuleSceneIntro::CreateModelGameObject(std::string name, Mesh* mesh, GameObject* parent)
+Texture* ModuleSceneIntro::GetTextureByName(const std::string& name)
 {
-	ChangeNameIfGameObjectNameAlreadyExists(name);
+	Texture* texture = nullptr;
+	for (std::map<std::string, Texture*>::const_iterator item = textures.begin(); item != textures.end(); item++)
+	{
+		if ((*item).first == name)
+		{
+			texture = (*item).second;
+		}
+	}
 
-	GameObject* go = new GameObject(name, parent);
-
-	go->CreateComponentMesh(mesh);
-	go->CreateComponentMaterial();
-
-	game_objects.push_back(go);
-
-	LOG(LOG_INFORMATION, "Created model game object with name %s", name.c_str());
-
-	return go;
+	return texture;
 }
 
-void ModuleSceneIntro::ChangeNameIfGameObjectNameAlreadyExists(std::string name)
+bool ModuleSceneIntro::TextureAlreadyExists(const std::string& name)
+{
+	bool ret = false;
+	for (std::map<std::string, Texture*>::const_iterator item = textures.begin(); item != textures.end(); item++)
+	{
+		if ((*item).first == name)
+		{
+			ret = true;
+		}
+	}
+
+	return ret;
+}
+
+void ModuleSceneIntro::ChangeNameIfGameObjectNameAlreadyExists(const std::string& name)
 {
 	for (std::list<GameObject*>::const_iterator item = game_objects.begin(); item != game_objects.end(); item++)
 	{

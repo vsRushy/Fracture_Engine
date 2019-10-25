@@ -139,54 +139,61 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node)
 Texture* ModuleImporter::LoadTexture(const char* path)
 {
 	Texture* texture = nullptr;
-	
-	ILuint devil_id = 0;
-	ilGenImages(1, &devil_id);
-	ilBindImage(devil_id);
 
-	LOG(LOG_INFORMATION, "Loading texture with path %s", path);
-	if ((bool)ilLoadImage(path))
+	if (App->scene_intro->TextureAlreadyExists(path))
 	{
-		ILinfo img_info;
-		iluGetImageInfo(&img_info);
-
-		iluFlipImage();
-
-		texture = new Texture();
-
-		if (ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE)) 
-		{
-			texture->data = (unsigned char*)ilGetData();
-			texture->width = ilGetInteger(IL_IMAGE_WIDTH);
-			texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
-			texture->name = path;
-
-			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-			glGenTextures(1, &texture->id);
-			glBindTexture(GL_TEXTURE_2D, texture->id);
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP);
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-			glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_FORMAT), texture->width, texture->height,
-				0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, texture->data);
-		}
-		else
-			LOG(LOG_ERROR, "Image could not be converted. Error code: %s", iluErrorString(ilGetError()));
-
-		App->scene_intro->textures.insert({texture->name, texture});
+		texture = App->scene_intro->GetTextureByName(path);
 	}
 	else
 	{
-		LOG(LOG_ERROR, "Error loading the texture %s. Error code: %s", path, iluErrorString(ilGetError()));
-	}
+		ILuint devil_id = 0;
+		ilGenImages(1, &devil_id);
+		ilBindImage(devil_id);
 
-	ilDeleteImages(1, &devil_id);
+		LOG(LOG_INFORMATION, "Loading texture with path %s", path);
+		if ((bool)ilLoadImage(path))
+		{
+			ILinfo img_info;
+			iluGetImageInfo(&img_info);
+
+			iluFlipImage();
+
+			texture = new Texture();
+
+			if (ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE))
+			{
+				texture->data = (unsigned char*)ilGetData();
+				texture->width = ilGetInteger(IL_IMAGE_WIDTH);
+				texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
+				texture->name = path;
+
+				glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+				glGenTextures(1, &texture->id);
+				glBindTexture(GL_TEXTURE_2D, texture->id);
+
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP);
+
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+				glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_FORMAT), texture->width, texture->height,
+					0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, texture->data);
+			}
+			else
+				LOG(LOG_ERROR, "Image could not be converted. Error code: %s", iluErrorString(ilGetError()));
+
+			App->scene_intro->textures.insert({ texture->name, texture });
+		}
+		else
+		{
+			LOG(LOG_ERROR, "Error loading the texture %s. Error code: %s", path, iluErrorString(ilGetError()));
+		}
+
+		ilDeleteImages(1, &devil_id);
+	}
 
 	return texture;
 }

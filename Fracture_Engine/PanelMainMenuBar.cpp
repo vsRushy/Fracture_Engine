@@ -40,7 +40,12 @@ bool PanelMainMenuBar::Update()
 			bool create_sphere = false;
 			ImGui::MenuItem("Sphere", NULL, &create_sphere);
 			if (create_sphere)
-				App->scene_intro->CreateEmptyGameObject("Cube", App->scene_intro->root_game_object);
+				App->scene_intro->CreateEmptyGameObject("Sphere", App->scene_intro->root_game_object);
+
+			bool create_plane = false;
+			ImGui::MenuItem("Plane", NULL, &create_plane);
+			if (create_plane)
+				App->scene_intro->CreateEmptyGameObject("Plane", App->scene_intro->root_game_object);
 
 			ImGui::EndMenu();
 		}

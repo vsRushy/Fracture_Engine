@@ -44,6 +44,7 @@ bool ModuleSceneIntro::Start()
 
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 	App->importer->LoadTexture("Assets/Textures/Checkers.dds");
+	App->importer->LoadTexture("Assets/Textures/Lenna.png");
 
 	return ret;
 }

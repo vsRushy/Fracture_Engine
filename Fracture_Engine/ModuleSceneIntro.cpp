@@ -40,14 +40,10 @@ bool ModuleSceneIntro::Start()
 	GameObject* child_test_2 = CreateEmptyGameObject("Child 2", root_game_object);
 	GameObject* child_test_3 = CreateEmptyGameObject("Child 3", child_test_2);
 
-	//CreatePrimitive({0, 0, 0}, PRIMITIVE_TYPE::CUBE);
-
 	checkered_texture = App->importer->LoadTextureCheckered();
 
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
-
-	//GameObject* g1 = CreateEmptyGameObject("test", nullptr);
-	//GameObject* g2 = CreateModelGameObject("test2", "Assets/Models/BakerHouse.FBX", root_game_object);
+	App->importer->LoadTexture("Assets/Textures/Checkers.dds");
 
 	return ret;
 }

@@ -44,14 +44,25 @@ void ComponentTransform::OnEditor()
 	{
 		ImGui::Checkbox("Active", &active);
 		ImGui::Text("Position");
-		if (ImGui::DragFloat3("##Position", (float*)&position))
+		if (ImGui::DragFloat3("##Position", (float*)& position, 0.05f))
 		{
 			CalculateLocalMatrix();
 		}
 		ImGui::Text("Rotation");
-		ImGui::DragFloat3("##Rotation", (float*) &euler_rotation);
+
+		if(ImGui::DragFloat3("##Rotation", (float*)&euler_rotation,
+			0.05f, -360.0f, 360.0f))
+		{
+			float3 euler_in_radians = DegToRad(euler_rotation);
+			rotation = Quat::FromEulerXYZ(euler_in_radians.x, euler_in_radians.y, euler_in_radians.z);
+			CalculateLocalMatrix();
+		}
+
 		ImGui::Text("Scale");
-		ImGui::DragFloat3("##Scale", (float*) &scale);
+		if(ImGui::DragFloat3("##Scale", (float*)& scale, 0.05f))
+		{
+			CalculateLocalMatrix();
+		}
 	}
 }
 

@@ -18,9 +18,15 @@ public:
 	void SetRotation(const float& w, const float& x, const float& y, const float& z);
 	void SetScale(const float& x, const float& y, const float& z);
 
-public:
+	float3 GetPosition() const;
+	Quat GetRotationQuaternion() const;
+	float3 GetRotationEuler() const;
+	float3 GetScale() const;
+
+private:
 	float3 position = float3::zero;
 	Quat rotation = Quat::identity;
+	float3 euler_rotation = float3::zero;
 	float3 scale = float3::one;
 	
 	float4x4 local_matrix = float4x4::identity;

@@ -46,3 +46,23 @@ void ComponentTransform::SetScale(const float& x, const float& y, const float& z
 {
 	scale.Set(x, y, z);
 }
+
+float3 ComponentTransform::GetPosition() const
+{
+	return this->position;
+}
+
+Quat ComponentTransform::GetRotationQuaternion() const
+{
+	return this->rotation;
+}
+
+float3 ComponentTransform::GetRotationEuler() const
+{
+	return this->euler_rotation;
+}
+
+float3 ComponentTransform::GetScale() const
+{
+	return this->scale;
+}

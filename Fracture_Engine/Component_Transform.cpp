@@ -59,7 +59,7 @@ void ComponentTransform::OnEditor()
 		}
 
 		ImGui::Text("Scale");
-		if(ImGui::DragFloat3("##Scale", (float*)& scale, 0.05f))
+		if(ImGui::DragFloat3("##Scale", (float*)& scale, 0.05f, 0.0f, 100.0f))
 		{
 			CalculateLocalMatrix();
 		}

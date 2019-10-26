@@ -111,6 +111,9 @@ void ModuleImporter::LoadModel(const char* path)
 		g_o->component_transform->Set(float3(position.x, position.y, position.z), 
 			Quat(rotation.x, rotation.y, rotation.z, rotation.w), 
 			float3(scale.x, scale.y, scale.z));
+
+		//g_o->component_transform->CalculateLocalMatrix();
+		//g_o->component_transform->CalculateGlobalMatrix();
 		
 		aiReleaseImport(scene);
 	}
@@ -148,6 +151,9 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node)
 		go->component_transform->Set(float3(position.x, position.y, position.z),
 			Quat(rotation.x, rotation.y, rotation.z, rotation.w),
 			float3(scale.x, scale.y, scale.z));
+
+		//go->component_transform->CalculateLocalMatrix();
+		//go->component_transform->CalculateGlobalMatrix();
 	}
 
 	for (uint i = 0; i < node->mNumChildren; i++)

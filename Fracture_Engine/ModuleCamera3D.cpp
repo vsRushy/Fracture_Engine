@@ -2,7 +2,9 @@
 #include "Application.h"
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
-
+#include "ModuleSceneIntro.h"
+#include "GameObject.h"
+#include "Component_Transform.h"
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
 	CalculateViewMatrix();
@@ -148,9 +150,30 @@ update_status ModuleCamera3D::Update(float dt)
 			pointPos += X * (float)dx * Sensitivity * cam_speed;
 		}
 	}
+
 	Position += newPos;
 	Reference += pointPos;
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) LookAt(reset);
+	
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	{
+		GameObject* object_selected = App->scene_intro->selected_game_object;
+		if (object_selected != nullptr)
+		{
+			if (zoom != 0)
+			{
+				while(zoom != 0)
+				{
+					newPos -= Z * cam_speed * zoom_Sensitivity;
+					--zoom;
+				}
+				Position += newPos;
+				CalculateViewMatrix();
+			}
+			float3 pos = object_selected->component_transform->GetPosition();
+			LookAt(vec3(pos.x, pos.y, pos.z));
+		}
+	}
+
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();

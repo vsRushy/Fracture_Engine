@@ -50,10 +50,13 @@ Mesh* Mesh::LoadMesh(par_shapes_mesh* p_s_mesh)
 {
 	Mesh* m = new Mesh();
 
+	/*par_shapes_unweld(p_s_mesh, true);
+	par_shapes_compute_normals(p_s_mesh);*/
+
 	m->LoadVertices(p_s_mesh);
 	m->LoadFaces(p_s_mesh);
 	m->LoadNormals(p_s_mesh);
-	//m->LoadUVs(p_s_mesh);
+	m->LoadUVs(p_s_mesh);
 
 	m->CreateBuffers();
 
@@ -78,9 +81,9 @@ void Mesh::LoadVertices(par_shapes_mesh* mesh)
 
 void Mesh::LoadFaces(par_shapes_mesh* mesh)
 {
-	num_indices = mesh->ntriangles * 6; // 3 ?
+	num_indices = mesh->ntriangles * 3;
 	indices = new uint[num_indices];
-	memcpy(indices, mesh->triangles, sizeof(uint) * num_indices);
+	memcpy(indices, mesh->triangles, sizeof(uint) * num_indices * 3);
 	LOG(LOG_INFORMATION, "New mesh with %d indices", num_indices);
 }
 
@@ -88,22 +91,50 @@ void Mesh::LoadNormals(par_shapes_mesh* mesh)
 {
 	if (mesh->normals != nullptr) 
 	{
-		num_normals = num_vertices * 3;
-		normals = new float[num_normals];
-		memcpy(normals, mesh->normals, sizeof(float) * num_normals);
+		num_normals = mesh->npoints;
+		normals = new float[num_normals * 3];
+		memcpy(normals, mesh->normals, sizeof(float) * num_normals * 3);
 	}
 
 	LOG(LOG_INFORMATION, "New mesh with %d normals", num_normals);
 
-	// etc ...
+	/*center_face_point = new float[num_indices];
+	center_face_normal_point = new float[num_indices];
+	for (uint i = 0; i < num_indices; i += 3)
+	{
+		uint index1 = indices[i] * 3;
+		uint index2 = indices[i + 1] * 3;
+		uint index3 = indices[i + 2] * 3;
+
+		vec3 x0(vertices[index1], vertices[index1 + 1], vertices[index1 + 2]);
+		vec3 x1(vertices[index2], vertices[index2 + 1], vertices[index2 + 2]);
+		vec3 x2(vertices[index3], vertices[index3 + 1], vertices[index3 + 2]);
+
+		vec3 v0 = x0 - x2;
+		vec3 v1 = x1 - x2;
+		vec3 n = cross(v0, v1);
+
+		vec3 normalized = normalize(n);
+
+		center_face_point[i] = (x0.x + x1.x + x2.x) / 3;
+		center_face_point[i + 1] = (x0.y + x1.y + x2.y) / 3;
+		center_face_point[i + 2] = (x0.z + x1.z + x2.z) / 3;
+
+		center_face_normal_point[i] = normalized.x;
+		center_face_normal_point[i + 1] = normalized.y;
+		center_face_normal_point[i + 2] = normalized.z;
+	}*/
 }
 
 void Mesh::LoadUVs(par_shapes_mesh* mesh)
 {
-	num_uvs = num_vertices;
-	uvs = new float[num_uvs * 2/*3?*/];
-	memcpy(uvs, mesh->tcoords, sizeof(float) * num_uvs * 3);
-
+	if (mesh->normals != nullptr)
+	{
+		num_uvs = mesh->npoints;
+		uvs = new float[num_uvs * 2];
+		memcpy(uvs, mesh->tcoords, sizeof(float) * num_uvs * 2);
+	}
+	
 	LOG(LOG_INFORMATION, "New mesh loaded with %d Texture Coords", num_uvs);
 }
 

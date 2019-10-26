@@ -37,6 +37,8 @@ public:
 	GameObject* CreateEmptyGameObject(std::string name, GameObject* parent = nullptr);
 	GameObject* CreatePrimitive(std::string name, PRIMITIVE_TYPE type, GameObject* parent = nullptr);
 
+	void DeleteGameObject(GameObject* game_object);
+
 	// ------------------------------------------------------------------------
 
 	Mesh* CreatePrimitiveMesh(PRIMITIVE_TYPE type);

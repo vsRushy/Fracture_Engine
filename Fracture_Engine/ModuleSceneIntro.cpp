@@ -148,6 +148,27 @@ GameObject* ModuleSceneIntro::CreatePrimitive(std::string name, PRIMITIVE_TYPE t
 	return primitive;
 }
 
+void ModuleSceneIntro::DeleteGameObject(GameObject* game_object)
+{
+	if (game_object == selected_game_object)
+		selected_game_object = nullptr;
+
+	auto item = game_objects.begin();
+	while (item != game_objects.end())
+	{
+		if (*item == game_object)
+		{
+			delete* item;
+			*item = nullptr;
+			//game_objects.erase(item++);
+		}
+		else
+		{
+			item++;
+		}
+	}
+}
+
 Mesh* ModuleSceneIntro::CreatePrimitiveMesh(PRIMITIVE_TYPE type)
 {
 	Mesh* mesh = nullptr;
@@ -226,8 +247,11 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	/* Pre Update game objects ----------------------- */
 	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
 	{
-		if ((*item)->IsActive())
-			(*item)->PreUpdate(dt);
+		if (*item != nullptr)
+		{
+			if ((*item)->IsActive())
+				(*item)->PreUpdate(dt);
+		}
 	}
 
 	return UPDATE_CONTINUE;
@@ -248,8 +272,11 @@ update_status ModuleSceneIntro::Update(float dt)
 	/* Update game objects ----------------------- */
 	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
 	{
-		if((*item)->IsActive())
-			(*item)->Update(dt);
+		if (*item != nullptr)
+		{
+			if ((*item)->IsActive())
+				(*item)->Update(dt);
+		}
 	}
 
 	return UPDATE_CONTINUE;
@@ -260,8 +287,18 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 	/* Post Update game objects ----------------------- */
 	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
 	{
-		(*item)->PostUpdate(dt);
+		if (*item != nullptr)
+		{
+			if((*item)->IsActive())
+				(*item)->PostUpdate(dt);
+		}
 	}
+
+	// --------------------------------------------------------
+	
+	/* Check some input */
+	/*if (App->input->GetKey(SDL_SCANCODE_DELETE))
+		DeleteGameObject(selected_game_object);*/
 
 	return UPDATE_CONTINUE;
 }

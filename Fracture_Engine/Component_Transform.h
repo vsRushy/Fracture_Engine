@@ -15,13 +15,17 @@ public:
 
 	void Set(const math::float3& position, const math::Quat& rotation, const math::float3& scale);
 	void SetPosition(const float& x, const float& y, const float& z);
-	void SetRotation(const float& w, const float& x, const float& y, const float& z);
+	void SetRotationQuaternion(const float& w, const float& x, const float& y, const float& z);
+	void SetRotationEuler(const float& x, const float& y, const float& z);
 	void SetScale(const float& x, const float& y, const float& z);
 
 	float3 GetPosition() const;
 	Quat GetRotationQuaternion() const;
 	float3 GetRotationEuler() const;
 	float3 GetScale() const;
+
+	float4x4 GetLocalMatrix() const;
+	float4x4 GetGlobalMatrix() const;
 
 private:
 	float3 position = float3::zero;

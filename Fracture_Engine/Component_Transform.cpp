@@ -37,9 +37,14 @@ void ComponentTransform::SetPosition(const float& x, const float& y, const float
 	position.Set(x, y, z);
 }
 
-void ComponentTransform::SetRotation(const float& w, const float& x, const float& y, const float& z)
+void ComponentTransform::SetRotationQuaternion(const float& w, const float& x, const float& y, const float& z)
 {
 	rotation.Set(x, y, z, w);
+}
+
+void ComponentTransform::SetRotationEuler(const float& x, const float& y, const float& z)
+{
+	euler_rotation.Set(x, y, z);
 }
 
 void ComponentTransform::SetScale(const float& x, const float& y, const float& z)
@@ -49,20 +54,30 @@ void ComponentTransform::SetScale(const float& x, const float& y, const float& z
 
 float3 ComponentTransform::GetPosition() const
 {
-	return this->position;
+	return position;
 }
 
 Quat ComponentTransform::GetRotationQuaternion() const
 {
-	return this->rotation;
+	return rotation;
 }
 
 float3 ComponentTransform::GetRotationEuler() const
 {
-	return this->euler_rotation;
+	return euler_rotation;
 }
 
 float3 ComponentTransform::GetScale() const
 {
-	return this->scale;
+	return scale;
+}
+
+float4x4 ComponentTransform::GetLocalMatrix() const
+{
+	return local_matrix;
+}
+
+float4x4 ComponentTransform::GetGlobalMatrix() const
+{
+	return global_matrix;
 }

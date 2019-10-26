@@ -27,6 +27,9 @@ public:
 	float4x4 GetLocalMatrix() const;
 	float4x4 GetGlobalMatrix() const;
 
+	void CalculateLocalMatrix();
+	void CalculateGlobalMatrix();
+
 private:
 	float3 position = float3::zero;
 	Quat rotation = Quat::identity;

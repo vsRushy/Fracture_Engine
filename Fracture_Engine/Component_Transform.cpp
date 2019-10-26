@@ -1,5 +1,8 @@
-#include "Component_Transform.h"
 #include "ImGui/imgui.h"
+
+#include "Component_Transform.h"
+
+#include "GameObject.h"
 
 ComponentTransform::ComponentTransform(GameObject* target) : Component(target)
 {
@@ -80,4 +83,14 @@ float4x4 ComponentTransform::GetLocalMatrix() const
 float4x4 ComponentTransform::GetGlobalMatrix() const
 {
 	return global_matrix;
+}
+
+void ComponentTransform::CalculateLocalMatrix()
+{
+	
+}
+
+void ComponentTransform::CalculateGlobalMatrix()
+{
+	
 }

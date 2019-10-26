@@ -11,6 +11,10 @@ public:
 	ComponentTransform(GameObject* target);
 	~ComponentTransform();
 
+	bool PreUpdate(float dt) override;
+	bool Update(float dt) override;
+	bool PostUpdate(float dt) override;
+
 	void OnEditor() override;
 
 	void Set(const math::float3& position, const math::Quat& rotation, const math::float3& scale);

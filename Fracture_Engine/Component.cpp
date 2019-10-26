@@ -13,17 +13,17 @@ Component::~Component()
 
 bool Component::PreUpdate(float dt)
 {
-	return active ?  true : false;
+	return true;
 }
 
 bool Component::Update(float dt)
 {
-	return active ? true : false;
+	return true;
 }
 
 bool Component::PostUpdate(float dt)
 {
-	return active ? true : false;
+	return true;
 }
 
 void Component::SetActive(const bool& value)

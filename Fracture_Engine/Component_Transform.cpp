@@ -1,4 +1,5 @@
 #include "ImGui/imgui.h"
+#include "GL/glew.h"
 
 #include "Component_Transform.h"
 
@@ -7,11 +8,34 @@
 ComponentTransform::ComponentTransform(GameObject* target) : Component(target)
 {
 	type = COMPONENT_TYPE::TRANSFORM;
+
+	CalculateLocalMatrix();
 }
 
 ComponentTransform::~ComponentTransform()
 {
 
+}
+
+bool ComponentTransform::PreUpdate(float dt)
+{
+	glPushMatrix();
+
+	return true;
+}
+
+bool ComponentTransform::Update(float dt)
+{
+	glMultMatrixf(GetGlobalMatrix().Transposed().ptr());
+
+	return true;
+}
+
+bool ComponentTransform::PostUpdate(float dt)
+{
+	glPopMatrix();
+
+	return true;
 }
 
 void ComponentTransform::OnEditor()
@@ -20,9 +44,12 @@ void ComponentTransform::OnEditor()
 	{
 		ImGui::Checkbox("Active", &active);
 		ImGui::Text("Position");
-		ImGui::DragFloat3("##Position", (float*) &position);
+		if (ImGui::DragFloat3("##Position", (float*)&position))
+		{
+			CalculateLocalMatrix();
+		}
 		ImGui::Text("Rotation");
-		ImGui::DragFloat3("##Rotation", (float*) &rotation);
+		ImGui::DragFloat3("##Rotation", (float*) &euler_rotation);
 		ImGui::Text("Scale");
 		ImGui::DragFloat3("##Scale", (float*) &scale);
 	}
@@ -87,10 +114,22 @@ float4x4 ComponentTransform::GetGlobalMatrix() const
 
 void ComponentTransform::CalculateLocalMatrix()
 {
+	local_matrix = float4x4::FromTRS(position, rotation, scale);
 	
+	CalculateGlobalMatrix();
+	
+	for (std::vector<GameObject*>::const_iterator item = target->children.begin(); item != target->children.end(); item++)
+	{
+		(*item)->component_transform->CalculateGlobalMatrix();
+	}
 }
 
 void ComponentTransform::CalculateGlobalMatrix()
 {
+	global_matrix = local_matrix;
 	
+	if (target->parent != nullptr)
+	{
+		global_matrix = target->parent->component_transform->global_matrix * local_matrix;
+	}
 }

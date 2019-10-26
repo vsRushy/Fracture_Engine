@@ -226,7 +226,8 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 	/* Pre Update game objects ----------------------- */
 	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
 	{
-		(*item)->PreUpdate(dt);
+		if ((*item)->IsActive())
+			(*item)->PreUpdate(dt);
 	}
 
 	return UPDATE_CONTINUE;
@@ -247,7 +248,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	/* Update game objects ----------------------- */
 	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
 	{
-		(*item)->Update(dt);
+		if((*item)->IsActive())
+			(*item)->Update(dt);
 	}
 
 	return UPDATE_CONTINUE;

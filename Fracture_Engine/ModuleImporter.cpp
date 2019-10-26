@@ -169,7 +169,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 	if (App->scene_intro->TextureAlreadyExists(path))
 	{
 		texture = App->scene_intro->GetTextureByName(path);
-		LOG(LOG_INFORMATION, "Texture with path %s already exists!");
+		LOG(LOG_INFORMATION, "Texture with path %s already exists!", path);
 	}
 	else
 	{

@@ -46,6 +46,20 @@ Mesh* Mesh::LoadMesh(aiMesh* ai_mesh)
 	return m;
 }
 
+Mesh* Mesh::LoadMesh(par_shapes_mesh* p_s_mesh)
+{
+	Mesh* m = new Mesh();
+
+	m->LoadVertices(p_s_mesh);
+	m->LoadFaces(p_s_mesh);
+	m->LoadNormals(p_s_mesh);
+	//m->LoadUVs(p_s_mesh);
+
+	m->CreateBuffers();
+
+	return m;
+}
+
 void Mesh::LoadVertices(aiMesh* mesh)
 {
 	num_vertices = mesh->mNumVertices;

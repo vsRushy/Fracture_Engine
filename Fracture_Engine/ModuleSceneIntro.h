@@ -38,6 +38,10 @@ public:
 
 	// ------------------------------------------------------------------------
 
+	Mesh* CreatePrimitiveMesh(PRIMITIVE_TYPE type);
+
+	// ----------------------------------------
+
 	void ChangeNameIfGameObjectNameAlreadyExists(const std::string& name);
 
 	Texture* GetTextureByName(const std::string& name);

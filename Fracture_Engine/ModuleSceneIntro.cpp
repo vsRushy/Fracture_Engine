@@ -42,7 +42,9 @@ bool ModuleSceneIntro::Start()
 
 	checkered_texture = App->importer->LoadTextureCheckered();
 
-	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
+	//GameObject* cube_test = CreatePrimitive("Cube", PRIMITIVE_TYPE::CUBE, root_game_object);
+
+	//App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 	App->importer->LoadTexture("Assets/Textures/Checkers.dds");
 	App->importer->LoadTexture("Assets/Textures/Lenna.png");
 
@@ -138,11 +140,44 @@ GameObject* ModuleSceneIntro::CreatePrimitive(std::string name, PRIMITIVE_TYPE t
 	ChangeNameIfGameObjectNameAlreadyExists(name);
 
 	GameObject* primitive = new GameObject(name, parent);
+	Mesh* p_mesh = CreatePrimitiveMesh(type);
 
-
-	//primitive->CreateComponentMesh();
+	primitive->CreateComponentMesh(p_mesh);
+	primitive->CreateComponentMaterial();
 
 	return primitive;
+}
+
+Mesh* ModuleSceneIntro::CreatePrimitiveMesh(PRIMITIVE_TYPE type)
+{
+	Mesh* mesh = nullptr;
+	par_shapes_mesh* prim_mesh = nullptr;
+
+	switch (type)
+	{
+	case PRIMITIVE_TYPE::CUBE:
+		prim_mesh = par_shapes_create_cube();
+		break;
+	case PRIMITIVE_TYPE::SPHERE:
+		prim_mesh = par_shapes_create_subdivided_sphere(10);
+		break;
+	case PRIMITIVE_TYPE::PLANE:
+		prim_mesh = par_shapes_create_plane(10, 10);
+		break;
+	case PRIMITIVE_TYPE::UNKNOWN:
+		break;
+	default:
+		break;
+	}
+
+	if (prim_mesh != nullptr)
+	{
+		mesh = Mesh::LoadMesh(prim_mesh);
+
+		par_shapes_free_mesh(prim_mesh);
+	}
+	
+	return mesh;
 }
 
 Texture* ModuleSceneIntro::GetTextureByName(const std::string& name)

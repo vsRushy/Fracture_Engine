@@ -34,7 +34,7 @@ public:
 	void CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type);
 
 	GameObject* CreateEmptyGameObject(std::string name, GameObject* parent = nullptr);
-	GameObject* CreatePrimitive(PRIMITIVE_TYPE type);
+	GameObject* CreatePrimitive(std::string name, PRIMITIVE_TYPE type, GameObject* parent = nullptr);
 
 	// ------------------------------------------------------------------------
 

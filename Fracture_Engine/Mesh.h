@@ -3,14 +3,17 @@
 
 #include "Globals.h"
 
+#include "Par/par_shapes.h"
+
 class aiMesh;
-class par_shapes_mesh;
 
 class Mesh
 {
 public:
 	Mesh();
 	~Mesh();
+
+	static Mesh* LoadMesh(aiMesh* ai_mesh);
 
 	/* To load from Assimp */
 	void LoadVertices(aiMesh* mesh);

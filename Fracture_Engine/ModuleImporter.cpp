@@ -122,7 +122,7 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node)
 		GameObject* go = App->scene_intro->CreateEmptyGameObject(node->mName.C_Str(), g_o);
 	
 		aiMesh* ai_mesh = scene->mMeshes[node->mMeshes[i]];
-		go->CreateComponentMesh(LoadMesh(ai_mesh));
+		go->CreateComponentMesh(Mesh::LoadMesh(ai_mesh));
 
 		aiMaterial* material = scene->mMaterials[ai_mesh->mMaterialIndex];
 		aiString file_path_tex;

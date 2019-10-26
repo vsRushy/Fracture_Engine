@@ -1,6 +1,5 @@
 #include "Mesh.h"
 #include "Assimp/include/scene.h"
-#include "Par/par_shapes.h"
 #include "glmath.h"
 #include "GL/glew.h"
 
@@ -31,6 +30,20 @@ Mesh::~Mesh()
 	glDeleteBuffers(num_indices, &id_indices);
 	glDeleteBuffers(num_normals, &id_normals);
 	glDeleteBuffers(num_uvs, &id_uvs);
+}
+
+Mesh* Mesh::LoadMesh(aiMesh* ai_mesh)
+{
+	Mesh* m = new Mesh();
+
+	m->LoadVertices(ai_mesh);
+	m->LoadFaces(ai_mesh);
+	m->LoadNormals(ai_mesh);
+	m->LoadUVs(ai_mesh);
+
+	m->CreateBuffers();
+
+	return m;
 }
 
 void Mesh::LoadVertices(aiMesh* mesh)

@@ -42,7 +42,7 @@ bool ModuleSceneIntro::Start()
 
 	checkered_texture = App->importer->LoadTextureCheckered();
 
-	//App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
+	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 	App->importer->LoadTexture("Assets/Textures/Checkers.dds");
 	App->importer->LoadTexture("Assets/Textures/Lenna.png");
 
@@ -133,9 +133,16 @@ GameObject* ModuleSceneIntro::CreateEmptyGameObject(std::string name, GameObject
 	return go;
 }
 
-GameObject* ModuleSceneIntro::CreatePrimitive(PRIMITIVE_TYPE type)
+GameObject* ModuleSceneIntro::CreatePrimitive(std::string name, PRIMITIVE_TYPE type, GameObject* parent)
 {
-	return nullptr;
+	ChangeNameIfGameObjectNameAlreadyExists(name);
+
+	GameObject* primitive = new GameObject(name, parent);
+
+
+	//primitive->CreateComponentMesh();
+
+	return primitive;
 }
 
 Texture* ModuleSceneIntro::GetTextureByName(const std::string& name)

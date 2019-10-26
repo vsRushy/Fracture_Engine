@@ -48,7 +48,7 @@ bool ModuleSceneIntro::Start()
 	App->importer->LoadTexture("Assets/Textures/Checkers.dds");
 	App->importer->LoadTexture("Assets/Textures/Lenna.png");
 
-	CreatePrimitiveGameObject("Cube", PRIMITIVE_TYPE::CUBE, root_game_object);
+	GameObject* cube = CreatePrimitiveGameObject("Cube", PRIMITIVE_TYPE::CUBE, root_game_object);
 
 	return ret;
 }
@@ -103,7 +103,7 @@ void ModuleSceneIntro::DrawGrid(int subdivisions)
 	glEnd();
 }
 
-GameObject* ModuleSceneIntro::CreatePrimitiveGameObject(std::string name, PRIMITIVE_TYPE type, GameObject* parent = nullptr)
+GameObject* ModuleSceneIntro::CreatePrimitiveGameObject(std::string name, PRIMITIVE_TYPE type, GameObject* parent)
 {
 	ChangeNameIfGameObjectNameAlreadyExists(name);
 
@@ -111,24 +111,13 @@ GameObject* ModuleSceneIntro::CreatePrimitiveGameObject(std::string name, PRIMIT
 	primitive->CreateComponentMesh(nullptr);
 	primitive->CreateComponentMaterial();
 
-	switch (type)
-	{
-	case PRIMITIVE_TYPE::CUBE:
-		primitive->GetComponentMesh()->mesh = CreatePrimitiveMesh(PRIMITIVE_TYPE::CUBE);
-		break;
-	case PRIMITIVE_TYPE::SPHERE:
+	primitive->GetComponentMesh()->mesh = CreatePrimitiveMesh(PRIMITIVE_TYPE::CUBE);
 
-		break;
-	case PRIMITIVE_TYPE::PLANE:
-
-		break;
-	default:
-		break;
-	}
-
-
+	game_objects.push_back(primitive);
 
 	LOG(LOG_INFORMATION, "Created primitive game object with name %s", name.c_str());
+
+	return primitive;
 }
 
 Mesh* ModuleSceneIntro::CreatePrimitiveMesh(PRIMITIVE_TYPE type)
@@ -152,11 +141,28 @@ Mesh* ModuleSceneIntro::CreatePrimitiveMesh(PRIMITIVE_TYPE type)
 	}
 
 	mesh->num_vertices = primitive_mesh->npoints;
-	mesh->vertices = primitive_mesh->points;
+	mesh->vertices = new float[mesh->num_vertices * 3];
+	memcpy(mesh->vertices, primitive_mesh->points, sizeof(float) * mesh->num_vertices * 3);
+
 	mesh->num_indices = primitive_mesh->ntriangles * 3;
-	mesh->indices = (uint*)primitive_mesh->triangles;
-	mesh->num_uvs = primitive_mesh->npoints;
-	mesh->uvs = primitive_mesh->tcoords;
+	mesh->indices = new uint[primitive_mesh->ntriangles * 3];
+	memcpy(mesh->indices, primitive_mesh->triangles, sizeof(uint) * mesh->num_indices);
+
+	if (primitive_mesh->normals != nullptr)
+	{
+		mesh->num_normals = primitive_mesh->npoints;
+		mesh->normals = new float[mesh->num_normals * 3];
+		memcpy(mesh->normals, primitive_mesh->normals, sizeof(float) * mesh->num_normals * 3);
+	}
+
+	if (primitive_mesh->tcoords != nullptr)
+	{
+		mesh->num_uvs = primitive_mesh->npoints;
+		mesh->uvs = new float[mesh->num_uvs * 2];
+		memcpy(mesh->uvs, primitive_mesh->tcoords, sizeof(float) * mesh->num_uvs * 2);
+	}
+	
+	mesh->CreateBuffers();
 
 	par_shapes_free_mesh(primitive_mesh);
 

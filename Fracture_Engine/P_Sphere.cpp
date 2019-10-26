@@ -4,7 +4,7 @@
 
 P_Sphere::P_Sphere(const vec3& position) : Primitive(position)
 {
-	type = PRIMITIVE_TYPE::CUBE;
+	type = PRIMITIVE_TYPE::SPHERE;
 	shape = par_shapes_create_subdivided_sphere(5);
 	par_shapes_translate(shape, position.x, position.y, position.z);
 

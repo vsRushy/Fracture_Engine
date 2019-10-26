@@ -44,7 +44,7 @@ bool ModuleSceneIntro::Start()
 
 	//GameObject* cube_test = CreatePrimitive("Cube", PRIMITIVE_TYPE::CUBE, root_game_object);
 
-	//App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
+	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 	App->importer->LoadTexture("Assets/Textures/Checkers.dds");
 	App->importer->LoadTexture("Assets/Textures/Lenna.png");
 

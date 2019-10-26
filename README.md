@@ -31,6 +31,7 @@ This is a 3D game engine made for educational purposes.
     - Free movement (RIGHT-CLICK(hold) + AWSD)
     - Focus current selected object (F)
     - Duplicate camera's movement speed (SHIFT(hold))
+    - Zoom in-out (MOUSE-WHEEL)
     
 - **(7)** Configuration file loading. You can change the configuration file in JSON format in order to load the Engine in a more personalized way.
 

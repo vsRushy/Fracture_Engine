@@ -102,9 +102,9 @@ void ModuleImporter::LoadModel(const char* path)
 
 		scene->mRootNode->mTransformation.Decompose(scale, rotation, position);
 		
-		g_o->component_transform->Set(math::float3(position.x, position.y, position.z), 
-			math::Quat(rotation.x, rotation.y, rotation.z, rotation.w), 
-			math::float3(scale.x, scale.y, scale.z));
+		g_o->component_transform->Set(float3(position.x, position.y, position.z), 
+			Quat(rotation.x, rotation.y, rotation.z, rotation.w), 
+			float3(scale.x, scale.y, scale.z));
 		
 		aiReleaseImport(scene);
 	}
@@ -134,15 +134,14 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node)
 		tmp_cm->SetInitialTexture(LoadTexture(full_tex_path.c_str()));
 
 		aiVector3D position;
-		aiQuaternion ai_rotation;
+		aiQuaternion rotation;
 		aiVector3D scale;
 
-		node->mTransformation.Decompose(scale, ai_rotation, position);
-		Quat q_rotation(ai_rotation.x, ai_rotation.y, ai_rotation.z, ai_rotation.w);
+		node->mTransformation.Decompose(scale, rotation, position);
 
-		go->component_transform->Set(math::float3(position.x, position.y, position.z),
-			q_rotation,
-			math::float3(scale.x, scale.y, scale.z));
+		go->component_transform->Set(float3(position.x, position.y, position.z),
+			Quat(rotation.x, rotation.y, rotation.z, rotation.w),
+			float3(scale.x, scale.y, scale.z));
 	}
 
 	for (uint i = 0; i < node->mNumChildren; i++)

@@ -7,6 +7,8 @@
 #include "Globals.h"
 #include "glmath.h"
 
+class GameObject;
+
 class ModuleCamera3D : public Module
 {
 public:
@@ -36,6 +38,7 @@ public:
 private:
 	void CalculateViewMatrix();
 
+
 public:
 	vec3 X, Y, Z, Position, Reference;
 
@@ -46,7 +49,8 @@ private:
 	float max_speed = 0.0f;
 	float min_speed = 0.0f;
 	int zoom = 0;
-	bool after_alt = false;
+
+	GameObject* object_selected = nullptr;
 };
 
 #endif /* __MODULE_CAMERA_3D_H__ */

@@ -31,3 +31,25 @@ void ComponentTransform::Set(const math::float3& position, const math::Quat& rot
 	this->rotation = rotation;
 	this->scale = scale;
 }
+
+void ComponentTransform::SetPosition(const float& x, const float& y, const float& z)
+{
+	this->position.x = x;
+	this->position.y = y;
+	this->position.z = z;
+}
+
+void ComponentTransform::SetRotation(const float& w, const float& x, const float& y, const float& z)
+{
+	this->rotation.w = w;
+	this->rotation.x = x;
+	this->rotation.y = y;
+	this->rotation.z = z;
+}
+
+void ComponentTransform::SetScale(const float& x, const float& y, const float& z)
+{
+	this->scale.x = x;
+	this->scale.y = y;
+	this->scale.z = z;
+}

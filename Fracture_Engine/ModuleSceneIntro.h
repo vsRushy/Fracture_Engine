@@ -31,6 +31,7 @@ public:
 
 	// ---------------------------------------------------------------------------
 
+	// Deprecated method
 	void CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type);
 
 	GameObject* CreateEmptyGameObject(std::string name, GameObject* parent = nullptr);

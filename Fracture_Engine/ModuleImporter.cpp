@@ -97,16 +97,14 @@ void ModuleImporter::LoadModel(const char* path)
 		LoadSceneNode(scene, scene->mRootNode);
 		
 		aiVector3D position;
-		aiQuaternion ai_rotation;
+		aiQuaternion rotation;
 		aiVector3D scale;
 
-		scene->mRootNode->mTransformation.Decompose(scale, ai_rotation, position);
-		Quat q_rotation(ai_rotation.x, ai_rotation.y, ai_rotation.z, ai_rotation.w);
-
-		float3 e_rotation = q_rotation.ToEulerXYZ();
+		scene->mRootNode->mTransformation.Decompose(scale, rotation, position);
 		
 		g_o->component_transform->Set(math::float3(position.x, position.y, position.z), 
-			q_rotation, math::float3(scale.x, scale.y, scale.z));
+			math::Quat(rotation.x, rotation.y, rotation.z, rotation.w), 
+			math::float3(scale.x, scale.y, scale.z));
 		
 		aiReleaseImport(scene);
 	}

@@ -112,8 +112,8 @@ void ModuleImporter::LoadModel(const char* path)
 			Quat(rotation.x, rotation.y, rotation.z, rotation.w), 
 			float3(scale.x, scale.y, scale.z));
 
-		//g_o->component_transform->CalculateLocalMatrix();
-		//g_o->component_transform->CalculateGlobalMatrix();
+		g_o->component_transform->CalculateLocalMatrix();
+		g_o->component_transform->CalculateGlobalMatrix();
 		
 		aiReleaseImport(scene);
 	}
@@ -152,8 +152,8 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node)
 			Quat(rotation.x, rotation.y, rotation.z, rotation.w),
 			float3(scale.x, scale.y, scale.z));
 
-		//go->component_transform->CalculateLocalMatrix();
-		//go->component_transform->CalculateGlobalMatrix();
+		/*go->component_transform->CalculateLocalMatrix();
+		go->component_transform->CalculateGlobalMatrix();*/
 	}
 
 	for (uint i = 0; i < node->mNumChildren; i++)

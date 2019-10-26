@@ -236,6 +236,20 @@ void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 				DrawMeshFaceNormals(tmp_mesh->mesh, mesh_face_normals_width);
 		}
 	}
+	else
+	{
+		if (game_object->GetComponentMesh() != nullptr)
+		{
+			glEnableClientState(GL_VERTEX_ARRAY);
+
+			ComponentMesh* tmp_mesh = game_object->GetComponentMesh();
+
+			if (draw_mesh_lines || GetWireframeMode())
+				DrawMeshLines(tmp_mesh->mesh, mesh_lines_width);
+
+			glDisableClientState(GL_VERTEX_ARRAY);
+		}
+	}
 }
 
 void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)

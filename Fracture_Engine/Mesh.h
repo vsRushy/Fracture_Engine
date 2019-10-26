@@ -4,6 +4,7 @@
 #include "Globals.h"
 
 class aiMesh;
+class par_shapes_mesh;
 
 class Mesh
 {
@@ -11,10 +12,17 @@ public:
 	Mesh();
 	~Mesh();
 
+	/* To load from Assimp */
 	void LoadVertices(aiMesh* mesh);
 	void LoadFaces(aiMesh* mesh);
 	void LoadNormals(aiMesh* mesh);
 	void LoadUVs(aiMesh* mesh);
+
+	/* To load from Par Shapes */
+	void LoadVertices(par_shapes_mesh* mesh);
+	void LoadFaces(par_shapes_mesh* mesh);
+	void LoadNormals(par_shapes_mesh* mesh);
+	void LoadUVs(par_shapes_mesh* mesh);
 
 	void CreateBuffers();
 

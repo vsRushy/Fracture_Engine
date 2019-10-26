@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include "Assimp/include/scene.h"
+#include "Par/par_shapes.h"
 #include "glmath.h"
 #include "GL/glew.h"
 
@@ -38,6 +39,45 @@ void Mesh::LoadVertices(aiMesh* mesh)
 	vertices = new float[num_vertices * 3];
 	memcpy(vertices, mesh->mVertices, sizeof(float) * num_vertices * 3);
 	LOG(LOG_INFORMATION, "New mesh with %d vertices", num_vertices);
+}
+
+void Mesh::LoadVertices(par_shapes_mesh* mesh)
+{
+	num_vertices = mesh->npoints;
+	vertices = new float[num_vertices * 3];
+	memcpy(vertices, mesh->points, sizeof(float) * num_vertices * 3);
+	LOG(LOG_INFORMATION, "New mesh with %d vertices", num_vertices);
+}
+
+void Mesh::LoadFaces(par_shapes_mesh* mesh)
+{
+	num_indices = mesh->ntriangles * 6; // 3 ?
+	indices = new uint[num_indices];
+	memcpy(indices, mesh->triangles, sizeof(uint) * num_indices);
+	LOG(LOG_INFORMATION, "New mesh with %d indices", num_indices);
+}
+
+void Mesh::LoadNormals(par_shapes_mesh* mesh)
+{
+	if (mesh->normals != nullptr) 
+	{
+		num_normals = num_vertices * 3;
+		normals = new float[num_normals];
+		memcpy(normals, mesh->normals, sizeof(float) * num_normals);
+	}
+
+	LOG(LOG_INFORMATION, "New mesh with %d normals", num_normals);
+
+	// etc ...
+}
+
+void Mesh::LoadUVs(par_shapes_mesh* mesh)
+{
+	num_uvs = num_vertices;
+	uvs = new float[num_uvs * 2/*3?*/];
+	memcpy(uvs, mesh->tcoords, sizeof(float) * num_uvs * 3);
+
+	LOG(LOG_INFORMATION, "New mesh loaded with %d Texture Coords", num_uvs);
 }
 
 void Mesh::LoadFaces(aiMesh* mesh)
@@ -114,7 +154,6 @@ void Mesh::LoadUVs(aiMesh* mesh)
 				memcpy(&uvs[i * uvs_dimension], &mesh->mTextureCoords[0][i], sizeof(float) * uvs_dimension);
 			}
 		}
-
 	}
 
 	LOG(LOG_INFORMATION, "New mesh loaded with %d Texture Coords", num_uvs);

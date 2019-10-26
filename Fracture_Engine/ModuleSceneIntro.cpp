@@ -133,6 +133,11 @@ GameObject* ModuleSceneIntro::CreateEmptyGameObject(std::string name, GameObject
 	return go;
 }
 
+GameObject* ModuleSceneIntro::CreatePrimitive(PRIMITIVE_TYPE type)
+{
+	return nullptr;
+}
+
 Texture* ModuleSceneIntro::GetTextureByName(const std::string& name)
 {
 	Texture* texture = nullptr;

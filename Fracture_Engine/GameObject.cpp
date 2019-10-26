@@ -33,7 +33,10 @@ bool GameObject::PreUpdate(float dt)
 	bool ret = false;
 	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
 	{
-		ret = (*item)->PreUpdate(dt);
+		if ((*item)->IsActive())
+			ret = (*item)->PreUpdate(dt);
+		else
+			ret = true;
 	}
 
 	return ret;
@@ -44,10 +47,14 @@ bool GameObject::Update(float dt)
 	bool ret = false;
 	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
 	{
-		ret = (*item)->Update(dt);
+		if ((*item)->IsActive())
+			ret = (*item)->Update(dt);
+		else 
+			ret = true;
 	}
 
-	App->renderer3D->DrawGameObject(this);
+	if(this->IsActive())
+		App->renderer3D->DrawGameObject(this);
 
 	return ret;
 }
@@ -57,7 +64,10 @@ bool GameObject::PostUpdate(float dt)
 	bool ret = false;
 	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
 	{
-		ret = (*item)->PostUpdate(dt);
+		if ((*item)->IsActive())
+			ret = (*item)->PostUpdate(dt);
+		else
+			ret = true;
 	}
 
 	return ret;

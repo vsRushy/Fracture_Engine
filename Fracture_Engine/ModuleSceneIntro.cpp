@@ -160,7 +160,7 @@ void ModuleSceneIntro::DeleteGameObject(GameObject* game_object)
 		{
 			delete* item;
 			*item = nullptr;
-			//game_objects.erase(item++);
+			item = game_objects.erase(item++);
 		}
 		else
 		{

@@ -176,7 +176,7 @@ void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 {
 	if (!GetWireframeMode())
 	{
-		if (game_object->GetComponentMesh() != nullptr)
+		if (game_object->GetComponentMesh() != nullptr && game_object->GetComponentMesh()->IsActive())
 		{
 			glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -237,7 +237,7 @@ void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 	}
 	else
 	{
-		if (game_object->GetComponentMesh() != nullptr)
+		if (game_object->GetComponentMesh() != nullptr && game_object->GetComponentMesh()->IsActive())
 		{
 			glEnableClientState(GL_VERTEX_ARRAY);
 

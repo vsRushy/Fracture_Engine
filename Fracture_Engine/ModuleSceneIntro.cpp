@@ -12,6 +12,8 @@
 #include "GameObject.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "Component.h"
+#include "Component_Mesh.h"
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {
@@ -45,6 +47,8 @@ bool ModuleSceneIntro::Start()
 	//App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 	App->importer->LoadTexture("Assets/Textures/Checkers.dds");
 	App->importer->LoadTexture("Assets/Textures/Lenna.png");
+
+	CreatePrimitiveGameObject("Cube", PRIMITIVE_TYPE::CUBE, root_game_object);
 
 	return ret;
 }
@@ -99,26 +103,64 @@ void ModuleSceneIntro::DrawGrid(int subdivisions)
 	glEnd();
 }
 
-void ModuleSceneIntro::CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type)
+GameObject* ModuleSceneIntro::CreatePrimitiveGameObject(std::string name, PRIMITIVE_TYPE type, GameObject* parent = nullptr)
 {
-	Primitive* primitive;
+	ChangeNameIfGameObjectNameAlreadyExists(name);
+
+	GameObject* primitive = new GameObject(name, parent);
+	primitive->CreateComponentMesh(nullptr);
+	primitive->CreateComponentMaterial();
+
 	switch (type)
 	{
 	case PRIMITIVE_TYPE::CUBE:
-		primitive = new P_Cube(pos);
-		primitives.push_back(primitive);
+		primitive->GetComponentMesh()->mesh = CreatePrimitiveMesh(PRIMITIVE_TYPE::CUBE);
 		break;
 	case PRIMITIVE_TYPE::SPHERE:
-		primitive = new P_Sphere(pos);
-		primitives.push_back(primitive);
+
 		break;
 	case PRIMITIVE_TYPE::PLANE:
-		primitive = new P_Plane(pos);
-		primitives.push_back(primitive);
+
 		break;
 	default:
 		break;
 	}
+
+
+
+	LOG(LOG_INFORMATION, "Created primitive game object with name %s", name.c_str());
+}
+
+Mesh* ModuleSceneIntro::CreatePrimitiveMesh(PRIMITIVE_TYPE type)
+{
+	Mesh* mesh = new Mesh();
+	par_shapes_mesh* primitive_mesh = nullptr;
+
+	switch (type)
+	{
+	case PRIMITIVE_TYPE::CUBE:
+		primitive_mesh = par_shapes_create_cube();
+		break;
+	case PRIMITIVE_TYPE::SPHERE:
+		primitive_mesh = par_shapes_create_subdivided_sphere(10);
+		break;
+	case PRIMITIVE_TYPE::PLANE:
+		primitive_mesh = par_shapes_create_plane(10, 10);
+		break;
+	default:
+		break;
+	}
+
+	mesh->num_vertices = primitive_mesh->npoints;
+	mesh->vertices = primitive_mesh->points;
+	mesh->num_indices = primitive_mesh->ntriangles * 3;
+	mesh->indices = (uint*)primitive_mesh->triangles;
+	mesh->num_uvs = primitive_mesh->npoints;
+	mesh->uvs = primitive_mesh->tcoords;
+
+	par_shapes_free_mesh(primitive_mesh);
+
+	return mesh;
 }
 
 GameObject* ModuleSceneIntro::CreateEmptyGameObject(std::string name, GameObject* parent)

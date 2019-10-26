@@ -31,9 +31,10 @@ public:
 
 	// ---------------------------------------------------------------------------
 
-	void CreatePrimitive(const vec3& pos, PRIMITIVE_TYPE type);
-
 	GameObject* CreateEmptyGameObject(std::string name, GameObject* parent = nullptr);
+
+	GameObject* CreatePrimitiveGameObject(std::string name, PRIMITIVE_TYPE type, GameObject* parent = nullptr);
+	Mesh* CreatePrimitiveMesh(PRIMITIVE_TYPE type);
 
 	// ------------------------------------------------------------------------
 

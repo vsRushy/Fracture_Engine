@@ -17,7 +17,7 @@ public:
 	bool Update(float dt);
 
 public:
-	Mesh* mesh;
+	Mesh* mesh = nullptr;
 };
 
 #endif /* __COMPONENT_MESH_H__ */

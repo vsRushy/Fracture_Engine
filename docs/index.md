@@ -1,4 +1,4 @@
-# Fracture Engine
+﻿# Fracture Engine
 
 ## Information
 
@@ -40,6 +40,8 @@ This is a 3D game engine made for educational purposes.
 - **#1** Game Object transform doesn't work very well when changing parameters.
 
 - **#2** To use an inspector header, the other ones need to be collapsed(closed).
+
+- **#3** The checkered texture generated procedurally loads incorrectly, so it is weird. Instead, you can drag the .DDS texture inside the Assets/Textures/ folder.
 
 ## Disclaimer
 

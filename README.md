@@ -41,6 +41,8 @@ This is a 3D game engine made for educational purposes.
 
 - **#2** To use an inspector header, the other ones need to be collapsed(closed).
 
+- **#3** The checkered texture generated procedurally loads incorrectly, so it is weird. Instead, you can drag the .DDS texture inside the Assets/Textures/ folder.
+
 ## Disclaimer
 
 This build is for the first assignment of the subject. There are additional systems which are under testing and weren't required to be in the current build.

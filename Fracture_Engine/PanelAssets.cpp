@@ -1,4 +1,7 @@
+#include "Texture.h"
 #include "PanelAssets.h"
+#include "Application.h"
+#include "ModuleSceneIntro.h"
 
 PanelAssets::PanelAssets(std::string name, bool active) : Panel(name, active)
 {
@@ -16,14 +19,15 @@ bool PanelAssets::Update()
 	/* Meshes */
 	if (ImGui::CollapsingHeader("Meshes"))
 	{
-		for (uint i = 0; i < 10; i++)
-		{
-
-		}
+		
 	}
 	if (ImGui::CollapsingHeader("Textures"))
 	{
-
+		for (auto item = App->scene_intro->textures.begin(); item != App->scene_intro->textures.end(); item++)
+		{
+			ImGui::Image((ImTextureID)(*item).second->id, ImVec2(50.0f, 50.0f));
+			ImGui::SameLine();
+		}
 	}
 
 	ImGui::End();

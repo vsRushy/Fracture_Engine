@@ -89,7 +89,7 @@ update_status ModuleUserInterface::PreUpdate(float dt)
 
 update_status ModuleUserInterface::Update(float dt)
 {
-	 //ImGui::ShowDemoWindow();
+	 ImGui::ShowDemoWindow();
 
 	/* Update panels */
 	for (std::vector<Panel*>::const_iterator item = panels.begin(); item != panels.end(); item++)

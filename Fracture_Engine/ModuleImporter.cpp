@@ -195,9 +195,9 @@ Texture* ModuleImporter::LoadTextureCheckered()
 {
 	Texture* checkered_texture = new Texture();
 
-	GLubyte checkImage[100][100][4];
-	for (int i = 0; i < 100; i++) {
-		for (int j = 0; j < 100; j++) {
+	GLubyte checkImage[10][10][4];
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
 			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
 			checkImage[i][j][0] = (GLubyte)c;
 			checkImage[i][j][1] = (GLubyte)c;
@@ -208,8 +208,8 @@ Texture* ModuleImporter::LoadTextureCheckered()
 
 	checkered_texture->name = std::string("Checkered_Texture");
 	checkered_texture->data = &checkImage[0][0][0];
-	checkered_texture->width = 100;
-	checkered_texture->height = 100;
+	checkered_texture->width = 10;
+	checkered_texture->height = 10;
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 

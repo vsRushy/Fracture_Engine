@@ -31,7 +31,10 @@ bool PanelAssets::Update()
 			{
 				ImGui::BeginTooltip();
 				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-				ImGui::TextUnformatted((*item).second->name.c_str());
+				std::string name_and_extension;
+				name_and_extension.append((*item).second->name);
+				name_and_extension.append((*item).second->extension);
+				ImGui::TextUnformatted(name_and_extension.c_str());
 				ImGui::PopTextWrapPos();
 				ImGui::EndTooltip();
 			}

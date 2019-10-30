@@ -10,12 +10,12 @@
 class Texture
 {
 public:
-	Texture() {}
-	Texture(const std::string& name, const uint& id, const uint& width, const uint& height);
+	Texture();
 	~Texture();
 
 public:
 	std::string name;
+	std::string extension;
 	uint id = -1;
 	uint width = -1;
 	uint height = -1;

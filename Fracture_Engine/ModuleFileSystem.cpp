@@ -256,7 +256,7 @@ void ModuleFileSystem::NormalizePath(std::string& full_path) const
 	}
 }
 
-std::string ModuleFileSystem::GetFileNameFromPath(const char* file)
+std::string ModuleFileSystem::GetFileNameFromPath(const char* file) const
 {
 	std::string file_path(file);
 	std::string name;
@@ -269,7 +269,8 @@ std::string ModuleFileSystem::GetFileNameFromPath(const char* file)
 			if (*item == '.')
 				end_dot_found = true;
 		}
-		else {
+		else 
+		{
 			if (*item == '\\' || *item == '/' || *item == '//')
 				break;
 
@@ -280,6 +281,31 @@ std::string ModuleFileSystem::GetFileNameFromPath(const char* file)
 	std::reverse(name.begin(), name.end()); // no push_front, we need to reverse
 	
 	return name;
+}
+
+std::string ModuleFileSystem::GetFileExtensionFromPath(const char* file) const
+{
+	std::string file_path(file);
+	std::string extension;
+
+	bool end_dot_found = false;
+	for (std::string::const_iterator item = file_path.begin(); item != file_path.end(); item++)
+	{
+		if (!end_dot_found)
+		{
+			if (*item == '.')
+			{
+				end_dot_found = true;
+				item--;
+			}
+		}
+		else 
+		{
+			extension.push_back(*item);
+		}
+	}
+
+	return extension;
 }
 
 unsigned int ModuleFileSystem::Load(const char* path, const char* file, char** buffer) const

@@ -158,6 +158,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 			texture->width = ilGetInteger(IL_IMAGE_WIDTH);
 			texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
 			texture->name = App->file_system->GetFileNameFromPath(path);
+			texture->extension = App->file_system->GetFileExtensionFromPath(path);
 
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 

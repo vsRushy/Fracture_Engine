@@ -20,6 +20,8 @@
 #pragma comment (lib, "Devil/libx86/ILU.lib")
 #pragma comment (lib, "Devil/libx86/ILUT.lib")
 
+#define TEXTURE_ROOT_PATH "Assets/Textures/"
+
 class GameObject;
 class Mesh;
 
@@ -40,9 +42,6 @@ public:
 	void LoadModel(const char* path);
 	void LoadSceneNode(const aiScene*, aiNode* node);
 	Texture* LoadTexture(const char* path);
-
-
-	Texture* LoadTextureCheckered();
 
 	// ------------------
 

@@ -59,7 +59,7 @@ bool ModuleImporter::CleanUp()
 
 void ModuleImporter::LoadDroppedFile(const char* path)
 {
-	std::string ext = App->file_system->GetFileExtension(path);
+	std::string ext = App->file_system->GetFileExtensionFromPath(path);
 
 	if (ext == ".fbx" || ext == ".FBX")
 	{
@@ -137,7 +137,7 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node)
 
 		go->CreateComponentMaterial();
 		ComponentMaterial* tmp_cm = go->GetComponentMaterial();
-		std::string full_tex_path = texture_root_path;
+		std::string full_tex_path = TEXTURE_ROOT_PATH;
 		full_tex_path.append(file_path_tex.C_Str());
 		tmp_cm->SetTexture(LoadTexture(full_tex_path.c_str()));
 		tmp_cm->SetInitialTexture(LoadTexture(full_tex_path.c_str()));
@@ -192,7 +192,8 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 				texture->data = (unsigned char*)ilGetData();
 				texture->width = ilGetInteger(IL_IMAGE_WIDTH);
 				texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
-				texture->name = path;
+				texture->name = App->file_system->GetFileNameFromPath(path);
+				texture->extension = App->file_system->GetFileExtensionFromPath(path);
 
 				glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -212,7 +213,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 			else
 				LOG(LOG_ERROR, "Image could not be converted. Error code: %s", iluErrorString(ilGetError()));
 
-			App->scene_intro->textures.insert({ texture->name, texture });
+			App->scene_intro->textures.insert({ texture->name + texture->extension, texture });
 		}
 		else
 		{
@@ -223,46 +224,6 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 	}
 
 	return texture;
-}
-
-Texture* ModuleImporter::LoadTextureCheckered()
-{
-	Texture* checkered_texture = new Texture();
-
-	GLubyte checkImage[100][100][4];
-	for (int i = 0; i < 100; i++) {
-		for (int j = 0; j < 100; j++) {
-			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-			checkImage[i][j][0] = (GLubyte)c;
-			checkImage[i][j][1] = (GLubyte)c;
-			checkImage[i][j][2] = (GLubyte)c;
-			checkImage[i][j][3] = (GLubyte)255;
-		}
-	}
-
-	checkered_texture->name = std::string("Checkered_Texture");
-	checkered_texture->data = &checkImage[0][0][0];
-	checkered_texture->width = 100;
-	checkered_texture->height = 100;
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-	glGenTextures(1, &checkered_texture->id);
-	glBindTexture(GL_TEXTURE_2D, checkered_texture->id);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_FORMAT), checkered_texture->width, checkered_texture->height,
-		0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, checkered_texture->data);
-
-	App->scene_intro->textures.insert({ checkered_texture->name, checkered_texture });
-
-	return checkered_texture;
 }
 
 Mesh* ModuleImporter::LoadMesh(aiMesh* ai_mesh)

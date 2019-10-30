@@ -256,7 +256,7 @@ void ModuleFileSystem::NormalizePath(std::string& full_path) const
 	}
 }
 
-std::string ModuleFileSystem::GetFileNameFromPath(const char* file)
+std::string ModuleFileSystem::GetFileNameFromPath(const char* file) const
 {
 	std::string file_path(file);
 	std::string name;
@@ -282,7 +282,7 @@ std::string ModuleFileSystem::GetFileNameFromPath(const char* file)
 	return name;
 }
 
-std::string ModuleFileSystem::GetFileExtension(const char* file)
+std::string ModuleFileSystem::GetFileExtensionFromPath(const char* file) const
 {
 	std::string ret = file;
 	uint position = ret.find_last_of(".");

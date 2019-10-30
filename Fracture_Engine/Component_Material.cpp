@@ -36,12 +36,10 @@ void ComponentMaterial::OnEditor()
 
 		ImGui::Text("Preview: "); ImGui::SameLine(); ImGui::Image((ImTextureID)texture->id, ImVec2(100.0f, 100.0f));
 	
-		if (ImGui::Button("Use checkered texture"))
+		if (ImGui::Checkbox("Use checkered texture", &use_checkered_texture))
 		{
-			use_checkered_texture = !use_checkered_texture;
-
 			if(use_checkered_texture)
-				SetTexture(App->scene_intro->checkered_texture);
+				SetTexture(App->scene_intro->textures["Checkers.dds"]);
 			else
 				SetTexture(initial_texture);
 		}

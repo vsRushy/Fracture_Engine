@@ -191,46 +191,6 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 	return texture;
 }
 
-Texture* ModuleImporter::LoadTextureCheckered()
-{
-	Texture* checkered_texture = new Texture();
-
-	GLubyte checkImage[10][10][4];
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 10; j++) {
-			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-			checkImage[i][j][0] = (GLubyte)c;
-			checkImage[i][j][1] = (GLubyte)c;
-			checkImage[i][j][2] = (GLubyte)c;
-			checkImage[i][j][3] = (GLubyte)255;
-		}
-	}
-
-	checkered_texture->name = std::string("Checkered_Texture");
-	checkered_texture->data = &checkImage[0][0][0];
-	checkered_texture->width = 10;
-	checkered_texture->height = 10;
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-	glGenTextures(1, &checkered_texture->id);
-	glBindTexture(GL_TEXTURE_2D, checkered_texture->id);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_FORMAT), checkered_texture->width, checkered_texture->height,
-		0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, checkered_texture->data);
-
-	App->scene_intro->textures.insert({ checkered_texture->name, checkered_texture });
-
-	return checkered_texture;
-}
-
 Mesh* ModuleImporter::LoadMesh(aiMesh* ai_mesh)
 {
 	Mesh* m = new Mesh();

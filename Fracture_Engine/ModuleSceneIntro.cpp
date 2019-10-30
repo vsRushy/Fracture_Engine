@@ -43,7 +43,6 @@ bool ModuleSceneIntro::Start()
 	/* Load all assets ----------------- */
 	
 	/* Textures */
-	checkered_texture = App->importer->LoadTextureCheckered();
 	App->importer->LoadTexture("Assets/Textures/Checkers.dds");
 	App->importer->LoadTexture("Assets/Textures/Lenna.png");
 

@@ -39,9 +39,6 @@ public:
 	void LoadSceneNode(const aiScene*, aiNode* node);
 	Texture* LoadTexture(const char* path);
 
-
-	Texture* LoadTextureCheckered();
-
 	// ------------------
 
 	Mesh* LoadMesh(aiMesh* ai_mesh);

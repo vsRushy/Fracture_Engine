@@ -41,7 +41,7 @@ void ComponentMaterial::OnEditor()
 			use_checkered_texture = !use_checkered_texture;
 
 			if(use_checkered_texture)
-				SetTexture(App->scene_intro->checkered_texture);
+				SetTexture(App->scene_intro->textures["Checkers"]);
 			else
 				SetTexture(initial_texture);
 		}

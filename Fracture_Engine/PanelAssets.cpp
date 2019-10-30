@@ -27,6 +27,14 @@ bool PanelAssets::Update()
 		for (auto item = App->scene_intro->textures.begin(); item != App->scene_intro->textures.end(); item++)
 		{
 			ImGui::Image((ImTextureID)(*item).second->id, ImVec2(50.0f, 50.0f));
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::BeginTooltip();
+				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+				ImGui::TextUnformatted((*item).second->name.c_str());
+				ImGui::PopTextWrapPos();
+				ImGui::EndTooltip();
+			}
 			ImGui::NextColumn();
 		}
 		ImGui::Columns(1);

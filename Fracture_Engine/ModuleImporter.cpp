@@ -28,8 +28,6 @@ bool ModuleImporter::Init()
 {
 	bool ret = true;
 
-	texture_root_path = "Assets/Textures/";
-
 	/* Assimp log stream */
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
@@ -113,7 +111,7 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node)
 
 		go->CreateComponentMaterial();
 		ComponentMaterial* tmp_cm = go->GetComponentMaterial();
-		std::string full_tex_path = texture_root_path;
+		std::string full_tex_path = TEXTURE_ROOT_PATH;
 		full_tex_path.append(file_path_tex.C_Str());
 		tmp_cm->SetTexture(LoadTexture(full_tex_path.c_str()));
 		tmp_cm->SetInitialTexture(LoadTexture(full_tex_path.c_str()));

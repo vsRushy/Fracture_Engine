@@ -287,7 +287,7 @@ std::string ModuleFileSystem::GetFileExtension(const char* file)
 	std::string ret = file;
 	uint position = ret.find_last_of(".");
 
-	position != std::string::npos ? ret = ret.substr(position) : ret = "";
+	position != std::string::npos ? ret = ret.substr(position) : ret = "no_extension_error";
 
 	return ret;
 }

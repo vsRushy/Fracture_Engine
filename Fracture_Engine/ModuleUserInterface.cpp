@@ -17,6 +17,7 @@
 #include "PanelConfiguration.h"
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
+#include "PanelAssets.h"
 
 ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_enabled)
 {
@@ -27,6 +28,7 @@ ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_ena
 	panel_configuration = new PanelConfiguration("Configuration");
 	panel_hierarchy = new PanelHierarchy("Hierarchy");
 	panel_inspector = new PanelInspector("Inspector");
+	panel_assets = new PanelAssets("Assets");
 
 	AddPanel(panel_scene);
 	AddPanel(panel_main_menu_bar);
@@ -35,6 +37,7 @@ ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_ena
 	AddPanel(panel_configuration);
 	AddPanel(panel_hierarchy);
 	AddPanel(panel_inspector);
+	AddPanel(panel_assets);
 }
 
 ModuleUserInterface::~ModuleUserInterface()

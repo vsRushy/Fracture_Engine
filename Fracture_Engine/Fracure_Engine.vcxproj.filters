@@ -435,6 +435,9 @@
     <ClInclude Include="Globals.h">
       <Filter>Sources\Core</Filter>
     </ClInclude>
+    <ClInclude Include="PanelAssets.h">
+      <Filter>Sources\Panel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -661,6 +664,9 @@
     </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelAssets.cpp">
+      <Filter>Sources\Panel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

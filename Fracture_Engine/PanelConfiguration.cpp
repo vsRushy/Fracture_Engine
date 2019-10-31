@@ -213,6 +213,15 @@ bool PanelConfiguration::Update()
 		{
 			App->camera->SetCameraSpeed(speed);
 		}
+
+		float fov = App->camera->GetCameraFOV();
+		ImGui::Text("FOV: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.2f", fov);
+		if (ImGui::SliderFloat("FOV", &fov, 10.0f, 140.0f))
+		{
+			App->camera->SetCameraFOV(fov);
+		}
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{

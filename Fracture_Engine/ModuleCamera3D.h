@@ -30,10 +30,16 @@ public:
 	void SetCameraSpeed(const float& speed);
 	void SetMaxCameraSpeed(const float& max_speed);
 	void SetMinCameraSpeed(const float& min_speed);
+	void SetCameraFOV(const float& fov);
+	void SetCameraNearPlane(const float& near_plane);
+	void SetCameraFarPlane(const float& far_plane);
 
 	float GetCameraSpeed() const;
 	float GetMaxCameraSpeed() const;
 	float GetMinCameraSpeed() const;
+	float GetCameraFOV() const;
+	float GetCameraNearPlane() const;
+	float GetCameraFarPlane() const;
 
 private:
 	void CalculateViewMatrix();

@@ -30,6 +30,9 @@ bool ModuleCamera3D::Start()
 	SetCameraSpeed(speed);
 	SetMaxCameraSpeed(max_speed);
 	SetMinCameraSpeed(min_speed);
+	SetCameraFOV(fov);
+	SetCameraNearPlane(near_plane);
+	SetCameraFarPlane(far_plane);
 
 	return ret;
 }
@@ -246,6 +249,21 @@ void ModuleCamera3D::SetMinCameraSpeed(const float& min_speed)
 	this->min_speed = min_speed;
 }
 
+void ModuleCamera3D::SetCameraFOV(const float& fov)
+{
+	this->fov = fov;
+}
+
+void ModuleCamera3D::SetCameraNearPlane(const float& near_plane)
+{
+	this->near_plane = near_plane;
+}
+
+void ModuleCamera3D::SetCameraFarPlane(const float& far_plane)
+{
+	this->far_plane = far_plane;
+}
+
 float ModuleCamera3D::GetCameraSpeed() const
 {
 	return speed;
@@ -259,6 +277,21 @@ float ModuleCamera3D::GetMaxCameraSpeed() const
 float ModuleCamera3D::GetMinCameraSpeed() const
 {
 	return min_speed;
+}
+
+float ModuleCamera3D::GetCameraFOV() const
+{
+	return fov;
+}
+
+float ModuleCamera3D::GetCameraNearPlane() const
+{
+	return near_plane;
+}
+
+float ModuleCamera3D::GetCameraFarPlane() const
+{
+	return far_plane;
 }
 
 // -----------------------------------------------------------------

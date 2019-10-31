@@ -6,6 +6,7 @@
 
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleImporter.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* target) : Component(target)
 {
@@ -24,8 +25,13 @@ void ComponentMaterial::OnEditor()
 		ImGui::Checkbox("Active", &active);
 		
 		std::string m_name = texture->name;
-		ImGui::Text("Material path: "); ImGui::SameLine(); ImGui::Text(m_name.c_str());
+		m_name.append(texture->extension);
+		ImGui::Text("Material name: "); ImGui::SameLine(); ImGui::Text(m_name.c_str());
 		
+		std::string m_path = TEXTURE_ROOT_PATH;
+		m_path.append(texture->name);
+		ImGui::Text("Material path: "); ImGui::SameLine(); ImGui::TextColored(ImVec4(255.0f, 255.0f, 0.0f, 1.0f), m_path.c_str());
+
 		std::string t_width = std::to_string(texture->width);
 		ImGui::Text("Texture width: "); ImGui::SameLine(); 
 		ImGui::TextColored(ImVec4(255.0f, 255.0f, 0.0f, 1.0f), t_width.c_str());

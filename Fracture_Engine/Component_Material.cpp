@@ -17,7 +17,7 @@ ComponentMaterial::~ComponentMaterial()
 {
 
 }
-
+ 
 void ComponentMaterial::OnEditor()
 {
 	if (ImGui::CollapsingHeader("Material"))

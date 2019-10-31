@@ -20,6 +20,12 @@ bool PanelScene::Update()
 	SetViewportSize(ImGui::GetContentRegionAvail());
 	ImGui::Image((ImTextureID)App->renderer3D->frame_buffer_object.texture_id, ImVec2(viewport_size.x, viewport_size.y), ImVec2(0, 1), ImVec2(1, 0));
 
+	if (ImGui::BeginDragDropTarget())
+	{
+		const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Texture");
+		ImGui::EndDragDropTarget();
+	}
+
 	ImGui::End();
 
 	return true;

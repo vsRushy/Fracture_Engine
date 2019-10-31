@@ -68,8 +68,6 @@ bool ModuleUserInterface::Start()
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 
-	//CreateDockSpace(io);
-
 	/* Start panels */
 	for (std::vector<Panel*>::const_iterator item = panels.begin(); item != panels.end(); item++)
 	{
@@ -95,7 +93,7 @@ update_status ModuleUserInterface::PreUpdate(float dt)
 
 update_status ModuleUserInterface::Update(float dt)
 {
-	 //ImGui::ShowDemoWindow();
+	 ImGui::ShowDemoWindow();
 
 	/* Update panels */
 	for (std::vector<Panel*>::const_iterator item = panels.begin(); item != panels.end(); item++)

@@ -40,6 +40,13 @@ bool PanelAssets::Update()
 				ImGui::EndTooltip();
 			}
 
+			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID))
+			{
+				ImGui::SetDragDropPayload("Texture", &(*item), sizeof(*item));
+				ImGui::TextUnformatted("Texture");
+				ImGui::EndDragDropSource();
+			}
+
 			ImGui::NextColumn();
 		}
 

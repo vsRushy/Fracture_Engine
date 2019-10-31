@@ -7,6 +7,7 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
+#include "FrameBufferObject.h"
 
 #define MAX_LIGHTS 8
 
@@ -30,7 +31,7 @@ public:
 
 	void LoadConfiguration(JSON_Object* configuration) override;
 
-	void OnResize(int width, int height);
+	void OnResize(const int& width, const int& height);
 
 	void SetVSync(const bool& value);
 	void SetWireframeMode(const bool& value);
@@ -74,6 +75,8 @@ public:
 	bool vsync;
 
 	bool wireframe_mode;
+
+	FrameBufferObject frame_buffer_object;
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;

@@ -26,10 +26,10 @@ Mesh::~Mesh()
 	center_face_point = nullptr;
 	center_face_normal_point = nullptr;
 
-	glDeleteBuffers(num_vertices, &id_vertices);
+	/*glDeleteBuffers(num_vertices, &id_vertices);
 	glDeleteBuffers(num_indices, &id_indices);
 	glDeleteBuffers(num_normals, &id_normals);
-	glDeleteBuffers(num_uvs, &id_uvs);
+	glDeleteBuffers(num_uvs, &id_uvs);*/
 }
 
 Mesh* Mesh::LoadMesh(aiMesh* ai_mesh)

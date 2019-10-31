@@ -13,6 +13,8 @@
 #include "Mesh.h"
 #include "Texture.h"
 
+#include "PanelScene.h"
+
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {
 
@@ -240,6 +242,10 @@ void ModuleSceneIntro::ChangeNameIfGameObjectNameAlreadyExists(const std::string
 
 update_status ModuleSceneIntro::PreUpdate(float dt)
 {
+	/* Called before rendering */
+	PanelScene* p_s = dynamic_cast<PanelScene*>(App->user_interface->panel_scene);
+	App->renderer3D->frame_buffer_object.BindAndOperateOnFBO(p_s->GetViewportSize());
+
 	/* Pre Update game objects ----------------------- */
 	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
 	{
@@ -289,6 +295,10 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 				(*item)->PostUpdate(dt);
 		}
 	}
+
+	/* Called after rendering */
+	App->renderer3D->frame_buffer_object.UnbindFBO();
+
 
 	// --------------------------------------------------------
 	

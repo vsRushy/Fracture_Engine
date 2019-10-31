@@ -47,6 +47,9 @@ void ModuleCamera3D::LoadConfiguration(JSON_Object* configuration)
 	speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Speed");
 	max_speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Max_speed");
 	min_speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Min_speed");
+	fov = (float)json_object_dotget_number(configuration, "Engine.Camera.FOV");
+	near_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Near_plane");
+	far_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Far_plane");
 }
 
 // -----------------------------------------------------------------

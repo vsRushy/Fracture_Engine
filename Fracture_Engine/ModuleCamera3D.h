@@ -50,7 +50,11 @@ private:
 	float min_speed = 0.0f;
 	int zoom = 0;
 
-	GameObject* object_selected = nullptr;
+public:
+	float fov = 0.0f;
+
+	float near_plane = 0.0f;
+	float far_plane = 0.0f;
 };
 
 #endif /* __MODULE_CAMERA_3D_H__ */

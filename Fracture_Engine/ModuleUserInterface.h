@@ -23,8 +23,8 @@ public:
 
 public:
 	void AddPanel(Panel* panel);
-
 	void LogToConsole(LOG_TYPE type, const char* text_log);
+	void CreateDockSpace(const ImGuiIO& io);
 
 public:
 	std::vector<Panel*> panels;
@@ -37,6 +37,9 @@ public:
 	Panel* panel_hierarchy = nullptr;
 	Panel* panel_inspector = nullptr;
 	Panel* panel_assets = nullptr;
+
+private:
+	bool dockspace_active = true;
 };
 
 #endif /* __MODULE_USER_INTERFACE_H__ */

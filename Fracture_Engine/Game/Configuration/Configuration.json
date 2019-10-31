@@ -43,7 +43,10 @@
         {
           "Speed": 4,
           "Max_speed": 100,
-          "Min_speed": 1
+          "Min_speed": 1,
+          "FOV": 60,
+          "Near_plane": 0.1,
+          "Far_plane": 1000.0
         }
     }
 }

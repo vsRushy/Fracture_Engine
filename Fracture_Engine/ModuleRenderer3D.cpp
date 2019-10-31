@@ -15,6 +15,8 @@
 #include "Component_Mesh.h"
 #include "Component_Material.h"
 
+#include "PanelScene.h"
+
 #pragma comment (lib, "glu32.lib")    /* Link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* Link Microsoft OpenGL lib   */
 #pragma comment (lib, "Glew/libx86/glew32.lib") /* Link Glew OpenGL specification */
@@ -123,18 +125,15 @@ bool ModuleRenderer3D::Init()
 	// Projection matrix for
 	OnResize(App->window->GetWindowWidth(), App->window->GetWindowHeight());
 
+	/* Frame Buffer Object init */
+	frame_buffer_object.GenerateFBO();
+
 	return ret;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
-
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
@@ -156,6 +155,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 bool ModuleRenderer3D::CleanUp()
 {
 	LOG(LOG_INFORMATION, "Destroying 3D Renderer");
+
+	/* Frame Buffer Object delete */
+	frame_buffer_object.DeleteFBO();
 
 	SDL_GL_DeleteContext(context);
 
@@ -269,17 +271,9 @@ void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)
 	gl_alpha_test = json_object_dotget_boolean(configuration, "Engine.Renderer.gl_alpha_test");
 }
 
-void ModuleRenderer3D::OnResize(int width, int height)
+void ModuleRenderer3D::OnResize(const int& width, const int& height)
 {
-	glViewport(0, 0, width, height);
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(&ProjectionMatrix);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	frame_buffer_object.SetCamera(ImVec2(width, height));
 }
 
 // ----------------------------------------------------------

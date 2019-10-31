@@ -30,9 +30,18 @@ bool ModuleCamera3D::Start()
 	SetCameraSpeed(speed);
 	SetMaxCameraSpeed(max_speed);
 	SetMinCameraSpeed(min_speed);
+
 	SetCameraFOV(fov);
+	SetMinCameraFOV(min_fov);
+	SetMaxCameraFOV(max_fov);
+
 	SetCameraNearPlane(near_plane);
+	SetMinCameraNearPlane(min_near_plane);
+	SetMaxCameraNearPlane(max_near_plane);
+
 	SetCameraFarPlane(far_plane);
+	SetMinCameraFarPlane(min_far_plane);
+	SetMaxCameraFarPlane(max_far_plane);
 
 	return ret;
 }
@@ -50,9 +59,18 @@ void ModuleCamera3D::LoadConfiguration(JSON_Object* configuration)
 	speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Speed");
 	max_speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Max_speed");
 	min_speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Min_speed");
+	
 	fov = (float)json_object_dotget_number(configuration, "Engine.Camera.FOV");
+	min_fov = (float)json_object_dotget_number(configuration, "Engine.Camera.Min_FOV");
+	max_fov = (float)json_object_dotget_number(configuration, "Engine.Camera.Max_FOV");
+	
 	near_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Near_plane");
+	min_near_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Min_near_plane");
+	max_near_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Max_near_plane");
+	
 	far_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Far_plane");
+	min_far_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Min_far_plane");
+	max_far_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Max_far_plane");
 }
 
 // -----------------------------------------------------------------
@@ -254,14 +272,44 @@ void ModuleCamera3D::SetCameraFOV(const float& fov)
 	this->fov = fov;
 }
 
+void ModuleCamera3D::SetMinCameraFOV(const float& min_fov)
+{
+	this->min_fov = min_fov;
+}
+
+void ModuleCamera3D::SetMaxCameraFOV(const float& max_fov)
+{
+	this->max_fov = max_fov;
+}
+
 void ModuleCamera3D::SetCameraNearPlane(const float& near_plane)
 {
 	this->near_plane = near_plane;
 }
 
+void ModuleCamera3D::SetMinCameraNearPlane(const float& min_near_plane)
+{
+	this->min_near_plane = min_near_plane;
+}
+
+void ModuleCamera3D::SetMaxCameraNearPlane(const float& max_near_plane)
+{
+	this->max_near_plane = max_near_plane;
+}
+
 void ModuleCamera3D::SetCameraFarPlane(const float& far_plane)
 {
 	this->far_plane = far_plane;
+}
+
+void ModuleCamera3D::SetMinCameraFarPlane(const float& min_far_plane)
+{
+	this->min_far_plane = min_far_plane;
+}
+
+void ModuleCamera3D::SetMaxCameraFarPlane(const float& max_far_plane)
+{
+	this->max_far_plane = max_far_plane;
 }
 
 float ModuleCamera3D::GetCameraSpeed() const
@@ -284,14 +332,44 @@ float ModuleCamera3D::GetCameraFOV() const
 	return fov;
 }
 
+float ModuleCamera3D::GetMinCameraFOV() const
+{
+	return min_fov;
+}
+
+float ModuleCamera3D::GetMaxCameraFOV() const
+{
+	return max_fov;
+}
+
 float ModuleCamera3D::GetCameraNearPlane() const
 {
 	return near_plane;
 }
 
+float ModuleCamera3D::GetMinCameraNearPlane() const
+{
+	return min_near_plane;
+}
+
+float ModuleCamera3D::GetMaxCameraNearPlane() const
+{
+	return max_near_plane;
+}
+
 float ModuleCamera3D::GetCameraFarPlane() const
 {
 	return far_plane;
+}
+
+float ModuleCamera3D::GetMinCameraFarPlane() const
+{
+	return min_far_plane;
+}
+
+float ModuleCamera3D::GetMaxCameraFarPlane() const
+{
+	return max_far_plane;
 }
 
 // -----------------------------------------------------------------

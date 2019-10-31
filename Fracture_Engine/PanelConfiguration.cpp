@@ -218,9 +218,27 @@ bool PanelConfiguration::Update()
 		ImGui::Text("FOV: ");
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.2f", fov);
-		if (ImGui::SliderFloat("FOV", &fov, 10.0f, 140.0f))
+		if (ImGui::SliderFloat("FOV", &fov, App->camera->GetMinCameraFOV(), App->camera->GetMaxCameraFOV()))
 		{
 			App->camera->SetCameraFOV(fov);
+		}
+
+		float near_plane = App->camera->GetCameraNearPlane();
+		ImGui::Text("Near plane: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.2f", near_plane);
+		if (ImGui::SliderFloat("Near_plane", &near_plane, App->camera->GetMinCameraNearPlane(), App->camera->GetMaxCameraNearPlane()))
+		{
+			App->camera->SetCameraNearPlane(near_plane);
+		}
+
+		float far_plane = App->camera->GetCameraFarPlane();
+		ImGui::Text("Far plane: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.2f", far_plane);
+		if (ImGui::SliderFloat("Far_plane", &far_plane, App->camera->GetMinCameraFarPlane(), App->camera->GetMaxCameraFarPlane()))
+		{
+			App->camera->SetCameraFarPlane(far_plane);
 		}
 	}
 	if (ImGui::CollapsingHeader("Hardware"))

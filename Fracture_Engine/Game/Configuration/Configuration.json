@@ -39,14 +39,19 @@
           "gl_alpha_test": false
         },
 
-        "Camera": 
-        {
+        "Camera": {
           "Speed": 4,
-          "Max_speed": 100,
           "Min_speed": 1,
+          "Max_speed": 100,
           "FOV": 60,
+          "Min_FOV": 10,
+          "Max_FOV": 140,
           "Near_plane": 0.1,
-          "Far_plane": 1000.0
+          "Min_near_plane": 0.1,
+          "Max_near_plane": 10,
+          "Far_plane": 1000.0,
+          "Min_far_plane": 500,
+          "Max_far_plane": 2000
         }
     }
 }

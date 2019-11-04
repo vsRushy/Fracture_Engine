@@ -42,8 +42,8 @@ bool PanelAssets::Update()
 
 			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID))
 			{
-				ImGui::SetDragDropPayload("Texture", &(*item), sizeof(*item));
-				ImGui::TextUnformatted("Texture");
+				ImGui::SetDragDropPayload("Texture", &(*item).second, sizeof(Texture*));
+				ImGui::TextUnformatted((*item).second->name.c_str());
 				ImGui::EndDragDropSource();
 			}
 

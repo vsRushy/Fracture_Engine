@@ -1,7 +1,11 @@
+#include "Texture.h"
 #include "PanelScene.h"
 
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleImporter.h"
+
+
 
 PanelScene::PanelScene(std::string name, bool active) : Panel(name, active)
 {
@@ -22,7 +26,19 @@ bool PanelScene::Update()
 
 	if (ImGui::BeginDragDropTarget())
 	{
-		const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Texture");
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Texture"))
+		{
+			/*IM_ASSERT(payload->DataSize == sizeof(Texture*));
+			Texture* tex_drop = (Texture*)payload->Data;
+
+			std::string file_tex_path = TEXTURE_ROOT_PATH;
+			file_tex_path.append(tex_drop->name);
+			file_tex_path.append(tex_drop->extension);
+			App->importer->LoadDroppedFile(file_tex_path.c_str());
+
+			LOG(LOG_INFORMATION, "Dropped texture into the scene");*/
+		}
+
 		ImGui::EndDragDropTarget();
 	}
 

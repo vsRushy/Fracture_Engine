@@ -144,3 +144,8 @@ void ComponentTransform::CalculateGlobalMatrix()
 		global_matrix = target->parent->component_transform->global_matrix * local_matrix;
 	}
 }
+
+const AABB ComponentTransform::GetBoundingBox() const
+{
+	return bounding_box;
+}

@@ -30,6 +30,7 @@ public:
 
 	float4x4 GetLocalMatrix() const;
 	float4x4 GetGlobalMatrix() const;
+	const AABB GetBoundingBox() const;
 
 	void CalculateLocalMatrix();
 	void CalculateGlobalMatrix();
@@ -42,6 +43,8 @@ private:
 	
 	float4x4 local_matrix = float4x4::identity;
 	float4x4 global_matrix = float4x4::identity;
+
+	AABB bounding_box;
 };
 
 #endif /* __COMPONENT_TRANSFORM_H__ */

@@ -4,7 +4,7 @@
 #include "Globals.h"
 
 #include "Par/par_shapes.h"
-
+#include "MathGeoLib\include\Geometry\AABB.h"
 class aiMesh;
 
 class Mesh
@@ -29,6 +29,7 @@ public:
 	void LoadUVs(par_shapes_mesh* mesh);
 
 	void CreateBuffers();
+	void CreateBoundingBox();
 
 	// ------------------------------------------------
 
@@ -53,6 +54,9 @@ public:
 
 	float* center_face_point = nullptr;
 	float* center_face_normal_point = nullptr;
+
+	AABB bounding_box;
+	//OBB obb;
 };
 
 #endif /* __MESH_H__ */

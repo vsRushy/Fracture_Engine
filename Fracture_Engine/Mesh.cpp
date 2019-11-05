@@ -59,6 +59,7 @@ Mesh* Mesh::LoadMesh(par_shapes_mesh* p_s_mesh)
 	m->LoadUVs(p_s_mesh);
 
 	m->CreateBuffers();
+	//obb = ;
 
 	return m;
 }
@@ -242,3 +243,8 @@ void Mesh::CreateBuffers()
 	LOG(LOG_INFORMATION, "New mesh buffers created");
 }
 
+void Mesh::CreateBoundingBox()
+{
+	bounding_box.SetNegativeInfinity();
+	bounding_box.Enclose((float3*)vertices, GL_VERTEX_ARRAY_BUFFER_BINDING);
+}

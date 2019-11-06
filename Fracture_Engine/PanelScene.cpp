@@ -28,15 +28,17 @@ bool PanelScene::Update()
 	{
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Texture"))
 		{
-			/*IM_ASSERT(payload->DataSize == sizeof(Texture*));
-			Texture* tex_drop = (Texture*)payload->Data;
+			IM_ASSERT(payload->DataSize == sizeof(std::string));
+			std::string tex_drop = *(std::string*)payload->Data;
+
+			Texture* t = App->scene_intro->textures[tex_drop];
 
 			std::string file_tex_path = TEXTURE_ROOT_PATH;
-			file_tex_path.append(tex_drop->name);
-			file_tex_path.append(tex_drop->extension);
+			file_tex_path.append(t->name);
+			file_tex_path.append(t->extension);
 			App->importer->LoadDroppedFile(file_tex_path.c_str());
 
-			LOG(LOG_INFORMATION, "Dropped texture into the scene");*/
+			LOG(LOG_INFORMATION, "Dropped texture into the scene");
 		}
 
 		ImGui::EndDragDropTarget();

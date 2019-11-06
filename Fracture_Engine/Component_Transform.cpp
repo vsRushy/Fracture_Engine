@@ -19,21 +19,18 @@ ComponentTransform::~ComponentTransform()
 
 bool ComponentTransform::PreUpdate(float dt)
 {
-	glPushMatrix();
 
 	return true;
 }
 
 bool ComponentTransform::Update(float dt)
 {
-	glMultMatrixf(GetGlobalMatrix().Transposed().ptr());
 
 	return true;
 }
 
 bool ComponentTransform::PostUpdate(float dt)
 {
-	glPopMatrix();
 
 	return true;
 }

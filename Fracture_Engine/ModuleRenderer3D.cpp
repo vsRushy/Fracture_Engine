@@ -176,6 +176,9 @@ void ModuleRenderer3D::DrawPrimitive(Primitive* primitive) const
 
 void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 {
+	glPushMatrix();
+	glMultMatrixf(game_object->component_transform->GetGlobalMatrix().Transposed().ptr());
+
 	if (!GetWireframeMode())
 	{
 		if (game_object->GetComponentMesh() != nullptr)
@@ -253,6 +256,8 @@ void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 			glDisableClientState(GL_VERTEX_ARRAY);
 		}
 	}
+
+	glPopMatrix();
 }
 
 void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)

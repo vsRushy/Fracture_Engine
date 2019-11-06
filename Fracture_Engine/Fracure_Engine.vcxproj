@@ -114,6 +114,7 @@
     <ClInclude Include="PanelConsole.h" />
     <ClInclude Include="PanelHierarchy.h" />
     <ClInclude Include="PanelInspector.h" />
+    <ClInclude Include="PanelLibrary.h" />
     <ClInclude Include="PanelMainMenuBar.h" />
     <ClInclude Include="PanelScene.h" />
     <ClInclude Include="PhysFS\include\physfs.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="PanelConsole.cpp" />
     <ClCompile Include="PanelHierarchy.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
+    <ClCompile Include="PanelLibrary.cpp" />
     <ClCompile Include="PanelMainMenuBar.cpp" />
     <ClCompile Include="PanelScene.cpp" />
     <ClCompile Include="P_Cube.cpp" />

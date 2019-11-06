@@ -18,6 +18,7 @@
 #include "PanelHierarchy.h"
 #include "PanelInspector.h"
 #include "PanelAssets.h"
+#include "PanelLibrary.h"
 
 ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_enabled)
 {
@@ -28,6 +29,7 @@ ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_ena
 	panel_hierarchy = new PanelHierarchy("Hierarchy");
 	panel_inspector = new PanelInspector("Inspector");
 	panel_assets = new PanelAssets("Assets");
+	panel_library = new PanelLibrary("Library");
 	panel_about = new PanelAbout("About", false);
 
 	AddPanel(panel_scene);
@@ -38,6 +40,7 @@ ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_ena
 	AddPanel(panel_hierarchy);
 	AddPanel(panel_inspector);
 	AddPanel(panel_assets);
+	AddPanel(panel_library);
 }
 
 ModuleUserInterface::~ModuleUserInterface()

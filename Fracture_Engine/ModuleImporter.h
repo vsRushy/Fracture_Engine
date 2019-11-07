@@ -48,6 +48,7 @@ public:
 
 	Mesh* LoadMesh(aiMesh* ai_mesh);
 
-	bool SaveMesh(Mesh mesh, const char* file_name, std::string& file_output);
+	bool SaveMesh(Mesh* mesh, const char* file_name, std::string& file_output);
 };
+
 #endif /* __MODULE_IMPORTER__ */

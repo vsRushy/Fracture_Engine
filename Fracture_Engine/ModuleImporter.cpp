@@ -28,8 +28,6 @@ bool ModuleImporter::Init()
 {
 	bool ret = true;
 
-	texture_root_path = "Assets/Textures/";
-
 	/* Assimp log stream */
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);

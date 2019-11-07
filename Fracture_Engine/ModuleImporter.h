@@ -49,8 +49,5 @@ public:
 	Mesh* LoadMesh(aiMesh* ai_mesh);
 
 	bool SaveMesh(Mesh mesh, const char* file_name, std::string& file_output);
-
-private:
-	const char* texture_root_path = "";
 };
 #endif /* __MODULE_IMPORTER__ */

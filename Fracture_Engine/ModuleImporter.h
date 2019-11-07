@@ -22,8 +22,11 @@
 
 #define TEXTURE_ROOT_PATH "Assets/Textures/"
 
+#define LIBRARY_MESH_PATH "Library/Meshes/"
+
+#include "Mesh.h"
+
 class GameObject;
-class Mesh;
 
 class Texture;
 
@@ -43,9 +46,11 @@ public:
 	void LoadSceneNode(const aiScene*, aiNode* node);
 	Texture* LoadTexture(const char* path);
 
-	// ------------------
-
 	Mesh* LoadMesh(aiMesh* ai_mesh);
+
+	bool SaveMesh(Mesh mesh, const char* file_name, std::string& file_output);
+
+	// ------------------
 
 	GameObject* g_o = nullptr;
 

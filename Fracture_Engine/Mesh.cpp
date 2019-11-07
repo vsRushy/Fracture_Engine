@@ -97,33 +97,6 @@ void Mesh::LoadNormals(par_shapes_mesh* mesh)
 	}
 
 	LOG(LOG_INFORMATION, "New mesh with %d normals", num_normals);
-
-	/*center_face_point = new float[num_indices];
-	center_face_normal_point = new float[num_indices];
-	for (uint i = 0; i < num_indices; i += 3)
-	{
-		uint index1 = indices[i] * 3;
-		uint index2 = indices[i + 1] * 3;
-		uint index3 = indices[i + 2] * 3;
-
-		vec3 x0(vertices[index1], vertices[index1 + 1], vertices[index1 + 2]);
-		vec3 x1(vertices[index2], vertices[index2 + 1], vertices[index2 + 2]);
-		vec3 x2(vertices[index3], vertices[index3 + 1], vertices[index3 + 2]);
-
-		vec3 v0 = x0 - x2;
-		vec3 v1 = x1 - x2;
-		vec3 n = cross(v0, v1);
-
-		vec3 normalized = normalize(n);
-
-		center_face_point[i] = (x0.x + x1.x + x2.x) / 3;
-		center_face_point[i + 1] = (x0.y + x1.y + x2.y) / 3;
-		center_face_point[i + 2] = (x0.z + x1.z + x2.z) / 3;
-
-		center_face_normal_point[i] = normalized.x;
-		center_face_normal_point[i + 1] = normalized.y;
-		center_face_normal_point[i + 2] = normalized.z;
-	}*/
 }
 
 void Mesh::LoadUVs(par_shapes_mesh* mesh)

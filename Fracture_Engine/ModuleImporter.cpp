@@ -239,3 +239,45 @@ Mesh* ModuleImporter::LoadMesh(aiMesh* ai_mesh)
 
 	return m;
 }
+
+bool ModuleImporter::SaveMesh(Mesh mesh, const char* file_name, std::string& file_output)
+{
+	/* amount of indices / vertices / colors / normals / texture_coords / AABB */
+	uint ranges[4] = { mesh.num_indices, mesh.num_vertices, mesh.num_normals, mesh.num_uvs };
+	uint size = sizeof(ranges) + sizeof(uint) * mesh.num_indices + sizeof(float) * mesh.num_vertices * 3
+		+ sizeof(float) * mesh.num_normals * 3 + sizeof(float) * mesh.num_uvs * 2;
+	
+	/* Allocate */
+	char* data = new char[size];
+	char* cursor = data;
+	
+	/* Store ranges */
+	uint bytes = sizeof(ranges);
+	memcpy(cursor, ranges, bytes);
+	
+	/* Store indices */
+	cursor += bytes;
+	bytes = sizeof(uint) * mesh.num_indices;
+	memcpy(cursor, mesh.indices, bytes);
+
+	/* Store vertices */
+	cursor += bytes;
+	bytes = sizeof(float) * mesh.num_vertices * 3;
+	memcpy(cursor, mesh.vertices, bytes);
+
+	/* Store normals */
+	cursor += bytes;
+	bytes = sizeof(float) * mesh.num_normals * 3;
+	memcpy(cursor, mesh.normals, bytes);
+
+	/* Store uvs */
+	cursor += bytes;
+	bytes = sizeof(float) * mesh.num_uvs * 2;
+	memcpy(cursor, mesh.uvs, bytes);
+
+	App->file_system->SaveUnique(file_output, data, size, LIBRARY_MESH_PATH, file_name, "fem");
+
+	delete data;
+
+	return true;
+}

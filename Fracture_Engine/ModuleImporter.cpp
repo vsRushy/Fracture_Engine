@@ -185,6 +185,30 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 			ILinfo img_info;
 			iluGetImageInfo(&img_info);
 
+
+			/* Save own texture (as .DDS) */
+			ILuint size;
+			ILubyte* data;
+			ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);
+			size = ilSaveL(IL_DDS, NULL, 0);
+			if (size > 0)
+			{
+				data = new ILubyte[size];
+				if (ilSaveL(IL_DDS, data, size) > 0)
+				{
+					std::string tex_o;
+					std::string text_name = App->file_system->GetFileNameFromPath(path);
+					App->file_system->SaveUnique(tex_o, data, size, LIBRARY_TEXTURE_PATH, text_name.c_str(), "dds");
+				}
+					
+				if (data != nullptr)
+				{
+					delete[] data;
+					data = nullptr;
+				}
+			}
+
+
 			iluFlipImage();
 
 			texture = new Texture();

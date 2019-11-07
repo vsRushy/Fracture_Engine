@@ -23,6 +23,7 @@
 #define TEXTURE_ROOT_PATH "Assets/Textures/"
 
 #define LIBRARY_MESH_PATH "Library/Meshes/"
+#define LIBRARY_TEXTURE_PATH "Library/Textures/"
 
 #include "Mesh.h"
 
@@ -49,6 +50,7 @@ public:
 	Mesh* LoadMesh(aiMesh* ai_mesh);
 
 	bool SaveMesh(Mesh* mesh, const char* file_name, std::string& file_output);
+	bool SaveTexture();
 };
 
 #endif /* __MODULE_IMPORTER__ */

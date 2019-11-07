@@ -277,7 +277,7 @@ bool ModuleImporter::SaveMesh(Mesh* mesh, const char* file_name, std::string& fi
 	bytes = sizeof(float) * mesh->num_uvs * 2;
 	memcpy(cursor, mesh->uvs, bytes);
 
-	App->file_system->SaveUnique(file_output, data, size, LIBRARY_MESH_PATH, file_name, "fem");
+	App->file_system->SaveUnique(file_output, data, size, LIBRARY_MESH_PATH, file_name, "femesh");
 
 	if (data != nullptr)
 	{

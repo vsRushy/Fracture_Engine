@@ -43,16 +43,12 @@ public:
 	void LoadDroppedFile(const char* path);
 
 	void LoadModel(const char* path);
-	void LoadSceneNode(const aiScene*, aiNode* node);
+	void LoadSceneNode(const aiScene*, aiNode* node, GameObject* parent);
 	Texture* LoadTexture(const char* path);
 
 	Mesh* LoadMesh(aiMesh* ai_mesh);
 
 	bool SaveMesh(Mesh mesh, const char* file_name, std::string& file_output);
-
-	// ------------------
-
-	GameObject* g_o = nullptr;
 
 private:
 	const char* texture_root_path = "";

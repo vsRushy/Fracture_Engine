@@ -93,14 +93,14 @@ void ModuleImporter::LoadModel(const char* path)
 	
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		g_o = App->scene_intro->CreateEmptyGameObject(
+		GameObject* g_o = App->scene_intro->CreateEmptyGameObject(
 			App->file_system->GetFileNameFromPath(path).data(),
 			App->scene_intro->root_game_object
 		);
 		
 		LOG(LOG_INFORMATION, "New scene with %d mesh(es)", scene->mNumMeshes);
 		
-		LoadSceneNode(scene, scene->mRootNode);
+		LoadSceneNode(scene, scene->mRootNode, g_o);
 		
 		aiVector3D position;
 		aiQuaternion rotation;
@@ -122,11 +122,11 @@ void ModuleImporter::LoadModel(const char* path)
 }
 
 
-void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node)
+void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node, GameObject* parent)
 {
 	for (uint i = 0; i < node->mNumMeshes; i++)
 	{
-		GameObject* go = App->scene_intro->CreateEmptyGameObject(node->mName.C_Str(), g_o);
+		GameObject* go = App->scene_intro->CreateEmptyGameObject(node->mName.C_Str(), parent);
 	
 		aiMesh* ai_mesh = scene->mMeshes[node->mMeshes[i]];
 		go->CreateComponentMesh(Mesh::LoadMesh(ai_mesh));
@@ -158,7 +158,7 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node)
 
 	for (uint i = 0; i < node->mNumChildren; i++)
 	{
-		LoadSceneNode(scene, node->mChildren[i]);
+		LoadSceneNode(scene, node->mChildren[i], parent);
 	}
 }
 

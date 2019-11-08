@@ -8,11 +8,29 @@
 #include <windows.h>
 #include <stdio.h>
 
+#define RELEASE(x) \
+{ \
+	if(x != nullptr) \
+	{ \
+		delete x; \
+		x = nullptr; \
+	} \
+}
+
+#define RELEASE_ARRAY(x) \
+{ \
+	if(x != nullptr) \
+	{ \
+		delete[] x; \
+		x = nullptr; \
+	} \
+}
+
 enum LOG_TYPE
 {
 	LOG_INFORMATION,
 	LOG_WARNING,
-	LOG_ERROR
+	LOG_ERROR,
 };
 
 #define LOG(type, format, ...) log(type, __FILE__, __LINE__, format, __VA_ARGS__);

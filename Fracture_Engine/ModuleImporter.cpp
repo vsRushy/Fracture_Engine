@@ -251,6 +251,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 					LOG(LOG_ERROR, "Image could not be converted. Error code: %s", iluErrorString(ilGetError()));
 
 				App->scene_intro->textures.insert({ texture->name + texture->extension, texture });
+				
 			}
 			else
 			{
@@ -259,6 +260,8 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 
 			ilDeleteImages(1, &devil_id);
 		}
+
+		App->scene_intro->own_textures.push_back(std::string(App->file_system->GetFileNameFromPath(path) + ".dds"));
 	}
 
 	return texture;

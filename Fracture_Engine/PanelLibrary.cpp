@@ -28,7 +28,10 @@ bool PanelLibrary::Update()
 
 	if (ImGui::CollapsingHeader("Textures"))
 	{
-
+		for (auto item = App->scene_intro->own_textures.begin(); item != App->scene_intro->own_textures.end(); item++)
+		{
+			ImGui::Text((*item).c_str());
+		}
 	}
 
 	ImGui::End();

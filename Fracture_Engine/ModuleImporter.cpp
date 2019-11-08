@@ -266,20 +266,6 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 	return texture;
 }
 
-Mesh* ModuleImporter::LoadMesh(aiMesh* ai_mesh)
-{
-	Mesh* m = new Mesh();
-
-	m->LoadVertices(ai_mesh);
-	m->LoadFaces(ai_mesh);
-	m->LoadNormals(ai_mesh);
-	m->LoadUVs(ai_mesh);
-
-	m->CreateBuffers();
-
-	return m;
-}
-
 bool ModuleImporter::SaveMesh(Mesh* mesh, const char* file_name, std::string& file_output)
 {
 	/* amount of indices / vertices / colors / normals / texture_coords / AABB */

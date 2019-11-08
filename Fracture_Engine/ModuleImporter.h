@@ -44,8 +44,6 @@ public:
 	void LoadSceneNode(const aiScene*, aiNode* node, GameObject* parent);
 	Texture* LoadTexture(const char* path);
 
-	Mesh* LoadMesh(aiMesh* ai_mesh);
-
 	bool SaveMesh(Mesh* mesh, const char* file_name, std::string& file_output);
 };
 

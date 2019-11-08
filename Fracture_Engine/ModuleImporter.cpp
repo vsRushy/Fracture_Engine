@@ -157,8 +157,8 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node, GameObjec
 			Quat(rotation.x, rotation.y, rotation.z, rotation.w),
 			float3(scale.x, scale.y, scale.z));
 
-		/*go->component_transform->CalculateLocalMatrix();
-		go->component_transform->CalculateGlobalMatrix();*/
+		go->component_transform->CalculateLocalMatrix();
+		go->component_transform->CalculateGlobalMatrix();
 	}
 
 	for (uint i = 0; i < node->mNumChildren; i++)

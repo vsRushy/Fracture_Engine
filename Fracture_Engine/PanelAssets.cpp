@@ -16,12 +16,17 @@ PanelAssets::~PanelAssets()
 bool PanelAssets::Update()
 {
 	ImGui::Begin(name.c_str());
-	
-	/* GameObjects */
+
 	if (ImGui::CollapsingHeader("Game Objects"))
 	{
-		
+		// TODO
 	}
+
+	if (ImGui::CollapsingHeader("Meshes"))
+	{
+		// TODO
+	}
+
 	if (ImGui::CollapsingHeader("Textures"))
 	{
 		ImGui::Columns(7);

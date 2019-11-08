@@ -132,6 +132,9 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node, GameObjec
 		Mesh* tmp_m = go->GetComponentMesh()->mesh;
 		std::string m_out;
 		SaveMesh(tmp_m, node->mName.C_Str(), m_out);
+		std::string own_mesh_file_n_e(node->mName.C_Str());
+		own_mesh_file_n_e.append(".").append(FE_MESH);
+		App->scene_intro->own_meshes.push_back(own_mesh_file_n_e);
 
 		aiMaterial* material = scene->mMaterials[ai_mesh->mMaterialIndex];
 		aiString file_path_tex;
@@ -310,7 +313,7 @@ bool ModuleImporter::SaveMesh(Mesh* mesh, const char* file_name, std::string& fi
 	bytes = sizeof(float) * mesh->num_uvs * 2;
 	memcpy(cursor, mesh->uvs, bytes);
 
-	App->file_system->SaveUnique(file_output, data, size, LIBRARY_MESH_PATH, file_name, "femesh");
+	App->file_system->SaveUnique(file_output, data, size, LIBRARY_MESH_PATH, file_name, FE_MESH);
 
 	if (data != nullptr)
 	{

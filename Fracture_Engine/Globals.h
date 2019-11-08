@@ -31,6 +31,17 @@ void log(LOG_TYPE type, const char file[], int line, const char* format, ...);
 #define CUSTOM_BUFFER_SIZE_BIG 75
 #define CUSTOM_BUFFER_SIZE_EXTRA_BIG 100
 
+
+/* PATHS */
+#define TEXTURE_ROOT_PATH "Assets/Textures/"
+
+#define LIBRARY_MESH_PATH "Library/Meshes/"
+#define LIBRARY_TEXTURE_PATH "Library/Textures/"
+
+/* FRACTURE ENGINE MESH FORMAT */
+#define FE_MESH "femesh"
+
+
 typedef unsigned int uint;
 
 enum update_status

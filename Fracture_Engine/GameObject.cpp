@@ -82,7 +82,7 @@ void GameObject::SetActive(bool value)
 		(*item)->SetActive(value);
 	}
 
-	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
+	for (auto item = components.begin(); item != components.end(); item++)
 	{
 		(*item)->SetActive(value);
 	}
@@ -138,23 +138,3 @@ ComponentMaterial* GameObject::GetComponentMaterial() const
 		}
 	}
 }
-
-/*void GameObject::AssignMeshesToComponentMesh(const char* name)
-{
-	std::map<const char*, std::list<Mesh*>>::iterator item1;
-	item1 = App->scene_intro->meshes.find(name);
-
-	std::list<Mesh*> to_copy = (*item1).second;
-
-	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
-	{
-		if ((*item)->type == COMPONENT_TYPE::MESH)
-		{
-			ComponentMesh* c_m = (ComponentMesh*)*item;
-			for (std::list<Mesh*>::iterator item_copy = to_copy.begin(); item_copy != to_copy.end(); item++)
-			{
-				c_m->meshes.push_back(*item_copy);
-			}
-		}
-	}
-}*/

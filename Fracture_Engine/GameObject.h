@@ -32,10 +32,6 @@ public:
 
 	ComponentMesh* GetComponentMesh() const;
 	ComponentMaterial* GetComponentMaterial() const;
-
-	// ------------------------------------------
-
-	//void AssignMeshesToComponentMesh(const char* name);
 	
 public:
 	GameObject* parent = nullptr;

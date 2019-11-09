@@ -271,7 +271,7 @@ update_status ModuleSceneIntro::Update(float dt)
 		App->renderer3D->DrawPrimitive(*item);
 	}
 
-	/* Update game objects ----------------------- */
+	/* Update and render game objects ----------------------- */
 	for (std::list<GameObject*>::iterator item = game_objects.begin(); item != game_objects.end(); item++)
 	{
 		if (*item != nullptr)

@@ -17,7 +17,7 @@ public:
 
 	static Mesh* LoadMesh(aiMesh* ai_mesh);
 	static Mesh* LoadMesh(par_shapes_mesh* p_s_mesh);
-	static Mesh* LoadOwnMesh(std::string path);
+	static Mesh* LoadOwnMesh(std::string name);
 
 	/* To load from Assimp */
 	void LoadVertices(aiMesh* mesh);

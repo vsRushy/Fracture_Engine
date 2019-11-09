@@ -3,6 +3,9 @@
 #include "glmath.h"
 #include "GL/glew.h"
 
+#include "Application.h"
+#include "ModuleFileSystem.h"
+
 Mesh::Mesh()
 {
 
@@ -63,11 +66,52 @@ Mesh* Mesh::LoadMesh(par_shapes_mesh* p_s_mesh)
 	return m;
 }
 
-Mesh* Mesh::LoadOwnMesh(std::string path)
+Mesh* Mesh::LoadOwnMesh(std::string name)
 {
 	Mesh* own_mesh = new Mesh();
 
 	char* buff;
+	std::string path;
+	path.append(LIBRARY_MESH_PATH).append(name.c_str());;
+	if (App->file_system->Load(path.c_str(), &buff) != 0)
+	{
+		LOG(LOG_INFORMATION, "CORRECT_______TEST");
+
+		char* cursor = buff;
+
+		uint ranges[4];
+		uint bytes = sizeof(ranges);
+		memcpy(ranges, cursor, bytes);
+
+		own_mesh->num_indices = ranges[0];
+		own_mesh->num_vertices = ranges[1];
+		own_mesh->num_normals = ranges[2];
+		own_mesh->num_uvs = ranges[3];
+
+		cursor += bytes;
+		bytes = sizeof(uint) * own_mesh->num_indices;
+		own_mesh->indices = new uint[own_mesh->num_indices];
+		memcpy(own_mesh->indices, cursor, bytes);
+
+		cursor += bytes;
+		bytes = sizeof(float) * own_mesh->num_vertices * 3;
+		own_mesh->vertices = new float[own_mesh->num_vertices * 3];
+		memcpy(own_mesh->vertices, cursor, bytes);
+
+		cursor += bytes;
+		bytes = sizeof(float) * own_mesh->num_normals * 3;
+		own_mesh->normals = new float[own_mesh->num_normals * 3];
+		memcpy(own_mesh->normals, cursor, bytes);
+
+		cursor += bytes;
+		bytes = sizeof(float) * own_mesh->num_uvs * 2;
+		own_mesh->uvs = new float[own_mesh->num_uvs * 2];
+		memcpy(own_mesh->uvs, cursor, bytes);
+
+		own_mesh->CreateBuffers();
+
+		RELEASE_ARRAY(buff);
+	}
 
 	return own_mesh;
 }

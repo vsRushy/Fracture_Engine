@@ -4,7 +4,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleImporter.h"
-
+#include "GameObject.h"
 
 
 PanelScene::PanelScene(std::string name, bool active) : Panel(name, active)
@@ -39,6 +39,23 @@ bool PanelScene::Update()
 			App->importer->LoadDroppedFile(file_tex_path.c_str());
 
 			LOG(LOG_INFORMATION, "Dropped texture into the scene");
+		}
+
+		if (const ImGuiPayload * payload = ImGui::AcceptDragDropPayload("Own_mesh"))
+		{
+			IM_ASSERT(payload->DataSize == sizeof(std::string));
+
+			std::string own_mesh_drop = *(std::string*)payload->Data;
+
+			std::string m_name = App->file_system->GetFileNameFromPath(own_mesh_drop.c_str());
+			GameObject* new_go = App->scene_intro->CreateEmptyGameObject(m_name, App->scene_intro->root_game_object);
+
+			Mesh* m_own = Mesh::LoadOwnMesh(own_mesh_drop);
+			new_go->CreateComponentMesh(m_own);
+
+			new_go->CreateComponentMaterial();
+
+			LOG(LOG_INFORMATION, "Dropped mesh into the scene");
 		}
 
 		ImGui::EndDragDropTarget();

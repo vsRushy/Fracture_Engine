@@ -23,6 +23,13 @@ bool PanelLibrary::Update()
 		for (auto item = App->scene_intro->own_meshes.begin(); item != App->scene_intro->own_meshes.end(); item++)
 		{
 			ImGui::Text((*item).c_str());
+
+			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID))
+			{
+				ImGui::SetDragDropPayload("Own_mesh", &(*item), sizeof(std::string));
+				ImGui::TextUnformatted((*item).c_str());
+				ImGui::EndDragDropSource();
+			}
 		}
 	}
 

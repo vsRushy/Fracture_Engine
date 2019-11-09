@@ -207,6 +207,7 @@ Texture* ModuleSceneIntro::GetTextureByName(const std::string& name)
 		if ((*item).first == name)
 		{
 			texture = (*item).second;
+			break;
 		}
 	}
 

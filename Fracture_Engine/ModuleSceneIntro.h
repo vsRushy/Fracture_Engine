@@ -63,8 +63,8 @@ public:
 	Texture* checkered_texture = nullptr;
 
 	/* Own files (only store string) */
-	std::list<std::string> own_meshes;
-	std::list<std::string> own_textures;
+	std::list<std::string> own_meshes; // we really don't need a map in this case
+	std::map<std::string, Texture*> own_textures;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

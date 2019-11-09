@@ -64,7 +64,8 @@ bool PanelScene::Update()
 
 			std::string own_texture_drop = *(std::string*)payload->Data;
 
-			GameObject* tst;
+			Texture* tmp_t = App->scene_intro->own_textures[own_texture_drop];
+			Texture::ApplyTextureToSelectedGameObject(tmp_t);
 
 			LOG(LOG_INFORMATION, "Dropped own texture into the scene");
 		}

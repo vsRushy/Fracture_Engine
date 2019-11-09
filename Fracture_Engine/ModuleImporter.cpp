@@ -256,7 +256,8 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 		ilDeleteImages(1, &devil_id);
 		
 
-		App->scene_intro->own_textures.push_back(std::string(App->file_system->GetFileNameFromPath(path) + ".dds"));
+		std::string t_name_ext = std::string(App->file_system->GetFileNameFromPath(path) + ".dds");
+		App->scene_intro->own_textures.insert(std::make_pair(t_name_ext, texture));
 	}
 
 	return texture;

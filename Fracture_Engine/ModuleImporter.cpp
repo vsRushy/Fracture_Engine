@@ -64,7 +64,8 @@ void ModuleImporter::LoadDroppedFile(const char* path)
 		LoadModel(path);
 	}
 	else if (ext == ".png" || ext == ".PNG"
-		|| ext == ".dds" || ext == ".DDS")
+		|| ext == ".dds" || ext == ".DDS"
+		|| ext == ".tga" || ext == ".TGA")
 	{
 		Texture* tmp_tex = LoadTexture(path);
 		Texture::ApplyTextureToSelectedGameObject(tmp_tex);

@@ -154,7 +154,7 @@ void Mesh::LoadNormals(par_shapes_mesh* mesh)
 
 void Mesh::LoadUVs(par_shapes_mesh* mesh)
 {
-	if (mesh->normals != nullptr)
+	if (mesh->tcoords != nullptr)
 	{
 		num_uvs = mesh->npoints;
 		uvs = new float[num_uvs * 2];

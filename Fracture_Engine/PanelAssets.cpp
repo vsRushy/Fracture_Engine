@@ -30,9 +30,11 @@ bool PanelAssets::Update()
 	if (ImGui::CollapsingHeader("Textures"))
 	{
 		ImGui::Columns(7);
+
 		for (auto item = App->scene_intro->textures.begin(); item != App->scene_intro->textures.end(); item++)
 		{
 			ImGui::Image((ImTextureID)(*item).second->id, ImVec2(50.0f, 50.0f));
+			
 			if (ImGui::IsItemHovered())
 			{
 				ImGui::BeginTooltip();
@@ -48,7 +50,8 @@ bool PanelAssets::Update()
 			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID))
 			{
 				ImGui::SetDragDropPayload("Texture", &(*item).first, sizeof(std::string));
-				ImGui::TextUnformatted((*item).second->name.c_str());
+				ImGui::TextUnformatted((*item).first.c_str());
+				ImGui::Image((ImTextureID)(*item).second->id, ImVec2(50.0f, 50.0f));
 				ImGui::EndDragDropSource();
 			}
 

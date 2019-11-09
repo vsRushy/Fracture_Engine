@@ -444,6 +444,9 @@
     <ClInclude Include="PanelLibrary.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
+    <ClInclude Include="PerfTimer.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -679,6 +682,9 @@
     </ClCompile>
     <ClCompile Include="PanelLibrary.cpp">
       <Filter>Sources\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PerfTimer.cpp">
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

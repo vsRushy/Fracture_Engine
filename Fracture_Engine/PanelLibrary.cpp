@@ -38,6 +38,13 @@ bool PanelLibrary::Update()
 		for (auto item = App->scene_intro->own_textures.begin(); item != App->scene_intro->own_textures.end(); item++)
 		{
 			ImGui::Text((*item).c_str());
+
+			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID))
+			{
+				ImGui::SetDragDropPayload("Own_texture", &(*item), sizeof(std::string));
+				ImGui::TextUnformatted((*item).c_str());
+				ImGui::EndDragDropSource();
+			}
 		}
 	}
 

@@ -55,7 +55,18 @@ bool PanelScene::Update()
 
 			new_go->CreateComponentMaterial();
 
-			LOG(LOG_INFORMATION, "Dropped mesh into the scene");
+			LOG(LOG_INFORMATION, "Dropped own mesh into the scene");
+		}
+
+		if (const ImGuiPayload * payload = ImGui::AcceptDragDropPayload("Own_texture"))
+		{
+			IM_ASSERT(payload->DataSize == sizeof(std::string));
+
+			std::string own_texture_drop = *(std::string*)payload->Data;
+
+			GameObject* tst;
+
+			LOG(LOG_INFORMATION, "Dropped own texture into the scene");
 		}
 
 		ImGui::EndDragDropTarget();

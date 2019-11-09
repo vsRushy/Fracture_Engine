@@ -13,6 +13,8 @@ public:
 	Texture();
 	~Texture();
 
+	static void ApplyTextureToSelectedGameObject(Texture* texture);
+
 public:
 	std::string name;
 	std::string extension;

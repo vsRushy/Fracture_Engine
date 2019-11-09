@@ -127,10 +127,12 @@ void ModuleImporter::LoadSceneNode(const aiScene* scene, aiNode* node, GameObjec
 		GameObject* go = App->scene_intro->CreateEmptyGameObject(node->mName.C_Str(), parent);
 	
 		aiMesh* ai_mesh = scene->mMeshes[node->mMeshes[i]];
+		/* Firstly, we need to load the mesh from Assimp */
 		go->CreateComponentMesh(Mesh::LoadMesh(ai_mesh));
 		
 		Mesh* tmp_m = go->GetComponentMesh()->mesh;
 		std::string m_out;
+		/* Then write the mesh in owr own format to disk */
 		SaveMesh(tmp_m, node->mName.C_Str(), m_out);
 		std::string own_mesh_file_n_e(node->mName.C_Str());
 		own_mesh_file_n_e.append(".").append(FE_MESH);

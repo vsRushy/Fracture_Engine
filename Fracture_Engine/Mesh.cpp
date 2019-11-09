@@ -63,6 +63,15 @@ Mesh* Mesh::LoadMesh(par_shapes_mesh* p_s_mesh)
 	return m;
 }
 
+Mesh* Mesh::LoadOwnMesh(std::string path)
+{
+	Mesh* own_mesh = new Mesh();
+
+	char* buff;
+
+	return own_mesh;
+}
+
 void Mesh::LoadVertices(aiMesh* mesh)
 {
 	num_vertices = mesh->mNumVertices;

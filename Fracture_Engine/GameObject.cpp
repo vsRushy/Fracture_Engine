@@ -77,6 +77,11 @@ void GameObject::SetActive(bool value)
 {
 	active = value;
 
+	for (auto item = children.begin(); item != children.end(); item++)
+	{
+		(*item)->SetActive(value);
+	}
+
 	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
 	{
 		(*item)->SetActive(value);

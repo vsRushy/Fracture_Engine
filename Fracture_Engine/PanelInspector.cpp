@@ -27,7 +27,11 @@ bool PanelInspector::Update()
 	{
 		GameObject* game_object = App->scene_intro->selected_game_object;
 
-		ImGui::Checkbox("##Active", &(game_object->active));
+		bool go_active = game_object->IsActive();
+		ImGui::Checkbox("##Active", &go_active);
+
+		game_object->SetActive(go_active);
+
 		ImGui::SameLine();
 		char* go_name = &game_object->name[0];
 		ImGui::InputText("##Name", go_name, CUSTOM_BUFFER_SIZE_MEDIUM,

@@ -146,7 +146,7 @@ void GameObject::UpdateBoundingBox()
 	boundingBox.Enclose((const math::float3*)mesh->vertices, mesh->num_vertices);
 	
 	obbBox.SetFrom(boundingBox);
-	obbBox.Transform(component_transform->GetGlobalMatrix);
+	obbBox.Transform(component_transform->GetGlobalMatrix());
 	boundingBox = obbBox.MinimalEnclosingAABB();
 
 	for (uint i = 0; i < children.size(); ++i)

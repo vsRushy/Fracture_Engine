@@ -277,4 +277,3 @@ void Mesh::CreateBuffers()
 
 	LOG(LOG_INFORMATION, "New mesh buffers created");
 }
-

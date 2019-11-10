@@ -10,6 +10,7 @@
 #include "Component_Mesh.h"
 #include "Component_Material.h"
 
+
 GameObject::GameObject(std::string name, GameObject* parent)
 	: name(name), parent(parent)
 {
@@ -136,5 +137,20 @@ ComponentMaterial* GameObject::GetComponentMaterial() const
 		{
 			return (ComponentMaterial*)*item;
 		}
+	}
+}
+
+void GameObject::UpdateBoundingBox()
+{
+	boundingBox.SetNegativeInfinity();
+	boundingBox.Enclose((const math::float3*)mesh->vertices, mesh->num_vertices);
+	
+	obbBox.SetFrom(boundingBox);
+	obbBox.Transform(component_transform->GetGlobalMatrix);
+	boundingBox = obbBox.MinimalEnclosingAABB();
+
+	for (uint i = 0; i < children.size(); ++i)
+	{
+		children[i]->UpdateBoundingBox();
 	}
 }

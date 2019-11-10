@@ -12,6 +12,7 @@
 class ComponentTransform;
 class ComponentMesh;
 class ComponentMaterial;
+class ComponentCamera;
 class Mesh;
 class GameObject
 {
@@ -31,6 +32,7 @@ public:
 	Component* CreateComponentTransform();
 	Component* CreateComponentMesh(Mesh* mesh);
 	Component* CreateComponentMaterial();
+	Component* CreateComponentCamera();
 
 	ComponentMesh* GetComponentMesh() const;
 	ComponentMaterial* GetComponentMaterial() const;
@@ -46,6 +48,8 @@ public:
 
 	ComponentTransform* component_transform = nullptr;
 	Mesh* mesh = nullptr;
+
+	ComponentCamera* component_camera = nullptr;
 
 	std::vector<Component*> components;
 	AABB boundingBox;

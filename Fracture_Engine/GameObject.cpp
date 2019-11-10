@@ -9,6 +9,7 @@
 #include "Component_Transform.h"
 #include "Component_Mesh.h"
 #include "Component_Material.h"
+#include "Component_Camera.h"
 
 
 GameObject::GameObject(std::string name, GameObject* parent)
@@ -118,6 +119,14 @@ Component* GameObject::CreateComponentMaterial()
 	return component_material;
 }
 
+Component* GameObject::CreateComponentCamera()
+{
+	Component* component_camera = new ComponentCamera(this);
+	components.push_back(component_camera);
+
+	return component_camera;
+}
+
 ComponentMesh* GameObject::GetComponentMesh() const
 {
 	for (std::vector<Component*>::const_iterator item = components.begin(); item != components.end(); item++)
@@ -148,9 +157,4 @@ void GameObject::UpdateBoundingBox()
 	obbBox.SetFrom(boundingBox);
 	obbBox.Transform(component_transform->GetGlobalMatrix());
 	boundingBox = obbBox.MinimalEnclosingAABB();
-
-	for (uint i = 0; i < children.size(); ++i)
-	{
-		children[i]->UpdateBoundingBox();
-	}
 }

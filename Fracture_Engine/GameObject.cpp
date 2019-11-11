@@ -39,12 +39,15 @@ bool GameObject::PreUpdate(float dt)
 			ret = true;
 	}
 
+	UpdateBoundingBox();
+
 	return ret;
 }
 
 bool GameObject::Update(float dt)
 {
 	bool ret = false;
+
 	for (std::vector<Component*>::iterator item = components.begin(); item != components.end(); item++)
 	{
 		if ((*item)->IsActive())
@@ -70,6 +73,9 @@ bool GameObject::PostUpdate(float dt)
 			ret = true;
 	}
 
+	/* Draw bounding box at post-update */
+	DrawBoundingBox();
+	
 	return ret;
 }
 
@@ -91,6 +97,54 @@ void GameObject::SetActive(bool value)
 bool GameObject::IsActive() const
 {
 	return active;
+}
+
+void GameObject::UpdateBoundingBox()
+{
+	bounding_box.SetNegativeInfinity();
+
+	if (GetComponentMesh()) {
+
+		bounding_box.Enclose((const float3*)GetComponentMesh()->mesh->vertices, GetComponentMesh()->mesh->num_vertices);
+	}
+
+	if (component_transform) {
+
+		obb_box.SetFrom(bounding_box);
+		obb_box.Transform(component_transform->GetGlobalMatrix());
+		
+		if (obb_box.IsFinite())
+		{
+			bounding_box = obb_box.MinimalEnclosingAABB();
+		}
+	}
+
+	for (uint i = 0; i < children.size(); ++i)
+	{
+		children[i]->UpdateBoundingBox();
+	}
+}
+
+void GameObject::DrawBoundingBox()
+{
+	glBegin(GL_LINES);
+
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+
+	for (uint i = 0; i < bounding_box.NumEdges(); i++)
+	{
+		glVertex3f(bounding_box.Edge(i).a.x, bounding_box.Edge(i).a.y, bounding_box.Edge(i).a.z);
+		glVertex3f(bounding_box.Edge(i).b.x, bounding_box.Edge(i).b.y, bounding_box.Edge(i).b.z);
+	}
+
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+	glEnd();
+
+	for (uint i = 0; i < children.size(); i++)
+	{
+		children[i]->DrawBoundingBox();
+	}
 }
 
 Component* GameObject::CreateComponentTransform()

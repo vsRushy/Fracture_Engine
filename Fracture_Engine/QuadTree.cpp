@@ -1,6 +1,7 @@
 #include "QuadTree.h"
 
 #include "Globals.h"
+#include "GameObject.h"
 
 #include "GL/glew.h"
 
@@ -90,21 +91,80 @@ QuadTreeNode::~QuadTreeNode()
 
 void QuadTreeNode::Insert(GameObject* go)
 {
-
+	if (IsLeaf())
+	{
+		if (go->bounding_box.Intersects(box))
+		{
+			if (game_objects.size() < QUAD_TREE_MAX_ITEMS)
+			{
+				game_objects.push_back(go);
+			}
+			else
+			{
+				CreateChilds();
+				game_objects.push_back(go);
+				ReorganizeObjects();
+			}
+		}
+	}
+	else
+	{
+		for (uint i = 0; i < 4; i++)
+		{
+			childs[i]->Insert(go);
+		}
+	}
 }
 
 void QuadTreeNode::Remove(GameObject* go)
 {
+	for (auto item = game_objects.begin(); item != game_objects.end(); item++)
+	{
+		if (*item == go)
+		{
+			game_objects.erase(item);
+		}
+	}
 
+	if (IsLeaf())
+	{
+		for (uint i = 0; i < 4; i++)
+		{
+			childs[i]->Remove(go);
+		}
+	}
 }
 
 void QuadTreeNode::CreateChilds()
 {
+	AABB child_box;
+	float3 box_center = box.CenterPoint();
+	float3 child_size = float3(box.Size().x / 2.0f, box.Size().y, box.Size().z / 2.0f);
 
+	/* UP - LEFT */
+	float3 child_center = { box_center.x - box.Size().x / 4.0f, box_center.y, box_center.z + box.Size().z / 4.0f };
+	child_box.SetFromCenterAndSize(child_center, child_size);
+	childs[0] = new QuadTreeNode(child_box, this); 
+
+	/* UP - RIGHT */
+	child_center = { box_center.x + box.Size().x / 4.0f, box_center.y, box_center.z + box.Size().z / 4.0f };
+	child_box.SetFromCenterAndSize(child_center, child_size);
+	childs[1] = new QuadTreeNode(child_box, this);
+
+	/* DOWN - LEFT */
+	child_center = { box_center.x - box.Size().x / 4.0f, box_center.y, box_center.z - box.Size().z / 4.0f };
+	child_box.SetFromCenterAndSize(child_center, child_size);
+	childs[2] = new QuadTreeNode(child_box, this);
+
+	/* DOWN - RIGHT */
+	child_center = { box_center.x + box.Size().x / 4.0f, box_center.y, box_center.z - box.Size().z / 4.0f };
+	child_box.SetFromCenterAndSize(child_center, child_size);
+	childs[3] = new QuadTreeNode(child_box, this);
 }
 
 void QuadTreeNode::ReorganizeObjects()
 {
+	
 
 }
 

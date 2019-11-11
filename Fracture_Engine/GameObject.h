@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+#include "MathGeoLib.h"
+
 #include "Component.h"
 #include "Mesh.h"
 
@@ -24,6 +26,9 @@ public:
 	void SetActive(bool value);
 	bool IsActive() const;
 
+	void UpdateBoundingBox();
+	void DrawBoundingBox();
+
 	// ------------------------------------------
 
 	Component* CreateComponentTransform();
@@ -43,6 +48,9 @@ public:
 	ComponentTransform* component_transform;
 
 	std::vector<Component*> components;
+
+	AABB bounding_box;
+	OBB obb_box;
 
 private:
 

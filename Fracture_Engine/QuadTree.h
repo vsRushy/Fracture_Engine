@@ -1,6 +1,8 @@
 #ifndef __QUAD_TREE_H__
 #define __QUAD_TREE_H__
 
+#define QUAD_TREE_MAX_ITEMS 1
+
 #include <vector>
 
 #include "MathGeoLib.h"
@@ -26,7 +28,7 @@ public:
 	void DebugDraw();
 
 private:
-	std::vector<GameObject*> objects;
+	std::vector<GameObject*> game_objects;
 	
 	QuadTreeNode* parent = nullptr;
 	QuadTreeNode* childs[4];

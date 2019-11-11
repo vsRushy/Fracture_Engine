@@ -12,9 +12,11 @@ Quadtree::~Quadtree()
 
 }
 
-void Quadtree::Create(const math::AABB& limits)
+void Quadtree::Create(const AABB& box)
 {
+	Clear();
 
+	root = new QuadTreeNode(box);
 }
 
 void Quadtree::Clear()
@@ -41,7 +43,7 @@ void Quadtree::Intersect(std::vector<GameObject*>& objects, const TYPE& primitiv
 
 /* Quad Tree Node ----------------------------------- */
 
-QuadTreeNode::QuadTreeNode(AABB box, QuadTreeNode* parent)
+QuadTreeNode::QuadTreeNode(const AABB& box, QuadTreeNode* parent)
 {
 
 }

@@ -9,7 +9,8 @@ class GameObject;
 
 class QuadTreeNode
 {
-	QuadTreeNode(AABB box, QuadTreeNode* parent);
+public:
+	QuadTreeNode(const AABB& box, QuadTreeNode* parent = nullptr);
 	~QuadTreeNode();
 
 	void Insert(GameObject* go);
@@ -39,12 +40,15 @@ public:
 	Quadtree();
 	~Quadtree();
 
-	void Create(const AABB& limits);
+	void Create(const AABB& box);
 	void Clear();
 	void Insert(GameObject* go);
 	void Remove(GameObject* go);
 	template<typename TYPE>
 	void Intersect(std::vector<GameObject*>& game_objects, const TYPE& primitive);
+
+private:
+	QuadTreeNode* root = nullptr;
 };
 
 #endif /* __QUAD_TREE_H__ */

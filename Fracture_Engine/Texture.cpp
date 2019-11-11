@@ -59,11 +59,7 @@ Texture* Texture::LoadTexture(const char* path)
 					App->file_system->SaveUnique(tex_o, data, size, LIBRARY_TEXTURE_PATH, text_name.c_str(), "dds");
 				}
 
-				if (data != nullptr)
-				{
-					delete[] data;
-					data = nullptr;
-				}
+				RELEASE_ARRAY(data);
 			}
 
 
@@ -73,7 +69,7 @@ Texture* Texture::LoadTexture(const char* path)
 
 			if (ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE))
 			{
-				texture->data = (unsigned char*)ilGetData();
+				texture->data = (GLubyte*)ilGetData();
 				texture->width = ilGetInteger(IL_IMAGE_WIDTH);
 				texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
 				texture->name = App->file_system->GetFileNameFromPath(path);
@@ -98,7 +94,6 @@ Texture* Texture::LoadTexture(const char* path)
 				LOG(LOG_ERROR, "Image could not be converted. Error code: %s", iluErrorString(ilGetError()));
 
 			App->scene_intro->textures.insert({ texture->name + texture->extension, texture });
-
 		}
 		else
 		{

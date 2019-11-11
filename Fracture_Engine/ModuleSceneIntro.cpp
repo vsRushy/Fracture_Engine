@@ -45,6 +45,29 @@ bool ModuleSceneIntro::Start()
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
 	Texture::LoadTexture("Assets/Textures/Checkers.dds");
 	Texture::LoadTexture("Assets/Textures/Lenna.png");
+	
+	/*Texture::LoadTexture("Assets/Textures/violentdays_bk.tga");
+	Texture::LoadTexture("Assets/Textures/violentdays_dn.tga");
+	Texture::LoadTexture("Assets/Textures/violentdays_ft.tga");
+	Texture::LoadTexture("Assets/Textures/violentdays_lf.tga");
+	Texture::LoadTexture("Assets/Textures/violentdays_rt.tga");
+	Texture::LoadTexture("Assets/Textures/violentdays_up.tga");*/
+
+	Texture::LoadTexture("Assets/Textures/violentdays_bk.tga");
+	Texture::LoadTexture("Assets/Textures/violentdays_dn.tga");
+	Texture::LoadTexture("Assets/Textures/violentdays_ft.tga");
+	Texture::LoadTexture("Assets/Textures/violentdays_lf.tga");
+	Texture::LoadTexture("Assets/Textures/violentdays_rt.tga");
+	Texture::LoadTexture("Assets/Textures/violentdays_up.tga");
+
+	sky_box.GenerateCubeMap({
+		"violentdays_bk.dds",
+		"violentdays_dn.tga",
+		"violentdays_ft.tga",
+		"violentdays_lf.tga",
+		"violentdays_rt.tga",
+		"violentdays_up.tga"
+		});
 
 	return ret;
 }

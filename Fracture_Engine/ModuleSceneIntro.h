@@ -14,8 +14,11 @@
 #include "SkyBox.h"
 
 class GameObject;
+
 class Mesh;
 class Texture;
+
+class Quadtree;
 
 class ModuleSceneIntro : public Module
 {
@@ -58,6 +61,8 @@ public:
 	GameObject* root_game_object = nullptr;
 
 	GameObject* selected_game_object = nullptr;
+
+	Quadtree* quad_tree = nullptr;
 
 	std::list<Primitive*> primitives;
 

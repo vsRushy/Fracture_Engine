@@ -21,7 +21,7 @@ void Quadtree::Create(const AABB& box)
 {
 	Clear();
 
-	root = new QuadTreeNode(box);
+	root = new QuadtreeNode(box);
 }
 
 void Quadtree::Clear()
@@ -73,7 +73,7 @@ void Quadtree::Intersect(std::vector<GameObject*>& objects, const TYPE& primitiv
 
 /* Quad Tree Node ----------------------------------- */
 
-QuadTreeNode::QuadTreeNode(const AABB& box, QuadTreeNode* parent)
+QuadtreeNode::QuadtreeNode(const AABB& box, QuadtreeNode* parent)
 {
 	for (uint i = 0; i < 4; i++)
 	{
@@ -81,7 +81,7 @@ QuadTreeNode::QuadTreeNode(const AABB& box, QuadTreeNode* parent)
 	}
 }
 
-QuadTreeNode::~QuadTreeNode()
+QuadtreeNode::~QuadtreeNode()
 {
 	for (uint i = 0; i < 4; i++)
 	{
@@ -89,7 +89,7 @@ QuadTreeNode::~QuadTreeNode()
 	}
 }
 
-void QuadTreeNode::Insert(GameObject* go)
+void QuadtreeNode::Insert(GameObject* go)
 {
 	if (IsLeaf())
 	{
@@ -116,7 +116,7 @@ void QuadTreeNode::Insert(GameObject* go)
 	}
 }
 
-void QuadTreeNode::Remove(GameObject* go)
+void QuadtreeNode::Remove(GameObject* go)
 {
 	for (auto item = game_objects.begin(); item != game_objects.end(); item++)
 	{
@@ -135,7 +135,7 @@ void QuadTreeNode::Remove(GameObject* go)
 	}
 }
 
-void QuadTreeNode::CreateChilds()
+void QuadtreeNode::CreateChilds()
 {
 	AABB child_box;
 	float3 box_center = box.CenterPoint();
@@ -144,36 +144,61 @@ void QuadTreeNode::CreateChilds()
 	/* UP - LEFT */
 	float3 child_center = float3(box_center.x - box.Size().x / 4.0f, box_center.y, box_center.z + box.Size().z / 4.0f);
 	child_box.SetFromCenterAndSize(child_center, child_size);
-	childs[0] = new QuadTreeNode(child_box, this); 
+	childs[0] = new QuadtreeNode(child_box, this); 
 
 	/* UP - RIGHT */
 	child_center = float3(box_center.x + box.Size().x / 4.0f, box_center.y, box_center.z + box.Size().z / 4.0f);
 	child_box.SetFromCenterAndSize(child_center, child_size);
-	childs[1] = new QuadTreeNode(child_box, this);
+	childs[1] = new QuadtreeNode(child_box, this);
 
 	/* DOWN - LEFT */
 	child_center = float3(box_center.x - box.Size().x / 4.0f, box_center.y, box_center.z - box.Size().z / 4.0f);
 	child_box.SetFromCenterAndSize(child_center, child_size);
-	childs[2] = new QuadTreeNode(child_box, this);
+	childs[2] = new QuadtreeNode(child_box, this);
 
 	/* DOWN - RIGHT */
 	child_center = float3(box_center.x + box.Size().x / 4.0f, box_center.y, box_center.z - box.Size().z / 4.0f);
 	child_box.SetFromCenterAndSize(child_center, child_size);
-	childs[3] = new QuadTreeNode(child_box, this);
+	childs[3] = new QuadtreeNode(child_box, this);
 }
 
-void QuadTreeNode::ReorganizeObjects()
+void QuadtreeNode::ReorganizeObjects()
 {
-	
+	for (auto item = game_objects.begin(); item != game_objects.end(); item++)
+	{
+		uint boxes_intersection = 0;
+		for (uint i = 0; i < 4; i++)
+		{
+			if (childs[i]->box.Intersects((*item)->bounding_box))
+			{
+				boxes_intersection++;
+			}
+		}
 
+		if (boxes_intersection > 1)
+		{
+			item++;
+		}
+		else
+		{
+			item = game_objects.erase(item);
+			for (uint i = 0; i < game_objects.size(); i++)
+			{
+				for (uint j = 0; j < 4; j++)
+				{
+					childs[i]->Insert(game_objects[j]);
+				}
+			}
+		}
+	}
 }
 
-bool QuadTreeNode::IsLeaf()
+bool QuadtreeNode::IsLeaf()
 {
 	return (childs[0] == nullptr) ? true : false;
 }
 
-void QuadTreeNode::DebugDraw()
+void QuadtreeNode::DebugDraw()
 {
 	for (uint i = 0; i < box.NumEdges(); i++)
 	{
@@ -192,7 +217,7 @@ void QuadTreeNode::DebugDraw()
 }
 
 template<typename TYPE>
-void QuadTreeNode::Intersect(std::vector<GameObject*>& objects, const TYPE& primitive)
+void QuadtreeNode::Intersect(std::vector<GameObject*>& objects, const TYPE& primitive)
 {
 
 }

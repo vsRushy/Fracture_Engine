@@ -9,11 +9,11 @@
 
 class GameObject;
 
-class QuadTreeNode
+class QuadtreeNode
 {
 public:
-	QuadTreeNode(const AABB& box, QuadTreeNode* parent = nullptr);
-	~QuadTreeNode();
+	QuadtreeNode(const AABB& box, QuadtreeNode* parent = nullptr);
+	~QuadtreeNode();
 
 	void Insert(GameObject* go);
 	void Remove(GameObject* go);
@@ -30,8 +30,8 @@ public:
 private:
 	std::vector<GameObject*> game_objects;
 	
-	QuadTreeNode* parent = nullptr;
-	QuadTreeNode* childs[4];
+	QuadtreeNode* parent = nullptr;
+	QuadtreeNode* childs[4];
 	
 	AABB box;
 };
@@ -52,7 +52,7 @@ public:
 	void Draw();
 
 private:
-	QuadTreeNode* root = nullptr;
+	QuadtreeNode* root = nullptr;
 };
 
 #endif /* __QUAD_TREE_H__ */

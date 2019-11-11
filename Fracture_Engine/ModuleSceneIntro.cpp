@@ -9,6 +9,8 @@
 #include "P_Sphere.h"
 #include "P_Plane.h"
 
+#include "QuadTree.h"
+
 #include "GameObject.h"
 #include "Mesh.h"
 #include "Texture.h"
@@ -33,6 +35,10 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
+
+	quad_tree = new Quadtree();
+	AABB root_quad_node = AABB(float3(-10.0f, -10.0f, -10.0f), float3(10.0f, 10.0f, 10.0f));
+	quad_tree->Create(root_quad_node);
 
 	root_game_object = CreateEmptyGameObject("Root", nullptr);
 
@@ -80,6 +86,8 @@ bool ModuleSceneIntro::CleanUp()
 		}
 	}
 	textures.clear();
+
+	RELEASE(quad_tree);
 
 	return true;
 }
@@ -296,6 +304,8 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 				(*item)->PostUpdate(dt);
 		}
 	}
+
+	quad_tree->Draw();
 
 	/* Called after rendering */
 	App->renderer3D->frame_buffer_object.UnbindFBO();

@@ -142,22 +142,22 @@ void QuadTreeNode::CreateChilds()
 	float3 child_size = float3(box.Size().x / 2.0f, box.Size().y, box.Size().z / 2.0f);
 
 	/* UP - LEFT */
-	float3 child_center = { box_center.x - box.Size().x / 4.0f, box_center.y, box_center.z + box.Size().z / 4.0f };
+	float3 child_center = float3(box_center.x - box.Size().x / 4.0f, box_center.y, box_center.z + box.Size().z / 4.0f);
 	child_box.SetFromCenterAndSize(child_center, child_size);
 	childs[0] = new QuadTreeNode(child_box, this); 
 
 	/* UP - RIGHT */
-	child_center = { box_center.x + box.Size().x / 4.0f, box_center.y, box_center.z + box.Size().z / 4.0f };
+	child_center = float3(box_center.x + box.Size().x / 4.0f, box_center.y, box_center.z + box.Size().z / 4.0f);
 	child_box.SetFromCenterAndSize(child_center, child_size);
 	childs[1] = new QuadTreeNode(child_box, this);
 
 	/* DOWN - LEFT */
-	child_center = { box_center.x - box.Size().x / 4.0f, box_center.y, box_center.z - box.Size().z / 4.0f };
+	child_center = float3(box_center.x - box.Size().x / 4.0f, box_center.y, box_center.z - box.Size().z / 4.0f);
 	child_box.SetFromCenterAndSize(child_center, child_size);
 	childs[2] = new QuadTreeNode(child_box, this);
 
 	/* DOWN - RIGHT */
-	child_center = { box_center.x + box.Size().x / 4.0f, box_center.y, box_center.z - box.Size().z / 4.0f };
+	child_center = float3(box_center.x + box.Size().x / 4.0f, box_center.y, box_center.z - box.Size().z / 4.0f);
 	child_box.SetFromCenterAndSize(child_center, child_size);
 	childs[3] = new QuadTreeNode(child_box, this);
 }

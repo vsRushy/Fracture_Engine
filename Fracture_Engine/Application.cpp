@@ -105,10 +105,10 @@ void Application::FinishUpdate()
 	seconds_since_startup = startup_time.ReadSec();
 	last_frame_ms = ms_timer.Read();
 	frames_on_last_update = prev_last_sec_frame_count;
-	fps = frames_on_last_update;
+	fps = (float)frames_on_last_update;
 	milliseconds = 1.0f / fps * 1000.0f;
 
-	if (capped_ms > 0 && last_frame_ms < capped_ms)
+	if (capped_ms > 0 && (int)last_frame_ms < capped_ms)
 	{
 		SDL_Delay(capped_ms - last_frame_ms);
 	}

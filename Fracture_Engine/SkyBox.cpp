@@ -27,7 +27,7 @@ bool SkyBox::GenerateCubeMap(std::vector<Texture*> textures)
 	unsigned char* data;
 	for (uint i = 0; i < this->textures.size(); i++)
 	{
-		Texture* tex = App->importer->LoadTexture(this->textures[i]->name.c_str());
+		Texture* tex = Texture::LoadTexture(this->textures[i]->name.c_str());
 		
 		/*data = stbi_load(textures_faces[i].c_str(), &width, &height, &nrChannels, 0);
 		glTexImage2D(

@@ -13,6 +13,7 @@ public:
 	Texture();
 	~Texture();
 
+	static Texture* LoadTexture(const char* path);
 	static void ApplyTextureToSelectedGameObject(Texture* texture);
 
 public:

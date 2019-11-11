@@ -6,14 +6,11 @@
 
 #include "Component.h"
 #include "Mesh.h"
-#include "MathGeoLib/include/Geometry/AABB.h"
-#include "MathGeoLib/include/Geometry/OBB.h"
 
 class ComponentTransform;
 class ComponentMesh;
 class ComponentMaterial;
-class ComponentCamera;
-class Mesh;
+
 class GameObject
 {
 public:
@@ -32,12 +29,9 @@ public:
 	Component* CreateComponentTransform();
 	Component* CreateComponentMesh(Mesh* mesh);
 	Component* CreateComponentMaterial();
-	Component* CreateComponentCamera();
 
 	ComponentMesh* GetComponentMesh() const;
 	ComponentMaterial* GetComponentMaterial() const;
-
-	void UpdateBoundingBox();
 	
 public:
 	GameObject* parent = nullptr;
@@ -46,14 +40,9 @@ public:
 	std::string name = nullptr;
 	bool active = true;
 
-	ComponentTransform* component_transform = nullptr;
-	Mesh* mesh = nullptr;
-
-	ComponentCamera* component_camera = nullptr;
+	ComponentTransform* component_transform;
 
 	std::vector<Component*> components;
-	AABB boundingBox;
-	OBB obbBox;
 
 private:
 

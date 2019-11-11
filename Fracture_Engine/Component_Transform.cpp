@@ -68,31 +68,26 @@ void ComponentTransform::Set(const math::float3& position, const math::Quat& rot
 	this->position = position;
 	this->rotation = rotation;
 	this->scale = scale;
-	this->gameobject->UpdateBoundingBox();
 }
 
 void ComponentTransform::SetPosition(const float& x, const float& y, const float& z)
 {
 	position.Set(x, y, z);
-	this->gameobject->UpdateBoundingBox();
 }
 
 void ComponentTransform::SetRotationQuaternion(const float& w, const float& x, const float& y, const float& z)
 {
 	rotation.Set(x, y, z, w);
-	this->gameobject->UpdateBoundingBox();
 }
 
 void ComponentTransform::SetRotationEuler(const float& x, const float& y, const float& z)
 {
 	euler_rotation.Set(x, y, z);
-	this->gameobject->UpdateBoundingBox();
 }
 
 void ComponentTransform::SetScale(const float& x, const float& y, const float& z)
 {
 	scale.Set(x, y, z);
-	this->gameobject->UpdateBoundingBox();
 }
 
 float3 ComponentTransform::GetPosition() const

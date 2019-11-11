@@ -83,7 +83,6 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="Component_Camera.h" />
     <ClInclude Include="Component_Material.h" />
     <ClInclude Include="Component_Mesh.h" />
     <ClInclude Include="Component_Transform.h" />
@@ -118,6 +117,7 @@
     <ClInclude Include="PanelLibrary.h" />
     <ClInclude Include="PanelMainMenuBar.h" />
     <ClInclude Include="PanelScene.h" />
+    <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="PhysFS\include\physfs.h" />
     <ClInclude Include="P_Cube.h" />
     <ClInclude Include="glmath.h" />
@@ -206,7 +206,6 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Component_Camera.cpp" />
     <ClCompile Include="Component_Material.cpp" />
     <ClCompile Include="Component_Mesh.cpp" />
     <ClCompile Include="Component_Transform.cpp" />
@@ -231,6 +230,7 @@
     <ClCompile Include="PanelLibrary.cpp" />
     <ClCompile Include="PanelMainMenuBar.cpp" />
     <ClCompile Include="PanelScene.cpp" />
+    <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="P_Cube.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="ModuleImporter.cpp" />

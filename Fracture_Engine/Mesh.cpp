@@ -6,6 +6,8 @@
 #include "Application.h"
 #include "ModuleFileSystem.h"
 
+#include "PerfTimer.h"
+
 Mesh::Mesh()
 {
 
@@ -37,6 +39,9 @@ Mesh::~Mesh()
 
 Mesh* Mesh::LoadMesh(aiMesh* ai_mesh)
 {
+	PerfTimer timer;
+	timer.Start();
+
 	Mesh* m = new Mesh();
 
 	m->LoadVertices(ai_mesh);
@@ -45,6 +50,8 @@ Mesh* Mesh::LoadMesh(aiMesh* ai_mesh)
 	m->LoadUVs(ai_mesh);
 
 	m->CreateBuffers();
+
+	LOG(LOG_INFORMATION, "Mesh loaded in %lf milliseconds", timer.ReadMs());
 
 	return m;
 }
@@ -68,6 +75,9 @@ Mesh* Mesh::LoadMesh(par_shapes_mesh* p_s_mesh)
 
 Mesh* Mesh::LoadOwnMesh(std::string name)
 {
+	PerfTimer timer;
+	timer.Start();
+
 	Mesh* own_mesh = new Mesh();
 
 	char* buff;
@@ -75,8 +85,6 @@ Mesh* Mesh::LoadOwnMesh(std::string name)
 	path.append(LIBRARY_MESH_PATH).append(name.c_str());;
 	if (App->file_system->Load(path.c_str(), &buff) != 0)
 	{
-		LOG(LOG_INFORMATION, "CORRECT_______TEST");
-
 		char* cursor = buff;
 
 		uint ranges[4];
@@ -112,6 +120,8 @@ Mesh* Mesh::LoadOwnMesh(std::string name)
 
 		RELEASE_ARRAY(buff);
 	}
+
+	LOG(LOG_INFORMATION, "Own mesh loaded in %lf milliseconds", timer.ReadMs());
 
 	return own_mesh;
 }
@@ -267,3 +277,4 @@ void Mesh::CreateBuffers()
 
 	LOG(LOG_INFORMATION, "New mesh buffers created");
 }
+

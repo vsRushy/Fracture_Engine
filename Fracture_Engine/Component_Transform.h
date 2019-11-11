@@ -5,8 +5,6 @@
 
 #include "Component.h"
 
-class GameObject;
-
 class ComponentTransform : public Component
 {
 public:
@@ -44,8 +42,6 @@ private:
 	
 	float4x4 local_matrix = float4x4::identity;
 	float4x4 global_matrix = float4x4::identity;
-
-	GameObject* gameobject = nullptr;
 };
 
 #endif /* __COMPONENT_TRANSFORM_H__ */

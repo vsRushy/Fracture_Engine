@@ -26,8 +26,6 @@
 
 class GameObject;
 
-class Texture;
-
 class ModuleImporter : public Module
 {
 public:
@@ -42,7 +40,6 @@ public:
 
 	void LoadModel(const char* path);
 	void LoadSceneNode(const aiScene*, aiNode* node, GameObject* parent);
-	Texture* LoadTexture(const char* path);
 
 	bool SaveMesh(Mesh* mesh, const char* file_name, std::string& file_output);
 };

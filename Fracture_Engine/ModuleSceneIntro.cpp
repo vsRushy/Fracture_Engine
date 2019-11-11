@@ -43,8 +43,8 @@ bool ModuleSceneIntro::Start()
 	GameObject* child_test_3 = CreateEmptyGameObject("Child 3", child_test_2);
 
 	App->importer->LoadModel("Assets/Models/BakerHouse.FBX");
-	App->importer->LoadTexture("Assets/Textures/Checkers.dds");
-	App->importer->LoadTexture("Assets/Textures/Lenna.png");
+	Texture::LoadTexture("Assets/Textures/Checkers.dds");
+	Texture::LoadTexture("Assets/Textures/Lenna.png");
 
 	return ret;
 }

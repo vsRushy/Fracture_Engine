@@ -7,7 +7,7 @@
 
 #include "Par/par_shapes.h"
 
-class aiMesh;
+struct aiMesh;
 
 class Mesh
 {

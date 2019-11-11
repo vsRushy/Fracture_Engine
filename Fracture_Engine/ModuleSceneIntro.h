@@ -11,6 +11,8 @@
 #include "Globals.h"
 #include "Primitive.h"
 
+#include "SkyBox.h"
+
 class GameObject;
 class Mesh;
 class Texture;
@@ -60,7 +62,6 @@ public:
 	std::list<Primitive*> primitives;
 
 	std::map<std::string, Texture*> textures;
-	Texture* checkered_texture = nullptr;
 
 	/* Own files (only store string) */
 	std::list<std::string> own_meshes; // we really don't need a map in this case

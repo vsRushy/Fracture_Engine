@@ -66,9 +66,6 @@ public:
 	/* Own files (only store string) */
 	std::list<std::string> own_meshes; // we really don't need a map in this case
 	std::map<std::string, Texture*> own_textures;
-
-	/* SkyBox */
-	SkyBox sky_box;
 };
 
 #endif /* __MODULE_SCENE_INTRO_H__ */

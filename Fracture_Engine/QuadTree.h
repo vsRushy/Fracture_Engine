@@ -47,6 +47,8 @@ public:
 	template<typename TYPE>
 	void Intersect(std::vector<GameObject*>& game_objects, const TYPE& primitive);
 
+	void Draw();
+
 private:
 	QuadTreeNode* root = nullptr;
 };

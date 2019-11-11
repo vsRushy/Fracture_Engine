@@ -28,14 +28,27 @@ bool PanelInspector::Update()
 		GameObject* game_object = App->scene_intro->selected_game_object;
 
 		bool go_active = game_object->IsActive();
-		ImGui::Checkbox("##Active", &go_active);
-
-		game_object->SetActive(go_active);
+		if (ImGui::Checkbox("##Active", &go_active))
+		{
+			game_object->SetActive(go_active);
+		}
 
 		ImGui::SameLine();
 		char* go_name = &game_object->name[0];
+		ImGui::PushItemWidth(150.0f);
 		ImGui::InputText("##Name", go_name, CUSTOM_BUFFER_SIZE_MEDIUM,
 			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll);
+		ImGui::PopItemWidth();
+
+		ImGui::SameLine();
+
+		bool go_static = game_object->IsStatic();
+		if (ImGui::Checkbox("##Static", &go_static))
+		{
+			game_object->SetStatic(go_static);
+		}
+		ImGui::SameLine();
+		ImGui::Text("Static");
 	
 		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_SpanAvailWidth;
 		for (std::vector<Component*>::iterator item = game_object->components.begin();

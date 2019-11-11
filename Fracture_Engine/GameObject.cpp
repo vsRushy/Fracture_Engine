@@ -79,7 +79,7 @@ bool GameObject::PostUpdate(float dt)
 	return ret;
 }
 
-void GameObject::SetActive(bool value)
+void GameObject::SetActive(const bool& value)
 {
 	active = value;
 
@@ -97,6 +97,16 @@ void GameObject::SetActive(bool value)
 bool GameObject::IsActive() const
 {
 	return active;
+}
+
+void GameObject::SetStatic(const bool& value)
+{
+	is_static = value;
+}
+
+bool GameObject::IsStatic() const
+{
+	return is_static;
 }
 
 void GameObject::UpdateBoundingBox()

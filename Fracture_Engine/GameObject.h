@@ -23,8 +23,11 @@ public:
 	bool Update(float dt);
 	bool PostUpdate(float dt);
 
-	void SetActive(bool value);
+	void SetActive(const bool& value);
 	bool IsActive() const;
+
+	void SetStatic(const bool& value);
+	bool IsStatic() const;
 
 	void UpdateBoundingBox();
 	void DrawBoundingBox();
@@ -44,6 +47,8 @@ public:
 
 	std::string name = nullptr;
 	bool active = true;
+
+	bool is_static = false;
 
 	ComponentTransform* component_transform;
 

@@ -118,7 +118,6 @@
     <ClInclude Include="PanelLibrary.h" />
     <ClInclude Include="PanelMainMenuBar.h" />
     <ClInclude Include="PanelScene.h" />
-    <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="PhysFS\include\physfs.h" />
     <ClInclude Include="P_Cube.h" />
     <ClInclude Include="glmath.h" />
@@ -232,7 +231,6 @@
     <ClCompile Include="PanelLibrary.cpp" />
     <ClCompile Include="PanelMainMenuBar.cpp" />
     <ClCompile Include="PanelScene.cpp" />
-    <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="P_Cube.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="ModuleImporter.cpp" />

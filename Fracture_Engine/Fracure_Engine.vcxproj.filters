@@ -444,12 +444,15 @@
     <ClInclude Include="PanelLibrary.h">
       <Filter>Sources\Panel</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="PerfTimer.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Component_Camera.h">
       <Filter>Sources\GameObject\Component</Filter>
     </ClInclude>
+=======
+>>>>>>> parent of 2ffe743... Added performance timers and log ms when loading meshes
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -686,12 +689,15 @@
     <ClCompile Include="PanelLibrary.cpp">
       <Filter>Sources\Panel</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="PerfTimer.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Component_Camera.cpp">
       <Filter>Sources\GameObject\Component</Filter>
     </ClCompile>
+=======
+>>>>>>> parent of 2ffe743... Added performance timers and log ms when loading meshes
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\include\Geometry\KDTree.inl">

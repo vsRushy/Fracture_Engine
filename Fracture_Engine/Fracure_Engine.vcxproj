@@ -199,6 +199,7 @@
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="P_Plane.h" />
     <ClInclude Include="P_Sphere.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
@@ -281,6 +282,7 @@
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="P_Plane.cpp" />
     <ClCompile Include="P_Sphere.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />

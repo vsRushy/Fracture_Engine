@@ -19,7 +19,7 @@ public:
 	void DeleteFBO();
 
 public:
-	void GenerateDRB();
+	void GenerateRBO();
 	void CreateTexture();
 
 	/* At update/resize for now */
@@ -34,7 +34,7 @@ public:
 	// We also need a Depth and Stencil buffers to operate correctly on the FBO
 
 	/* Depth Render Buffer */
-	uint drb_id = 0;
+	uint rbo_id = 0;
 	/* Stencil Buffer */
 	uint sb_id = 0;
 

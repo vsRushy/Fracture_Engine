@@ -73,7 +73,7 @@ void Quadtree::Intersect(std::vector<GameObject*>& objects, const TYPE& primitiv
 
 /* Quad Tree Node ----------------------------------- */
 
-QuadtreeNode::QuadtreeNode(const AABB& box, QuadtreeNode* parent)
+QuadtreeNode::QuadtreeNode(const AABB& box, QuadtreeNode* parent) : box(box), parent(parent)
 {
 	for (uint i = 0; i < 4; i++)
 	{
@@ -219,5 +219,21 @@ void QuadtreeNode::DebugDraw()
 template<typename TYPE>
 void QuadtreeNode::Intersect(std::vector<GameObject*>& objects, const TYPE& primitive)
 {
-
+	if (primitive.Intersects(box))
+	{
+		for (auto item = this->game_objects.begin(); item != this->game_objects.end(); item++)
+		{
+			if (primitive.Intersects((*it)->bounding_box))
+			{
+				objects.push_back(*item);
+			}
+		}
+		for (uint i = 0; i < 4; i++)
+		{
+			if (childs[i] != nullptr)
+			{
+				childs[i]->Intersect(objects, primitive);
+			}
+		}
+	}
 }

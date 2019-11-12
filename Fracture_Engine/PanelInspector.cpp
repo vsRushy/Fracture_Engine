@@ -9,6 +9,8 @@
 #include "Component_Mesh.h"
 #include "Component_Material.h"
 
+#include "QuadTree.h"
+
 PanelInspector::PanelInspector(std::string name, bool active) : Panel(name, active)
 {
 
@@ -46,6 +48,10 @@ bool PanelInspector::Update()
 		if (ImGui::Checkbox("##Static", &go_static))
 		{
 			game_object->SetStatic(go_static);
+			if(go_static)
+				App->scene_intro->quad_tree->Insert(game_object);
+			else
+				App->scene_intro->quad_tree->Remove(game_object);
 		}
 		ImGui::SameLine();
 		ImGui::Text("Static");

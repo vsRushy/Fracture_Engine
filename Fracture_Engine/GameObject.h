@@ -32,6 +32,8 @@ public:
 	void UpdateBoundingBox();
 	void DrawBoundingBox();
 
+	void OnEditor();
+
 	// ------------------------------------------
 
 	Component* CreateComponentTransform();

@@ -25,40 +25,13 @@ bool PanelInspector::Update()
 {
 	ImGui::Begin(name.c_str());
 
-	if (App->scene_intro->selected_game_object != nullptr)
+	GameObject* go = App->scene_intro->selected_game_object;
+	if (go != nullptr)
 	{
-		GameObject* game_object = App->scene_intro->selected_game_object;
-
-		bool go_active = game_object->IsActive();
-		if (ImGui::Checkbox("##Active", &go_active))
-		{
-			game_object->SetActive(go_active);
-		}
-
-		ImGui::SameLine();
-		char* go_name = &game_object->name[0];
-		ImGui::PushItemWidth(150.0f);
-		ImGui::InputText("##Name", go_name, CUSTOM_BUFFER_SIZE_MEDIUM,
-			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll);
-		ImGui::PopItemWidth();
-
-		ImGui::SameLine();
-
-		bool go_static = game_object->IsStatic();
-		if (ImGui::Checkbox("##Static", &go_static))
-		{
-			game_object->SetStatic(go_static);
-			if(go_static)
-				App->scene_intro->quad_tree->Insert(game_object);
-			else
-				App->scene_intro->quad_tree->Remove(game_object);
-		}
-		ImGui::SameLine();
-		ImGui::Text("Static");
-	
+		go->OnEditor();
 		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_SpanAvailWidth;
-		for (std::vector<Component*>::iterator item = game_object->components.begin();
-			item != game_object->components.end(); item++)
+		for (std::vector<Component*>::iterator item = go->components.begin();
+			item != go->components.end(); item++)
 		{
 			(*item)->OnEditor();
 		}

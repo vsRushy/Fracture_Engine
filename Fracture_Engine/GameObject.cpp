@@ -2,6 +2,7 @@
 
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "QuadTree.h"
 
 #include "GameObject.h"
 
@@ -155,6 +156,33 @@ void GameObject::DrawBoundingBox()
 	{
 		children[i]->DrawBoundingBox();
 	}
+}
+
+void GameObject::OnEditor()
+{
+	if (ImGui::Checkbox("##Active", &active))
+	{
+		SetActive(this);
+	}
+
+	ImGui::SameLine();
+	ImGui::PushItemWidth(150.0f);
+	ImGui::InputText("##Name", (char*)name.c_str(), CUSTOM_BUFFER_SIZE_MEDIUM,
+		ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll);
+	ImGui::PopItemWidth();
+
+	ImGui::SameLine();
+
+	if (ImGui::Checkbox("##Static", &is_static))
+	{
+		SetStatic(is_static);
+		if (is_static)
+			App->scene_intro->quad_tree->Insert(this);
+		else
+			App->scene_intro->quad_tree->Remove(this);
+	}
+	ImGui::SameLine();
+	ImGui::Text("Static");
 }
 
 Component* GameObject::CreateComponentTransform()

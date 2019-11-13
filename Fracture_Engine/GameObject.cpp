@@ -24,9 +24,9 @@ GameObject::~GameObject()
 {
 	for (std::vector<Component*>::reverse_iterator item = components.rbegin(); item != components.rend(); item++)
 	{
-		delete* item;
-		*item = nullptr;
+		RELEASE(*item);
 	}
+	components.clear();
 }
 
 bool GameObject::PreUpdate(float dt)
@@ -114,9 +114,10 @@ void GameObject::UpdateBoundingBox()
 {
 	bounding_box.SetNegativeInfinity();
 
-	if (GetComponentMesh()) {
+	ComponentMesh* tmp_mesh = GetComponentMesh();
+	if (tmp_mesh != nullptr) {
 
-		bounding_box.Enclose((const float3*)GetComponentMesh()->mesh->vertices, GetComponentMesh()->mesh->num_vertices);
+		bounding_box.Enclose((const float3*)GetComponentMesh()->mesh->vertices, tmp_mesh->mesh->num_vertices);
 	}
 
 	if (component_transform) {

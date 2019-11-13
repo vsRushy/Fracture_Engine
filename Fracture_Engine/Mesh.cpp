@@ -15,21 +15,13 @@ Mesh::Mesh()
 
 Mesh::~Mesh()
 {
-	delete[] vertices;
-	delete[] indices;
-	delete[] normals;
-	delete[] uvs;
+	RELEASE_ARRAY(vertices);
+	RELEASE_ARRAY(indices);
+	RELEASE_ARRAY(normals);
+	RELEASE_ARRAY(uvs);
 
-	delete[] center_face_point;
-	delete[] center_face_normal_point;
-
-	vertices = nullptr;
-	indices = nullptr;
-	normals = nullptr;
-	uvs = nullptr;
-
-	center_face_point = nullptr;
-	center_face_normal_point = nullptr;
+	RELEASE_ARRAY(center_face_point);
+	RELEASE_ARRAY(center_face_normal_point);
 
 	/*glDeleteBuffers(num_vertices, &id_vertices);
 	glDeleteBuffers(num_indices, &id_indices);

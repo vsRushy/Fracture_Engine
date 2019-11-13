@@ -34,9 +34,9 @@ Application::Application()
 
 Application::~Application()
 {
-	for (std::list<Module*>::const_reverse_iterator item = list_modules.rbegin(); item != list_modules.rend(); item++)
+	for (std::list<Module*>::reverse_iterator item = list_modules.rbegin(); item != list_modules.rend(); item++)
 	{
-		delete *item;
+		RELEASE(*item);
 	}
 
 	list_modules.clear();

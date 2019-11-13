@@ -52,6 +52,8 @@ bool ModuleSceneIntro::Start()
 	Texture::LoadTexture("Assets/Textures/Checkers.dds");
 	Texture::LoadTexture("Assets/Textures/Lenna.png");
 
+	//CreatePrimitive("pri", PRIMITIVE_TYPE::CUBE, root_game_object);
+
 	return ret;
 }
 
@@ -146,6 +148,10 @@ GameObject* ModuleSceneIntro::CreatePrimitive(std::string name, PRIMITIVE_TYPE t
 	ChangeNameIfGameObjectNameAlreadyExists(name);
 
 	GameObject* primitive = new GameObject(name, parent);
+	game_objects.push_back(primitive);
+
+	LOG(LOG_INFORMATION, "Created primitive game object with name %s", name.c_str());
+
 	Mesh* p_mesh = CreatePrimitiveMesh(type);
 
 	primitive->CreateComponentMesh(p_mesh);
@@ -177,7 +183,7 @@ void ModuleSceneIntro::DeleteGameObject(GameObject* game_object)
 
 Mesh* ModuleSceneIntro::CreatePrimitiveMesh(PRIMITIVE_TYPE type)
 {
-	Mesh* mesh = nullptr;
+	Mesh* mesh = new Mesh();
 	par_shapes_mesh* prim_mesh = nullptr;
 
 	switch (type)

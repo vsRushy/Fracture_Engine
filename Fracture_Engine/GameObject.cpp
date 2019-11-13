@@ -212,22 +212,30 @@ Component* GameObject::CreateComponentMaterial()
 
 ComponentMesh* GameObject::GetComponentMesh() const
 {
+	ComponentMesh* tmp_m = nullptr;
 	for (std::vector<Component*>::const_iterator item = components.begin(); item != components.end(); item++)
 	{
 		if ((*item)->type == COMPONENT_TYPE::MESH)
 		{
-			return (ComponentMesh*)*item;
+			tmp_m = (ComponentMesh*)*item;
+			break;
 		}
 	}
+
+	return tmp_m;
 }
 
 ComponentMaterial* GameObject::GetComponentMaterial() const
 {
+	ComponentMaterial* tmp_mat = nullptr;
 	for (std::vector<Component*>::const_iterator item = components.begin(); item != components.end(); item++)
 	{
 		if ((*item)->type == COMPONENT_TYPE::MATERIAL)
 		{
-			return (ComponentMaterial*)*item;
+			tmp_mat = (ComponentMaterial*)*item;
+			break;
 		}
 	}
+	
+	return tmp_mat;
 }

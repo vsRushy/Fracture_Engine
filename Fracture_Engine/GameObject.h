@@ -12,6 +12,7 @@
 class ComponentTransform;
 class ComponentMesh;
 class ComponentMaterial;
+class ComponentCamera;
 
 class GameObject
 {
@@ -39,9 +40,11 @@ public:
 	Component* CreateComponentTransform();
 	Component* CreateComponentMesh(Mesh* mesh);
 	Component* CreateComponentMaterial();
+	Component* CreateComponentCamera();
 
 	ComponentMesh* GetComponentMesh() const;
 	ComponentMaterial* GetComponentMaterial() const;
+	ComponentCamera* GetComponentCamera() const;
 	
 public:
 	GameObject* parent = nullptr;

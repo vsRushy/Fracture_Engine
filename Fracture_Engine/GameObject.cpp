@@ -10,6 +10,7 @@
 #include "Component_Transform.h"
 #include "Component_Mesh.h"
 #include "Component_Material.h"
+#include "Component_Camera.h"
 
 GameObject::GameObject(std::string name, GameObject* parent)
 	: name(name), parent(parent)
@@ -210,6 +211,14 @@ Component* GameObject::CreateComponentMaterial()
 	return component_material;
 }
 
+Component* GameObject::CreateComponentCamera()
+{
+	Component* component_camera = new ComponentCamera(this);
+	components.push_back(component_camera);
+
+	return component_camera;
+}
+
 ComponentMesh* GameObject::GetComponentMesh() const
 {
 	ComponentMesh* tmp_m = nullptr;
@@ -238,4 +247,19 @@ ComponentMaterial* GameObject::GetComponentMaterial() const
 	}
 	
 	return tmp_mat;
+}
+
+ComponentCamera* GameObject::GetComponentCamera() const
+{
+	ComponentCamera* tmp_cam = nullptr;
+	for (std::vector<Component*>::const_iterator item = components.begin(); item != components.end(); item++)
+	{
+		if ((*item)->type == COMPONENT_TYPE::CAMERA)
+		{
+			tmp_cam = (ComponentCamera*)*item;
+			break;
+		}
+	}
+
+	return tmp_cam;
 }

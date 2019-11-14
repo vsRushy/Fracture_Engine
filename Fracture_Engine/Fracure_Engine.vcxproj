@@ -86,6 +86,7 @@
     <ClInclude Include="Component_Material.h" />
     <ClInclude Include="Component_Mesh.h" />
     <ClInclude Include="Component_Transform.h" />
+    <ClInclude Include="ConfigurationTool.h" />
     <ClInclude Include="DevIL\include\IL\devil_cpp_wrapper.hpp" />
     <ClInclude Include="DevIL\include\IL\devil_internal_exports.h" />
     <ClInclude Include="DevIL\include\IL\il.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="Component_Material.cpp" />
     <ClCompile Include="Component_Mesh.cpp" />
     <ClCompile Include="Component_Transform.cpp" />
+    <ClCompile Include="ConfigurationTool.cpp" />
     <ClCompile Include="FrameBufferObject.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />

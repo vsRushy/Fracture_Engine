@@ -162,21 +162,44 @@ GameObject* ModuleSceneIntro::CreatePrimitive(std::string name, PRIMITIVE_TYPE t
 
 void ModuleSceneIntro::DeleteGameObject(GameObject* game_object)
 {
-	if (game_object == selected_game_object)
-		selected_game_object = nullptr;
-
-	auto item = game_objects.begin();
-	while (item != game_objects.end())
+	/*GameObject* parent = game_object->parent;
+	if (parent != nullptr)
 	{
-		if (*item == game_object)
+		for (auto item = parent->children.begin(); item != parent->children.end();)
 		{
-			delete* item;
-			*item = nullptr;
-			item = game_objects.erase(item++);
+			if ((*item) == game_object)
+			{
+				selected_game_object = root_game_object;
+				RELEASE(*item);
+				item = parent->children.erase(item);
+				break;
+			}
+			else
+				item++;
 		}
-		else
+	}
+	
+	RELEASE(game_object);
+
+	for (auto item = game_object->children.begin(); item != game_object->children.end(); item++)
+	{
+		DeleteGameObject(*item);
+	}*/
+
+	GameObject* parent = game_object->parent;
+	if (parent != nullptr)
+	{
+		for (auto item = parent->children.begin(); item != parent->children.end();)
 		{
-			item++;
+			if ((*item) == game_object)
+			{
+				selected_game_object = root_game_object;
+				RELEASE(*item);
+				item = parent->children.erase(item);
+				break;
+			}
+			else
+				item++;
 		}
 	}
 }
@@ -320,8 +343,8 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 	// --------------------------------------------------------
 	
 	/* Check some input */
-	/*if (App->input->GetKey(SDL_SCANCODE_DELETE))
-		DeleteGameObject(selected_game_object);*/
+	if (App->input->GetKey(SDL_SCANCODE_DELETE))
+		DeleteGameObject(selected_game_object);
 
 	return UPDATE_CONTINUE;
 }

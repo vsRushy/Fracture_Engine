@@ -127,16 +127,15 @@ void Application::LoadAllConfiguration()
 	/* Firstly, we set app settings */
 	ConfigurationTool app_configuration("Configuration/Configuration.json", "Engine");
 	app_configuration = app_configuration.GetNode("Application");
-	const char* strrrr = app_configuration.GetString("Name");
 	SetAppName(app_configuration.GetString("Name"));
-	int j = 0;
-	/*SetAppOrganization(json_object_dotget_string(configuration, "Engine.Application.Organization"));
-	SetMaxFPS((int)json_object_dotget_number(configuration, "Engine.Application.Max_framerate"));*/
+	SetAppOrganization(app_configuration.GetString("Organization"));
+	SetMaxFPS(app_configuration.GetInt("Max_framerate"));
 
 	/* Set each module settings */
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 	{
-		//(*item)->LoadConfiguration(configuration);
+		app_configuration = app_configuration.GetNode((*item)->GetName());
+		(*item)->LoadConfiguration(&app_configuration);
 	}
 }
 

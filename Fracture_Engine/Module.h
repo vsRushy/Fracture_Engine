@@ -4,11 +4,13 @@
 #include "JSON/parson.h"
 
 class Application;
+class ConfigurationTool;
 
 class Module
 {
 private :
 	bool enabled;
+	const char* name;
 
 public:
 	Module(bool start_enabled = true) : enabled(start_enabled)
@@ -47,7 +49,7 @@ public:
 		return true; 
 	}
 
-	virtual void LoadConfiguration(JSON_Object* configuration)
+	virtual void LoadConfiguration(ConfigurationTool* configuration)
 	{
 
 	}
@@ -70,6 +72,16 @@ public:
 			enabled = false;
 			CleanUp();
 		}
+	}
+
+	const char* GetName() const
+	{
+		return name;
+	}
+
+	void SetName(const char* name)
+	{
+		this->name = name;
 	}
 };
 

@@ -273,9 +273,9 @@ void ModuleRenderer3D::LoadConfiguration(ConfigurationTool* configuration)
 	gl_cull_face = configuration->GetBool("gl_cull_face");
 	gl_lighting = configuration->GetBool("gl_lighting");
 	gl_color_material = configuration->GetBool("gl_color_material");
-	gl_texture_2d = configuration->GetBool("Engine.Renderer.gl_texture_2d");
+	gl_texture_2d = configuration->GetBool("gl_texture_2d");
 	gl_blend = configuration->GetBool("gl_blend");
-	gl_fog = configuration->GetBool("Engine.Renderer.gl_fog");
+	gl_fog = configuration->GetBool("gl_fog");
 	gl_alpha_test = configuration->GetBool("gl_alpha_test");
 }
 

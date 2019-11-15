@@ -6,8 +6,12 @@ ConfigurationTool::ConfigurationTool(const char* file, const char* node)
 
 	if (j_value == NULL)
 	{
-		LOG(LOG_INFORMATION, "Couldn't find the JSON file %s. A new file will be created instead.", file);
+		LOG(LOG_ERROR, "Couldn't find the JSON file %s.", file);
 		j_value = json_value_init_object();
+	}
+	else
+	{
+		LOG(LOG_INFORMATION, "Loaded correctly the JSON file %s.", file);
 	}
 
 	j_object = json_value_get_object(j_value);
@@ -17,6 +21,11 @@ ConfigurationTool::ConfigurationTool(const char* file, const char* node)
 ConfigurationTool::~ConfigurationTool()
 {
 	json_value_free(j_value);
+}
+
+void ConfigurationTool::SetNode(const char* section_name)
+{
+	j_node_object = json_object_get_object(j_object, section_name);
 }
 
 int ConfigurationTool::GetInt(const char* name)
@@ -42,7 +51,6 @@ bool ConfigurationTool::GetBool(const char* name)
 const char* ConfigurationTool::GetString(const char* name)
 {
 	return json_object_dotget_string(j_node_object, name);
-
 }
 
 void ConfigurationTool::SetInt(const char* name, const int& value)

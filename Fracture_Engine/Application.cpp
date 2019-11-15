@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "ConfigurationTool.h"
 
 Application::Application()
 {
@@ -40,8 +41,6 @@ Application::~Application()
 	}
 
 	list_modules.clear();
-
-	json_value_free(json_object_get_value(configuration, "Configuration/Configuration.json"));
 }
 
 bool Application::Init()
@@ -51,13 +50,9 @@ bool Application::Init()
 	startup_time.Start();
 
 	/* Load JSON configuration file */
-	configuration = LoadJSONFile("Configuration/Configuration.json");
-	if (configuration != nullptr)
-	{
-		/* Settings */
-		LoadAllConfiguration();
-	}
-
+	/* Settings */
+	LoadAllConfiguration();
+	
 	/* Set fps and ms vectors capacity */
 	fps_vec.resize(120);
 	ms_vec.resize(120);
@@ -130,14 +125,18 @@ JSON_Object* Application::LoadJSONFile(const char* path) const
 void Application::LoadAllConfiguration()
 {
 	/* Firstly, we set app settings */
-	SetAppName(json_object_dotget_string(configuration, "Engine.Application.Name"));
-	SetAppOrganization(json_object_dotget_string(configuration, "Engine.Application.Organization"));
-	SetMaxFPS((int)json_object_dotget_number(configuration, "Engine.Application.Max_framerate"));
+	ConfigurationTool app_configuration("Configuration/Configuration.json", "Engine");
+	app_configuration.SetNode("Application");
+	const char* strrrr = app_configuration.GetString("Name");
+	SetAppName(app_configuration.GetString("Name"));
+	int j = 0;
+	/*SetAppOrganization(json_object_dotget_string(configuration, "Engine.Application.Organization"));
+	SetMaxFPS((int)json_object_dotget_number(configuration, "Engine.Application.Max_framerate"));*/
 
 	/* Set each module settings */
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 	{
-		(*item)->LoadConfiguration(configuration);
+		//(*item)->LoadConfiguration(configuration);
 	}
 }
 

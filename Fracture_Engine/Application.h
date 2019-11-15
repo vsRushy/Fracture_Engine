@@ -1,8 +1,6 @@
 #ifndef __APPLICATION_H__
 #define __APPLICATION_H__
 
-#include "JSON/parson.h"
-
 #include <list>
 #include <vector>
 
@@ -33,8 +31,8 @@ public:
 private:
 	std::list<Module*> list_modules;
 	
-	const char*		app_name;
-	const char*		app_organization;
+	const char*			app_name;
+	const char*			app_organization;
 
 	float				dt;
 	unsigned __int64	frame_count = 0;
@@ -52,10 +50,7 @@ private:
 	int					max_fps = 0;
 	int					capped_ms = -1;
 
-	bool			close_app = false;
-
-private:
-	JSON_Object* configuration = nullptr;
+	bool				close_app = false;
 
 public:
 	Application();

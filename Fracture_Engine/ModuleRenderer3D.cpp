@@ -263,7 +263,7 @@ void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 	glPopMatrix();
 }
 
-void ModuleRenderer3D::LoadConfiguration(ConfigurationTool* configuration)
+void ModuleRenderer3D::LoadConfiguration(JSON_Wrapper* configuration)
 {
 	vsync = configuration->GetBool("V_sync");
 
@@ -279,7 +279,7 @@ void ModuleRenderer3D::LoadConfiguration(ConfigurationTool* configuration)
 	gl_alpha_test = configuration->GetBool("gl_alpha_test");
 }
 
-void ModuleRenderer3D::SaveConfiguration(ConfigurationTool* configuration)
+void ModuleRenderer3D::SaveConfiguration(JSON_Wrapper* configuration)
 {
 
 }

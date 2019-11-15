@@ -106,7 +106,7 @@ bool ModuleWindow::CleanUp()
 	return true;
 }
 
-void ModuleWindow::LoadConfiguration(ConfigurationTool* configuration)
+void ModuleWindow::LoadConfiguration(JSON_Wrapper* configuration)
 {
 	window_size = configuration->GetInt("Size");
 	window_width = configuration->GetInt("Width");
@@ -121,7 +121,7 @@ void ModuleWindow::LoadConfiguration(ConfigurationTool* configuration)
 	screen_min_height = configuration->GetInt("Min_height");
 }
 
-void ModuleWindow::SaveConfiguration(ConfigurationTool* configuration)
+void ModuleWindow::SaveConfiguration(JSON_Wrapper* configuration)
 {
 
 }

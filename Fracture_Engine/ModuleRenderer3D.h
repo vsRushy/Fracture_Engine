@@ -11,7 +11,7 @@
 
 #define MAX_LIGHTS 8
 
-class ConfigurationTool;
+class JSON_Wrapper;
 class GameObject;
 class Primitive;
 
@@ -30,8 +30,8 @@ public:
 	void DrawPrimitive(Primitive* primitive) const;
 	void DrawGameObject(GameObject* game_object) const;
 
-	void LoadConfiguration(ConfigurationTool* configuration) override;
-	void SaveConfiguration(ConfigurationTool* configuration) override;
+	void LoadConfiguration(JSON_Wrapper* configuration) override;
+	void SaveConfiguration(JSON_Wrapper* configuration) override;
 
 	void OnResize(const int& width, const int& height);
 

@@ -6,13 +6,13 @@
 #include "Globals.h"
 
 /* JSON custom wrapper */
-class ConfigurationTool
+class JSON_Wrapper
 {
 public:
-	ConfigurationTool(const char* file, const char* node);
-	~ConfigurationTool();
+	JSON_Wrapper(const char* file, const char* node);
+	~JSON_Wrapper();
 
-	ConfigurationTool& GetNode(const char* section_name);
+	JSON_Wrapper& GetNode(const char* section_name);
 
 public:
 	int GetInt(const char* name);

@@ -1,6 +1,6 @@
 #include "ConfigurationTool.h"
 
-ConfigurationTool::ConfigurationTool(const char* file, const char* node)
+JSON_Wrapper::JSON_Wrapper(const char* file, const char* node)
 {
 	j_value = json_parse_file(file);
 
@@ -18,63 +18,63 @@ ConfigurationTool::ConfigurationTool(const char* file, const char* node)
 	j_node_object = json_object_get_object(j_object, node);
 }
 
-ConfigurationTool::~ConfigurationTool()
+JSON_Wrapper::~JSON_Wrapper()
 {
 	json_value_free(j_value);
 }
 
-ConfigurationTool& ConfigurationTool::GetNode(const char* section_name)
+JSON_Wrapper& JSON_Wrapper::GetNode(const char* section_name)
 {
 	j_node_object = json_object_get_object(j_object, section_name);
 	return *this;
 }
 
-int ConfigurationTool::GetInt(const char* name)
+int JSON_Wrapper::GetInt(const char* name)
 {
 	return (int)json_object_dotget_number(j_node_object, name);
 }
 
-uint ConfigurationTool::GetUint(const char* name)
+uint JSON_Wrapper::GetUint(const char* name)
 {
 	return (uint)json_object_dotget_number(j_node_object, name);
 }
 
-float ConfigurationTool::GetFloat(const char* name)
+float JSON_Wrapper::GetFloat(const char* name)
 {
 	return (float)json_object_dotget_number(j_node_object, name);
 }
 
-bool ConfigurationTool::GetBool(const char* name)
+bool JSON_Wrapper::GetBool(const char* name)
 {
 	return (bool)json_object_dotget_boolean(j_node_object, name);
 }
 
-const char* ConfigurationTool::GetString(const char* name)
+const char* JSON_Wrapper::GetString(const char* name)
 {
 	return json_object_dotget_string(j_node_object, name);
 }
 
-void ConfigurationTool::SetInt(const char* name, const int& value)
+void JSON_Wrapper::SetInt(const char* name, const int& value)
 {
 	json_object_set_number(j_node_object, name, (double)value);
 }
 
-void ConfigurationTool::SetUint(const char* name, const uint& value)
+void JSON_Wrapper::SetUint(const char* name, const uint& value)
 {
 	json_object_set_number(j_node_object, name, (double)value);
 }
 
-void ConfigurationTool::SetFloat(const char* name, const float& value)
+void JSON_Wrapper::SetFloat(const char* name, const float& value)
 {
 	json_object_set_number(j_node_object, name, (double)value);
 }
 
-void ConfigurationTool::SetBool(const char* name, const bool& value)
+void JSON_Wrapper::SetBool(const char* name, const bool& value)
 {
 	json_object_set_boolean(j_node_object, name, value);
 }
 
-void ConfigurationTool::SetString(const char* name, const char* value)
+void JSON_Wrapper::SetString(const char* name, const char* value)
 {
 	json_object_set_string(j_node_object, name, value);
 }

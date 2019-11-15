@@ -58,7 +58,7 @@ bool ModuleCamera3D::CleanUp()
 	return true;
 }
 
-void ModuleCamera3D::LoadConfiguration(ConfigurationTool* configuration)
+void ModuleCamera3D::LoadConfiguration(JSON_Wrapper* configuration)
 {
 	speed = configuration->GetFloat("Speed");
 	max_speed = configuration->GetFloat("Max_speed");
@@ -77,7 +77,7 @@ void ModuleCamera3D::LoadConfiguration(ConfigurationTool* configuration)
 	max_far_plane = configuration->GetFloat("Max_far_plane");
 }
 
-void ModuleCamera3D::SaveConfiguration(ConfigurationTool* configuration)
+void ModuleCamera3D::SaveConfiguration(JSON_Wrapper* configuration)
 {
 
 }

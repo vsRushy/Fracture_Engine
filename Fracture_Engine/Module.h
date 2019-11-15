@@ -4,7 +4,7 @@
 #include "JSON/parson.h"
 
 class Application;
-class ConfigurationTool;
+class JSON_Wrapper;
 
 class Module
 {
@@ -49,12 +49,12 @@ public:
 		return true; 
 	}
 
-	virtual void LoadConfiguration(ConfigurationTool* configuration)
+	virtual void LoadConfiguration(JSON_Wrapper* configuration)
 	{
 
 	}
 
-	virtual void SaveConfiguration(ConfigurationTool* configuration)
+	virtual void SaveConfiguration(JSON_Wrapper* configuration)
 	{
 
 	}

@@ -5,7 +5,7 @@
 #include "SDL/include/SDL.h"
 
 class Application;
-class ConfigurationTool;
+class JSON_Wrapper;
 
 class ModuleWindow : public Module
 {
@@ -18,8 +18,8 @@ public:
 	bool Init();
 	bool CleanUp();
 
-	void LoadConfiguration(ConfigurationTool* configuration) override;
-	void SaveConfiguration(ConfigurationTool* configuration) override;
+	void LoadConfiguration(JSON_Wrapper* configuration) override;
+	void SaveConfiguration(JSON_Wrapper* configuration) override;
 
 public:
 	void SetTitle(const char* title);

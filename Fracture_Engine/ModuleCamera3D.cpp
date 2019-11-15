@@ -77,6 +77,11 @@ void ModuleCamera3D::LoadConfiguration(ConfigurationTool* configuration)
 	max_far_plane = configuration->GetFloat("Max_far_plane");
 }
 
+void ModuleCamera3D::SaveConfiguration(ConfigurationTool* configuration)
+{
+
+}
+
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {

@@ -121,6 +121,11 @@ void ModuleWindow::LoadConfiguration(ConfigurationTool* configuration)
 	screen_min_height = configuration->GetInt("Min_height");
 }
 
+void ModuleWindow::SaveConfiguration(ConfigurationTool* configuration)
+{
+
+}
+
 void ModuleWindow::SetTitle(const char* title)
 {
 	window_title = title;

@@ -19,6 +19,7 @@ public:
 	bool CleanUp();
 
 	void LoadConfiguration(ConfigurationTool* configuration) override;
+	void SaveConfiguration(ConfigurationTool* configuration) override;
 
 public:
 	void SetTitle(const char* title);

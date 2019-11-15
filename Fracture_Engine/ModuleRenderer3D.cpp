@@ -279,6 +279,11 @@ void ModuleRenderer3D::LoadConfiguration(ConfigurationTool* configuration)
 	gl_alpha_test = configuration->GetBool("gl_alpha_test");
 }
 
+void ModuleRenderer3D::SaveConfiguration(ConfigurationTool* configuration)
+{
+
+}
+
 void ModuleRenderer3D::OnResize(const int& width, const int& height)
 {
 	frame_buffer_object.SetCamera(ImVec2(width, height));

@@ -21,6 +21,7 @@ public:
 	bool CleanUp();
 
 	void LoadConfiguration(ConfigurationTool* configuration) override;
+	void SaveConfiguration(ConfigurationTool* configuration) override;
 
 	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const vec3 &Spot);

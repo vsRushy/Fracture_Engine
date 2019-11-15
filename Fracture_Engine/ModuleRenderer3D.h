@@ -31,6 +31,7 @@ public:
 	void DrawGameObject(GameObject* game_object) const;
 
 	void LoadConfiguration(ConfigurationTool* configuration) override;
+	void SaveConfiguration(ConfigurationTool* configuration) override;
 
 	void OnResize(const int& width, const int& height);
 

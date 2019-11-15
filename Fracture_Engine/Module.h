@@ -54,6 +54,11 @@ public:
 
 	}
 
+	virtual void SaveConfiguration(ConfigurationTool* configuration)
+	{
+
+	}
+
 	bool IsEnabled() const { return enabled; }
 
 	void Enable()

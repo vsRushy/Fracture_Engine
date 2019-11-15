@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "ConfigurationTool.h"
 
 ModuleWindow::ModuleWindow(bool start_enabled) : Module(start_enabled)
 {
@@ -103,19 +104,19 @@ bool ModuleWindow::CleanUp()
 	return true;
 }
 
-void ModuleWindow::LoadConfiguration(JSON_Object* configuration)
+void ModuleWindow::LoadConfiguration(ConfigurationTool* configuration)
 {
-	window_size = (int)json_object_dotget_number(configuration, "Engine.Window.Size");
-	window_width = (int)json_object_dotget_number(configuration, "Engine.Window.Width");
-	window_height = (int)json_object_dotget_number(configuration, "Engine.Window.Height");
-	window_fullscreen = json_object_dotget_boolean(configuration, "Engine.Window.Fullscreen");
-	window_resizable = json_object_dotget_boolean(configuration, "Engine.Window.Resizable");
-	window_borderless = json_object_dotget_boolean(configuration, "Engine.Window.Borderless");
-	window_fullscreen_desktop = json_object_dotget_boolean(configuration, "Engine.Window.Fullscreen_desktop");
-	screen_max_width = (int)json_object_dotget_number(configuration, "Engine.Window.Max_width");
-	screen_max_height = (int)json_object_dotget_number(configuration, "Engine.Window.Max_height");
-	screen_min_width = (int)json_object_dotget_number(configuration, "Engine.Window.Min_width");
-	screen_min_height = (int)json_object_dotget_number(configuration, "Engine.Window.Min_height");
+	window_size = configuration->GetInt("Size");
+	window_width = configuration->GetInt("Width");
+	window_height = configuration->GetInt("Height");
+	window_fullscreen = configuration->GetBool("Fullscreen");
+	window_resizable = configuration->GetBool("Resizable");
+	window_borderless = configuration->GetBool("Borderless");
+	window_fullscreen_desktop = configuration->GetBool("Fullscreen_desktop");
+	screen_max_width = configuration->GetInt("Max_width");
+	screen_max_height = configuration->GetInt("Max_height");
+	screen_min_width = configuration->GetInt("Min_width");
+	screen_min_height = configuration->GetInt("Min_height");
 }
 
 void ModuleWindow::SetTitle(const char* title)

@@ -1,57 +1,54 @@
 {
-    "Engine":
+    "Application":
     {
-        "Application":
-        {
-            "Name": "Fracture Engine",
-            "Organization": "CITM - UPC",
-            "Max_framerate": 60
-        },
+        "Name": "Fracture Engine",
+        "Organization": "CITM - UPC",
+        "Max_framerate": 60
+    },
 
-        "Window": 
-        {
-          "Size": 1,
-          "Width": 1280,
-          "Height": 1024,
-          "Fullscreen": false,
-          "Resizable": true,
-          "Borderless": false,
-          "Fullscreen_desktop": false,
-          "Max_width": 1280,
-          "Max_height": 1024,
-          "Min_width": 100,
-          "Min_height": 100
-        },
+    "Window": 
+    {
+      "Size": 1,
+      "Width": 1280,
+      "Height": 1024,
+      "Fullscreen": false,
+      "Resizable": true,
+      "Borderless": false,
+      "Fullscreen_desktop": false,
+      "Max_width": 1280,
+      "Max_height": 1024,
+      "Min_width": 100,
+      "Min_height": 100
+    },
 
-        "Renderer": 
-        {
-          "V_sync": true,
+    "Renderer": 
+    {
+      "V_sync": true,
 
-          "Wireframe_mode": false,
+      "Wireframe_mode": false,
           
-          "gl_depth_test": true,
-          "gl_cull_face": true,
-          "gl_lighting": true,
-          "gl_color_material": true,
-          "gl_texture_2d": false,
-          "gl_blend": true,
-          "gl_fog": false,
-          "gl_alpha_test": false
-        },
+      "gl_depth_test": true,
+      "gl_cull_face": true,
+      "gl_lighting": true,
+      "gl_color_material": true,
+      "gl_texture_2d": false,
+      "gl_blend": true,
+      "gl_fog": false,
+      "gl_alpha_test": false
+    },
 
-        "Camera": {
-          "Speed": 4,
-          "Min_speed": 1,
-          "Max_speed": 100,
-          "FOV": 60,
-          "Min_FOV": 10,
-          "Max_FOV": 140,
-          "Near_plane": 0.1,
-          "Min_near_plane": 0.1,
-          "Max_near_plane": 10,
-          "Far_plane": 1000.0,
-          "Min_far_plane": 500,
-          "Max_far_plane": 2000
-        }
+    "Camera": {
+      "Speed": 4,
+      "Min_speed": 1,
+      "Max_speed": 100,
+      "FOV": 60,
+      "Min_FOV": 10,
+      "Max_FOV": 140,
+      "Near_plane": 0.1,
+      "Min_near_plane": 0.1,
+      "Max_near_plane": 10,
+      "Far_plane": 1000.0,
+      "Min_far_plane": 500,
+      "Max_far_plane": 2000
     }
 }

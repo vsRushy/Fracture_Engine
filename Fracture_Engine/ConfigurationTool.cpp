@@ -25,7 +25,7 @@ ConfigurationTool::~ConfigurationTool()
 
 ConfigurationTool& ConfigurationTool::GetNode(const char* section_name)
 {
-	j_node_object = json_object_get_object(j_node_object, section_name);
+	j_node_object = json_object_get_object(j_object, section_name);
 	return *this;
 }
 

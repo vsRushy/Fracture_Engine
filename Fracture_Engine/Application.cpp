@@ -125,11 +125,13 @@ JSON_Object* Application::LoadJSONFile(const char* path) const
 void Application::LoadAllConfiguration()
 {
 	/* Firstly, we set app settings */
-	ConfigurationTool app_configuration("Configuration/Configuration.json", "Engine");
-	app_configuration = app_configuration.GetNode("Application");
+	ConfigurationTool app_configuration("Configuration/Configuration.json", "Application");
+	const char* tste = app_configuration.GetString("Name");
 	SetAppName(app_configuration.GetString("Name"));
 	SetAppOrganization(app_configuration.GetString("Organization"));
 	SetMaxFPS(app_configuration.GetInt("Max_framerate"));
+
+
 
 	/* Set each module settings */
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)

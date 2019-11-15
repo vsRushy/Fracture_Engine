@@ -131,8 +131,6 @@ void Application::LoadAllConfiguration()
 	SetAppOrganization(app_configuration.GetString("Organization"));
 	SetMaxFPS(app_configuration.GetInt("Max_framerate"));
 
-
-
 	/* Set each module settings */
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 	{

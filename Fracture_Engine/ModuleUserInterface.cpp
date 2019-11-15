@@ -22,6 +22,8 @@
 
 ModuleUserInterface::ModuleUserInterface(bool start_enabled) :  Module(start_enabled)
 {
+	SetName("User Interface");
+
 	panel_scene = new PanelScene("Scene");
 	panel_main_menu_bar = new PanelMainMenuBar("MainMenuBar");
 	panel_console = new PanelConsole("Console");

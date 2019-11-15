@@ -50,5 +50,15 @@
       "Far_plane": 1000.0,
       "Min_far_plane": 500,
       "Max_far_plane": 2000
-    }
+    },
+
+    "Scene": {},
+
+    "Input": {},
+
+    "User Interface": {},
+
+    "File System": {},
+
+    "Importer": {}
 }

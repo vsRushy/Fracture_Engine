@@ -19,7 +19,7 @@
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {
-
+	SetName("Scene");
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()

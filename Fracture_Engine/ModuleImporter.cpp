@@ -17,7 +17,7 @@
 
 ModuleImporter::ModuleImporter(bool start_enabled) : Module(start_enabled)
 {
-
+	SetName("Importer");
 }
 
 ModuleImporter::~ModuleImporter()

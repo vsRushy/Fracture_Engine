@@ -13,6 +13,8 @@ using namespace std;
 
 ModuleFileSystem::ModuleFileSystem(const char* game_path) : Module()
 {
+	SetName("File System");
+
 	// needs to be created before Init so other modules can use it
 	char* base_path = SDL_GetBasePath();
 	PHYSFS_init(base_path);

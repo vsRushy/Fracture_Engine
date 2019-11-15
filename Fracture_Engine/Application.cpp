@@ -126,7 +126,6 @@ void Application::LoadAllConfiguration()
 {
 	/* Firstly, we set app settings */
 	ConfigurationTool app_configuration("Configuration/Configuration.json", "Application");
-	const char* tste = app_configuration.GetString("Name");
 	SetAppName(app_configuration.GetString("Name"));
 	SetAppOrganization(app_configuration.GetString("Organization"));
 	SetMaxFPS(app_configuration.GetInt("Max_framerate"));

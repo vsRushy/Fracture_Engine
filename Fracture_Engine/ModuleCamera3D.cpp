@@ -1,12 +1,16 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "ConfigurationTool.h"
 #include "ModuleInput.h"
 #include "ModuleSceneIntro.h"
 #include "GameObject.h"
 #include "Component_Transform.h"
+
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
+	SetName("Camera");
+
 	CalculateViewMatrix();
 
 	X = vec3(1.0f, 0.0f, 0.0f);
@@ -54,23 +58,23 @@ bool ModuleCamera3D::CleanUp()
 	return true;
 }
 
-void ModuleCamera3D::LoadConfiguration(JSON_Object* configuration)
+void ModuleCamera3D::LoadConfiguration(ConfigurationTool* configuration)
 {
-	speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Speed");
-	max_speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Max_speed");
-	min_speed = (float)json_object_dotget_number(configuration, "Engine.Camera.Min_speed");
+	speed = configuration->GetFloat("Speed");
+	max_speed = configuration->GetFloat("Max_speed");
+	min_speed = configuration->GetFloat("Min_speed");
 	
-	fov = (float)json_object_dotget_number(configuration, "Engine.Camera.FOV");
-	min_fov = (float)json_object_dotget_number(configuration, "Engine.Camera.Min_FOV");
-	max_fov = (float)json_object_dotget_number(configuration, "Engine.Camera.Max_FOV");
+	fov = configuration->GetFloat("FOV");
+	min_fov = configuration->GetFloat("Min_FOV");
+	max_fov = configuration->GetFloat("Max_FOV");
 	
-	near_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Near_plane");
-	min_near_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Min_near_plane");
-	max_near_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Max_near_plane");
+	near_plane = configuration->GetFloat("Near_plane");
+	min_near_plane = configuration->GetFloat("Min_near_plane");
+	max_near_plane = configuration->GetFloat("Max_near_plane");
 	
-	far_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Far_plane");
-	min_far_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Min_far_plane");
-	max_far_plane = (float)json_object_dotget_number(configuration, "Engine.Camera.Max_far_plane");
+	far_plane = configuration->GetFloat("Far_plane");
+	min_far_plane = configuration->GetFloat("Min_far_plane");
+	max_far_plane = configuration->GetFloat("Max_far_plane");
 }
 
 // -----------------------------------------------------------------

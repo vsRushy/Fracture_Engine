@@ -7,6 +7,8 @@
 
 ModuleWindow::ModuleWindow(bool start_enabled) : Module(start_enabled)
 {
+	SetName("Window");
+
 	window = NULL;
 	screen_surface = NULL;
 }

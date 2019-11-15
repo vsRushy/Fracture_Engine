@@ -4,6 +4,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleImporter.h"
+#include "ConfigurationTool.h"
 #include "Primitive.h"
 
 #include "Mesh.h"
@@ -22,7 +23,9 @@
 #pragma comment (lib, "Glew/libx86/glew32.lib") /* Link Glew OpenGL specification */
 
 ModuleRenderer3D::ModuleRenderer3D(bool start_enabled) : Module(start_enabled)
-{}
+{
+	SetName("Renderer");
+}
 
 // Destructor
 ModuleRenderer3D::~ModuleRenderer3D()
@@ -260,20 +263,20 @@ void ModuleRenderer3D::DrawGameObject(GameObject* game_object) const
 	glPopMatrix();
 }
 
-void ModuleRenderer3D::LoadConfiguration(JSON_Object* configuration)
+void ModuleRenderer3D::LoadConfiguration(ConfigurationTool* configuration)
 {
-	vsync = json_object_dotget_boolean(configuration, "Engine.Renderer.V_sync");
+	vsync = configuration->GetBool("V_sync");
 
-	wireframe_mode = json_object_dotget_boolean(configuration, "Engine.Renderer.Wireframe_mode");
+	wireframe_mode = configuration->GetBool("Wireframe_mode");
 	
-	gl_depth_test = json_object_dotget_boolean(configuration, "Engine.Renderer.gl_depth_test");
-	gl_cull_face = json_object_dotget_boolean(configuration, "Engine.Renderer.gl_cull_face");
-	gl_lighting = json_object_dotget_boolean(configuration, "Engine.Renderer.gl_lighting");
-	gl_color_material = json_object_dotget_boolean(configuration, "Engine.Renderer.gl_color_material");
-	gl_texture_2d = json_object_dotget_boolean(configuration, "Engine.Renderer.gl_texture_2d");
-	gl_blend = json_object_dotget_boolean(configuration, "Engine.Renderer.gl_blend");
-	gl_fog = json_object_dotget_boolean(configuration, "Engine.Renderer.gl_fog");
-	gl_alpha_test = json_object_dotget_boolean(configuration, "Engine.Renderer.gl_alpha_test");
+	gl_depth_test = configuration->GetBool("gl_depth_test");
+	gl_cull_face = configuration->GetBool("gl_cull_face");
+	gl_lighting = configuration->GetBool("gl_lighting");
+	gl_color_material = configuration->GetBool("gl_color_material");
+	gl_texture_2d = configuration->GetBool("Engine.Renderer.gl_texture_2d");
+	gl_blend = configuration->GetBool("gl_blend");
+	gl_fog = configuration->GetBool("Engine.Renderer.gl_fog");
+	gl_alpha_test = configuration->GetBool("gl_alpha_test");
 }
 
 void ModuleRenderer3D::OnResize(const int& width, const int& height)

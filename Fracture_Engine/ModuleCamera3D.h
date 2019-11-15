@@ -7,6 +7,7 @@
 #include "Globals.h"
 #include "glmath.h"
 
+class ConfigurationTool;
 class GameObject;
 
 class ModuleCamera3D : public Module
@@ -19,7 +20,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void LoadConfiguration(JSON_Object* configuration) override;
+	void LoadConfiguration(ConfigurationTool* configuration) override;
 
 	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const vec3 &Spot);

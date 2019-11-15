@@ -23,9 +23,10 @@ ConfigurationTool::~ConfigurationTool()
 	json_value_free(j_value);
 }
 
-void ConfigurationTool::SetNode(const char* section_name)
+ConfigurationTool& ConfigurationTool::GetNode(const char* section_name)
 {
-	j_node_object = json_object_get_object(j_object, section_name);
+	j_node_object = json_object_get_object(j_node_object, section_name);
+	return *this;
 }
 
 int ConfigurationTool::GetInt(const char* name)

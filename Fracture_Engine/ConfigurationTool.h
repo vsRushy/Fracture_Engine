@@ -12,7 +12,7 @@ public:
 	ConfigurationTool(const char* file, const char* node);
 	~ConfigurationTool();
 
-	void SetNode(const char* section_name);
+	ConfigurationTool& GetNode(const char* section_name);
 
 public:
 	int GetInt(const char* name);

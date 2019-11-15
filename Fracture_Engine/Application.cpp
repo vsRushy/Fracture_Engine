@@ -126,7 +126,7 @@ void Application::LoadAllConfiguration()
 {
 	/* Firstly, we set app settings */
 	ConfigurationTool app_configuration("Configuration/Configuration.json", "Engine");
-	app_configuration.SetNode("Application");
+	app_configuration = app_configuration.GetNode("Application");
 	const char* strrrr = app_configuration.GetString("Name");
 	SetAppName(app_configuration.GetString("Name"));
 	int j = 0;

@@ -138,7 +138,7 @@ void Mesh::LoadFaces(par_shapes_mesh* mesh)
 {
 	num_indices = mesh->ntriangles * 3;
 	indices = new uint[num_indices];
-	memcpy(indices, mesh->triangles, sizeof(PAR_SHAPES_T) * num_indices);
+	memcpy(indices, mesh->triangles, sizeof(uint) * num_indices);
 	LOG(LOG_INFORMATION, "New mesh with %d indices", num_indices);
 }
 

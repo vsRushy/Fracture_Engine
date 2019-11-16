@@ -57,8 +57,8 @@ Mesh* Mesh::LoadMesh(par_shapes_mesh* p_s_mesh)
 
 	m->LoadVertices(p_s_mesh);
 	m->LoadFaces(p_s_mesh);
-	//m->LoadNormals(p_s_mesh);
-	//m->LoadUVs(p_s_mesh);
+	m->LoadNormals(p_s_mesh);
+	m->LoadUVs(p_s_mesh);
 
 	m->CreateBuffers();
 
@@ -136,9 +136,9 @@ void Mesh::LoadVertices(par_shapes_mesh* mesh)
 
 void Mesh::LoadFaces(par_shapes_mesh* mesh)
 {
-	num_indices = mesh->ntriangles;
-	indices = new uint[num_indices * 3];
-	memcpy(indices, mesh->triangles, sizeof(PAR_SHAPES_T) * num_indices * 3);
+	num_indices = mesh->ntriangles * 3;
+	indices = new uint[num_indices];
+	memcpy(indices, mesh->triangles, sizeof(PAR_SHAPES_T) * num_indices);
 	LOG(LOG_INFORMATION, "New mesh with %d indices", num_indices);
 }
 

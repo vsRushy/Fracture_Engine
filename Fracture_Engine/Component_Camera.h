@@ -8,7 +8,7 @@
 class ComponentCamera : public Component
 {
 public:
-	ComponentCamera(GameObject* target);
+	ComponentCamera(GameObject* target = nullptr);
 	~ComponentCamera();
 
 	bool Update(float dt);
@@ -25,6 +25,8 @@ public:
 	float GetCameraFarPlane() const;
 	float GetAspectRatio() const;
 	float GetCameraSpeed() const;
+
+	void Draw();
 
 private:
 	//void CalculateViewMatrix();

@@ -5,8 +5,10 @@
 #include "ModuleSceneIntro.h"
 #include "GameObject.h"
 #include "Component_Transform.h"
+#include "Component_Camera.h"
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
+	camera = new ComponentCamera();
 	CalculateViewMatrix();
 
 	X = vec3(1.0f, 0.0f, 0.0f);
@@ -50,7 +52,7 @@ bool ModuleCamera3D::Start()
 bool ModuleCamera3D::CleanUp()
 {
 	LOG(LOG_INFORMATION, "Cleaning camera");
-
+	RELEASE(camera);
 	return true;
 }
 
@@ -244,6 +246,7 @@ void ModuleCamera3D::Move(const vec3 &Movement)
 	Reference += Movement;
 
 	CalculateViewMatrix();
+	
 }
 
 // -----------------------------------------------------------------

@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "ImGui\imgui.h"
 
 #include "Component_Camera.h"
 
@@ -81,4 +82,48 @@ float ComponentCamera::GetAspectRatio() const
 float ComponentCamera::GetCameraSpeed() const
 {
 	return speed;
+}
+
+void ComponentCamera::Draw()
+{
+
+	if (ImGui::CollapsingHeader("Component camera", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		float h_fov = GetCameraHorizontalFOV();
+		ImGui::Text("Horizontal camera FOV:");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(0.7f, 0.8f, 0.0f, 1.0f), "%f", h_fov);
+		ImGui::Text("Camera FOV");
+		ImGui::SameLine();
+		if (ImGui::DragFloat("fov", &h_fov, 1.0f))
+			SetCameraFOV(h_fov);
+
+		float v_fov = GetCameraVerticalFOV();
+		ImGui::Text("Vertical camera FOV:");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(0.7f, 0.8f, 0.0f, 1.0f), "%f", v_fov);
+		ImGui::Text("Camera FOV");
+		ImGui::SameLine();
+		if (ImGui::DragFloat("fov", &v_fov, 1.0f))
+			SetCameraFOV(v_fov);
+
+
+		float near_plane = GetCameraNearPlane();
+		ImGui::Text("Camera Near Plane:");
+		ImGui::SameLine();
+		if (ImGui::DragFloat("near", &near_plane, 1.0F))
+		{
+			SetCameraNearPlane(near_plane);
+		}
+
+
+		float far_plane = GetCameraFarPlane();
+		ImGui::Text("Camera Far Plane:");
+		ImGui::SameLine();
+		if (ImGui::DragFloat("far", &far_plane, 1.0F))
+		{
+			SetCameraFarPlane(far_plane);
+		}
+
+	}
 }

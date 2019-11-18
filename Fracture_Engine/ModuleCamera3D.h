@@ -8,6 +8,7 @@
 #include "glmath.h"
 
 class GameObject;
+class ComponentCamera;
 
 class ModuleCamera3D : public Module
 {
@@ -66,6 +67,7 @@ private:
 
 public:
 	vec3 X, Y, Z, Position, Reference;
+	ComponentCamera* camera = nullptr;
 
 private:
 	mat4x4 ViewMatrix, ViewMatrixInverse;

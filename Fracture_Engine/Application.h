@@ -4,6 +4,8 @@
 #include <list>
 #include <vector>
 
+#include "MathGeoLib/include/Algorithm/Random/LCG.h"
+
 #include "Globals.h"
 #include "Timer.h"
 #include "Module.h"
@@ -84,6 +86,8 @@ public:
 public:
 	std::vector<float> fps_vec;
 	std::vector<float> ms_vec;
+
+	LCG* random = nullptr;
 	
 private:
 	void AddModule(Module* mod);

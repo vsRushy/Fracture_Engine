@@ -47,6 +47,8 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	random = new math::LCG();
+
 	startup_time.Start();
 
 	/* Load JSON configuration file */
@@ -175,6 +177,8 @@ update_status Application::Update()
 bool Application::CleanUp()
 {
 	bool ret = true;
+
+	RELEASE(random);
 
 	for (std::list<Module*>::const_reverse_iterator item = list_modules.rbegin(); item != list_modules.rend() && ret; item++)
 	{

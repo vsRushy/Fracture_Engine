@@ -2,7 +2,6 @@
 #define __PANEL_LIBRARY_H__
 
 #include "Panel.h"
-
 class PanelLibrary : public Panel
 {
 public:

@@ -289,7 +289,6 @@ update_status ModuleSceneIntro::Update(float dt)
 				(*item)->Update(dt);
 		}
 	}
-
 	return UPDATE_CONTINUE;
 }
 

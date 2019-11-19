@@ -5,6 +5,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleCamera3D.h"
+#include "Component_Camera.h"
 
 
 PanelLibrary::PanelLibrary(std::string name, bool active) : Panel(name, active)
@@ -68,6 +70,7 @@ bool PanelLibrary::Update()
 
 		ImGui::Columns(1);
 	}
+	App->camera->camera->Draw();
 
 	ImGui::End();
 

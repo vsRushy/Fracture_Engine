@@ -1,5 +1,6 @@
 // SHAPES :: https://github.com/prideout/par
-// Simple C library for creation and manipulation of triangle meshes.
+// Simple C library for creation and manipulation of triangle 
+
 //
 // The API is divided into three sections:
 //

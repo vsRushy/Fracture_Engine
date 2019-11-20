@@ -16,6 +16,8 @@ GameObject::GameObject(std::string name, GameObject* parent)
 {
 	this->component_transform = (ComponentTransform*)CreateComponentTransform();
 
+	id = App->random->Int();
+
 	if (parent != nullptr)
 		parent->children.push_back(this);
 }

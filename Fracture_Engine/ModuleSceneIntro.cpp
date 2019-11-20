@@ -52,8 +52,6 @@ bool ModuleSceneIntro::Start()
 	Texture::LoadTexture("Assets/Textures/Checkers.dds");
 	Texture::LoadTexture("Assets/Textures/Lenna.png");
 
-	CreatePrimitive("pri", PRIMITIVE_TYPE::CUBE, root_game_object);
-
 	return ret;
 }
 

@@ -47,7 +47,7 @@ public:
 	GameObject* parent = nullptr;
 	std::vector<GameObject*> children;
 
-	std::string name = nullptr;
+	std::string name;
 	bool active = true;
 
 	bool is_static = false;
@@ -60,7 +60,7 @@ public:
 	OBB obb_box;
 
 private:
-
+	uint64 id = -1;
 };
 
 #endif /* __GAME_OBJECT_H__ */

@@ -14,6 +14,8 @@ public:
 
 	JSON_Wrapper& GetNode(const char* section_name);
 
+	bool AddArray(const char* array_name);
+
 public:
 	int GetInt(const char* name);
 	uint GetUint(const char* name);
@@ -31,6 +33,7 @@ public:
 	JSON_Value* j_value = nullptr;
 	JSON_Object* j_object = nullptr;
 	JSON_Object* j_node_object = nullptr;
+	JSON_Array* j_array = nullptr;
 };
 
 #endif /* __CONFIGURATION_TOOL_H__ */

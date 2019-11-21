@@ -29,6 +29,14 @@ JSON_Wrapper& JSON_Wrapper::GetNode(const char* section_name)
 	return *this;
 }
 
+bool JSON_Wrapper::AddArray(const char* array_name)
+{
+	JSON_Value* val = json_value_init_array();
+	j_array = json_value_get_array(val);
+
+	return json_object_set_value(j_node_object, array_name, val) == JSONSuccess;
+}
+
 int JSON_Wrapper::GetInt(const char* name)
 {
 	return (int)json_object_dotget_number(j_node_object, name);

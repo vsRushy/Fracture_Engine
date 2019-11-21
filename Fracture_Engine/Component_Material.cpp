@@ -55,7 +55,7 @@ void ComponentMaterial::OnEditor()
 void ComponentMaterial::Load(JSON_Object* json_object)
 {
 	id_material = json_object_get_number(json_object, "ID Material");
-	texture->texture_path = json_object_get_string(json_object, "Path");
+	texture->texture_path = std::string(json_object_get_string(json_object, "Path"));
 	/* TODO: Load and assign */
 }
 

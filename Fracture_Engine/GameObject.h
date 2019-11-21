@@ -8,6 +8,7 @@
 
 #include "MathGeoLib.h"
 
+#include "Globals.h"
 #include "Component.h"
 #include "Mesh.h"
 

@@ -33,8 +33,6 @@ Texture* Texture::LoadTexture(const char* path)
 			App->file_system->Copy(path, std::string(LIBRARY_TEXTURE_PATH + App->file_system->GetFileNameFromPath(path) + tex_ext).c_str());
 		}
 
-		texture->texture_path = path;
-
 		ILuint devil_id = 0;
 		ilGenImages(1, &devil_id);
 		ilBindImage(devil_id);
@@ -76,6 +74,7 @@ Texture* Texture::LoadTexture(const char* path)
 				texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
 				texture->name = App->file_system->GetFileNameFromPath(path);
 				texture->extension = App->file_system->GetFileExtensionFromPath(path);
+				texture->texture_path.assign(std::string(path));
 
 				glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 

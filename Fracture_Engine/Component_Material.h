@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "Globals.h"
 #include "Component.h"
 
 class Texture;

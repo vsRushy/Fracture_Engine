@@ -126,7 +126,7 @@ void ModuleWindow::SaveConfiguration(JSON_Wrapper* configuration)
 
 }
 
-void ModuleWindow::SetTitle(std::string title)
+void ModuleWindow::SetTitle(const std::string& title)
 {
 	window_title = title;
 	SDL_SetWindowTitle(window, window_title.c_str());

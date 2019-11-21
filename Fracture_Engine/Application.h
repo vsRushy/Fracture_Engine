@@ -71,8 +71,8 @@ public:
 
 	// -----------------------------------
 
-	void SetAppName(std::string name);
-	void SetAppOrganization(std::string organization);
+	void SetAppName(const std::string& name);
+	void SetAppOrganization(const std::string& organization);
 	void SetMaxFPS(const int& m_fps);
 
 	std::string GetAppName() const;

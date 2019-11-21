@@ -199,12 +199,12 @@ void Application::CloseApplication()
 	close_app = true;
 }
 
-void Application::SetAppName(std::string name)
+void Application::SetAppName(const std::string& name)
 {
 	app_name = name;
 }
 
-void Application::SetAppOrganization(std::string organization)
+void Application::SetAppOrganization(const std::string& organization)
 {
 	app_organization = organization;
 }

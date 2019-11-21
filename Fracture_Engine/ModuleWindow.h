@@ -22,7 +22,7 @@ public:
 	void SaveConfiguration(JSON_Wrapper* configuration) override;
 
 public:
-	void SetTitle(std::string title);
+	void SetTitle(const std::string& title);
 	void SetWindowBrightness(const float& brightness) const;
 	void SetWindowSize(const int& size);
 	void SetWindowWidth(const int& width);

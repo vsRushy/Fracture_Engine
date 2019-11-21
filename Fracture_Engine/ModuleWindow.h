@@ -22,7 +22,7 @@ public:
 	void SaveConfiguration(JSON_Wrapper* configuration) override;
 
 public:
-	void SetTitle(const char* title);
+	void SetTitle(std::string title);
 	void SetWindowBrightness(const float& brightness) const;
 	void SetWindowSize(const int& size);
 	void SetWindowWidth(const int& width);
@@ -36,7 +36,7 @@ public:
 	void SetScreenMinWidth(const int& min_width);
 	void SetScreenMinHeight(const int& min_height);
 
-	const char* GetTitle() const;
+	std::string GetTitle() const;
 	float GetWindowBrightness() const;
 	int GetWindowSize() const;
 	int GetWindowWidth() const;
@@ -60,7 +60,7 @@ public:
 	SDL_Surface* screen_surface;
 
 private:
-	const char* window_title;
+	std::string window_title;
 	int window_size;
 	int window_width;
 	int window_height;

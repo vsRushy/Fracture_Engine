@@ -3,6 +3,7 @@
 
 #include <list>
 #include <vector>
+#include <string>
 
 #include "MathGeoLib/include/Algorithm/Random/LCG.h"
 
@@ -33,8 +34,8 @@ public:
 private:
 	std::list<Module*> list_modules;
 	
-	const char*			app_name;
-	const char*			app_organization;
+	std::string			app_name;
+	std::string			app_organization;
 
 	float				dt;
 	unsigned __int64	frame_count = 0;
@@ -70,12 +71,12 @@ public:
 
 	// -----------------------------------
 
-	void SetAppName(const char* name);
-	void SetAppOrganization(const char* organization);
+	void SetAppName(std::string name);
+	void SetAppOrganization(std::string organization);
 	void SetMaxFPS(const int& m_fps);
 
-	const char* GetAppName() const;
-	const char* GetAppOrganization() const;
+	std::string GetAppName() const;
+	std::string GetAppOrganization() const;
 	int GetMaxFPS() const;
 	float GetFPS() const;
 	float GetMS() const;

@@ -71,7 +71,7 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-		window = SDL_CreateWindow(GetTitle(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		window = SDL_CreateWindow(GetTitle().c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			GetWindowWidth(), GetWindowHeight(), flags);
 
 		if(window == NULL)
@@ -126,10 +126,10 @@ void ModuleWindow::SaveConfiguration(JSON_Wrapper* configuration)
 
 }
 
-void ModuleWindow::SetTitle(const char* title)
+void ModuleWindow::SetTitle(std::string title)
 {
 	window_title = title;
-	SDL_SetWindowTitle(window, title);
+	SDL_SetWindowTitle(window, window_title.c_str());
 }
 
 void ModuleWindow::SetWindowBrightness(const float& brightness) const
@@ -210,7 +210,7 @@ void ModuleWindow::SetScreenMinHeight(const int& min_height)
 	screen_min_height = min_height;
 }
 
-const char* ModuleWindow::GetTitle() const
+std::string ModuleWindow::GetTitle() const
 {
 	return window_title;
 }

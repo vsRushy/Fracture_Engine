@@ -24,7 +24,7 @@ bool PanelConfiguration::Update()
 	if (ImGui::CollapsingHeader("Application"))
 	{
 		static char app_name[CUSTOM_BUFFER_SIZE_MEDIUM];
-		strcpy_s(app_name, CUSTOM_BUFFER_SIZE_MEDIUM, App->GetAppName());
+		strcpy_s(app_name, CUSTOM_BUFFER_SIZE_MEDIUM, App->GetAppName().c_str());
 		if (ImGui::InputText("Application name", app_name, CUSTOM_BUFFER_SIZE_MEDIUM,
 			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{
@@ -32,7 +32,7 @@ bool PanelConfiguration::Update()
 		}
 
 		static char app_organization[CUSTOM_BUFFER_SIZE_MEDIUM];
-		strcpy_s(app_organization, CUSTOM_BUFFER_SIZE_MEDIUM, App->GetAppOrganization());
+		strcpy_s(app_organization, CUSTOM_BUFFER_SIZE_MEDIUM, App->GetAppOrganization().c_str());
 		if (ImGui::InputText("Application organization", app_organization, CUSTOM_BUFFER_SIZE_MEDIUM,
 			ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{

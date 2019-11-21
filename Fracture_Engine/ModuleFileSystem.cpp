@@ -68,7 +68,7 @@ bool ModuleFileSystem::Init()
 	bool ret = true;
 
 	// Ask SDL for a write dir
-	char* write_path = SDL_GetPrefPath(App->GetAppOrganization(), App->GetAppName());
+	char* write_path = SDL_GetPrefPath(App->GetAppOrganization().c_str(), App->GetAppName().c_str());
 
 	LOG(LOG_INFORMATION, "%s", write_path);
 

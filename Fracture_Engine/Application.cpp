@@ -199,12 +199,12 @@ void Application::CloseApplication()
 	close_app = true;
 }
 
-void Application::SetAppName(const char* name)
+void Application::SetAppName(std::string name)
 {
 	app_name = name;
 }
 
-void Application::SetAppOrganization(const char* organization)
+void Application::SetAppOrganization(std::string organization)
 {
 	app_organization = organization;
 }
@@ -215,12 +215,12 @@ void Application::SetMaxFPS(const int& m_fps)
 	CapMS();
 }
 
-const char* Application::GetAppName() const
+std::string Application::GetAppName() const
 {
 	return app_name;
 }
 
-const char* Application::GetAppOrganization() const
+std::string Application::GetAppOrganization() const
 {
 	return app_organization;
 }

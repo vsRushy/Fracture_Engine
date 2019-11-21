@@ -31,6 +31,9 @@ public:
 	Texture* initial_texture = nullptr;
 
 	bool use_checkered_texture = false;
+
+private:
+	uint64 id_material;
 };
 
 #endif /* __COMPONENT_MATERIAL_H__ */

@@ -19,6 +19,7 @@ public:
 public:
 	std::string name;
 	std::string extension;
+	std::string texture_path;
 	uint id = -1;
 	uint width = -1;
 	uint height = -1;

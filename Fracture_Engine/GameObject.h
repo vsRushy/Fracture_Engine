@@ -65,7 +65,7 @@ public:
 	OBB obb_box;
 
 private:
-	uint64 id = -1;
+	uint64 id;
 };
 
 #endif /* __GAME_OBJECT_H__ */

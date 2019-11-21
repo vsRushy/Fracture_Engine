@@ -54,12 +54,26 @@ void ComponentMaterial::OnEditor()
 
 void ComponentMaterial::Load(JSON_Object* json_object)
 {
-
+	id_material = json_object_get_number(json_object, "ID Material");
+	texture->texture_path = json_object_get_string(json_object, "Path");
+	/* TODO: Load and assign */
 }
 
 void ComponentMaterial::Save(JSON_Array* json_array) const
 {
+	JSON_Value* value = json_value_init_object();
+	JSON_Object* object = json_value_get_object(value);
 
+	json_object_set_number(object, "Component Type", (double)type);
+	json_object_set_number(object, "ID Material", id_material);
+
+	std::string tmp_path;
+	if (texture != nullptr)
+		tmp_path = texture->texture_path;
+	
+	json_object_set_string(object, "Path", tmp_path.c_str());
+
+	json_array_append_value(json_array, value);
 }
 
 void ComponentMaterial::SetTexture(Texture* texture)

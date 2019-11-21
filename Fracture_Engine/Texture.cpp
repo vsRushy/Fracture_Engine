@@ -74,7 +74,6 @@ Texture* Texture::LoadTexture(const char* path)
 				texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
 				texture->name = App->file_system->GetFileNameFromPath(path);
 				texture->extension = App->file_system->GetFileExtensionFromPath(path);
-				texture->texture_path.assign(std::string(path));
 
 				glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -105,6 +104,7 @@ Texture* Texture::LoadTexture(const char* path)
 
 
 		std::string t_name_ext = std::string(App->file_system->GetFileNameFromPath(path) + ".dds");
+		texture->texture_path.assign(std::string(LIBRARY_TEXTURE_PATH).append(t_name_ext));
 		App->scene_intro->own_textures.insert(std::make_pair(t_name_ext, texture));
 	}
 

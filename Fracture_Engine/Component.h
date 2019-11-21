@@ -1,6 +1,8 @@
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
 
+#include "JSON/parson.h"
+
 class GameObject;
 
 enum class COMPONENT_TYPE
@@ -26,6 +28,9 @@ public:
 	virtual bool IsActive() const;
 
 	virtual void OnEditor();
+
+	virtual void Load(JSON_Object* json_object);
+	virtual void Save(JSON_Array* json_array) const;
 
 public:
 	bool active = true;

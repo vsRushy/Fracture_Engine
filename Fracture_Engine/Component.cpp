@@ -40,3 +40,13 @@ void Component::OnEditor()
 {
 
 }
+
+void Component::Load(JSON_Object* json_object)
+{
+
+}
+
+void Component::Save(JSON_Array* json_array) const
+{
+
+}

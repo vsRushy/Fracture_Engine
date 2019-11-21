@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+#include "JSON/parson.h"
+
 #include "MathGeoLib.h"
 
 #include "Component.h"
@@ -33,6 +35,9 @@ public:
 	void DrawBoundingBox();
 
 	void OnEditor();
+
+	void Load(JSON_Object* json_object);
+	void Save(JSON_Array* json_array) const;
 
 	// ------------------------------------------
 

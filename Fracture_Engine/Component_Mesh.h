@@ -14,6 +14,9 @@ public:
 
 	void OnEditor() override;
 
+	void Load(JSON_Object* json_object) override;
+	void Save(JSON_Array* json_array) const override;
+
 	bool Update(float dt);
 
 public:

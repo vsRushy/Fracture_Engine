@@ -17,6 +17,9 @@ public:
 
 	void OnEditor() override;
 
+	void Load(JSON_Object* json_object) override;
+	void Save(JSON_Array* json_array) const override;
+
 	void Set(const math::float3& position, const math::Quat& rotation, const math::float3& scale);
 	void SetPosition(const float& x, const float& y, const float& z);
 	void SetRotationQuaternion(const float& w, const float& x, const float& y, const float& z);

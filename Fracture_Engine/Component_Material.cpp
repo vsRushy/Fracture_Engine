@@ -52,6 +52,16 @@ void ComponentMaterial::OnEditor()
 	}
 }
 
+void ComponentMaterial::Load(JSON_Object* json_object)
+{
+
+}
+
+void ComponentMaterial::Save(JSON_Array* json_array) const
+{
+
+}
+
 void ComponentMaterial::SetTexture(Texture* texture)
 {
 	this->texture = texture;

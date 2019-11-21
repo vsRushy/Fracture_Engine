@@ -15,6 +15,9 @@ public:
 
 	void OnEditor() override;
 
+	void Load(JSON_Object* json_object) override;
+	void Save(JSON_Array* json_array) const override;
+
 	void SetTexture(Texture* texture);
 	void SetInitialTexture(Texture* texture);
 

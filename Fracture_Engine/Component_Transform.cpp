@@ -63,6 +63,16 @@ void ComponentTransform::OnEditor()
 	}
 }
 
+void ComponentTransform::Load(JSON_Object* json_object)
+{
+
+}
+
+void ComponentTransform::Save(JSON_Array* json_array) const
+{
+
+}
+
 void ComponentTransform::Set(const math::float3& position, const math::Quat& rotation, const math::float3& scale)
 {
 	this->position = position;

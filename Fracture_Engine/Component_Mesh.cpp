@@ -40,6 +40,16 @@ void ComponentMesh::OnEditor()
 	}
 }
 
+void ComponentMesh::Load(JSON_Object* json_object)
+{
+
+}
+
+void ComponentMesh::Save(JSON_Array* json_array) const
+{
+
+}
+
 bool ComponentMesh::Update(float dt)
 {
 	return true;

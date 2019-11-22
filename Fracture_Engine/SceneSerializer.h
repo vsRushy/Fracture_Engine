@@ -14,4 +14,4 @@ public:
 	void SaveScene(const char* scene_name) const;
 };
 
-#define /* __SCENE_SERIALIZER_H__ */
+#endif /* __SCENE_SERIALIZER_H__ */

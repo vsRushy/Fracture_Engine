@@ -22,6 +22,8 @@ public:
 	void Load(JSON_Object* json_object) override;
 	void Save(JSON_Array* json_array) const override;
 
+	void DrawFrustum();
+
 public:
 	/* Getters */
 	Frustum  GetFrustrum() const;

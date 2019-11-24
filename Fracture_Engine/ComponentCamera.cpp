@@ -71,6 +71,16 @@ void ComponentCamera::Save(JSON_Array* json_array) const
 
 }
 
+void ComponentCamera::DrawFrustum()
+{
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, id_f_vertices);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_f_indices);
+	glDrawElements(GL_LINES, 8 * 4, GL_UNSIGNED_INT, NULL);
+}
+
 Frustum ComponentCamera::GetFrustrum() const
 {
 	return frustum;

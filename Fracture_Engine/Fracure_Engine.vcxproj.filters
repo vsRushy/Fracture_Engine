@@ -456,6 +456,9 @@
     <ClInclude Include="ConfigurationTool.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Sources\GameObject\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -703,6 +706,9 @@
     </ClCompile>
     <ClCompile Include="ConfigurationTool.cpp">
       <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Sources\GameObject\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

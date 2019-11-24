@@ -83,6 +83,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="Component_Material.h" />
     <ClInclude Include="Component_Mesh.h" />
     <ClInclude Include="Component_Transform.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="Component_Material.cpp" />
     <ClCompile Include="Component_Mesh.cpp" />
     <ClCompile Include="Component_Transform.cpp" />

@@ -17,6 +17,23 @@ ComponentCamera::ComponentCamera(GameObject* target) : Component(target)
 
 	near_plane = frustum.nearPlaneDistance = 0.1f;
 	far_plane = frustum.farPlaneDistance = 1000.0f;
+
+	/* Set Buffers */
+
+	glGenBuffers(1, (GLuint*) &id_f_vertices);
+	glGenBuffers(1, (GLuint*) &id_f_indices);
+
+	uint indices[8 * 4] = {
+	0,1, 0,1,  4,5,	0,4,
+	3,2, 2,0,  5,1,  1,3,
+	7,6, 6,2,  2,3, 3,7,
+	6,4, 2,0,  7,5, 3,1
+	};
+	
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_f_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 8 * 4, indices, GL_STATIC_DRAW);
+
+	SetFrustumQuad(float3(0, 0, 0), 1, 1, 1);
 }
 
 ComponentCamera::~ComponentCamera()
@@ -79,6 +96,26 @@ void ComponentCamera::SetFrustumVertices()
 {
 	float3 vertices[8] = { float3::zero };
 	frustum.GetCornerPoints(vertices);
+
+	glBindBuffer(GL_ARRAY_BUFFER, id_f_vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8 * 3, vertices, GL_DYNAMIC_DRAW);
+}
+
+void ComponentCamera::SetFrustumQuad(const float3& position, const float& width, const float& height, const float& depth)
+{
+	float mid_w = 0.5f * width;
+	float mid_h = 0.5f * height;
+	float mid_d = 0.5f * depth;
+
+	float vertices[8 * 3] = { -mid_w + position.x, -mid_h + position.y, -mid_d + position.z,
+							  -mid_w + position.x, -mid_h + position.y,  mid_d + position.z,
+							   mid_w + position.x, -mid_h + position.y,  mid_d + position.z,
+							   mid_w + position.x, -mid_h + position.y, -mid_d + position.z,
+							  -mid_w + position.x,  mid_h + position.y, -mid_d + position.z,
+							  -mid_w + position.x,  mid_h + position.y,  mid_d + position.z,
+							   mid_w + position.x,  mid_h + position.y,  mid_d + position.z,
+							   mid_w + position.x,  mid_h + position.y, -mid_d + position.z
+	};
 
 	glBindBuffer(GL_ARRAY_BUFFER, id_f_vertices);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8 * 3, vertices, GL_DYNAMIC_DRAW);

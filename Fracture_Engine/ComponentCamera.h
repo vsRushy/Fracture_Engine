@@ -33,6 +33,7 @@ public:
 	void SetPosition(const float3& position);
 
 	void SetFrustumVertices();
+	void SetFrustumQuad(const float3& position, const float& width, const float& height, const float& depth);
 
 private:
 	Frustum frustum;
@@ -47,6 +48,7 @@ private:
 
 private:
 	uint id_f_vertices = -1;
+	uint id_f_indices = -1;
 };
 
 #endif /* __COMPONENT_CAMERA_H__ */
